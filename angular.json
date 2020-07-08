@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Grupo360"
+    }
+  },
+  "defaultProject": "Grupo360",
+  "cli": {
+    "analytics": "bb8e9175-a812-43b5-b04e-f01a80f11208"
+  }
 }
