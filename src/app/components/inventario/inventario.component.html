@@ -1,0 +1,36 @@
+
+<div class="container">
+
+  <table class="table shadow">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Estado</th>
+        <th>Cantidad</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let item of items">
+        <td>{{ item.id }}</td>
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.tipo }}</td>
+        <td> VACIO </td>
+        <td>{{ item.cantidad }}</td>
+        <td>
+          <button class="btn btn-info">Detalles</button>
+        </td>
+      </tr>
+
+      <tr *ngIf="variable1">INFORMACION</tr>
+
+    </tbody>
+
+  </table>
+</div>
+
+
+
