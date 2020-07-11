@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../../models/item.model';
+import { InventarioService } from '../../services/inventario.service';
 
 
 @Component({
@@ -11,10 +12,14 @@ import { Item } from '../../models/item.model';
 export class InventarioComponent implements OnInit {
 
   variable1: boolean = false;
+  inventario: Item[];
 
-  constructor() { }
+  constructor(private servicioInventario: InventarioService) { }
 
   ngOnInit(): void {
+    this.servicioInventario.obtenerInventario().subscribe(items => {
+      this.inventario = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
+    })
   }
 
   items: Item[] = [
@@ -22,5 +27,12 @@ export class InventarioComponent implements OnInit {
     {id: '3435', nombre: 'Taladro', tipo: 'Herramienta', cantidad: 2},
     {id: '787', nombre: 'Cable', tipo: 'Consumible', cantidad: 200}
   ]
+
+  imprimirInventario() {
+
+    console.log(this.inventario);
+
+  }
+
 
 }
