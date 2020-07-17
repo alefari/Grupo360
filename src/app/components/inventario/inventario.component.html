@@ -1,35 +1,53 @@
 
 <div class="container">
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngreso">Ingreso</button>
+
+
+
   <table class="table shadow">
     <thead class="thead-dark">
       <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Tipo</th>
-        <th>Estado</th>
-        <th>Cantidad</th>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Cantidad</th>
+        <th></th>
+      </tr>
+    </thead>
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"><input [(ngModel)]="filtroNombre" type="text" placeholder="Filtro por nombre"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
 
-      <tr *ngFor="let item of inventario" class="table-light">
+    <ng-container *ngFor="let item of inventario">
+      <tr scope="row" *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" class="bg-light">
         <td>{{ item.id }}</td>
         <td>{{ item.nombre }}</td>
         <td>{{ item.tipo }}</td>
         <td> VACIO </td>
         <td>{{ item.cantidad }}</td>
         <td>
-          <button class="btn btn-info">Detalles</button>
+          <button class="btn btn-info btn-sm">Detalles</button>
         </td>
       </tr>
+    </ng-container>
+
 
       <tr *ngIf="variable1">INFORMACION</tr>
-
     </tbody>
-
   </table>
+
 </div>
 
-
-
+<!-- Modal -->
+<div class="modal fade" id="modalIngreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <app-ingreso></app-ingreso>
+</div>

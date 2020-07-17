@@ -1,0 +1,50 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Ingreso</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <form #f="ngForm">
+      <div class="modal-body">
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Nombre</label>
+            <input type="text" ngModel name="nombre" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-5">
+                <label for="exampleInputPassword1">Cantidad</label>
+                <input type="number" ngModel name="cantidad" class="form-control" id="exampleInputPassword1">
+              </div>
+              <div class="col-7">
+                <label for="exampleFormControlSelect1">Tipo</label>
+                <select class="form-control" ngModel name="tipo" id="exampleFormControlSelect1">
+                  <option value="Herramienta Eléctrica">Herramienta Eléctrica</option>
+                  <option value="Herramienta Civil">Herramienta Civil</option>
+                  <option value="Herramienta Promería">Herramienta Promería</option>
+                  <option value="Herramienta Medición">Herramienta Medición</option>
+                  <option value="Consumible Eléctrico">Consumible Eléctrico</option>
+                  <option value="Consumible Civil">Consumible Civil</option>
+                  <option value="Consumible Pintura">Consumible Pintura</option>
+                  <option value="Consumible Iluminación">Consumible Iluminación</option>
+                  <option value="Consumible Impermeabilización">Consumible Impermeabilización</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+      </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      <button type="button" class="btn btn-success" (click)="onSubmit()">Ingresar</button>
+    </div>
+    </form>
+  </div>
+</div>

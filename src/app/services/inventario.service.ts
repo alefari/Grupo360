@@ -28,6 +28,8 @@ export class InventarioService {
     return this.items;
   }
 
-
+  agregarItem(nuevoItem: Item) {
+    this.itemsColeccion.add(nuevoItem);
+  }
 
 }

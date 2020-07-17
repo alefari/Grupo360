@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Item } from '../../models/item.model';
 import { InventarioService } from '../../services/inventario.service';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -10,9 +11,11 @@ import { InventarioService } from '../../services/inventario.service';
 })
 
 export class InventarioComponent implements OnInit {
-
+  @ViewChild('f') form: NgForm;
   variable1: boolean = false;
   inventario: Item[];
+  filtroNombre: string = "";
+  filtroTipo: string = "";
 
   constructor(private servicioInventario: InventarioService) { }
 

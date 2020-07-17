@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,12 +13,16 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { environment } from 'src/environments/environment';
+import { IngresoComponent } from './components/inventario/ingreso/ingreso.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    InventarioComponent
+    InventarioComponent,
+    IngresoComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +31,7 @@ import { environment } from 'src/environments/environment';
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
