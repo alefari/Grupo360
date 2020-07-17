@@ -15,6 +15,7 @@ import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { environment } from 'src/environments/environment';
 import { IngresoComponent } from './components/inventario/ingreso/ingreso.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ReingresoComponent } from './components/inventario/reingreso/reingreso.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     LoginComponent,
     InventarioComponent,
     IngresoComponent,
-    NavbarComponent
+    NavbarComponent,
+    ReingresoComponent
   ],
   imports: [
     BrowserModule,

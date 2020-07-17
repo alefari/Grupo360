@@ -1,0 +1,74 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Reingreso</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <form #f="ngForm">
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="row">
+            <div class="col">
+                <label>Tipo</label>
+                <select class="form-control"
+                  [(ngModel)]="selectTipo"
+                  name="tipo">
+                  <option value="Herramienta Eléctrica">Herramienta Eléctrica</option>
+                  <option value="Herramienta Civil">Herramienta Civil</option>
+                  <option value="Herramienta Promería">Herramienta Promería</option>
+                  <option value="Herramienta Medición">Herramienta Medición</option>
+                  <option value="Consumible Eléctrico">Consumible Eléctrico</option>
+                  <option value="Consumible Civil">Consumible Civil</option>
+                  <option value="Consumible Pintura">Consumible Pintura</option>
+                  <option value="Consumible Iluminación">Consumible Iluminación</option>
+                  <option value="Consumible Impermeabilización">Consumible Impermeabilización</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>Item</label>
+                <select class="form-control" [(ngModel)]="idItemElegido" name="tipo">
+                  <ng-container *ngFor="let item of inventario">
+                    <option *ngIf="item.tipo == selectTipo" value='{{item.id}}'>{{ item.nombre }}</option>
+                  </ng-container>
+                </select>
+            </div>
+          </div>
+
+
+
+        </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col">
+                <label for="exampleInputEmail1">Cantidad actual</label>
+                <input
+                  disabled
+                  type="number"
+                  ngModel
+                  name="nombre"
+                  class="form-control">
+              </div>
+              <div class="col">
+                <label for="exampleInputEmail1">Cantidad a ingresar</label>
+                <input type="number" [(ngModel)]="cantidadIngreso" name="nombre" class="form-control">
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+      </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      <button type="button" class="btn btn-success" (click)="agregarItems()" >Ingresar</button>
+    </div>
+    </form>
+  </div>
+</div>

@@ -12,7 +12,7 @@ import { NgForm } from '@angular/forms';
 
 export class InventarioComponent implements OnInit {
   @ViewChild('f') form: NgForm;
-  variable1: boolean = false;
+
   inventario: Item[];
   filtroNombre: string = "";
   filtroTipo: string = "";
