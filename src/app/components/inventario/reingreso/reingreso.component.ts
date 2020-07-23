@@ -38,8 +38,4 @@ export class ReingresoComponent implements OnInit {
   }
 
 
-
-
-
-
 }
