@@ -25,6 +25,13 @@ export class IngresoComponent implements OnInit {
 
   //VARIABLES USADAS PARA REINICIALIZAR CAMPOS
   nombre: string = "";
+  serial: string = "";
+  cantidad: number = 0;
+  unidad: string = "";
+  precio: number = 0;
+  ubicacion: string = "";
+  vencimiento: Date;
+
 
   constructor(private inventarioService: InventarioService,
               private categoriaService: CategoriasService,
@@ -58,7 +65,7 @@ export class IngresoComponent implements OnInit {
       estado: "Disponible"
     }
 
-//Se agrega nuevoItem al inventario existente//
+//Se agrega nuevoItem al inventario existente, y se borran los campos//
 
     this.inventarioService.agregarItem(nuevoItem);
 
@@ -66,14 +73,23 @@ export class IngresoComponent implements OnInit {
 
   }
 
+  //Al cerrar el modal, se reinician los campos
+  cerrarModal() {
+    this.reinicializarCampos();
+
+  }
+
   reinicializarCampos() {
     //El formulario se vacia nuevamente
     this.nombre = "";
+    this.serial = "";
+    this.cantidad = 0;
+    this.unidad = "";
+    this.precio = 0;
+    this.ubicacion = "";
+    this.vencimiento;
 
   }
 
-  cerrarModal() {
-    this.reinicializarCampos();
-  }
 
 }

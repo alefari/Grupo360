@@ -2,7 +2,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { InventarioService } from '../../../services/inventario.service';
+import { CategoriasService } from 'src/app/services/categorias.service';
 import { Item } from 'src/app/models/item.model';
+import { Categoria } from 'src/app/models/categoria.model';
 
 @Component({
   selector: 'app-reingreso',
@@ -13,15 +15,22 @@ import { Item } from 'src/app/models/item.model';
 //Se declaran las variables a utilizar en reingreso//
 export class ReingresoComponent implements OnInit {
   inventario: Item[];
+  categorias: Categoria[];
   selectTipo: string;
   idItemElegido: string = null;
   cantidadIngreso: number = 0;
 
-  constructor(private servicioInventario: InventarioService) { }
+  constructor(private servicioInventario: InventarioService,
+              private categoriaService: CategoriasService) 
+              { }
 
 
 //Se obtiene inventario en orden alfabetico, y se imprime en la tabla// 
   ngOnInit(): void {
+    
+    this.categoriaService.obtenerCategorias().subscribe(items => {
+      this.categorias = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
+    })
     this.servicioInventario.obtenerInventario().subscribe(items => {
       this.inventario = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
     })
@@ -43,5 +52,5 @@ export class ReingresoComponent implements OnInit {
     this.servicioInventario.editarItem(nuevoItem);
   }
 
-
 }
+
