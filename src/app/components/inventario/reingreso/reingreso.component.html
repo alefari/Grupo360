@@ -1,12 +1,16 @@
 <div class="modal-dialog">
   <div class="modal-content">
 
+        <!--Modal de reingreso de producto-->
+
     <div class="modal-header">
       <h5 class="modal-title" id="exampleModalLabel">Reingreso</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+    
+    <!--Filtro por Tipo de reingreso-->
 
     <form #f="ngForm">
       <div class="modal-body">
@@ -28,10 +32,15 @@
                   <option value="Consumible Impermeabilización">Consumible Impermeabilización</option>
                 </select>
             </div>
+
+            <!--Filtro por Item de reingreso-->
+
             <div class="col">
                 <label>Item</label>
                 <select class="form-control" [(ngModel)]="idItemElegido" name="tipo">
+                  <!--NgFor que imprime la cantidad de items que hay en total-->
                   <ng-container *ngFor="let item of inventario">
+                    <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
                     <option *ngIf="item.tipo == selectTipo" value='{{item.id}}'>{{ item.nombre }}</option>
                   </ng-container>
                 </select>
@@ -44,6 +53,7 @@
           <div class="form-group">
             <div class="row">
               <div class="col">
+                <!--Label e input de cantidad actual (muestra numero actual en inventario)-->
                 <label for="exampleInputEmail1">Cantidad actual</label>
                 <input
                   disabled
@@ -52,6 +62,7 @@
                   name="nombre"
                   class="form-control">
               </div>
+              <!--Label e input de cantidad a ingresar (se escribe la cantidad a ingresar)-->
               <div class="col">
                 <label for="exampleInputEmail1">Cantidad a ingresar</label>
                 <input type="number" [(ngModel)]="cantidadIngreso" name="nombre" class="form-control">
@@ -64,7 +75,7 @@
 
 
       </div>
-
+      <!--Footer de Modal de reingreso, con botones de cerrar e ingresar-->
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       <button type="button" class="btn btn-success" (click)="agregarItems()" >Ingresar</button>
