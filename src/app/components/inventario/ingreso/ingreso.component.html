@@ -1,5 +1,7 @@
-<div class="modal-dialog">
+<div class="modal-dialog modal-lg">
   <div class="modal-content">
+
+    <!--Modal de ingreso de producto-->
 
     <div class="modal-header">
       <h5 class="modal-title" id="exampleModalLabel">Ingreso</h5>
@@ -10,39 +12,71 @@
 
     <form #f="ngForm">
       <div class="modal-body">
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">Nombre</label>
-            <input type="text" ngModel name="nombre" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          </div>
-
+          <!--Nombre de producto-->
           <div class="form-group">
             <div class="row">
               <div class="col-5">
-                <label for="exampleInputPassword1">Cantidad</label>
-                <input type="number" ngModel name="cantidad" class="form-control" id="exampleInputPassword1">
+                <label>Nombre</label>
+                <input type="text" [ngModel]='nombre' name="nombre" class="form-control" aria-describedby="emailHelp">
               </div>
-              <div class="col-7">
-                <label for="exampleFormControlSelect1">Tipo</label>
+              <div class="col-4">
+                <!--Label y Select del tipo de producto-->
+                <label for="exampleFormControlSelect1">Categoría</label>
                 <select class="form-control" ngModel name="tipo" id="exampleFormControlSelect1">
-                  <option value="Herramienta Eléctrica">Herramienta Eléctrica</option>
-                  <option value="Herramienta Civil">Herramienta Civil</option>
-                  <option value="Herramienta Promería">Herramienta Promería</option>
-                  <option value="Herramienta Medición">Herramienta Medición</option>
-                  <option value="Consumible Eléctrico">Consumible Eléctrico</option>
-                  <option value="Consumible Civil">Consumible Civil</option>
-                  <option value="Consumible Pintura">Consumible Pintura</option>
-                  <option value="Consumible Iluminación">Consumible Iluminación</option>
-                  <option value="Consumible Impermeabilización">Consumible Impermeabilización</option>
+                  <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                 </select>
+              </div>
+              <div class="col-3">
+                <label>Serial</label>
+                <input type="text" ngModel name="serial" class="form-control" aria-describedby="emailHelp">
               </div>
             </div>
           </div>
 
+          <div class="form-group">
+            <div class="row">
+              <div class="col-4">
+                <!--Cantidad de producto-->
+                <label for="exampleInputPassword1">Cantidad y Unidades</label>
+                <div class="input-group">
+                  <input type="number" ngModel name="cantidad" class="form-control" id="exampleInputPassword1">
+                  <select type="text" placeholder="0" ngModel name="unidades" class="form-control" id="exampleInputPassword1">
+                    <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-3">
+                <label>Precio</label>
+                <div class="input-group">
+                <input type="number" ngModel name="precio" class="form-control" id="exampleInputPassword1">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon1">$</span>
+                </div>
+                </div>
+              </div>
+              <div class="col-5">
+                <label>Ubicación en almacén</label>
+                <select type="text" ngModel name="ubicacion" class="form-control" aria-describedby="emailHelp">
+                  <option *ngFor="let ubicacion of ubicaciones" value="{{ ubicacion.nombre }}">{{ ubicacion.nombre }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col">
+                <label>Vencimiento</label>
+                  <input class="form-control" ngModel name="vencimiento" type="date" id="example-date-input">
+              </div>
+            </div>
+
+          </div>
+
       </div>
 
+    <!--Footer de Modal con botones de cerrar e ingresar-->
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      <button type="button" class="btn btn-secondary" (click)="cerrarModal()" data-dismiss="modal">Cerrar</button>
       <button type="button" class="btn btn-success" (click)="onSubmit()">Ingresar</button>
     </div>
     </form>

@@ -9,4 +9,7 @@ export interface Item {
   responsable?: string;
   estado?: string;
   vencimiento?: Date;
+  serial?: string;
+  precio?: number;
+  unidades?: string;
 }
