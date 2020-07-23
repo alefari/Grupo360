@@ -1,10 +1,12 @@
 
 <div class="container">
+
+<!--Botones de ingreso y reingreso de productos-->
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngreso">Ingreso</button>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalReingreso">Reingreso</button>
 
 
-
+  <!--Tabla de inventario en donde se muestra el inventario general-->
   <table class="table shadow">
     <thead class="thead-dark">
       <tr>
@@ -18,6 +20,7 @@
     </thead>
     <thead class="thead-dark">
       <tr>
+        <!--Filtro por nombre de Inventario, busca el item que haga match-->
         <th scope="col"></th>
         <th scope="col"><input [(ngModel)]="filtroNombre" type="text" placeholder="Filtro por nombre"></th>
         <th scope="col"></th>
@@ -27,7 +30,7 @@
       </tr>
     </thead>
     <tbody>
-
+    <!--NgFor que imprime inventario de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
     <ng-container *ngFor="let item of inventario">
       <tr scope="row" *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" class="bg-light">
         <td>{{ item.id }}</td>
