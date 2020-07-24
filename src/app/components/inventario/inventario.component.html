@@ -10,46 +10,46 @@
   </div>
 
   <!--Tabla de inventario en donde se muestra el inventario general-->
-  <table class="table shadow">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">Nombre</th>
-        <th scope="col">Categoría</th>
-        <th scope="col">Cantidad</th>
-        <th scope="col">Ubicación</th>
-        <th scope="col">Estado</th>
-        <th></th>
-      </tr>
-    </thead>
-    <thead class="thead-dark">
-      <tr>
-        <!--Filtro por nombre de Inventario, busca el item que haga match-->
-        <th scope="col"><input [(ngModel)]="filtroNombre" type="text" placeholder="Filtro por nombre"></th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    <!--NgFor que imprime inventario de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
-    <ng-container *ngFor="let item of inventario">
-      <tr scope="row" *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" class="bg-light">
-        <td>{{ item.nombre }}</td>
-        <td>{{ item.tipo }}</td>
-        <td>{{ item.cantidad }}</td>
-        <td>{{ item.ubicacion }}</td>
-        <td>{{ item.estado }}</td>
+    <table class="table shadow">
+      <thead class="thead-dark">
+        <tr>
+          <!--Filtro por nombre de Inventario, busca el item que haga match-->
+          <th scope="col"><input [(ngModel)]="filtroNombre" type="text" placeholder="Filtro por nombre"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th></th>
+        </tr>
+      </thead>
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Categoría</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Ubicación</th>
+          <th scope="col">Estado</th>
+          <th></th>
+        </tr>
+      </thead>
 
-        <td>
-          <button class="btn btn-info btn-sm">Detalles</button>
-        </td>
-      </tr>
-    </ng-container>
-
-    </tbody>
+      <tbody>
+      <!--NgFor que imprime inventario de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
+        <ng-container *ngFor="let item of inventario">
+          <tr scope="row" *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" class="bg-light">
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.tipo }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>{{ item.ubicacion }}</td>
+            <td>{{ item.estado }}</td>
+            <td>
+              <button class="btn btn-info btn-sm">Detalles</button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
   </table>
+
 
 </div>
   </div>

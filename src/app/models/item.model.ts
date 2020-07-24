@@ -8,7 +8,7 @@ export interface Item {
   fecha?: Date;
   responsable?: string;
   estado?: string;
-  vencimiento?: Date;
+  vencimiento?: string;
   serial?: string;
   precio?: number;
   unidades?: string;

@@ -1,5 +1,4 @@
-//Imports de servicios, tipos, etc//
-
+// Imports de servicios, tipos, etc
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { InventarioService } from '../../../services/inventario.service';
 import { NgForm } from '@angular/forms';
@@ -15,23 +14,14 @@ import { UnidadesService } from 'src/app/services/unidades.service';
   styleUrls: ['./ingreso.component.css']
 })
 
-//View Child del form de ingreso, y funcion inventarioService//
+// ViewChild del form de ingreso, y funcion inventarioService
 
 export class IngresoComponent implements OnInit {
   @ViewChild('f') form: NgForm;
   categorias: Categoria[];
   ubicaciones: any[];
   unidades: any[];
-
-  //VARIABLES USADAS PARA REINICIALIZAR CAMPOS
-  nombre: string = "";
-  serial: string = "";
-  cantidad: number = 0;
-  unidad: string = "";
-  precio: number = 0;
-  ubicacion: string = "";
-  vencimiento: Date;
-
+  nombre = "";
 
   constructor(private inventarioService: InventarioService,
               private categoriaService: CategoriasService,
@@ -68,28 +58,12 @@ export class IngresoComponent implements OnInit {
 //Se agrega nuevoItem al inventario existente, y se borran los campos//
 
     this.inventarioService.agregarItem(nuevoItem);
-
-    this.reinicializarCampos();
-
+    this.form.reset();
   }
 
   //Al cerrar el modal, se reinician los campos
   cerrarModal() {
-    this.reinicializarCampos();
-
+    this.form.reset();
   }
-
-  reinicializarCampos() {
-    //El formulario se vacia nuevamente
-    this.nombre = "";
-    this.serial = "";
-    this.cantidad = 0;
-    this.unidad = "";
-    this.precio = 0;
-    this.ubicacion = "";
-    this.vencimiento;
-
-  }
-
 
 }
