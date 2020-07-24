@@ -2,8 +2,8 @@
   "targets": {
     "grupo360-21212": {
       "hosting": {
-        "Grupo360": [
-          "grupo360-21212"
+        "grupo360": [
+          "grupo360"
         ]
       }
     }

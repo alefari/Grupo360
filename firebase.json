@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "Grupo360",
+      "target": "grupo360",
       "public": "dist/Grupo360",
       "ignore": [
         "**/.*"
