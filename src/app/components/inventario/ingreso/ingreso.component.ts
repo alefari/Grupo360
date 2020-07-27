@@ -22,6 +22,20 @@ export class IngresoComponent implements OnInit {
   ubicaciones: any[];
   unidades: any[];
   nombre = "";
+  // cantidadItems = 1;
+
+  nuevosItems: Item[] = [
+    {
+      nombre: null,
+      tipo: null,
+      cantidad: null,
+      ubicacion: null,
+      vencimiento: null,
+      serial: null,
+      precio: null,
+      unidades: null,
+    }
+  ];
 
   constructor(private inventarioService: InventarioService,
               private categoriaService: CategoriasService,
@@ -38,32 +52,72 @@ export class IngresoComponent implements OnInit {
     this.unidadesService.obtenerUnidades().subscribe(items => {
       this.unidades = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
     })
+
   }
 
-//Se declara la variable nuevoItem, que almacena las propiedades del item a ingresar. Esta luego se conecta con el servicio. Se agrega la informacion ingresada//
-
   onSubmit() {
-    let nuevoItem: Item = {
-      nombre: this.form.value.nombre,
-      tipo: this.form.value.tipo,
-      serial: this.form.value.serial,
-      cantidad: this.form.value.cantidad,
-      unidades: this.form.value.unidades,
-      precio: this.form.value.precio,
-      ubicacion: this.form.value.ubicacion,
-      vencimiento: this.form.value.vencimiento,
-      estado: "Disponible"
-    }
-
 //Se agrega nuevoItem al inventario existente, y se borran los campos//
-
-    this.inventarioService.agregarItem(nuevoItem);
+    var item: Item;
+    for(item of this.nuevosItems) {
+      this.inventarioService.agregarItem(item);
+    }
     this.form.reset();
+    this.nuevosItems =
+    // this.cantidadItems = 1;
+    this.nuevosItems = [
+      {
+        nombre: null,
+        tipo: null,
+        cantidad: null,
+        ubicacion: null,
+        vencimiento: null,
+        serial: null,
+        precio: null,
+        unidades: null,
+      }
+    ]
   }
 
   //Al cerrar el modal, se reinician los campos
   cerrarModal() {
     this.form.reset();
+    this.nuevosItems = [
+      {
+        nombre: null,
+        tipo: null,
+        cantidad: null,
+        ubicacion: null,
+        vencimiento: null,
+        serial: null,
+        precio: null,
+        unidades: null,
+      }
+    ]
+  }
+
+  repetirNVeces(n: number) {
+    return[...Array(+n).keys()];
+  }
+
+  agregarItem() {
+    this.nuevosItems.push(
+      {
+        nombre: null,
+        tipo: null,
+        cantidad: null,
+        ubicacion: null,
+        vencimiento: null,
+        serial: null,
+        precio: null,
+        unidades: null,
+      }
+    )
+    // this.cantidadItems++;
+  }
+
+  restarItem() {
+    this.nuevosItems.pop()
+    // this.cantidadItems--;
   }
 
 }

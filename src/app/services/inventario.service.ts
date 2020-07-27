@@ -30,6 +30,7 @@ export class InventarioService {
 
   agregarItem(nuevoItem: Item) {
     this.itemsColeccion.add(nuevoItem);
+    console.log(nuevoItem);
   }
 
   editarItem(itemEditado: Item) {

@@ -16,18 +16,18 @@ import { Categoria } from 'src/app/models/categoria.model';
 export class ReingresoComponent implements OnInit {
   inventario: Item[];
   categorias: Categoria[];
-  selectTipo: string;
+  // selectTipo: string;
   idItemElegido: string = null;
   cantidadIngreso: number = 0;
 
   constructor(private servicioInventario: InventarioService,
-              private categoriaService: CategoriasService) 
+              private categoriaService: CategoriasService)
               { }
 
 
-//Se obtiene inventario en orden alfabetico, y se imprime en la tabla// 
+//Se obtiene inventario en orden alfabetico, y se imprime en la tabla//
   ngOnInit(): void {
-    
+
     this.categoriaService.obtenerCategorias().subscribe(items => {
       this.categorias = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
     })
@@ -50,6 +50,10 @@ export class ReingresoComponent implements OnInit {
     let nuevoItem = this.inventario[this.inventario.findIndex(item => item.id == this.idItemElegido)];
     nuevoItem.cantidad += this.cantidadIngreso;
     this.servicioInventario.editarItem(nuevoItem);
+  }
+
+  regresarIndice() {
+     return this.inventario.findIndex(item => item.id == this.idItemElegido);
   }
 
 }
