@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 import { IngresoComponent } from './components/inventario/ingreso/ingreso.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReingresoComponent } from './components/inventario/reingreso/reingreso.component';
+import { EgresoComponent } from './components/inventario/egreso/egreso.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ReingresoComponent } from './components/inventario/reingreso/reingreso.
     InventarioComponent,
     IngresoComponent,
     NavbarComponent,
-    ReingresoComponent
+    ReingresoComponent,
+    EgresoComponent
   ],
   imports: [
     BrowserModule,

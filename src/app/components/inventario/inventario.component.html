@@ -6,6 +6,7 @@
   <div class="btn-group">
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngreso">Ingreso</button>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalReingreso">Reingreso</button>
+    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEgreso">Egreso</button>
 
   </div>
 
@@ -56,11 +57,15 @@
 
 
 
-<!-- Modal -->
+<!-- Modal Ingreso-->
 <div class="modal fade" id="modalIngreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <app-ingreso></app-ingreso>
 </div>
-
+<!-- Modal Reingreso-->
 <div class="modal fade" id="modalReingreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <app-reingreso></app-reingreso>
+</div>
+<!-- Modal Egreso-->
+<div class="modal fade" id="modalEgreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <app-egreso></app-egreso>
 </div>
