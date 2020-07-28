@@ -12,7 +12,7 @@ import { Categoria } from 'src/app/models/categoria.model';
   styleUrls: ['./reingreso.component.css']
 })
 
-//Se declaran las variables a utilizar en reingreso//
+//Se declaran las variables a utilizar en reingreso
 export class ReingresoComponent implements OnInit {
   inventario: Item[];
   categorias: Categoria[];
@@ -53,8 +53,9 @@ export class ReingresoComponent implements OnInit {
   }
 
   regresarIndice() {
-     return this.inventario.findIndex(item => item.id == this.idItemElegido);
+      return this.inventario.findIndex(item => item.id == this.idItemElegido);
   }
+
 
 }
 

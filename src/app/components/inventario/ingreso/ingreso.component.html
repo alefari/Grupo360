@@ -11,15 +11,15 @@
     </div>
 
     <form #f="ngForm">
-      <div class="modal-body" *ngFor="let item of nuevosItems; let i = index">
+      <div class="modal-body" *ngFor="let item of nuevosItems; let i = index" [ngClass]="{'bg-secondary text-white': i%2 != 0}">
           <!--Nombre de producto-->
             <div class="form-group">
             <div class="row">
-              <div class="col-5">
+              <div class="col-4">
                 <label>Nombre</label>
                 <input type="text" [(ngModel)]="nuevosItems[i].nombre" name="nombre" class="form-control">
               </div>
-              <div class="col-4">
+              <div class="col-3">
                 <!--Label y Select del tipo de producto-->
                 <label for="exampleFormControlSelect1">Categoría</label>
                 <select class="form-control" [(ngModel)]="nuevosItems[i].tipo" name="tipo" #cat="ngModel">
@@ -29,6 +29,15 @@
               <div class="col-3">
                 <label>Serial</label>
                 <input type="text" [(ngModel)]="nuevosItems[i].serial" name="serial" class="form-control" aria-describedby="emailHelp">
+              </div>
+              <div class="col-2">
+                <label>Precio</label>
+                <div class="input-group">
+                <input type="number" [(ngModel)]="nuevosItems[i].precio" name="precio" class="form-control">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="basic-addon1">$</span>
+                </div>
+                </div>
               </div>
             </div>
           </div>
@@ -44,41 +53,34 @@
                   </select>
                 </div>
               </div>
-              <div class="col-3">
-                <label>Precio</label>
-                <div class="input-group">
-                <input type="number" [(ngModel)]="nuevosItems[i].precio" name="precio" class="form-control">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="basic-addon1">$</span>
-                </div>
-                </div>
-              </div>
-              <div class="col-5">
+              <div class="col-4">
                 <label>Ubicación en almacén</label>
                 <select type="text" [(ngModel)]="nuevosItems[i].ubicacion" name="ubicacion" class="form-control" aria-describedby="emailHelp">
                   <option *ngFor="let ubicacion of ubicaciones" value="{{ ubicacion.nombre }}">{{ ubicacion.nombre }}</option>
                 </select>
               </div>
-            </div>
-          </div>
-          <div *ngIf="cat.value == 'Consumible' || cat.value == 'Producto'" class="form-group">
-            <div class="row">
-              <div class="col">
-                <label>Vencimiento</label>
-                  <input class="form-control" [(ngModel)]="nuevosItems[i].vencimiento" name="vencimiento" type="date">
+              <div class="col-4">
+                <!--Condicion para colocar fecha de vencimiento (Producto o consumible unicamente)-->
+                <div *ngIf="cat.value == 'Consumible' || cat.value == 'Producto'" class="form-group">
+                    <label>Vencimiento</label>
+                      <input class="form-control" [(ngModel)]="nuevosItems[i].vencimiento" name="vencimiento" type="date">
+              </div>
               </div>
             </div>
           </div>
-        <hr>
+
       </div>
 
     <!--Footer de Modal con botones de cerrar e ingresar-->
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="agregarItem()">Más Items</button>
-      <button type="button" class="btn btn-success" [disabled]="nuevosItems.length == 1" (click)="restarItem()">Menos Items</button>
-      <button type="button" class="btn btn-secondary" (click)="cerrarModal()" data-dismiss="modal">Cerrar</button>
-      <button type="button" class="btn btn-success" (click)="onSubmit()" data-dismiss="modal">Ingresar</button>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" (click)="agregarItem()">Más Items</button>
+          <button type="button" class="btn btn-secondary" [disabled]="nuevosItems.length == 1" (click)="restarItem()">Menos Items</button>
+      </div>
+        <button type="button" class="btn btn-secondary" (click)="cerrarModal()" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" (click)="onSubmit()" data-dismiss="modal">Ingresar</button>
     </div>
     </form>
+
   </div>
 </div>
