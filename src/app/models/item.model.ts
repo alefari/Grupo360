@@ -12,4 +12,5 @@ export interface Item {
   serial?: string;
   precio?: number;
   unidades?: string;
+  fechaIngreso?: string;
 }

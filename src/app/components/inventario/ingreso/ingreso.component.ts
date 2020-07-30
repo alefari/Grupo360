@@ -7,6 +7,8 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 import { Categoria } from 'src/app/models/categoria.model';
 import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 import { UnidadesService } from 'src/app/services/unidades.service';
+import * as firebase from 'firebase';
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 @Component({
   selector: 'app-ingreso',
@@ -59,6 +61,8 @@ export class IngresoComponent implements OnInit {
 //Se agrega nuevoItem al inventario existente, y se borran los campos//
     var item: Item;
     for(item of this.nuevosItems) {
+      // var fechaIngreso = new Date();
+      item.fechaIngreso = new Date().toISOString();
       this.inventarioService.agregarItem(item);
     }
     this.form.reset();
