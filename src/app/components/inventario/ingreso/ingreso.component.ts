@@ -36,6 +36,7 @@ export class IngresoComponent implements OnInit {
       serial: null,
       precio: null,
       unidades: null,
+      estado: "Disponible"
     }
   ];
 
@@ -61,8 +62,13 @@ export class IngresoComponent implements OnInit {
 //Se agrega nuevoItem al inventario existente, y se borran los campos//
     var item: Item;
     for(item of this.nuevosItems) {
-      // var fechaIngreso = new Date();
       item.fechaIngreso = new Date().toISOString();
+
+      if(item.tipo == "Herramienta") {
+        item.cantidad = 1;
+        item.unidades = "Unidad";
+      }
+
       this.inventarioService.agregarItem(item);
     }
     this.form.reset();
@@ -78,6 +84,7 @@ export class IngresoComponent implements OnInit {
         serial: null,
         precio: null,
         unidades: null,
+        estado: "Disponible"
       }
     ]
   }
@@ -95,6 +102,7 @@ export class IngresoComponent implements OnInit {
         serial: null,
         precio: null,
         unidades: null,
+        estado: "Disponible"
       }
     ]
   }
@@ -114,6 +122,7 @@ export class IngresoComponent implements OnInit {
         serial: null,
         precio: null,
         unidades: null,
+        estado: "Disponible"
       }
     )
     // this.cantidadItems++;

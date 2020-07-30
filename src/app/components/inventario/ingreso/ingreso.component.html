@@ -18,12 +18,13 @@
             <div class="row">
               <div class="col-4">
                 <label>Nombre</label>
-                <input type="text" [(ngModel)]="nuevosItems[i].nombre" name="nombre" class="form-control">
+                <input #nombre="ngModel" required type="text" [(ngModel)]="nuevosItems[i].nombre" name="nombre" class="form-control">
+                <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingresa un nombre.</small>
               </div>
               <div class="col-3">
                 <!--Label y Select del tipo de producto-->
                 <label for="exampleFormControlSelect1">Categoría</label>
-                <select class="form-control" [(ngModel)]="nuevosItems[i].tipo" name="tipo" #cat="ngModel">
+                <select required class="form-control" [(ngModel)]="nuevosItems[i].tipo" name="tipo" #cat="ngModel">
                   <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                 </select>
               </div>
@@ -34,7 +35,7 @@
               <div class="col-3">
                 <label>Precio</label>
                 <div class="input-group">
-                <input type="number" [(ngModel)]="nuevosItems[i].precio" name="precio" class="form-control">
+                <input onkeypress="return event.charCode >= 48" type="number" [(ngModel)]="nuevosItems[i].precio" name="precio" class="form-control">
                 <div class="input-group-append">
                   <span class="input-group-text" id="basic-addon1">$</span>
                 </div>
@@ -44,12 +45,12 @@
           </div>
           <div class="form-group">
             <div class="row">
-              <div class="col-4">
+              <div class="col-4" *ngIf="cat.value == 'Consumible' || cat.value == 'Producto'">
                 <!--Cantidad de producto-->
                 <label for="exampleInputPassword1">Cantidad y Unidades</label>
                 <div class="input-group">
-                  <input type="number" [(ngModel)]="nuevosItems[i].cantidad" name="cantidad" class="form-control">
-                  <select type="text" placeholder="0" [(ngModel)]="nuevosItems[i].unidades" name="unidades" class="form-control">
+                  <input required type="number" [(ngModel)]="nuevosItems[i].cantidad" name="cantidad" class="form-control">
+                  <select required type="text" placeholder="0" [(ngModel)]="nuevosItems[i].unidades" name="unidades" class="form-control">
                     <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
                   </select>
                 </div>
@@ -63,8 +64,8 @@
               <div class="col-4">
                 <!--Condicion para colocar fecha de vencimiento (Producto o consumible unicamente)-->
                 <div *ngIf="cat.value == 'Consumible' || cat.value == 'Producto'" class="form-group">
-                    <label>Vencimiento</label>
-                      <input class="form-control" [(ngModel)]="nuevosItems[i].vencimiento" name="vencimiento" type="date">
+                  <label>Vencimiento</label>
+                  <input class="form-control" [(ngModel)]="nuevosItems[i].vencimiento" name="vencimiento" type="date">
               </div>
               </div>
             </div>
@@ -79,7 +80,8 @@
           <button type="button" class="btn btn-secondary" [disabled]="nuevosItems.length == 1" (click)="restarItem()">Menos Items</button>
       </div>
         <button type="button" class="btn btn-secondary" (click)="cerrarModal()" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success" (click)="onSubmit()" data-dismiss="modal">Ingresar</button>
+        <!-- !f.valid significa cuando el form no sea valido -->
+        <button type="button" class="btn btn-success" [disabled]='!f.valid' (click)="onSubmit()" data-dismiss="modal">Ingresar</button>
     </div>
     </form>
 

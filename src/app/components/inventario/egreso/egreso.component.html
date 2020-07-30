@@ -1,9 +1,9 @@
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
-        
+
     <!--Modal de egreso de producto-->
-        
-        <div class="modal-header">
+
+        <div class="modal-header bg-warning">
             <h5 class="modal-title" id="exampleModalLabel">Egreso</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -23,13 +23,13 @@
             <!--Filtro por Item de egreso-->
             <div class="col-3">
                 <label>Item</label>
-                    <select class="form-control" name="tipo">
+                    <select [(ngModel)]='idItemElegidoEgreso' class="form-control" name="tipo">
                         <!--NgFor que imprime la cantidad de items que hay en total-->
                         <ng-container *ngFor="let item of inventario">
                         <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
                         <option *ngIf="item.tipo == selectTipo.value" value='{{item.id}}'>{{ item.nombre }}</option>
                         </ng-container>
-                        
+
                     </select>
             </div>
             <div class="col-3">

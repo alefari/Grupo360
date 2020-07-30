@@ -2,21 +2,28 @@
 <div class="container">
 
 <!--Botones de ingreso y reingreso de productos-->
-<div class="row">
-  <div class="btn-group">
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngreso">Ingreso</button>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalReingreso">Reingreso</button>
-    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEgreso">Egreso</button>
-
+<div class="row mb-2">
+  <div class="col">
+    <div class="btn-group">
+      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngreso">Ingreso</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalReingreso">Reingreso</button>
+      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEgreso">Egreso</button>
+    </div>
   </div>
+</div>
 
+<div class="row">
   <!--Tabla de inventario en donde se muestra el inventario general-->
     <table class="table shadow">
       <thead class="thead-dark">
         <tr>
           <!--Filtro por nombre de Inventario, busca el item que haga match-->
-          <th scope="col"><input class="form-control form-control-sm" [(ngModel)]="filtroNombre" type="text" placeholder="Filtro por nombre"></th>
-          <th scope="col"></th>
+          <th scope="col"><input class="w-75 form-control form-control-sm" [(ngModel)]="filtroNombre" type="text" placeholder="Filtro por nombre"></th>
+          <th scope="col">
+            <!-- <select placeholder="Categoria" class="form-control form-control-sm" name="">
+              <option value="Prueba">Prueba</option>
+            </select> -->
+          </th>
           <th scope="col"></th>
           <th scope="col"></th>
           <th scope="col"></th>
@@ -40,7 +47,7 @@
           <tr scope="row" *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" class="bg-light">
             <td>{{ item.nombre }}</td>
             <td>{{ item.tipo }}</td>
-            <td>{{ item.cantidad }}</td>
+            <td>{{ item.cantidad }} {{ item.unidades }}</td>
             <td>{{ item.ubicacion }}</td>
             <td [ngClass]="{'text-success': item.estado=='Disponible', 'text-danger': item.estado=='Dañado'}">{{ item.estado }}</td>
             <td>

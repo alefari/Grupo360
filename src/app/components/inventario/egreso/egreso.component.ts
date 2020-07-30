@@ -21,7 +21,7 @@ export class EgresoComponent implements OnInit {
   cantidadEgreso: number = 0;
 
   constructor(private servicioInventario: InventarioService,
-              private categoriaService: CategoriasService) 
+              private categoriaService: CategoriasService)
               { }
 
   ngOnInit(): void {
@@ -46,6 +46,11 @@ buscarIndex(itemElegidoEgreso: string) {
 egresarItems() {
     let nuevoItem = this.inventario[this.inventario.findIndex(item => item.id == this.idItemElegidoEgreso)];
     nuevoItem.cantidad = nuevoItem.cantidad - this.cantidadEgreso;
+
+    if(nuevoItem.tipo == "Herramienta") {
+      nuevoItem.estado = "En Obra";
+    }
+
     this.servicioInventario.editarItem(nuevoItem);
   }
 

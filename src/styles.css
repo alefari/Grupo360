@@ -2,8 +2,12 @@
 
 body {
   height: 100%;
-  margin-top: 100px;
+  margin-top: 75px;
   background: url('fondo.svg') no-repeat;
   background-size: cover;
   background-color: cadetblue;
+}
+
+input.ng-invalid.ng-touched,  select.ng-invalid.ng-touched{
+  border: 1.5px solid red;
 }
