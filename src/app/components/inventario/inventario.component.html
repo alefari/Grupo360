@@ -42,7 +42,7 @@
             <td>{{ item.tipo }}</td>
             <td>{{ item.cantidad }}</td>
             <td>{{ item.ubicacion }}</td>
-            <td>{{ item.estado }}</td>
+            <td [ngClass]="{'text-success': item.estado=='Disponible', 'text-danger': item.estado=='Dañado'}">{{ item.estado }}</td>
             <td>
               <button class="btn btn-info btn-sm">Detalles</button>
             </td>

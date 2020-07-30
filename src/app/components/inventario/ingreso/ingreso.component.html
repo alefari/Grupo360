@@ -3,18 +3,18 @@
 
     <!--Modal de ingreso de producto-->
 
-    <div class="modal-header">
+    <div class="modal-header bg-success text-white">
       <h5 class="modal-title" id="exampleModalLabel">Ingreso</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <button type="button" class="close text-white" data-dismiss="modal" (click)='cerrarModal()' aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
 
     <form #f="ngForm">
-      <div class="modal-body" *ngFor="let item of nuevosItems; let i = index" [ngClass]="{'bg-secondary text-white': i%2 != 0}">
+      <div class="modal-body" *ngFor="let item of nuevosItems; let i = index" [ngClass]="{'color-contraste': i%2 != 0}">
           <!--Nombre de producto-->
             <div class="form-group">
-              <h2>Item {{i+1}}</h2>
+              <h3>Item {{i+1}}</h3>
             <div class="row">
               <div class="col-4">
                 <label>Nombre</label>
@@ -27,11 +27,11 @@
                   <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                 </select>
               </div>
-              <div class="col-3">
+              <div class="col-2">
                 <label>Serial</label>
                 <input type="text" [(ngModel)]="nuevosItems[i].serial" name="serial" class="form-control" aria-describedby="emailHelp">
               </div>
-              <div class="col-2">
+              <div class="col-3">
                 <label>Precio</label>
                 <div class="input-group">
                 <input type="number" [(ngModel)]="nuevosItems[i].precio" name="precio" class="form-control">
