@@ -44,12 +44,14 @@
       <tbody>
       <!--NgFor que imprime inventario de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
         <ng-container *ngFor="let item of inventario">
-          <tr scope="row" *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" class="bg-light">
+          <tr  scope="row" *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" class="bg-light">
             <td>{{ item.nombre }}</td>
             <td>{{ item.tipo }}</td>
-            <td>{{ item.cantidad }} {{ item.unidades }}</td>
+            <td><span [ngClass]="{'text-danger': item.estado=='En Obra'}">{{ item.cantidad }} {{ item.unidades }}</span></td>
             <td>{{ item.ubicacion }}</td>
-            <td [ngClass]="{'text-success': item.estado=='Disponible', 'text-danger': item.estado=='Dañado'}">{{ item.estado }}</td>
+            <td [ngClass]="{'text-success': item.estado=='Disponible',
+                            'text-danger': item.estado=='Dañado',
+                            'text-info': item.estado=='En Obra'}">{{ item.estado }}</td>
             <td>
               <button class="btn btn-info btn-sm">Detalles</button>
             </td>

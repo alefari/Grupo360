@@ -29,9 +29,9 @@ export class InventarioService {
   }
 
   agregarItem(nuevoItem: Item) {
-    this.itemsColeccion.add(nuevoItem);
-    console.log(nuevoItem);
+    this.itemsColeccion.doc(nuevoItem.id).set(nuevoItem);
   }
+
 
   editarItem(itemEditado: Item) {
     return this.itemsColeccion.doc(itemEditado.id).update(itemEditado);

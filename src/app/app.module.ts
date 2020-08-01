@@ -17,6 +17,7 @@ import { IngresoComponent } from './components/inventario/ingreso/ingreso.compon
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReingresoComponent } from './components/inventario/reingreso/reingreso.component';
 import { EgresoComponent } from './components/inventario/egreso/egreso.component';
+import { IngresosComponent } from './components/ingresos/ingresos.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { EgresoComponent } from './components/inventario/egreso/egreso.component
     IngresoComponent,
     NavbarComponent,
     ReingresoComponent,
-    EgresoComponent
+    EgresoComponent,
+    IngresosComponent
   ],
   imports: [
     BrowserModule,

@@ -45,12 +45,14 @@ buscarIndex(itemElegidoEgreso: string) {
    //Con el id del item ubicado, se suma la cantidad a agregar ingresada por el usuario en el item del id que haga match//
 egresarItems() {
     let nuevoItem = this.inventario[this.inventario.findIndex(item => item.id == this.idItemElegidoEgreso)];
-    nuevoItem.cantidad = nuevoItem.cantidad - this.cantidadEgreso;
+
 
     if(nuevoItem.tipo == "Herramienta") {
       nuevoItem.estado = "En Obra";
     }
-
+    else {
+      nuevoItem.cantidad = nuevoItem.cantidad - this.cantidadEgreso;
+    }
     this.servicioInventario.editarItem(nuevoItem);
   }
 

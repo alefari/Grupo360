@@ -33,16 +33,17 @@
                   </ng-container>
                 </select>
             </div>
-            <div class="col-3">
+              <div *ngIf="selectTipo.value != 'Herramienta'" class="col-3">
                 <!--Label e input de cantidad actual (muestra numero actual en inventario)-->
                 <label for="exampleInputEmail1">Cantidad actual</label>
                 <p *ngIf="idItemElegido != null">{{inventario[regresarIndice()].cantidad}} {{inventario[regresarIndice()].unidades}}</p>
-            </div>
-            <div class="col-3">
-              <!--Label e input de cantidad a ingresar (se escribe la cantidad a ingresar)-->
-              <label for="exampleInputEmail1">Cantidad a ingresar</label>
-              <input type="number" [(ngModel)]="cantidadIngreso" name="nombre" class="form-control">
-            </div>
+              </div>
+              <div *ngIf="selectTipo.value != 'Herramienta'" class="col-3">
+                <!--Label e input de cantidad a ingresar (se escribe la cantidad a ingresar)-->
+                <label for="exampleInputEmail1">Cantidad a ingresar</label>
+                <input type="number" [(ngModel)]="cantidadIngreso" name="nombre" class="form-control">
+              </div>
+
           </div>
         </div>
 
@@ -51,7 +52,7 @@
       <!--Footer de Modal de reingreso, con botones de cerrar e ingresar-->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success" (click)="agregarItems()" data-dismiss="modal">Ingresar</button>
+        <button type="button" class="btn btn-success" (click)="reingresarItems()" data-dismiss="modal">Ingresar</button>
       </div>
     </form>
   </div>

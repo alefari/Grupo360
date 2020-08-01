@@ -46,9 +46,15 @@ export class ReingresoComponent implements OnInit {
   }
 
    //Con el id del item ubicado, se suma la cantidad a agregar ingresada por el usuario en el item del id que haga match//
-  agregarItems() {
+  reingresarItems() {
     let nuevoItem = this.inventario[this.inventario.findIndex(item => item.id == this.idItemElegido)];
-    nuevoItem.cantidad += this.cantidadIngreso;
+
+    if(nuevoItem.tipo == "Herramienta") {
+      nuevoItem.estado = "Disponible"
+    }
+    else {
+      nuevoItem.cantidad += this.cantidadIngreso;
+    }
     this.servicioInventario.editarItem(nuevoItem);
   }
 

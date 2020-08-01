@@ -9,6 +9,8 @@ import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 import { UnidadesService } from 'src/app/services/unidades.service';
 import * as firebase from 'firebase';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
+import { IngresosService } from 'src/app/services/ingresos.service';
+import { ObjectUnsubscribedError } from 'rxjs';
 
 @Component({
   selector: 'app-ingreso',
@@ -23,6 +25,7 @@ export class IngresoComponent implements OnInit {
   categorias: Categoria[];
   ubicaciones: any[];
   unidades: any[];
+  inventario: Item[];
   nombre = "";
   // cantidadItems = 1;
 
@@ -43,9 +46,13 @@ export class IngresoComponent implements OnInit {
   constructor(private inventarioService: InventarioService,
               private categoriaService: CategoriasService,
               private ubicacionesService: UbicacionesService,
-              private unidadesService: UnidadesService) { }
+              private unidadesService: UnidadesService,
+              private ingresosService: IngresosService) { }
 
   ngOnInit(): void {
+    this.inventarioService.obtenerInventario().subscribe(items => {
+      this.inventario = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
+    })
     this.categoriaService.obtenerCategorias().subscribe(items => {
       this.categorias = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
     })
@@ -62,7 +69,16 @@ export class IngresoComponent implements OnInit {
 //Se agrega nuevoItem al inventario existente, y se borran los campos//
     var item: Item;
     for(item of this.nuevosItems) {
-      item.fechaIngreso = new Date().toISOString();
+      // item.fechaIngreso = new Date().toISOString();
+
+      var idAUsar = this.generarId().toString();
+
+      // REVISA SI EL ID ESTA DISPONIBLE Y DE NO ESTARLO LO CAMBIA
+      while(this.revisarDisponibilidad(idAUsar) == false){
+        idAUsar = this.generarId().toString();
+      }
+
+      item.id = idAUsar;
 
       if(item.tipo == "Herramienta") {
         item.cantidad = 1;
@@ -70,6 +86,15 @@ export class IngresoComponent implements OnInit {
       }
 
       this.inventarioService.agregarItem(item);
+
+      this.ingresosService.agregarIngreso(
+        {
+          idItem: item.id,
+          fecha: new Date().toISOString(),
+          cantidad: item.cantidad,
+          precio: item.precio
+        }
+      )
     }
     this.form.reset();
     this.nuevosItems =
@@ -131,6 +156,20 @@ export class IngresoComponent implements OnInit {
   restarItem() {
     this.nuevosItems.pop()
     // this.cantidadItems--;
+  }
+
+  generarId() {
+    return (Math.random() * 1000000000 + 1);
+  }
+
+  // RERTORNA TRUE SI EL ID ESTA DISPONIBLE, SI NO RETORNA FALSE
+  revisarDisponibilidad(id: string) {
+    for(var objeto of this.inventario) {
+      if(objeto.id == id) {
+        return false;
+      }
+    }
+    return true;
   }
 
 }
