@@ -81,7 +81,7 @@
       </div>
         <button type="button" class="btn btn-secondary" (click)="cerrarModal()" data-dismiss="modal">Cerrar</button>
         <!-- !f.valid significa cuando el form no sea valido -->
-        <button type="button" class="btn btn-success" [disabled]='!f.valid' (click)="onSubmit()" data-dismiss="modal">Ingresar</button>
+        <button data-dismiss="modal" type="button" class="btn btn-success"  (click)="onSubmit()">Ingresar</button>
     </div>
     </form>
 
