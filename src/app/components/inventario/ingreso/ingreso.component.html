@@ -19,14 +19,15 @@
               <div class="col-4">
                 <label>Nombre</label>
                 <input #nombre="ngModel" required type="text" [(ngModel)]="nuevosItems[i].nombre" name="nombre" class="form-control">
-                <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingresa un nombre.</small>
+                <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingrese un nombre.</small>
               </div>
               <div class="col-3">
                 <!--Label y Select del tipo de producto-->
                 <label for="exampleFormControlSelect1">Categoría</label>
-                <select required class="form-control" [(ngModel)]="nuevosItems[i].tipo" name="tipo" #cat="ngModel">
+                <select #categoria="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].tipo" name="tipo" #cat="ngModel">
                   <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                 </select>
+                <small *ngIf="!categoria.valid && categoria.touched" class="text-danger">Ingrese una categoria.</small>
               </div>
               <div class="col-2">
                 <label>Serial</label>
@@ -49,11 +50,13 @@
                 <!--Cantidad de producto-->
                 <label for="exampleInputPassword1">Cantidad y Unidades</label>
                 <div class="input-group">
-                  <input required type="number" [(ngModel)]="nuevosItems[i].cantidad" name="cantidad" class="form-control">
-                  <select required type="text" placeholder="0" [(ngModel)]="nuevosItems[i].unidades" name="unidades" class="form-control">
+                  <input #cantidad="ngModel" required type="number" [(ngModel)]="nuevosItems[i].cantidad" name="cantidad" class="form-control">
+                  <select #unidadX="ngModel" required type="text" placeholder="0" [(ngModel)]="nuevosItems[i].unidades" name="unidades" class="form-control">
                     <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
                   </select>
                 </div>
+                <small *ngIf="!cantidad.valid && cantidad.touched" class="text-danger">Ingrese una cantidad.<br></small>
+                <small *ngIf="!unidadX.valid && unidadX.touched" class="text-danger">Ingrese una unidad.</small>
               </div>
               <div class="col-4">
                 <label>Ubicación en almacén</label>
