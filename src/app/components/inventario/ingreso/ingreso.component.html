@@ -24,10 +24,10 @@
               <div class="col-3">
                 <!--Label y Select del tipo de producto-->
                 <label for="exampleFormControlSelect1">Categoría</label>
-                <select #categoria="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].tipo" name="tipo" #cat="ngModel">
+                <select #cat="ngModel" #cat[i]="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].tipo" name="cat[i]">
                   <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                 </select>
-                <small *ngIf="!categoria.valid && categoria.touched" class="text-danger">Ingrese una categoria.</small>
+                <small *ngIf="!cat.valid && cat.touched" class="text-danger">Ingrese una categoria.</small>
               </div>
               <div class="col-2">
                 <label>Serial</label>
@@ -46,7 +46,7 @@
           </div>
           <div class="form-group">
             <div class="row">
-              <div class="col-4" *ngIf="cat.value == 'Consumible' || cat.value == 'Producto'">
+              <div class="col-4" *ngIf="nuevosItems[i].tipo == 'Consumible' || nuevosItems[i].tipo == 'Producto'">
                 <!--Cantidad de producto-->
                 <label for="exampleInputPassword1">Cantidad y Unidades</label>
                 <div class="input-group">
@@ -66,7 +66,7 @@
               </div>
               <div class="col-4">
                 <!--Condicion para colocar fecha de vencimiento (Producto o consumible unicamente)-->
-                <div *ngIf="cat.value == 'Consumible' || cat.value == 'Producto'" class="form-group">
+                <div *ngIf="nuevosItems[i].tipo == 'Consumible' || nuevosItems[i].tipo == 'Producto'" class="form-group">
                   <label>Vencimiento</label>
                   <input class="form-control" [(ngModel)]="nuevosItems[i].vencimiento" name="vencimiento" type="date">
               </div>
@@ -84,7 +84,7 @@
       </div>
         <button type="button" class="btn btn-secondary" (click)="cerrarModal()" data-dismiss="modal">Cerrar</button>
         <!-- !f.valid significa cuando el form no sea valido -->
-        <button data-dismiss="modal" type="button" class="btn btn-success"  (click)="onSubmit()">Ingresar</button>
+        <button data-dismiss="modal" type="button" class="btn btn-success" (click)="onSubmit()">Ingresar</button>
     </div>
     </form>
 

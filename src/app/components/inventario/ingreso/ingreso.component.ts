@@ -67,14 +67,11 @@ export class IngresoComponent implements OnInit {
 
   onSubmit() {
 //Se agrega nuevoItem al inventario existente, y se borran los campos//
-    var item: Item;
-    for(item of this.nuevosItems) {
-      // item.fechaIngreso = new Date().toISOString();
-
+    for(var item of this.nuevosItems) {
       var idAUsar = this.generarId().toString();
 
       // REVISA SI EL ID ESTA DISPONIBLE Y DE NO ESTARLO LO CAMBIA
-      while(this.revisarDisponibilidad(idAUsar) == false){
+      while(!this.revisarDisponibilidad(idAUsar)){
         idAUsar = this.generarId().toString();
       }
 
