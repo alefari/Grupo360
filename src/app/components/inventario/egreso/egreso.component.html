@@ -5,7 +5,7 @@
 
         <div class="modal-header bg-warning">
             <h5 class="modal-title" id="exampleModalLabel">Egreso</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button (click)="borrarForm()" type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -15,32 +15,31 @@
             <div class="form-group">
                 <div class="row">
                 <div class="col-3">
-                    <label>Categoría</label>
-                        <select class="form-control" ngModel name="selectTipo" #selectTipo="ngModel">
-                            <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
-                        </select>
+                  <label>Categoría</label>
+                  <select class="form-control" ngModel name="selectTipo" #selectTipo="ngModel">
+                    <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
+                  </select>
                 </div>
             <!--Filtro por Item de egreso-->
             <div class="col-3">
                 <label>Item</label>
-                    <select [(ngModel)]='idItemElegidoEgreso' class="form-control" name="tipo">
-                        <!--NgFor que imprime la cantidad de items que hay en total-->
-                        <ng-container *ngFor="let item of inventario">
-                        <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
-                        <option *ngIf="item.tipo == selectTipo.value" value='{{item.id}}'>{{ item.nombre }}</option>
-                        </ng-container>
-
-                    </select>
+                <select [(ngModel)]='idItemElegidoEgreso' class="form-control" name="tipo">
+                  <!--NgFor que imprime la cantidad de items que hay en total-->
+                  <ng-container *ngFor="let item of inventario">
+                  <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
+                  <option *ngIf="item.tipo == selectTipo.value && item.estado == 'Disponible'" value='{{item.id}}'>{{ item.nombre }}</option>
+                  </ng-container>
+                </select>
             </div>
-            <div class="col-3">
-                    <!--Label e input de cantidad actual (muestra numero actual en inventario)-->
-                    <label for="exampleInputEmail1">Cantidad actual</label>
-                    <p *ngIf="idItemElegidoEgreso != null">{{inventario[regresarIndice()].cantidad}} {{inventario[regresarIndice()].unidades}}</p>
+            <div *ngIf="selectTipo.value == 'Consumible' || selectTipo.value == 'Producto'" class="col-3">
+              <!--Label e input de cantidad actual (muestra numero actual en inventario)-->
+              <label for="exampleInputEmail1">Cantidad actual</label>
+              <p *ngIf="idItemElegidoEgreso != null">{{inventario[regresarIndice()].cantidad}} {{inventario[regresarIndice()].unidades}}</p>
             </div>
-            <div class="col-3">
-                <!--Label e input de cantidad a egresar (se escribe la cantidad a egresar)-->
-                <label for="exampleInputEmail1">Cantidad a egresar</label>
-                <input type="number" [(ngModel)]="cantidadEgreso" name="nombre" class="form-control">
+            <div *ngIf="selectTipo.value == 'Consumible' || selectTipo.value == 'Producto'" class="col-3">
+              <!--Label e input de cantidad a egresar (se escribe la cantidad a egresar)-->
+              <label for="exampleInputEmail1">Cantidad a egresar</label>
+              <input type="number" [(ngModel)]="cantidadEgreso" name="nombre" class="form-control">
             </div>
             </div>
         </div>
@@ -48,11 +47,11 @@
             <div class="row">
                 <div class="col">
                     <label for="exampleInputEmail1">Obra destino</label>
-                    <input name="obra" class="form-control">
+                    <input ngModel name="obra" class="form-control">
                 </div>
                 <div class="col">
                     <label for="exampleInputEmail1">Responsable</label>
-                    <input name="responsable" class="form-control">
+                    <input ngModel name="responsable" class="form-control">
                 </div>
             </div>
         </div>
@@ -60,8 +59,8 @@
         </div>
         <!--Footer de Modal de egresar, con botones de cerrar y-->
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary"  data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-warning" (click)="egresarItems()">Egresar</button>
+            <button type="button" class="btn btn-secondary"  data-dismiss="modal" (click)="borrarForm()">Cerrar</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="egresarItems()">Egresar</button>
         </div>
 
     </form>

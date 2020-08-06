@@ -1,10 +1,11 @@
 //Imports de servicios, items, etc.//
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { InventarioService } from '../../../services/inventario.service';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { Item } from 'src/app/models/item.model';
 import { Categoria } from 'src/app/models/categoria.model';
+import { NgForm, Form } from '@angular/forms';
 
 @Component({
   selector: 'app-reingreso',
@@ -14,11 +15,16 @@ import { Categoria } from 'src/app/models/categoria.model';
 
 //Se declaran las variables a utilizar en reingreso
 export class ReingresoComponent implements OnInit {
+  @ViewChild('f') form: NgForm;
   inventario: Item[];
   categorias: Categoria[];
   // selectTipo: string;
   idItemElegido: string = null;
   cantidadIngreso: number = 0;
+
+  idsReingreso = [
+    {id: "", cantidad: null}
+  ];
 
   constructor(private servicioInventario: InventarioService,
               private categoriaService: CategoriasService)
@@ -47,21 +53,34 @@ export class ReingresoComponent implements OnInit {
 
    //Con el id del item ubicado, se suma la cantidad a agregar ingresada por el usuario en el item del id que haga match//
   reingresarItems() {
-    let nuevoItem = this.inventario[this.inventario.findIndex(item => item.id == this.idItemElegido)];
-
-    if(nuevoItem.tipo == "Herramienta") {
-      nuevoItem.estado = "Disponible"
+    for(let item of this.idsReingreso) {
+      let nuevoItem = this.inventario[this.inventario.findIndex(itemInv => itemInv.id == item.id)];
+      if(nuevoItem.tipo == "Herramienta") {
+        nuevoItem.estado = "Disponible"
+      }
+      else {
+        nuevoItem.cantidad += item.cantidad;
+      }
+      this.servicioInventario.editarItem(nuevoItem);
     }
-    else {
-      nuevoItem.cantidad += this.cantidadIngreso;
-    }
-    this.servicioInventario.editarItem(nuevoItem);
+    this.form.reset();
   }
 
   regresarIndice() {
       return this.inventario.findIndex(item => item.id == this.idItemElegido);
   }
 
+  borrarForm() {
+    this.form.reset();
+  }
+
+  agregarItem() {
+    this.idsReingreso.push({id: "", cantidad: null});
+  }
+
+  restarItem() {
+    this.idsReingreso.pop();
+  }
 
 }
 

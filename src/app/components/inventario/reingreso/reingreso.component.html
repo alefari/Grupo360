@@ -5,7 +5,7 @@
 
     <div class="modal-header bg-primary text-white">
       <h5 class="modal-title" id="exampleModalLabel">Reingreso</h5>
-      <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+      <button (click)="borrarForm()" type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -13,7 +13,7 @@
     <!--Filtro por Tipo de reingreso-->
 
     <form #f="ngForm">
-      <div class="modal-body">
+      <div *ngFor="let item of idsReingreso; let i = index" class="modal-body">
         <div class="form-group">
           <div class="row">
             <div class="col-3">
@@ -25,11 +25,13 @@
             <!--Filtro por Item de reingreso-->
             <div class="col-3">
                 <label>Item</label>
-                <select class="form-control" [(ngModel)]="idItemElegido" name="tipo">
+                <select class="form-control" [(ngModel)]="idsReingreso[i].id" name="id">
                   <!--NgFor que imprime la cantidad de items que hay en total-->
                   <ng-container *ngFor="let item of inventario">
                     <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
-                    <option *ngIf="item.tipo == selectTipo.value" value='{{item.id}}'>{{ item.nombre }}</option>
+                    <ng-container *ngIf="item.tipo == selectTipo.value">
+                      <option *ngIf="(item.tipo == 'Herramienta' && item.estado == 'En Obra') || (item.tipo != 'Herramienta')" value='{{item.id}}'>{{ item.nombre }}</option>
+                    </ng-container>
                   </ng-container>
                 </select>
             </div>
@@ -41,7 +43,7 @@
               <div *ngIf="selectTipo.value != 'Herramienta'" class="col-3">
                 <!--Label e input de cantidad a ingresar (se escribe la cantidad a ingresar)-->
                 <label for="exampleInputEmail1">Cantidad a ingresar</label>
-                <input type="number" [(ngModel)]="cantidadIngreso" name="nombre" class="form-control">
+                <input type="number"  [(ngModel)]="idsReingreso[i].cantidad" name="cantidad" class="form-control">
               </div>
 
           </div>
@@ -51,8 +53,10 @@
       </div>
       <!--Footer de Modal de reingreso, con botones de cerrar e ingresar-->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="borrarForm()">Cerrar</button>
         <button type="button" class="btn btn-success" (click)="reingresarItems()" data-dismiss="modal">Ingresar</button>
+        <button type="button" class="btn btn-secondary" (click)="agregarItem()">Más</button>
+        <button type="button" class="btn btn-success" (click)="restarItem()">Menos</button>
       </div>
     </form>
   </div>

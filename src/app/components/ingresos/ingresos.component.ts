@@ -15,13 +15,9 @@ export class IngresosComponent implements OnInit {
 
   constructor(private ingresosService: IngresosService, private inventarioService: InventarioService) { }
 
-  //  myArray.sort(function(a, b) {
-  //   return (a.date < b.date) ? -1 : ((a.date > b.date) ? 1 : 0);
-  //   });
-
   ngOnInit(): void {
     this.ingresosService.obtenerIngresos().subscribe(items => {
-      this.ingresos = items.sort((a, b) => (a.fecha < b.fecha) ? -1 : ((a.fecha > b.fecha) ? 1 : 0));
+      this.ingresos = items.sort((a, b) => (a.fecha < b.fecha) ? 1 : ((a.fecha > b.fecha) ? -1 : 0));
     })
     this.inventarioService.obtenerInventario().subscribe(items => {
       this.inventario = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);

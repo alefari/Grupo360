@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { InventarioService } from '../../../services/inventario.service';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { Item } from 'src/app/models/item.model';
 import { Categoria } from 'src/app/models/categoria.model';
+import { NgForm } from '@angular/forms';
+import { EgresosService } from 'src/app/services/egresos.service';
+import { Egreso } from 'src/app/models/egreso.model';
 
 
 @Component({
@@ -13,7 +16,7 @@ import { Categoria } from 'src/app/models/categoria.model';
 
 
 export class EgresoComponent implements OnInit {
-
+  @ViewChild('f') form: NgForm;
   inventario: Item[];
   categorias: Categoria[];
   // selectTipo: string;
@@ -21,7 +24,8 @@ export class EgresoComponent implements OnInit {
   cantidadEgreso: number = 0;
 
   constructor(private servicioInventario: InventarioService,
-              private categoriaService: CategoriasService)
+              private categoriaService: CategoriasService,
+              private servicioEgresos: EgresosService)
               { }
 
   ngOnInit(): void {
@@ -44,20 +48,38 @@ buscarIndex(itemElegidoEgreso: string) {
 
    //Con el id del item ubicado, se suma la cantidad a agregar ingresada por el usuario en el item del id que haga match//
 egresarItems() {
-    let nuevoItem = this.inventario[this.inventario.findIndex(item => item.id == this.idItemElegidoEgreso)];
+    let itemEgreso = this.inventario[this.inventario.findIndex(item => item.id == this.idItemElegidoEgreso)];
 
-
-    if(nuevoItem.tipo == "Herramienta") {
-      nuevoItem.estado = "En Obra";
+    if(itemEgreso.tipo == "Herramienta") {
+      itemEgreso.estado = "En Obra";
     }
     else {
-      nuevoItem.cantidad = nuevoItem.cantidad - this.cantidadEgreso;
+      itemEgreso.cantidad = itemEgreso.cantidad - this.cantidadEgreso;
     }
-    this.servicioInventario.editarItem(nuevoItem);
+    itemEgreso.responsable = this.form.value.responsable;
+    this.servicioInventario.editarItem(itemEgreso);
+
+    let egreso: Egreso = {
+      idItem: itemEgreso.id,
+        fecha: new Date().toISOString(),
+        obra: this.form.value.obra,
+        reponsable: itemEgreso.responsable,
+    }
+    if(itemEgreso.tipo != 'Herramienta'){
+      egreso.cantidad = this.cantidadEgreso;
+    }
+
+    this.servicioEgresos.agregarEgreso(egreso);
+
+    this.form.reset();
   }
 
   regresarIndice() {
     return this.inventario.findIndex(item => item.id == this.idItemElegidoEgreso);
 }
+
+  borrarForm() {
+    this.form.reset();
+  }
 
 }
