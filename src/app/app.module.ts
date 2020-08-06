@@ -19,6 +19,9 @@ import { ReingresoComponent } from './components/inventario/reingreso/reingreso.
 import { EgresoComponent } from './components/inventario/egreso/egreso.component';
 import { IngresosComponent } from './components/ingresos/ingresos.component';
 
+// IMPORT DE ICONOSDE FONTAWESOME
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,9 +40,11 @@ import { IngresosComponent } from './components/ingresos/ingresos.component';
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

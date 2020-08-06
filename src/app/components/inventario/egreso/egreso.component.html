@@ -32,20 +32,28 @@
 
                     </select>
             </div>
-            <div *ngIf="selectTipo.value != 'Herramienta'" class="col-3">
-              <!--Label e input de cantidad actual (muestra numero actual en inventario)-->
-              <label for="exampleInputEmail1">Cantidad actual</label>
-              <p *ngIf="idItemElegidoEgreso != null">{{inventario[regresarIndice()].cantidad}} {{inventario[regresarIndice()].unidades}}</p>
+            <div class="col-3">
+                    <!--Label e input de cantidad actual (muestra numero actual en inventario)-->
+                    <label for="exampleInputEmail1">Cantidad actual</label>
+                    <p *ngIf="idItemElegidoEgreso != null">{{inventario[regresarIndice()].cantidad}} {{inventario[regresarIndice()].unidades}}</p>
             </div>
-            <div *ngIf="selectTipo.value != 'Herramienta'" class="col-3">
+            <div class="col-3">
                 <!--Label e input de cantidad a egresar (se escribe la cantidad a egresar)-->
                 <label for="exampleInputEmail1">Cantidad a egresar</label>
                 <input type="number" [(ngModel)]="cantidadEgreso" name="nombre" class="form-control">
             </div>
-            <div class="col-4">
-              <label for="exampleInputEmail1">Obra destino</label>
-              <input name="obra" class="form-control">
             </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <label for="exampleInputEmail1">Obra destino</label>
+                    <input name="obra" class="form-control">
+                </div>
+                <div class="col">
+                    <label for="exampleInputEmail1">Responsable</label>
+                    <input name="responsable" class="form-control">
+                </div>
             </div>
         </div>
 
@@ -53,7 +61,7 @@
         <!--Footer de Modal de egresar, con botones de cerrar y-->
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary"  data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="egresarItems()">Egresar</button>
+            <button type="button" class="btn btn-warning" (click)="egresarItems()">Egresar</button>
         </div>
 
     </form>

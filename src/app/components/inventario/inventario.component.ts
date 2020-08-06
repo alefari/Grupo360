@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Item } from '../../models/item.model';
 import { InventarioService } from '../../services/inventario.service';
 import { NgForm } from '@angular/forms';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class InventarioComponent implements OnInit {
   inventario: Item[];
   filtroNombre: string = "";
   filtroTipo: string = "";
+  faSearch = faSearch;
 
   constructor(private servicioInventario: InventarioService) { }
 
