@@ -1,6 +1,6 @@
 //Imports de servicios, items, etc.//
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgModuleDecorator } from '@angular/core';
 import { InventarioService } from '../../../services/inventario.service';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { UnidadesService } from 'src/app/services/unidades.service'
@@ -15,25 +15,28 @@ import { NgForm, Form } from '@angular/forms';
   styleUrls: ['./modificar.component.css']
 })
 export class ModificarComponent implements OnInit {
+  @ViewChild('f') form: NgForm;
 
-  inventario: Item[];
   categorias: Categoria[];
   ubicaciones: any[];
   unidades: any[];
+  inventario: Item[];
   idItemElegidoModificar: string = null;
 
-  //VARIABLES DE DATOS A MODIFICAR
-  nombreNuevo: string = null;
-  cantidadNuevo: number = 0;
-  unidadesNuevo: string = null;
-  tipoNuevo: string = null;
-  serialNuevo: string = null;
-  ubicacionNuevo: string = null;
-  vencimientoNuevo:string =null;
-  estadoNuevo:string = null;
-  precioNuevo:string =null;
-
-  
+  itemElegido: Item = {
+    id: null,
+    nombre: null,
+    tipo: null,
+    cantidad: null,
+    ubicacion: null,
+    fecha: null,
+    responsable: null,
+    estado: null,
+    vencimiento: null,
+    serial: null,
+    precio: null,
+    unidades: null
+  };
 
   constructor(private servicioInventario: InventarioService,
               private categoriaService: CategoriasService,
@@ -56,9 +59,18 @@ export class ModificarComponent implements OnInit {
     })
   }
 
+  alElegirItem(idItem: string) {
+    this.itemElegido = this.inventario.find(item => item.id == idItem);
+  }
+
   //ENCUENTRA EL ID DEL ITEM A MODIFICAR
   regresarIndice() {
     return this.inventario.findIndex(item => item.id == this.idItemElegidoModificar);
-}
+  }
+
+  onModificar() {
+    this.servicioInventario.editarItem(this.itemElegido);
+    this.form.reset();
+  }
 
 }

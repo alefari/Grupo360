@@ -5,11 +5,12 @@ export interface Item {
   tipo: string;
   cantidad?: number;
   ubicacion?: string;
-  fecha?: Date;
+  fecha?: string;
   responsable?: string;
   estado?: string;
   vencimiento?: string;
   serial?: string;
   precio?: number;
   unidades?: string;
+  modalidad?: string;
 }

@@ -11,91 +11,51 @@
     <form #f="ngForm">
         <div class="modal-body">
             <div class="form-group">
+              <h5>Seleccione el item a modificar:</h5>
                 <div class="row">
                     <div class="col">
                         <label>Categoría</label>
                         <select class="form-control" ngModel name="selectTipoModificar" #selectTipoModificar="ngModel">
-                            <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
+                          <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                         </select>
                     </div>
                     <div class="col">
                         <label>Item</label>
-                        <select class="form-control" [(ngModel)]='idItemElegidoModificar' name="item">
-                            <ng-container *ngFor="let item of inventario">
+                        <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" class="form-control" ngModel name="item">
+                          <ng-container *ngFor="let item of inventario">
                             <option *ngIf="item.tipo == selectTipoModificar.value" value='{{item.id}}'>{{ item.nombre }}</option>
-                            </ng-container>
+                          </ng-container>
                         </select>
                     </div>
                 </div>
             </div>
-            <!--LUGAR DEL FORMULARIO CON DATOS VIEJOS-->
-                <div class="form-group">
-                    <h5>Datos Actuales del Item</h5>
-                    <div class="row">
-                        <div class="col-3">
-                            <label>Nombre</label>
-                            <p *ngIf="idItemElegidoModificar != null">{{inventario[regresarIndice()].nombre}}</p>
-                        </div>
-                        <div class="col-3">
-                            <label>Categoría</label>
-                            <p *ngIf="idItemElegidoModificar != null">{{inventario[regresarIndice()].tipo}}</p>
-                        </div>
-                        <div class="col-3">
-                            <label>Cantidad y Unidades</label>
-                            <p *ngIf="idItemElegidoModificar != null">{{inventario[regresarIndice()].cantidad}} {{inventario[regresarIndice()].unidades}}</p>
-                        </div>
-                        <div class="col-2">
-                            <label>Ubicación</label>
-                            <p *ngIf="idItemElegidoModificar != null">{{inventario[regresarIndice()].ubicacion}}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            <label>Serial</label>
-                            <p *ngIf="idItemElegidoModificar != null">{{inventario[regresarIndice()].serial}}</p>
-                        </div>
-                        <div class="col">
-                            <label>Fecha de Vencimiento</label>
-                            <p *ngIf="idItemElegidoModificar != null">{{inventario[regresarIndice()].vencimiento}}</p>
-                        </div>
-                        <div class="col">
-                            <label>Estado</label>
-                            <p *ngIf="idItemElegidoModificar != null">{{inventario[regresarIndice()].estado}}</p>
-                        </div>
-                        <div class="col">
-                            <label>Precio</label>
-                            <p *ngIf="idItemElegidoModificar != null">{{inventario[regresarIndice()].precio}}</p>
-                        </div>
-                    </div>
-                </div>
+            <hr>
                 <!--LUGAR DEL FORMULARIO PARA COLOCAR DATOS NUEVOS-->
                 <div class="form-group">
-                    <h5>Datos Nuevos del Item</h5>
+                    <h5>Modifique los datos que desee:</h5>
                     <div class="row">
                         <div class="col-3">
                             <label>Nombre</label>
-                            <input required type="text" [(ngModel)]="nombreNuevo" name="nombre" class="form-control">
+                            <input required type="text" [(ngModel)]="itemElegido.nombre" name="nombre" class="form-control">
                         </div>
                         <div class="col-3">
                             <label>Categoría</label>
-                            <select required class="form-control" [(ngModel)]="tipoNuevo" name="categoria">
+                            <select required class="form-control" [(ngModel)]="itemElegido.tipo" name="categoria">
                                 <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                             </select>
                         </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             <label>Cantidad y Unidades</label>
                             <div class="input-group">
-                                <input onkeypress="return event.charCode >= 48" [(ngModel)]="cantidadNuevo" required type="number" name="cantidad" class="form-control">
-                                <select  required type="text" placeholder="0"  name="unidades" [(ngModel)]="unidadesNuevo" class="form-control">
+                                <input [disabled]="itemElegido.tipo == 'Herramienta'" onkeypress="return event.charCode >= 48" [(ngModel)]="itemElegido.cantidad" required type="number" name="cantidad" class="form-control">
+                                <select [disabled]="itemElegido.tipo == 'Herramienta'" required type="text" placeholder="0"  name="unidades" [(ngModel)]="itemElegido.unidades" class="form-control">
                                 <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-2">
                             <label>Ubicación</label>
-                            <select type="text"  name="ubicacion" [(ngModel)]="ubicacionNuevo" class="form-control" aria-describedby="emailHelp">
+                            <select type="text"  name="ubicacion" [(ngModel)]="itemElegido.ubicacion" class="form-control" aria-describedby="emailHelp">
                                 <option *ngFor="let ubicacion of ubicaciones" value="{{ ubicacion.nombre }}">{{ ubicacion.nombre }}</option>
                             </select>
                         </div>
@@ -105,15 +65,15 @@
                     <div class="row">
                         <div class="col">
                             <label>Serial</label>
-                            <input required type="text" [(ngModel)]="serialNuevo" name="serial" class="form-control">
+                            <input required type="text" [(ngModel)]="itemElegido.serial" name="serial" class="form-control">
                         </div>
                         <div class="col">
                             <label>Fecha de Vencimiento</label>
-                            <input class="form-control" [(ngModel)]="vencimientoNuevo" name="vencimiento" type="date">
+                            <input [disabled]="itemElegido.tipo == 'Herramienta'" class="form-control" [(ngModel)]="itemElegido.vencimiento" name="vencimiento" type="date">
                         </div>
                         <div class="col">
                             <label>Estado</label>
-                            <select type="text" [(ngModel)]="estadoNuevo" name="estado" class="form-control">
+                            <select type="text" [(ngModel)]="itemElegido.estado" name="estado" class="form-control">
                                 <option>Disponible</option>
                                 <option>En Obra</option>
                                 <option>Dañado</option>
@@ -122,7 +82,7 @@
                         </div>
                         <div class="col">
                             <label>Precio</label>
-                            <input onkeypress="return event.charCode >= 48" type="number" [(ngModel)]="precioNuevo" name="precio" class="form-control">
+                            <input onkeypress="return event.charCode >= 48" type="number" [(ngModel)]="itemElegido.precio" name="precio" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -130,10 +90,10 @@
 
         <!--Footer de Modal con botones de cerrar y modificar-->
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button data-dismiss="modal" type="button" class="btn btn-info">Modificar</button>
+            <button (click)="f.reset()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button (click)="onModificar()" data-dismiss="modal" type="button" class="btn btn-info">Modificar</button>
         </div>
 
     </form>
 </div>
-</div>  
+</div>

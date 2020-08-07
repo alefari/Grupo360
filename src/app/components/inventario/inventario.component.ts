@@ -5,6 +5,9 @@ import { Item } from '../../models/item.model';
 import { InventarioService } from '../../services/inventario.service';
 import { NgForm } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { CategoriasService } from 'src/app/services/categorias.service';
+import { UbicacionesService } from 'src/app/services/ubicaciones.service';
+import { Categoria } from 'src/app/models/categoria.model';
 
 
 @Component({
@@ -17,16 +20,26 @@ export class InventarioComponent implements OnInit {
   @ViewChild('f') form: NgForm;
 
   inventario: Item[];
-  filtroNombre: string = "";
+  categorias: Categoria[];
+  ubicaciones: any[];
+
   filtroTipo: string = "";
   faSearch = faSearch;
 
-  constructor(private servicioInventario: InventarioService) { }
+  constructor(private servicioInventario: InventarioService,
+              private servicioCategorias: CategoriasService,
+              private servicioUbicaciones: UbicacionesService) { }
 
 //Se adjuntan items de base de datos a la variable inventario, y se ordena items en orden alfabetico//
   ngOnInit(): void {
     this.servicioInventario.obtenerInventario().subscribe(items => {
       this.inventario = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
+    })
+    this.servicioCategorias.obtenerCategorias().subscribe(items => {
+      this.categorias = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
+    })
+    this.servicioUbicaciones.obtenerUbicaciones().subscribe(items => {
+      this.ubicaciones = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
     })
   }
 
