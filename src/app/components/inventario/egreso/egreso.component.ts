@@ -6,6 +6,7 @@ import { Categoria } from 'src/app/models/categoria.model';
 import { NgForm } from '@angular/forms';
 import { EgresosService } from 'src/app/services/egresos.service';
 import { Egreso } from 'src/app/models/egreso.model';
+import { UnidadesService } from 'src/app/services/unidades.service';
 
 
 @Component({
@@ -65,8 +66,13 @@ egresarItems() {
         obra: this.form.value.obra,
         reponsable: itemEgreso.responsable,
     }
-    if(itemEgreso.tipo != 'Herramienta'){
-      egreso.cantidad = this.cantidadEgreso;
+    if(itemEgreso.tipo != 'Herramienta'){ 
+      
+    egreso.cantidad = this.cantidadEgreso;
+
+    } else {
+  
+    egreso.cantidad = 1;
     }
 
     this.servicioEgresos.agregarEgreso(egreso);

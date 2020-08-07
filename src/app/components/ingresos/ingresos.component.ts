@@ -13,7 +13,8 @@ export class IngresosComponent implements OnInit {
   ingresos: Ingreso[];
   inventario: Item[];
 
-  constructor(private ingresosService: IngresosService, private inventarioService: InventarioService) { }
+  constructor(private ingresosService: IngresosService, 
+              private inventarioService: InventarioService) { }
 
   ngOnInit(): void {
     this.ingresosService.obtenerIngresos().subscribe(items => {

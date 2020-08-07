@@ -1,1 +1,46 @@
-<p>egresos works!</p>
+<div class="container">
+    <div class="row">
+        <h1>Egresos</h1>
+    </div>
+    <div class="row">
+        <!--Tabla de inventario en donde se muestran los egresos generales-->
+        <table class="table shadow">
+        <!-- <thead class="thead-dark">
+            <tr>
+            <th scope="col"><input class="w-75 form-control form-control-sm" [(ngModel)]="filtroNombre" type="text" placeholder="Filtro por nombre"></th>
+            <th scope="col">
+            </th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            </tr>
+        </thead> -->
+        <thead class="thead-dark">
+            <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Obra</th>
+            <th scope="col">Responsable</th>
+            <th scope="col">Fecha de Egreso</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        <!--NgFor que imprime egresos de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
+            <ng-container *ngFor="let egreso of egresos">
+              <!-- *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" -->
+            <tr scope="row" class="bg-light">
+                <td>{{ inventario[regresarIndice(egreso.idItem)].nombre }} </td>
+                <td>{{ inventario[regresarIndice(egreso.idItem)].tipo }}</td>
+                <td >{{ egreso.cantidad }} {{ inventario[regresarIndice(egreso.idItem)].unidades }}</td>
+                <td>{{ egreso.obra }}</td>
+                <td>{{ egreso.reponsable }}</td>
+                <td>{{ egreso.fecha | date:'short' }}</td>
+            </tr>
+            </ng-container>
+        </tbody>
+    </table>
+    </div>
+</div>
