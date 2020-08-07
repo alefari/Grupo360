@@ -32,9 +32,12 @@ export class InventarioService {
     this.itemsColeccion.doc(nuevoItem.id).set(nuevoItem);
   }
 
-
   editarItem(itemEditado: Item) {
     return this.itemsColeccion.doc(itemEditado.id).update(itemEditado);
   }
 
-}
+  modificarItem(){
+    
+  }
+
+  }

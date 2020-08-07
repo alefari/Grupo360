@@ -20,6 +20,20 @@ export class ModificarComponent implements OnInit {
   categorias: Categoria[];
   ubicaciones: any[];
   unidades: any[];
+  idItemElegidoModificar: string = null;
+
+  //VARIABLES DE DATOS A MODIFICAR
+  nombreNuevo: string = null;
+  cantidadNuevo: number = 0;
+  unidadesNuevo: string = null;
+  tipoNuevo: string = null;
+  serialNuevo: string = null;
+  ubicacionNuevo: string = null;
+  vencimientoNuevo:string =null;
+  estadoNuevo:string = null;
+  precioNuevo:string =null;
+
+  
 
   constructor(private servicioInventario: InventarioService,
               private categoriaService: CategoriasService,
@@ -41,5 +55,10 @@ export class ModificarComponent implements OnInit {
       this.unidades = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
     })
   }
+
+  //ENCUENTRA EL ID DEL ITEM A MODIFICAR
+  regresarIndice() {
+    return this.inventario.findIndex(item => item.id == this.idItemElegidoModificar);
+}
 
 }
