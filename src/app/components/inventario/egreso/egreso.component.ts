@@ -69,7 +69,7 @@ egresarItems() {
     if(itemEgreso.tipo != 'Herramienta'){ 
       
     egreso.cantidad = this.cantidadEgreso;
-
+    // CUANDO ES HERRAMIENTA, SE COLOCA "1 UNIDAD" DE DEFAULT
     } else {
   
     egreso.cantidad = 1;
