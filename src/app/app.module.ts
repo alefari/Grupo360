@@ -22,6 +22,7 @@ import { IngresosComponent } from './components/ingresos/ingresos.component';
 // IMPORT DE ICONOSDE FONTAWESOME
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EgresosComponent } from './components/egresos/egresos.component';
+import { ModificarComponent } from './components/inventario/modificar/modificar.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { EgresosComponent } from './components/egresos/egresos.component';
     ReingresoComponent,
     EgresoComponent,
     IngresosComponent,
-    EgresosComponent
+    EgresosComponent,
+    ModificarComponent
   ],
   imports: [
     BrowserModule,

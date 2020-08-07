@@ -1,0 +1,41 @@
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+
+    <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Modificar</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <form #f="ngForm">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3">
+                        <label>Categoría</label>
+                        <select class="form-control" ngModel name="selectTipoModificar" #selectTipoModificar="ngModel">
+                            <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label>Item</label>
+                        <select class="form-control" name="tipo">
+                        <!--NgFor que imprime la cantidad de items que hay en total-->
+                        <ng-container *ngFor="let item of inventario">
+                        <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
+                        <option *ngIf="item.tipo == selectTipoModificar.value" value='{{item.id}}'>{{ item.nombre }}</option>
+                        </ng-container>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        <!--Footer de Modal con botones de cerrar y modificar-->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button data-dismiss="modal" type="button" class="btn btn-info">Modificar</button>
+        </div>
+
+    </form>
+</div>
+</div>  
