@@ -29,4 +29,8 @@ export class IngresosComponent implements OnInit {
     return this.inventario.findIndex(item => item.id == idItem);
 }
 
+  regresarNombre(id: string) {
+    return this.inventario.find(item => item.id == id).nombre;
+  }
+
 }

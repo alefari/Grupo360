@@ -5,17 +5,17 @@
   <div class="row">
     <!--Tabla de inventario en donde se muestra el inventario general-->
       <table class="table shadow">
-        <!-- <thead class="thead-dark">
+        <thead class="thead bg-primary text-white">
           <tr>
-            <th scope="col"><input class="w-75 form-control form-control-sm" [(ngModel)]="filtroNombre" type="text" placeholder="Filtro por nombre"></th>
-            <th scope="col">
-            </th>
+            <th scope="col"><input #filtroNombre="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por nombre"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
-        </thead> -->
+        </thead>
         <thead class="thead bg-primary text-white">
           <tr>
             <th scope="col">Nombre</th>
@@ -24,20 +24,30 @@
             <th scope="col">Precio</th>
             <th scope="col">Fecha Ingreso</th>
             <th scope="col">Responsable</th>
+            <th scope="col">Modalidad</th>
           </tr>
         </thead>
 
         <tbody>
         <!--NgFor que imprime inventario de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
           <ng-container *ngFor="let ingreso of ingresos">
-            <!-- *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" -->
-            <tr scope="row" class="bg-light">
+            <tr *ngIf="regresarNombre(ingreso.idItem).toLocaleLowerCase().includes(filtroNombre.value.toLowerCase())" scope="row" class="bg-light">
               <td>{{ inventario[regresarIndice(ingreso.idItem)].nombre }}</td>
               <td>{{ inventario[regresarIndice(ingreso.idItem)].tipo }}</td>
               <td>{{ ingreso.cantidad }} {{ inventario[regresarIndice(ingreso.idItem)].unidades }}</td>
-              <td>{{ ingreso.precio | currency }}</td>
+              <td>
+                <div *ngIf="ingreso.precio != null; else sinPrecio">
+                  {{ ingreso.precio | currency }}
+                </div>
+                <!-- NG-TEMPLATE SE USA PARA ENGLOBAR EL BLOQUE ELSE DE UN NGIF -->
+                <ng-template #sinPrecio>
+                  N/A
+                </ng-template>
+              </td>
+
               <td>{{ ingreso.fecha | date:'short'}}</td>
               <td>{{ ingreso.IdUsuario }}</td>
+              <td>{{ ingreso.modalidad }}</td>
             </tr>
           </ng-container>
         </tbody>

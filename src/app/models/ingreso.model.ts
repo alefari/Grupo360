@@ -4,5 +4,6 @@ export interface Ingreso {
   fecha: string,
   cantidad: number,
   precio?: number
-  IdUsuario?: string
+  IdUsuario?: string,
+  modalidad?: string;
 }

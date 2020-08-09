@@ -6,6 +6,8 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 import { Item } from 'src/app/models/item.model';
 import { Categoria } from 'src/app/models/categoria.model';
 import { NgForm, Form } from '@angular/forms';
+import { IngresosService } from 'src/app/services/ingresos.service';
+import { Ingreso } from 'src/app/models/ingreso.model';
 
 @Component({
   selector: 'app-reingreso',
@@ -27,7 +29,8 @@ export class ReingresoComponent implements OnInit {
   ];
 
   constructor(private servicioInventario: InventarioService,
-              private categoriaService: CategoriasService)
+              private categoriaService: CategoriasService,
+              private ingresosService: IngresosService)
               { }
 
 
@@ -62,6 +65,16 @@ export class ReingresoComponent implements OnInit {
         nuevoItem.cantidad += item.cantidad;
       }
       this.servicioInventario.editarItem(nuevoItem);
+
+      this.ingresosService.agregarIngreso(
+        {
+          idItem: nuevoItem.id,
+          fecha: new Date().toISOString(),
+          cantidad: nuevoItem.cantidad,
+          modalidad: "Reingreso",
+          precio: null
+        }
+      )
     }
     this.form.reset();
   }

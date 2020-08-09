@@ -36,8 +36,5 @@ export class InventarioService {
     return this.itemsColeccion.doc(itemEditado.id).update(itemEditado);
   }
 
-  modificarItem(){
-
-  }
 
   }

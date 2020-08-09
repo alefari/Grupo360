@@ -23,6 +23,21 @@ export class InventarioComponent implements OnInit {
   categorias: Categoria[];
   ubicaciones: any[];
 
+  datosInfo: Item = {
+    id: null,
+    nombre: null,
+    tipo: null,
+    cantidad: null,
+    ubicacion: null,
+    fecha: null,
+    responsable: null,
+    estado: null,
+    vencimiento: null,
+    serial: null,
+    precio: null,
+    unidades: null
+  }
+
   filtroTipo: string = "";
   faSearch = faSearch;
 
@@ -41,6 +56,15 @@ export class InventarioComponent implements OnInit {
     this.servicioUbicaciones.obtenerUbicaciones().subscribe(items => {
       this.ubicaciones = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
     })
+  }
+
+  asignarDetalles(item: Item) {
+    this.datosInfo = item;
+  }
+
+  reportarAveria(itemAveriado: Item) {
+    itemAveriado.estado = "Dañado";
+    this.servicioInventario.editarItem(itemAveriado);
   }
 
 }

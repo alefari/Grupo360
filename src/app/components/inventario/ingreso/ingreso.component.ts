@@ -89,7 +89,8 @@ export class IngresoComponent implements OnInit {
           idItem: item.id,
           fecha: new Date().toISOString(),
           cantidad: item.cantidad,
-          precio: item.precio
+          precio: item.precio,
+          modalidad: "Ingreso"
         }
       )
     }

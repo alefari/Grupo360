@@ -76,17 +76,84 @@
                             'text-danger': item.estado=='Dañado',
                             'text-info': item.estado=='En Obra'}">{{ item.estado }}</td>
             <td>
-              <button class="btn btn-info btn-sm">Detalles</button>
+              <button (click)="asignarDetalles(item)" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalInfo">Detalles</button>
             </td>
           </tr>
         </ng-container>
       </tbody>
   </table>
-
-
 </div>
-  </div>
+<!-- MODAL DE INFO -->
+<div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <h5 class="modal-title text-white" id="exampleModalLabel"><strong>{{ datosInfo.nombre }}</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-sm">
+          <tbody>
+              <tr>
+                <th>ID</th>
+                  <td></td>
+                  <td>{{ datosInfo.id }}</td>
+              </tr>
+              <tr>
+                <th>Serial</th>
+                  <td></td>
+                  <td>{{ datosInfo.serial }}</td>
+              </tr>
+              <tr>
+                <th>Categoría</th>
+                  <td></td>
+                  <td>{{ datosInfo.tipo }}</td>
+              </tr>
+              <tr>
+                <th>Cantidad</th>
+                  <td></td>
+                  <td>{{ datosInfo.cantidad }}</td>
+              </tr>
+              <tr>
+                <th>Ubicación</th>
+                  <td></td>
+                  <td>{{ datosInfo.ubicacion }}</td>
+              </tr>
+              <tr>
+                <th>Primer ingreso por</th>
+                  <td></td>
+                  <td>{{ datosInfo.responsable }} ({{ datosInfo.fecha }})</td>
+              </tr>
+              <tr>
+                <th>Estado</th>
+                  <td></td>
+                  <td>{{ datosInfo.estado }}</td>
+              </tr>
+              <tr>
+                <th>Vencimiento</th>
+                  <td></td>
+                  <td>{{ datosInfo.vencimiento }}</td>
+              </tr>
+              <tr>
+                <th>Precio</th>
+                  <td></td>
+                  <td>{{ datosInfo.precio }}</td>
+              </tr>
+              <tr><th></th><td></td><td></td></tr>
 
+          </tbody>
+      </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- FIN DEL MODAL INFO -->
+  </div>
 
 
 <!-- Modal Ingreso-->
