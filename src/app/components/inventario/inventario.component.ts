@@ -38,6 +38,25 @@ export class InventarioComponent implements OnInit {
     unidades: null
   }
 
+  //VARIABLE PARA MODEL DE AVERIA
+  itemAveriado: Item = {
+    id: null,
+    nombre: null,
+    tipo: null,
+    cantidad: null,
+    ubicacion: null,
+    fecha: null,
+    responsable: null,
+    estado: null,
+    vencimiento: null,
+    serial: null,
+    precio: null,
+    unidades: null
+  };
+
+  //VARIABLE PARA HACER LAS BUSQUEDA POR ID DEL ITEM DE AVERIA
+  idItemElegido:string = null;
+
   filtroTipo: string = "";
   faSearch = faSearch;
 
@@ -58,13 +77,30 @@ export class InventarioComponent implements OnInit {
     })
   }
 
+  //RECIBE EL ITEM DE LA FILA, E IMPRIME DICHOS DATOS EN UNA VARIABLE
   asignarDetalles(item: Item) {
     this.datosInfo = item;
   }
 
-  reportarAveria(itemAveriado: Item) {
-    itemAveriado.estado = "Dañado";
-    this.servicioInventario.editarItem(itemAveriado);
+  //BUSCA ITEM PARA REPORTAR AVERIA
+  regresarIndice() {
+    return this.inventario.findIndex(item => item.id == this.idItemElegido);
+}
+  //CREA ITEM TEMPORAL EN DONDE COLOCARA NUEVOS ESTADOS
+  alElegirItem(idItem: string) {
+  this.itemAveriado = this.inventario.find(item => item.id == idItem);
+}
+
+  reportarAveria() {
+    this.itemAveriado.estado = "Dañado";
+    this.servicioInventario.editarItem(this.itemAveriado);
+    //SE BORRAN LOS CAMPOS DEL FORMULARIO
+    this.form.reset();
+  }
+
+  //BORRA FORMMULARIO DE AVERIA
+  borrarForm() {
+    this.form.reset();
   }
 
 }
