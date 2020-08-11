@@ -3,6 +3,9 @@ import { IngresosService } from 'src/app/services/ingresos.service';
 import { Ingreso } from 'src/app/models/ingreso.model';
 import { InventarioService } from 'src/app/services/inventario.service';
 import { Item } from 'src/app/models/item.model';
+import { CategoriasService } from 'src/app/services/categorias.service';
+import { Categoria } from 'src/app/models/categoria.model';
+
 
 @Component({
   selector: 'app-ingresos',
@@ -12,9 +15,11 @@ import { Item } from 'src/app/models/item.model';
 export class IngresosComponent implements OnInit {
   ingresos: Ingreso[];
   inventario: Item[];
+  categorias: Categoria[];
 
   constructor(private ingresosService: IngresosService,
-              private inventarioService: InventarioService) { }
+              private inventarioService: InventarioService,
+              private categoriaService: CategoriasService) { }
 
   ngOnInit(): void {
     this.ingresosService.obtenerIngresos().subscribe(items => {
@@ -23,14 +28,22 @@ export class IngresosComponent implements OnInit {
     this.inventarioService.obtenerInventario().subscribe(items => {
       this.inventario = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
     })
+    this.categoriaService.obtenerCategorias().subscribe(items => {
+      this.categorias = items.sort((a, b) => (a.nombre> b.nombre) ? 1: -1)
+    })
   }
 
   regresarIndice(idItem) {
     return this.inventario.findIndex(item => item.id == idItem);
 }
 
+  //BUSQUEDA NOMBRE DE FILTRO POR NOMBRE EN TABLA DE INGRESOS
   regresarNombre(id: string) {
     return this.inventario.find(item => item.id == id).nombre;
   }
 
+//BUSQUEDA CATEGORIA DE FILTRO POR CATEGORIA EN TABLA DE INGRESOS
+  regresarCategoria(id: string) {
+    return this.inventario.find(item => item.id == id).tipo;
+  }
 }

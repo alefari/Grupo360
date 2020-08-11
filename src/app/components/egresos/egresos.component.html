@@ -5,17 +5,22 @@
     <div class="row">
         <!--Tabla de inventario en donde se muestran los egresos generales-->
         <table class="table shadow">
-        <!-- <thead class="thead-dark">
+        <!--FILTROS DE LA TABLA DE EGRESOS-->
+        <thead class="thead bg-warning text-white">
             <tr>
-            <th scope="col"><input class="w-75 form-control form-control-sm" [(ngModel)]="filtroNombre" type="text" placeholder="Filtro por nombre"></th>
+            <th scope="col"><input #filtroNombre="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por nombre"></th>
             <th scope="col">
+                <select #filtroCategoria="ngModel" class="form-control form-control-sm" ngModel name="filtroCategoria">
+                <option value="">Categoría (Todas)</option>
+                <option *ngFor="let cat of categorias" [value]="cat.nombre">{{ cat.nombre }}</option>
+                </select>
             </th>
             <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col"><input #filtroObra="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por obra"></th>
+            <th scope="col"><input #filtroResponsable="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por responsable"></th>
             <th scope="col"></th>
             </tr>
-        </thead> -->
+        </thead>
         <thead class="thead bg-warning">
             <tr>
             <th scope="col">Nombre</th>
@@ -31,7 +36,16 @@
         <!--NgFor que imprime egresos de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
             <ng-container *ngFor="let egreso of egresos">
               <!-- *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" -->
-            <tr scope="row" class="bg-light">
+            <tr *ngIf="(
+            (regresarNombre(egreso.idItem).toLocaleLowerCase().includes(filtroNombre.value.toLocaleLowerCase()) || filtroNombre.value == '')
+            &&
+            (regresarCategoria(egreso.idItem).includes(filtroCategoria.value)|| filtroCategoria.value == null)
+            &&
+            (egreso.obra.toLocaleLowerCase().includes(filtroObra.value.toLocaleLowerCase()) || filtroObra.value =='')
+            &&
+            (egreso.reponsable.toLocaleLowerCase().includes(filtroResponsable.value.toLocaleLowerCase()) || filtroResponsable.value =='')
+            )"
+            scope="row" class="bg-light">
                 <td>{{ inventario[regresarIndice(egreso.idItem)].nombre }} </td>
                 <td>{{ inventario[regresarIndice(egreso.idItem)].tipo }}</td>
                 <td >{{ egreso.cantidad }} {{ inventario[regresarIndice(egreso.idItem)].unidades }}</td>
