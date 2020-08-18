@@ -6,11 +6,14 @@
     <h1>Inventario</h1>
   </div>
   <div class="col">
-    <div class="btn-group float-right">
+    <div class="btn-group float-left">
       <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngreso">Ingreso</button>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalReingreso">Reingreso</button>
       <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEgreso">Egreso</button>
+    </div>
+    <div class="btn-group float-right">
       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalModificar">Modificar</button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalReporte">Reportar</button>
     </div>
   </div>
 </div>
@@ -101,7 +104,7 @@
                   <td></td>
                   <td>{{ datosInfo.id }}</td>
               </tr>
-              <tr>
+              <tr *ngIf="datosInfo.serial != null">
                 <th>Serial</th>
                   <td></td>
                   <td>{{ datosInfo.serial }}</td>
@@ -114,32 +117,32 @@
               <tr>
                 <th>Cantidad</th>
                   <td></td>
-                  <td>{{ datosInfo.cantidad }}</td>
+                  <td>{{ datosInfo.cantidad }} {{datosInfo.unidades }}</td>
               </tr>
-              <tr>
+              <tr *ngIf="datosInfo.ubicacion != null">
                 <th>Ubicación</th>
                   <td></td>
                   <td>{{ datosInfo.ubicacion }}</td>
               </tr>
-              <tr>
+              <tr *ngIf="datosInfo.responsable != null && datosInfo.fecha != null">
                 <th>Primer ingreso por</th>
                   <td></td>
                   <td>{{ datosInfo.responsable }} ({{ datosInfo.fecha }})</td>
               </tr>
-              <tr>
+              <tr *ngIf="datosInfo.estado != null">
                 <th>Estado</th>
                   <td></td>
                   <td>{{ datosInfo.estado }}</td>
               </tr>
-              <tr>
+              <tr *ngIf="datosInfo.vencimiento != null">
                 <th>Vencimiento</th>
                   <td></td>
                   <td>{{ datosInfo.vencimiento }}</td>
               </tr>
-              <tr>
+              <tr *ngIf="datosInfo.precio != null">
                 <th>Precio</th>
                   <td></td>
-                  <td>{{ datosInfo.precio }}</td>
+                  <td>{{ datosInfo.precio |currency}}</td>
               </tr>
               <tr><th></th><td></td><td></td></tr>
 
@@ -154,6 +157,62 @@
 </div>
 <!-- FIN DEL MODAL INFO -->
   </div>
+
+<!--MODAL DE REPORTE DE PRODUCTO-->
+
+<div class="modal fade" id="modalReporte" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Reporte</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!--Filtro por Tipo de reingreso-->
+      <div class="modal-body">
+      <form #f="ngForm">
+          <h3>Item</h3>
+          <div class="form-group">
+            <div class="row">
+              <div class="col">
+                  <label>Categoría</label>
+                    <select class="form-control" ngModel name="selectTipoReporte" #selectTipoReporte="ngModel">
+                      <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
+                    </select>
+              </div>
+
+              <div class="col">
+                  <label>Item</label>
+                  <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" class='form-control' ngModel name="id">
+                    <!--NG FOR QUE COLOCA LA LISTA DE INVENTARIO-->
+                    <ng-container *ngFor="let item of inventario">
+                      <!--NG IF QUE FILTRA LA LISTA FINAL POR EL TIPO-->
+                      <ng-container *ngIf="item.tipo == selectTipoReporte.value">
+                        <option value='{{item.id}}'>{{ item.nombre }}</option>
+                      </ng-container>
+                    </ng-container>
+                  </select>
+              </div>
+            </div>
+          </div>  
+
+        <!--Footer de Modal de reingreso, con botones de cerrar e ingresar-->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"(click)="borrarForm()">Cerrar</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="reportarAveria()">Reportar</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+
 
 
 <!-- Modal Ingreso-->

@@ -8,12 +8,17 @@
         <thead class="thead bg-primary text-white">
           <tr>
             <th scope="col"><input #filtroNombre="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por nombre"></th>
+            <th scope="col">
+              <select #filtroCategoria="ngModel" class="form-control form-control-sm" ngModel name="filtroCategoria">
+              <option value="">Categoría (Todas)</option>
+              <option *ngFor="let cat of categorias" [value]="cat.nombre">{{ cat.nombre }}</option>
+              </select>
+          </th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col"><input #filtroModalidad="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por modalidad"></th>
           </tr>
         </thead>
         <thead class="thead bg-primary text-white">
@@ -29,9 +34,15 @@
         </thead>
 
         <tbody>
-        <!--NgFor que imprime inventario de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
+        <!--FILTROS DE LA TABLA DE INGRESOS-->
           <ng-container *ngFor="let ingreso of ingresos">
-            <tr *ngIf="regresarNombre(ingreso.idItem).toLocaleLowerCase().includes(filtroNombre.value.toLowerCase())" scope="row" class="bg-light">
+            <tr *ngIf="(
+              (regresarNombre(ingreso.idItem).toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value == '')
+              &&
+              (regresarCategoria(ingreso.idItem).includes(filtroCategoria.value) || filtroCategoria.value == null)
+              &&
+              (ingreso.modalidad.toLocaleLowerCase().includes(filtroModalidad.value.toLocaleLowerCase()) || filtroModalidad.value == '')
+              )" scope="row" class="bg-light">
               <td>{{ inventario[regresarIndice(ingreso.idItem)].nombre }}</td>
               <td>{{ inventario[regresarIndice(ingreso.idItem)].tipo }}</td>
               <td>{{ ingreso.cantidad }} {{ inventario[regresarIndice(ingreso.idItem)].unidades }}</td>
