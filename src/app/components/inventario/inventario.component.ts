@@ -9,6 +9,15 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 import { Categoria } from 'src/app/models/categoria.model';
 
+//ICONOS FONTAWESOME
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-inventario',
@@ -18,6 +27,15 @@ import { Categoria } from 'src/app/models/categoria.model';
 //Se declaran variables de filtros//
 export class InventarioComponent implements OnInit {
   @ViewChild('f') form: NgForm;
+
+  //ICONOS FONTAWESOME
+  faSignInAlt = faSignInAlt;
+  faSignOutAlt = faSignOutAlt;
+  faTimesCircle = faTimesCircle;
+  faExclamationCircle = faExclamationCircle; 
+  faPencilAlt = faPencilAlt;
+  faPlusCircle = faPlusCircle;
+  faInfoCircle = faInfoCircle;
 
   inventario: Item[];
   categorias: Categoria[];

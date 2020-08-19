@@ -8,6 +8,12 @@ import { NgForm, Form } from '@angular/forms';
 import { IngresosService } from 'src/app/services/ingresos.service';
 import { Ingreso } from 'src/app/models/ingreso.model';
 
+//ICONOS FONTAWESOME
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-reingreso',
   templateUrl: './reingreso.component.html',
@@ -17,6 +23,13 @@ import { Ingreso } from 'src/app/models/ingreso.model';
 //Se declaran las variables a utilizar en reingreso
 export class ReingresoComponent implements OnInit {
   @ViewChild('f') form: NgForm;
+  
+  //ICONOS FONTAWESOME
+  faSignInAlt = faSignInAlt;
+  faTimesCircle = faTimesCircle;
+  faMinusCircle = faMinusCircle; 
+  faPlusCircle = faPlusCircle;
+  
   inventario: Item[];
   categorias: Categoria[];
   // selectTipo: string;

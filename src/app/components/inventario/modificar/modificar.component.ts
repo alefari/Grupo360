@@ -9,6 +9,10 @@ import { Item } from 'src/app/models/item.model';
 import { Categoria } from 'src/app/models/categoria.model';
 import { NgForm, Form } from '@angular/forms';
 
+//ICONOS FONTAWESOME
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-modificar',
   templateUrl: './modificar.component.html',
@@ -16,6 +20,10 @@ import { NgForm, Form } from '@angular/forms';
 })
 export class ModificarComponent implements OnInit {
   @ViewChild('f') form: NgForm;
+
+  //ICONOS FONTAWESOME
+  faPencilAlt = faPencilAlt;
+  faTimesCircle = faTimesCircle;
 
   categorias: Categoria[];
   ubicaciones: any[];

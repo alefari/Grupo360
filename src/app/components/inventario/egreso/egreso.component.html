@@ -58,15 +58,21 @@
         </div>
         <!--Footer de Modal de egresar, con botones de cerrar y-->
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="agregarItem()">Más Items</button>
-          <button [hidden]="idsEgreso.length == 1" type="button" class="btn btn-secondary" (click)="restarItem()">Menos Items</button>
-            <button type="button" class="btn btn-secondary"  data-dismiss="modal" (click)="borrarForm()">Cerrar</button>
+            <div class="btn-group">
+            <button type="button" class="btn btn-primary" (click)="agregarItem()">
+                <fa-icon [icon]="faPlusCircle"></fa-icon>Más Items</button>
+            <button [hidden]="idsEgreso.length == 1" type="button" class="btn btn-secondary" (click)="restarItem()">
+                <fa-icon [icon]="faMinusCircle"></fa-icon>Menos Items</button>
+            </div>
+            <button type="button" class="btn btn-secondary"  data-dismiss="modal" (click)="borrarForm()">
+                <fa-icon [icon]="faTimesCircle"></fa-icon>Cerrar</button>
             <button
-
-              type="button"
-              class="btn btn-warning"
-              data-dismiss="modal"
-              (click)="egresarItems()">Egresar</button>
+                type="button"
+                class="btn btn-warning"
+                data-dismiss="modal"
+                (click)="egresarItems()">
+                <fa-icon [icon]="faSignOutAlt"></fa-icon>Egresar
+            </button>
         </div>
 
     </form>

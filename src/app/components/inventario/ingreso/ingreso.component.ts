@@ -12,6 +12,12 @@ import { Timestamp } from 'rxjs/internal/operators/timestamp';
 import { IngresosService } from 'src/app/services/ingresos.service';
 import { ObjectUnsubscribedError } from 'rxjs';
 
+//ICONOS FONTAWESOME
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-ingreso',
   templateUrl: './ingreso.component.html',
@@ -22,6 +28,14 @@ import { ObjectUnsubscribedError } from 'rxjs';
 
 export class IngresoComponent implements OnInit {
   @ViewChild('f') form: NgForm;
+
+  //ICONOS FONTAWESOME
+  faSignInAlt = faSignInAlt;
+  faTimesCircle = faTimesCircle;
+  faMinusCircle = faMinusCircle; 
+  faPlusCircle = faPlusCircle;
+
+
   categorias: Categoria[];
   ubicaciones: any[];
   unidades: any[];

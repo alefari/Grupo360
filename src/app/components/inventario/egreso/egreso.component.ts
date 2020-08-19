@@ -8,6 +8,11 @@ import { EgresosService } from 'src/app/services/egresos.service';
 import { Egreso } from 'src/app/models/egreso.model';
 import { UnidadesService } from 'src/app/services/unidades.service';
 
+//ICONOS FONTAWESOME
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-egreso',
@@ -18,6 +23,13 @@ import { UnidadesService } from 'src/app/services/unidades.service';
 
 export class EgresoComponent implements OnInit {
   @ViewChild('f') form: NgForm;
+
+   //ICONOS FONTAWESOME
+  faSignOutAlt = faSignOutAlt;
+  faTimesCircle = faTimesCircle;
+  faMinusCircle = faMinusCircle; 
+  faPlusCircle = faPlusCircle;
+  
   inventario: Item[];
   categorias: Categoria[];
   // selectTipo: string;

@@ -55,11 +55,19 @@
       <!--Footer de Modal de reingreso, con botones de cerrar e ingresar-->
       <div class="modal-footer">
         <div class="btn-group">
-          <button type="button" class="btn btn-primary" (click)="agregarItem()">Más Items</button>
-          <button type="button" class="btn btn-secondary" [disabled]="idsReingreso.length == 1" (click)="restarItem()">Menos Items</button>
+          <button type="button" class="btn btn-primary" (click)="agregarItem()">
+            <fa-icon [icon]="faPlusCircle"></fa-icon>Más Items
+          </button>
+          <button type="button" class="btn btn-secondary" [disabled]="idsReingreso.length == 1" (click)="restarItem()">
+            <fa-icon [icon]="faMinusCircle"></fa-icon>Menos Items
+          </button>
         </div>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="borrarForm()">Cerrar</button>
-          <button type="button" class="btn btn-success" (click)="reingresarItems()" data-dismiss="modal">Ingresar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="borrarForm()">
+            <fa-icon [icon]="faTimesCircle"></fa-icon>Cerrar
+          </button>
+          <button type="button" class="btn btn-success" (click)="reingresarItems()" data-dismiss="modal">
+            <fa-icon [icon]="faSignInAlt"></fa-icon>Ingresar
+          </button>
       </div>
 
     </form>
