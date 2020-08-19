@@ -1,5 +1,4 @@
 //Imports de servicios, items, etc.//
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { InventarioService } from '../../../services/inventario.service';
 import { CategoriasService } from 'src/app/services/categorias.service';
@@ -21,7 +20,6 @@ export class ReingresoComponent implements OnInit {
   inventario: Item[];
   categorias: Categoria[];
   // selectTipo: string;
-  idItemElegido: string = null;
   cantidadIngreso: number = 0;
 
   idsReingreso = [
@@ -45,19 +43,15 @@ export class ReingresoComponent implements OnInit {
     })
   }
 
-  //Compara items de acuerdo a la seleccion del usuario en el Filtro de la tabla, y guarda el id del item seleccionado//
-  buscarIndex(itemElegido: string) {
-    this.inventario.findIndex(function(item, index) {
-      if(item.id == itemElegido){
-        return true;
-      }
-    })
-  }
+  regresarIndice(indice: number) {
+    return this.inventario.findIndex(item => item.id == this.idsReingreso[indice].id);
+}
 
    //Con el id del item ubicado, se suma la cantidad a agregar ingresada por el usuario en el item del id que haga match//
   reingresarItems() {
     for(let item of this.idsReingreso) {
-      let nuevoItem = this.inventario[this.inventario.findIndex(itemInv => itemInv.id == item.id)];
+      let nuevoItem = this.inventario.find(itemInv => itemInv.id == item.id);
+      // let nuevoItem = this.inventario[this.inventario.findIndex(itemInv => itemInv.id == item.id)];
       if(nuevoItem.tipo == "Herramienta") {
         nuevoItem.estado = "Disponible"
       }
@@ -77,14 +71,14 @@ export class ReingresoComponent implements OnInit {
       )
     }
     this.form.reset();
+    this.idsReingreso = [{id: "", cantidad: null}];
   }
 
-  regresarIndice() {
-      return this.inventario.findIndex(item => item.id == this.idItemElegido);
-  }
+
 
   borrarForm() {
     this.form.reset();
+    this.idsReingreso = [{id: "", cantidad: null}];
   }
 
   agregarItem() {

@@ -15,6 +15,14 @@
           <!--Nombre de producto-->
             <div class="form-group">
               <h3>Item {{i+1}}</h3>
+              <div class="form-check">
+                <input #itemExistente="ngModel" class="form-check-input" type="checkbox" value="" id="defaultCheck1" ngModel name="checkboxExistente" >
+                <label class="form-check-label" for="defaultCheck1">
+                  Item Existente
+                </label>
+              </div>
+              <div>PRUEBA</div>
+            <div >
             <div class="row">
               <div class="col-4">
                 <label>Nombre</label>
@@ -50,7 +58,7 @@
                 <!--Cantidad de producto-->
                 <label for="exampleInputPassword1">Cantidad y Unidades</label>
                 <div class="input-group">
-                  <input #cantidad="ngModel" required type="number" [(ngModel)]="nuevosItems[i].cantidad" name="cantidad" class="form-control">
+                  <input onkeypress="return event.charCode > 48" min="1" #cantidad="ngModel" required type="number" [(ngModel)]="nuevosItems[i].cantidad" name="cantidad" class="form-control">
                   <select #unidadX="ngModel" required type="text" placeholder="0" [(ngModel)]="nuevosItems[i].unidades" name="unidades" class="form-control">
                     <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
                   </select>
@@ -71,6 +79,7 @@
                   <input class="form-control" [(ngModel)]="nuevosItems[i].vencimiento" name="vencimiento" type="date">
               </div>
               </div>
+            </div>
             </div>
           </div>
 

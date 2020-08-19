@@ -11,19 +11,19 @@
         </div>
 
     <form #f="ngForm">
-        <div class="modal-body">
+        <div *ngFor="let item of idsEgreso; let i=index" class="modal-body">
             <div class="form-group">
                 <div class="row">
                 <div class="col-3">
                   <label>Categoría</label>
-                  <select class="form-control" ngModel name="selectTipo" #selectTipo="ngModel">
+                  <select (change)='borrarId(i);' class="form-control" ngModel [name]="'selectTipo'+[i]" #selectTipo="ngModel">
                     <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                   </select>
                 </div>
             <!--Filtro por Item de egreso-->
             <div class="col-3">
                 <label>Item</label>
-                <select [(ngModel)]='idItemElegidoEgreso' class="form-control" name="tipo">
+                <select [(ngModel)]='idsEgreso[i].id' class="form-control" [name]="'idItem'+[i]">
                   <!--NgFor que imprime la cantidad de items que hay en total-->
                   <ng-container *ngFor="let item of inventario">
                   <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
@@ -34,12 +34,12 @@
             <div *ngIf="selectTipo.value == 'Consumible' || selectTipo.value == 'Producto'" class="col-3">
               <!--Label e input de cantidad actual (muestra numero actual en inventario)-->
               <label for="exampleInputEmail1">Cantidad actual</label>
-              <p *ngIf="idItemElegidoEgreso != null">{{inventario[regresarIndice()].cantidad}} {{inventario[regresarIndice()].unidades}}</p>
+              <p *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''">{{inventario[regresarIndice(i)].cantidad}} {{inventario[regresarIndice(i)].unidades}}</p>
             </div>
             <div *ngIf="selectTipo.value == 'Consumible' || selectTipo.value == 'Producto'" class="col-3">
               <!--Label e input de cantidad a egresar (se escribe la cantidad a egresar)-->
               <label for="exampleInputEmail1">Cantidad a egresar</label>
-              <input type="number" [(ngModel)]="cantidadEgreso" name="nombre" class="form-control">
+              <input *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''" [max]="inventario[regresarIndice(i)].cantidad" type="number" [(ngModel)]="idsEgreso[i].cantidad" [name]="'cantidadEgreso'+[i]" class="form-control">
             </div>
             </div>
         </div>
@@ -47,20 +47,26 @@
             <div class="row">
                 <div class="col">
                     <label for="exampleInputEmail1">Obra destino</label>
-                    <input ngModel name="obra" class="form-control">
+                    <input [(ngModel)]='idsEgreso[i].obra' [name]="'obra'+[i]" class="form-control">
                 </div>
                 <div class="col">
                     <label for="exampleInputEmail1">Responsable</label>
-                    <input ngModel name="responsable" class="form-control">
+                    <input [(ngModel)]='idsEgreso[i].responsable' [name]="'responsable'+[i]" class="form-control">
                 </div>
             </div>
         </div>
-
         </div>
         <!--Footer de Modal de egresar, con botones de cerrar y-->
         <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="agregarItem()">Más Items</button>
+          <button [hidden]="idsEgreso.length == 1" type="button" class="btn btn-secondary" (click)="restarItem()">Menos Items</button>
             <button type="button" class="btn btn-secondary"  data-dismiss="modal" (click)="borrarForm()">Cerrar</button>
-            <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="egresarItems()">Egresar</button>
+            <button
+
+              type="button"
+              class="btn btn-warning"
+              data-dismiss="modal"
+              (click)="egresarItems()">Egresar</button>
         </div>
 
     </form>

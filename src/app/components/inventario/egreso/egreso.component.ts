@@ -23,6 +23,7 @@ export class EgresoComponent implements OnInit {
   // selectTipo: string;
   idItemElegidoEgreso: string = null;
   cantidadEgreso: number = 0;
+  idsEgreso = [{id: '', cantidad: null, obra: null, responsable: null}];
 
   constructor(private servicioInventario: InventarioService,
               private categoriaService: CategoriasService,
@@ -66,12 +67,12 @@ egresarItems() {
         obra: this.form.value.obra,
         reponsable: itemEgreso.responsable,
     }
-    if(itemEgreso.tipo != 'Herramienta'){ 
-      
+    if(itemEgreso.tipo != 'Herramienta'){
+
     egreso.cantidad = this.cantidadEgreso;
     // CUANDO ES HERRAMIENTA, SE COLOCA "1 UNIDAD" DE DEFAULT
     } else {
-  
+
     egreso.cantidad = 1;
     }
 
@@ -80,12 +81,25 @@ egresarItems() {
     this.form.reset();
   }
 
-  regresarIndice() {
-    return this.inventario.findIndex(item => item.id == this.idItemElegidoEgreso);
+  regresarIndice(indice: number) {
+    return this.inventario.findIndex(item => item.id == this.idsEgreso[indice].id);
 }
 
   borrarForm() {
     this.form.reset();
+    this.idsEgreso = [{id: '', cantidad: null, obra: null, responsable: null}]
+  }
+
+  agregarItem() {
+    this.idsEgreso.push({id: '', cantidad: null, obra: null, responsable: null});
+  }
+
+  restarItem() {
+    this.idsEgreso.pop();
+  }
+
+  borrarId(indice: number) {
+    this.idsEgreso[indice].id = '';
   }
 
 }
