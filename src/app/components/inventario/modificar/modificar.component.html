@@ -47,7 +47,7 @@
                         <div class="col-4">
                             <label>Cantidad y Unidades</label>
                             <div class="input-group">
-                                <input [disabled]="itemElegido.tipo == 'Herramienta'" onkeypress="return event.charCode >= 48" [(ngModel)]="itemElegido.cantidad" required type="number" name="cantidad" class="form-control">
+                                <input [disabled]="itemElegido.tipo == 'Herramienta'" onkeypress="return event.charCode > 48" min="1" [(ngModel)]="itemElegido.cantidad" required type="number" name="cantidad" class="form-control">
                                 <select [disabled]="itemElegido.tipo == 'Herramienta'" required type="text" placeholder="0"  name="unidades" [(ngModel)]="itemElegido.unidades" class="form-control">
                                 <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
                                 </select>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="col">
                             <label>Precio</label>
-                            <input onkeypress="return event.charCode >= 48" type="number" [(ngModel)]="itemElegido.precio" name="precio" class="form-control">
+                            <input onkeypress="return event.charCode > 48" min="0" type="number" [(ngModel)]="itemElegido.precio" name="precio" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -91,10 +91,10 @@
         <!--Footer de Modal con botones de cerrar y modificar-->
         <div class="modal-footer">
             <button (click)="f.reset()" type="button" class="btn btn-secondary" data-dismiss="modal">
-                <fa-icon [icon]="faTimesCircle"></fa-icon>Cerrar
+                <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
             </button>
             <button (click)="onModificar()" data-dismiss="modal" type="button" class="btn btn-info">
-                <fa-icon [icon]="faPencilAlt"></fa-icon>Modificar
+                <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
             </button>
         </div>
 

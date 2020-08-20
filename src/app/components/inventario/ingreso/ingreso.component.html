@@ -44,7 +44,7 @@
               <div class="col-3">
                 <label>Precio</label>
                 <div class="input-group">
-                <input onkeypress="return event.charCode >= 48" type="number" [(ngModel)]="nuevosItems[i].precio" name="precio" class="form-control">
+                <input onkeypress="return event.charCode >= 48" min="0"  type="number" [(ngModel)]="nuevosItems[i].precio" name="precio" class="form-control">
                 <div class="input-group-append">
                   <span class="input-group-text" id="basic-addon1">$</span>
                 </div>
@@ -91,7 +91,7 @@
           <button type="button" class="btn btn-primary" (click)="agregarItem()">
             <fa-icon [icon]="faPlusCircle"></fa-icon> Más Items
           </button>
-          <button type="button" class="btn btn-secondary" [disabled]="nuevosItems.length == 1" (click)="restarItem()">
+          <button type="button" [hidden]="nuevosItems.length == 1" class="btn btn-secondary" [disabled]="nuevosItems.length == 1" (click)="restarItem()">
             <fa-icon [icon]="faMinusCircle"></fa-icon> Menos Items
           </button>
         </div>

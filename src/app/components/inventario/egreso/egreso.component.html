@@ -15,31 +15,33 @@
             <div class="form-group">
                 <div class="row">
                 <div class="col-3">
-                  <label>Categoría</label>
-                  <select (change)='borrarId(i);' class="form-control" ngModel [name]="'selectTipo'+[i]" #selectTipo="ngModel">
+                <label>Categoría</label>
+                <select (change)='borrarId(i);' class="form-control" ngModel [name]="'selectTipo'+[i]" #selectTipo="ngModel">
                     <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
-                  </select>
+                </select>
                 </div>
             <!--Filtro por Item de egreso-->
             <div class="col-3">
                 <label>Item</label>
                 <select [(ngModel)]='idsEgreso[i].id' class="form-control" [name]="'idItem'+[i]">
-                  <!--NgFor que imprime la cantidad de items que hay en total-->
-                  <ng-container *ngFor="let item of inventario">
-                  <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
-                  <option *ngIf="item.tipo == selectTipo.value && item.estado == 'Disponible'" value='{{item.id}}'>{{ item.nombre }}</option>
-                  </ng-container>
+                <!--NgFor que imprime la cantidad de items que hay en total-->
+                <ng-container *ngFor="let item of inventario">
+                <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
+                <option *ngIf="item.tipo == selectTipo.value && item.estado == 'Disponible'" value='{{item.id}}'>{{ item.nombre }}</option>
+                </ng-container>
                 </select>
             </div>
             <div *ngIf="selectTipo.value == 'Consumible' || selectTipo.value == 'Producto'" class="col-3">
-              <!--Label e input de cantidad actual (muestra numero actual en inventario)-->
-              <label for="exampleInputEmail1">Cantidad actual</label>
-              <p *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''">{{inventario[regresarIndice(i)].cantidad}} {{inventario[regresarIndice(i)].unidades}}</p>
+            <!--Label e input de cantidad actual (muestra numero actual en inventario)-->
+            <label for="exampleInputEmail1">Cantidad actual</label>
+            <p *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''">{{inventario[regresarIndice(i)].cantidad}} {{inventario[regresarIndice(i)].unidades}}</p>
             </div>
             <div *ngIf="selectTipo.value == 'Consumible' || selectTipo.value == 'Producto'" class="col-3">
-              <!--Label e input de cantidad a egresar (se escribe la cantidad a egresar)-->
-              <label for="exampleInputEmail1">Cantidad a egresar</label>
-              <input *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''" [max]="inventario[regresarIndice(i)].cantidad" type="number" [(ngModel)]="idsEgreso[i].cantidad" [name]="'cantidadEgreso'+[i]" class="form-control">
+            <!--Label e input de cantidad a egresar (se escribe la cantidad a egresar)-->
+            <label for="exampleInputEmail1">Cantidad a egresar</label>
+            <input *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''"
+            onkeypress="return event.charCode > 48" min="1"
+            [max]="inventario[regresarIndice(i)].cantidad" type="number" [(ngModel)]="idsEgreso[i].cantidad" [name]="'cantidadEgreso'+[i]" class="form-control">
             </div>
             </div>
         </div>
@@ -60,18 +62,21 @@
         <div class="modal-footer">
             <div class="btn-group">
             <button type="button" class="btn btn-primary" (click)="agregarItem()">
-                <fa-icon [icon]="faPlusCircle"></fa-icon>Más Items</button>
+                <fa-icon [icon]="faPlusCircle"></fa-icon> Más Items
+            </button>
             <button [hidden]="idsEgreso.length == 1" type="button" class="btn btn-secondary" (click)="restarItem()">
-                <fa-icon [icon]="faMinusCircle"></fa-icon>Menos Items</button>
+                <fa-icon [icon]="faMinusCircle"></fa-icon> Menos Items
+            </button>
             </div>
             <button type="button" class="btn btn-secondary"  data-dismiss="modal" (click)="borrarForm()">
-                <fa-icon [icon]="faTimesCircle"></fa-icon>Cerrar</button>
+                <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+            </button>
             <button
                 type="button"
                 class="btn btn-warning"
                 data-dismiss="modal"
                 (click)="egresarItems()">
-                <fa-icon [icon]="faSignOutAlt"></fa-icon>Egresar
+                <fa-icon [icon]="faSignOutAlt"></fa-icon> Egresar
             </button>
         </div>
 
