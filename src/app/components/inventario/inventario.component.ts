@@ -32,7 +32,7 @@ export class InventarioComponent implements OnInit {
   faSignInAlt = faSignInAlt;
   faSignOutAlt = faSignOutAlt;
   faTimesCircle = faTimesCircle;
-  faExclamationCircle = faExclamationCircle; 
+  faExclamationCircle = faExclamationCircle;
   faPencilAlt = faPencilAlt;
   faPlusCircle = faPlusCircle;
   faInfoCircle = faInfoCircle;
@@ -54,6 +54,11 @@ export class InventarioComponent implements OnInit {
     serial: null,
     precio: null,
     unidades: null
+  }
+
+  itemBorrar = {
+    id: null,
+    nombre: null
   }
 
   //VARIABLE PARA MODEL DE AVERIA
@@ -98,6 +103,16 @@ export class InventarioComponent implements OnInit {
   //RECIBE EL ITEM DE LA FILA, E IMPRIME DICHOS DATOS EN UNA VARIABLE
   asignarDetalles(item: Item) {
     this.datosInfo = item;
+  }
+
+  // ASIGNA LOS DATOS DEL ITEM A BORRAR EN LA VARIABLE itemBorrar
+  asignarBorrar(id, nombre) {
+    this.itemBorrar.id = id;
+    this.itemBorrar.nombre = nombre;
+  }
+  // ELIMINA EL ITEM SELECCIONADO DE LA BD CUANDO EL USUARIO ACEPTA EN EL MODAL
+  eliminarItem() {
+    console.log(this.servicioInventario.eliminarItem(this.itemBorrar.id));
   }
 
   //BUSCA ITEM PARA REPORTAR AVERIA

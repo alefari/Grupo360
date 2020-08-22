@@ -89,15 +89,38 @@
                             'text-danger': item.estado=='Dañado',
                             'text-info': item.estado=='En Obra'}">{{ item.estado }}</td>
             <td>
-              <button (click)="asignarDetalles(item)" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalInfo">
+              <div class="btn-group">
+                <button (click)="asignarDetalles(item)" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalInfo">
                 <fa-icon [icon]="faInfoCircle"></fa-icon> Detalles
               </button>
+              <button (click)="asignarBorrar(item.id, item.nombre)" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar">
+                <fa-icon [icon]="faInfoCircle"></fa-icon> Eliminar
+              </button>
+              </div>
             </td>
           </tr>
         </ng-container>
       </tbody>
   </table>
 </div>
+<!-- INICIO MODAL ELIMINAR -->
+<div class="modal" tabindex="-1" id="modalEliminar">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger">
+        <h5 class="modal-title text-white">Eliminar Item</h5>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro que deseas eliminar <strong>{{ itemBorrar.nombre }}</strong>?. <br> <span class="text-danger">Esta acción es irreversible.</span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button (click)="eliminarItem()" data-dismiss="modal" type="button" class="btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- FIN MODAL ELIMINAR -->
 <!-- MODAL DE INFO -->
 <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -157,7 +180,6 @@
                   <td>{{ datosInfo.precio |currency}}</td>
               </tr>
               <tr><th></th><td></td><td></td></tr>
-
           </tbody>
       </table>
       </div>
@@ -209,7 +231,7 @@
                   </select>
               </div>
             </div>
-          </div>  
+          </div>
 
         <!--Footer de Modal de reingreso, con botones de cerrar e ingresar-->
         <div class="modal-footer">
