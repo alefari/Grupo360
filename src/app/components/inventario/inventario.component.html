@@ -193,7 +193,6 @@
   </div>
 
 <!--MODAL DE REPORTE DE PRODUCTO-->
-
 <div class="modal fade" id="modalReporte" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
   <div class="modal-content">
@@ -223,7 +222,7 @@
                     <!--NG FOR QUE COLOCA LA LISTA DE INVENTARIO-->
                     <ng-container *ngFor="let item of inventario">
                       <!--NG IF QUE FILTRA LA LISTA FINAL POR EL TIPO-->
-                      <ng-container *ngIf="item.tipo == selectTipoReporte.value">
+                      <ng-container *ngIf="item.tipo == selectTipoReporte.value && item.estado != 'En Obra'">
                         <option value='{{item.id}}'>{{ item.nombre }}</option>
                       </ng-container>
                     </ng-container>

@@ -19,12 +19,12 @@ export class EgresosComponent implements OnInit {
   categorias: Categoria[];
 
 
-  constructor(private egresosService: EgresosService, 
+  constructor(private egresosService: EgresosService,
               private inventarioService: InventarioService,
               private categoriaService: CategoriasService) { }
 
-  ngOnInit(): void {    
-    
+  ngOnInit(): void {
+
     this.egresosService.obtenerEgresos().subscribe(items => {
     this.egresos = items.sort((a, b) => (a.fecha < b.fecha) ? 1 : ((a.fecha > b.fecha) ? -1 : 0));
   })
@@ -36,15 +36,18 @@ export class EgresosComponent implements OnInit {
   })
   }
 
-  regresarIndice(idItem) {
-    return this.inventario.findIndex(item => item.id == idItem);
+  regresarIndice(idItem: string) {
+      return this.inventario.findIndex(item => item.id == idItem);
+
 }
 
 //FUNCIONES DE FILTRO DE TABLA DE EGRESOS
 
     //BUSQUEDA NOMBRE DE FILTRO POR NOMBRE EN TABLA DE INGRESOS
     regresarNombre(id: string) {
-      return this.inventario.find(item => item.id == id).nombre;
+      var itemNombre = this.inventario.find(item => item.id == id);
+      console.log(itemNombre);
+      return itemNombre.nombre;
     }
 
     //BUSQUEDA CATEGORIA DE FILTRO POR CATEGORIA EN TABLA DE INGRESOS
@@ -52,6 +55,6 @@ export class EgresosComponent implements OnInit {
       return this.inventario.find(item => item.id == id).tipo;
     }
 
-    
+
 
 }

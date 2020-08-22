@@ -36,23 +36,25 @@
         <!--NgFor que imprime egresos de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
             <ng-container *ngFor="let egreso of egresos">
               <!-- *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" -->
-            <tr *ngIf="(
-            (regresarNombre(egreso.idItem).toLocaleLowerCase().includes(filtroNombre.value.toLocaleLowerCase()) || filtroNombre.value == '')
-            &&
-            (regresarCategoria(egreso.idItem).includes(filtroCategoria.value)|| filtroCategoria.value == null)
-            &&
-            (egreso.obra.toLocaleLowerCase().includes(filtroObra.value.toLocaleLowerCase()) || filtroObra.value =='')
-            &&
-            (egreso.reponsable.toLocaleLowerCase().includes(filtroResponsable.value.toLocaleLowerCase()) || filtroResponsable.value =='')
-            )"
+            <tr
             scope="row" class="bg-light">
                 <td>{{ inventario[regresarIndice(egreso.idItem)].nombre }} </td>
                 <td>{{ inventario[regresarIndice(egreso.idItem)].tipo }}</td>
-                <td >{{ egreso.cantidad }} {{ inventario[regresarIndice(egreso.idItem)].unidades }}</td>
+                <td>{{ egreso.cantidad }} {{ inventario[regresarIndice(egreso.idItem)].unidades }}</td>
                 <td>{{ egreso.obra }}</td>
                 <td>{{ egreso.reponsable }}</td>
                 <td>{{ egreso.fecha | date:'short' }}</td>
             </tr>
+            <!-- *ngIf="(
+            (regresarNombre(egreso.idItem).toLocaleLowerCase().includes(filtroNombre.value.toLocaleLowerCase()) || filtroNombre.value == '')
+
+            )" -->
+            <!-- && -->
+            <!-- (regresarCategoria(egreso.idItem).includes(filtroCategoria.value)|| filtroCategoria.value == null) -->
+            <!-- && -->
+            <!-- (egreso.obra.toLocaleLowerCase().includes(filtroObra.value.toLocaleLowerCase()) || filtroObra.value =='') -->
+            <!-- && -->
+            <!-- (egreso.reponsable.toLocaleLowerCase().includes(filtroResponsable.value.toLocaleLowerCase()) || filtroResponsable.value =='') -->
             </ng-container>
         </tbody>
     </table>
