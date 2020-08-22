@@ -217,7 +217,6 @@
                       <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                     </select>
               </div>
-
               <div class="col">
                   <label>Item</label>
                   <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" class='form-control' ngModel name="id">
@@ -235,12 +234,17 @@
 
         <!--Footer de Modal de reingreso, con botones de cerrar e ingresar-->
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"(click)="borrarForm()">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="borrarForm()">
               <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
             </button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="reportarAveria()">
-              <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar
+
+            <button data-dismiss="modal" *ngIf="idItem.value && regresarItem(idItem.value).estado == 'Dañado'" type="button" class="btn btn-primary"  (click)="reportarReparado()">
+              <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar Reparado
             </button>
+            <button *ngIf="idItem.value && regresarItem(idItem.value).estado == 'Disponible'" data-dismiss="modal" type="button" class="btn btn-danger" (click)="reportarAveria()">
+              <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar Dañado
+            </button>
+
         </div>
 
       </form>

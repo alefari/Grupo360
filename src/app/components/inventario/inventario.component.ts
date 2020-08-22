@@ -119,6 +119,10 @@ export class InventarioComponent implements OnInit {
   regresarIndice() {
     return this.inventario.findIndex(item => item.id == this.idItemElegido);
 }
+  regresarItem(id: string) {
+    return this.inventario.find(item => item.id == id);
+}
+
   //CREA ITEM TEMPORAL EN DONDE COLOCARA NUEVOS ESTADOS
   alElegirItem(idItem: string) {
   this.itemAveriado = this.inventario.find(item => item.id == idItem);
@@ -130,10 +134,18 @@ export class InventarioComponent implements OnInit {
     //SE BORRAN LOS CAMPOS DEL FORMULARIO
     this.form.reset();
   }
+  reportarReparado() {
+    this.itemAveriado.estado = "Disponible";
+    this.servicioInventario.editarItem(this.itemAveriado);
+    //SE BORRAN LOS CAMPOS DEL FORMULARIO
+    this.form.reset();
+  }
 
   //BORRA FORMMULARIO DE AVERIA
   borrarForm() {
     this.form.reset();
   }
+
+
 
 }
