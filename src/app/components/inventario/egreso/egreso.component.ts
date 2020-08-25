@@ -73,6 +73,9 @@ egresarItems() {
     }
     else {
       itemEgreso.cantidad = itemEgreso.cantidad - itemCiclo.cantidad;
+      if(itemEgreso.cantidad == 0){
+        itemEgreso.estado = "Agotado";
+      }
     }
     itemEgreso.responsable = itemCiclo.responsable;
 
@@ -80,9 +83,12 @@ egresarItems() {
 
     let egreso: Egreso = {
       idItem: itemEgreso.id,
-        fecha: new Date().toISOString(),
-        obra: itemCiclo.obra,
-        reponsable: itemCiclo.responsable,
+      nombreItem: itemEgreso.nombre,
+      categoriaItem: itemEgreso.tipo,
+      unidades: itemEgreso.unidades,
+      fecha: new Date().toISOString(),
+      obra: itemCiclo.obra,
+      reponsable: itemCiclo.responsable,
     }
     if(itemEgreso.tipo != 'Herramienta'){
       egreso.cantidad = itemCiclo.cantidad;

@@ -32,7 +32,7 @@ export class IngresoComponent implements OnInit {
   //ICONOS FONTAWESOME
   faSignInAlt = faSignInAlt;
   faTimesCircle = faTimesCircle;
-  faMinusCircle = faMinusCircle; 
+  faMinusCircle = faMinusCircle;
   faPlusCircle = faPlusCircle;
 
 
@@ -101,6 +101,9 @@ export class IngresoComponent implements OnInit {
       this.ingresosService.agregarIngreso(
         {
           idItem: item.id,
+          nombreItem: item.nombre,
+          categoriaItem: item.tipo,
+          unidades: item.unidades,
           fecha: new Date().toISOString(),
           cantidad: item.cantidad,
           precio: item.precio,

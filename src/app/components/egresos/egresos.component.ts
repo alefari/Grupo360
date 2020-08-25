@@ -5,7 +5,8 @@ import { EgresosService } from 'src/app/services/egresos.service';
 import { InventarioService } from 'src/app/services/inventario.service';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { Categoria } from 'src/app/models/categoria.model';
-
+import { EliminadosService } from 'src/app/services/eliminados.service';
+import { Eliminacion } from 'src/app/models/eliminacion.model';
 
 @Component({
   selector: 'app-egresos',
@@ -17,11 +18,12 @@ export class EgresosComponent implements OnInit {
   egresos: Egreso[];
   inventario: Item[];
   categorias: Categoria[];
-
+  eliminados: Eliminacion[];
 
   constructor(private egresosService: EgresosService,
               private inventarioService: InventarioService,
-              private categoriaService: CategoriasService) { }
+              private categoriaService: CategoriasService,
+              private eliminadosService: EliminadosService) { }
 
   ngOnInit(): void {
 
@@ -33,6 +35,9 @@ export class EgresosComponent implements OnInit {
   })
   this.categoriaService.obtenerCategorias().subscribe(items => {
     this.categorias = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
+  })
+  this.eliminadosService.obtenerEliminados().subscribe(items => {
+    this.eliminados = items.sort((a, b) => (a.fecha < b.fecha) ? 1 : -1);
   })
   }
 

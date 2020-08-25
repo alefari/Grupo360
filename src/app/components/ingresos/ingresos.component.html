@@ -43,9 +43,9 @@
               &&
               (ingreso.modalidad.toLocaleLowerCase().includes(filtroModalidad.value.toLocaleLowerCase()) || filtroModalidad.value == '')
               )" scope="row" class="bg-light">
-              <td>{{ inventario[regresarIndice(ingreso.idItem)].nombre }}</td>
-              <td>{{ inventario[regresarIndice(ingreso.idItem)].tipo }}</td>
-              <td>{{ ingreso.cantidad }} {{ inventario[regresarIndice(ingreso.idItem)].unidades }}</td>
+              <td>{{ ingreso.nombreItem }}</td>
+              <td>{{ ingreso.categoriaItem }}</td>
+              <td>{{ ingreso.cantidad }} {{ ingreso.unidades }}</td>
               <td>
                 <div *ngIf="ingreso.precio != null; else sinPrecio">
                   {{ ingreso.precio | currency }}

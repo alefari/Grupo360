@@ -17,6 +17,8 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { EliminadosService } from 'src/app/services/eliminados.service';
+import { Eliminacion } from 'src/app/models/eliminacion.model';
 
 
 @Component({
@@ -85,7 +87,8 @@ export class InventarioComponent implements OnInit {
 
   constructor(private servicioInventario: InventarioService,
               private servicioCategorias: CategoriasService,
-              private servicioUbicaciones: UbicacionesService) { }
+              private servicioUbicaciones: UbicacionesService,
+              private servicioEliminados: EliminadosService) { }
 
 //Se adjuntan items de base de datos a la variable inventario, y se ordena items en orden alfabetico//
   ngOnInit(): void {
@@ -112,7 +115,17 @@ export class InventarioComponent implements OnInit {
   }
   // ELIMINA EL ITEM SELECCIONADO DE LA BD CUANDO EL USUARIO ACEPTA EN EL MODAL
   eliminarItem() {
-    console.log(this.servicioInventario.eliminarItem(this.itemBorrar.id));
+
+    this.servicioInventario.eliminarItem(this.itemBorrar.id);
+    var eliminacion: Eliminacion = {
+      idItem: this.itemBorrar.id,
+      nombreItem: this.itemBorrar.nombre,
+      categoriaItem: this.inventario.find(item => item.id == this.itemBorrar.id).tipo,
+      unidades: this.inventario.find(item => item.id == this.itemBorrar.id).unidades,
+      fecha: new Date().toISOString(),
+      cantidad: this.inventario.find(item => item.id == this.itemBorrar.id).cantidad
+    }
+    this.servicioEliminados.agregarEliminado(eliminacion);
   }
 
   //BUSCA ITEM PARA REPORTAR AVERIA

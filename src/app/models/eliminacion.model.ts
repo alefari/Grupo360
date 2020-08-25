@@ -1,12 +1,10 @@
-export interface Ingreso {
+export interface Eliminacion {
   id?: string,
   idItem: string,
   nombreItem: string,
   categoriaItem: string,
   unidades: string,
   fecha: string,
-  cantidad: number,
-  precio?: number
-  IdUsuario?: string,
-  modalidad?: string;
+  cantidad?: number,
+  IdUsuario?: string
 }

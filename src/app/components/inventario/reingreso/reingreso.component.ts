@@ -23,13 +23,13 @@ import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 //Se declaran las variables a utilizar en reingreso
 export class ReingresoComponent implements OnInit {
   @ViewChild('f') form: NgForm;
-  
+
   //ICONOS FONTAWESOME
   faSignInAlt = faSignInAlt;
   faTimesCircle = faTimesCircle;
-  faMinusCircle = faMinusCircle; 
+  faMinusCircle = faMinusCircle;
   faPlusCircle = faPlusCircle;
-  
+
   inventario: Item[];
   categorias: Categoria[];
   // selectTipo: string;
@@ -65,17 +65,18 @@ export class ReingresoComponent implements OnInit {
     for(let item of this.idsReingreso) {
       let nuevoItem = this.inventario.find(itemInv => itemInv.id == item.id);
       // let nuevoItem = this.inventario[this.inventario.findIndex(itemInv => itemInv.id == item.id)];
-      if(nuevoItem.tipo == "Herramienta") {
-        nuevoItem.estado = "Disponible"
-      }
-      else {
+      if(nuevoItem.tipo != "Herramienta") {
         nuevoItem.cantidad += item.cantidad;
       }
+      nuevoItem.estado = "Disponible"
       this.servicioInventario.editarItem(nuevoItem);
 
       this.ingresosService.agregarIngreso(
         {
           idItem: nuevoItem.id,
+          nombreItem: nuevoItem.nombre,
+          categoriaItem: nuevoItem.tipo,
+          unidades: nuevoItem.unidades,
           fecha: new Date().toISOString(),
           cantidad: nuevoItem.cantidad,
           modalidad: "Reingreso",
