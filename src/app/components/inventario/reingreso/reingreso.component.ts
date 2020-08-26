@@ -34,9 +34,10 @@ export class ReingresoComponent implements OnInit {
   categorias: Categoria[];
   // selectTipo: string;
   cantidadIngreso: number = 0;
+  valido: boolean = true;
 
   idsReingreso = [
-    {id: "", cantidad: null}
+    {id: "", cantidad: 1}
   ];
 
   constructor(private servicioInventario: InventarioService,
@@ -85,22 +86,32 @@ export class ReingresoComponent implements OnInit {
       )
     }
     this.form.reset();
-    this.idsReingreso = [{id: "", cantidad: null}];
+    this.idsReingreso = [{id: "", cantidad: 1}];
   }
 
 
 
   borrarForm() {
     this.form.reset();
-    this.idsReingreso = [{id: "", cantidad: null}];
+    this.idsReingreso = [{id: "", cantidad: 1}];
   }
 
   agregarItem() {
-    this.idsReingreso.push({id: "", cantidad: null});
+    this.idsReingreso.push({id: "", cantidad: 1});
   }
 
   restarItem() {
     this.idsReingreso.pop();
+  }
+
+  revisarCantidad() {
+    for(let item of this.idsReingreso){
+      if(item.cantidad <= 0) {
+        this.valido = false;
+        return
+      }
+    }
+    this.valido = true;
   }
 
 }

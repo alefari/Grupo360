@@ -35,12 +35,12 @@ export class IngresoComponent implements OnInit {
   faMinusCircle = faMinusCircle;
   faPlusCircle = faPlusCircle;
 
-
   categorias: Categoria[];
   ubicaciones: any[];
   unidades: any[];
   inventario: Item[];
   nombre = "";
+  valido: boolean = true;
   // cantidadItems = 1;
 
   nuevosItems: Item[] = [
@@ -185,6 +185,16 @@ export class IngresoComponent implements OnInit {
       }
     }
     return true;
+  }
+
+  revisarCantidad() {
+    for(let item of this.nuevosItems){
+      if(item.cantidad <= 0) {
+        this.valido = false;
+        return
+      }
+    }
+    this.valido = true;
   }
 
 }

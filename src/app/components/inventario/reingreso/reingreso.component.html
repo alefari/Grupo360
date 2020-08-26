@@ -44,9 +44,15 @@
               <div *ngIf="selectTipo.value != 'Herramienta'" class="col-3">
                 <!--Label e input de cantidad a ingresar (se escribe la cantidad a ingresar)-->
                 <label for="exampleInputEmail1">Cantidad a ingresar</label>
-                <input *ngIf="idsReingreso[i].id != null && idsReingreso[i].id != undefined && idsReingreso[i].id != ''"
-                onkeypress="return event.charCode > 48" min="1" 
-                type="number"  [(ngModel)]="idsReingreso[i].cantidad" [name]="'cantidad'+[i]" class="form-control">
+                <input
+                  *ngIf="idsReingreso[i].id != null && idsReingreso[i].id != undefined && idsReingreso[i].id != ''"
+                  onkeypress="return event.charCode >= 46"
+                  min="1"
+                  type="number"
+                  (keyup)='revisarCantidad()'
+                  [(ngModel)]="idsReingreso[i].cantidad"
+                  [name]="'cantidad'+[i]"
+                  class="form-control">
               </div>
 
           </div>
@@ -67,7 +73,7 @@
           <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="borrarForm()">
             <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
           </button>
-          <button type="button" class="btn btn-success" (click)="reingresarItems()" data-dismiss="modal">
+          <button [disabled]='!valido' type="button" class="btn btn-success" (click)="reingresarItems()" data-dismiss="modal">
             <fa-icon [icon]="faSignInAlt"></fa-icon> Ingresar
           </button>
       </div>
