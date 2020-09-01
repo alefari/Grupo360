@@ -32,7 +32,7 @@
               <div class="col-3">
                 <!--Label y Select del tipo de producto-->
                 <label for="exampleFormControlSelect1">Categoría</label>
-                <select #cat="ngModel" #cat[i]="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].tipo" [name]="'cat' + [i]">
+                <select (change)='restablecerCantidad(i);' #cat="ngModel" #cat[i]="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].tipo" [name]="'cat' + [i]">
                   <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                 </select>
                 <small *ngIf="!cat.valid && cat.touched" class="text-danger">Ingrese una categoria.</small>
@@ -109,7 +109,7 @@
           <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
         </button>
         <!-- !f.valid significa cuando el form no sea valido -->
-        <button [disabled]='!valido' data-dismiss="modal" type="button" class="btn btn-success" (click)="onSubmit()">
+        <button [disabled]='!f.valid || !valido' data-dismiss="modal" type="button" class="btn btn-success" (click)="onSubmit()">
           <fa-icon [icon]="faSignInAlt"></fa-icon> Ingresar
       </button>
     </div>

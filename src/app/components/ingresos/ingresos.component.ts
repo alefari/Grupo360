@@ -17,6 +17,7 @@ export class IngresosComponent implements OnInit {
   ingresos: Ingreso[];
   inventario: Item[];
   categorias: Categoria[];
+  oculto = true;
 
   constructor(private ingresosService: IngresosService,
               private inventarioService: InventarioService,
@@ -49,6 +50,7 @@ export class IngresosComponent implements OnInit {
   }
 
   descargarPDF() {
+    this.oculto = false;
     const opciones = {
       margin: 1,
       filename: 'Ingresos.pdf',
@@ -63,5 +65,7 @@ export class IngresosComponent implements OnInit {
       .from(contenido)
       .set(opciones)
       .save();
+
+      this.oculto = true;
   }
 }

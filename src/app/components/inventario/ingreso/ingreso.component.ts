@@ -197,4 +197,12 @@ export class IngresoComponent implements OnInit {
     this.valido = true;
   }
 
+  restablecerCantidad(indice: number) {
+    if(this.nuevosItems[indice].tipo == "Herramienta") {
+      this.nuevosItems[indice].cantidad = 1;
+    }
+
+    this.revisarCantidad();
+  }
+
 }
