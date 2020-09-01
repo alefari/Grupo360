@@ -26,25 +26,25 @@
             <div class="row">
               <div class="col-4">
                 <label>Nombre</label>
-                <input #nombre="ngModel" required type="text" [(ngModel)]="nuevosItems[i].nombre" name="nombre" class="form-control">
+                <input #nombre="ngModel" required type="text" [(ngModel)]="nuevosItems[i].nombre" [name]="'nombre' + [i]" class="form-control">
                 <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingrese un nombre.</small>
               </div>
               <div class="col-3">
                 <!--Label y Select del tipo de producto-->
                 <label for="exampleFormControlSelect1">Categoría</label>
-                <select #cat="ngModel" #cat[i]="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].tipo" name="cat[i]">
+                <select #cat="ngModel" #cat[i]="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].tipo" [name]="'cat' + [i]">
                   <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                 </select>
                 <small *ngIf="!cat.valid && cat.touched" class="text-danger">Ingrese una categoria.</small>
               </div>
               <div class="col-2">
                 <label>Serial</label>
-                <input type="text" [(ngModel)]="nuevosItems[i].serial" name="serial" class="form-control" aria-describedby="emailHelp">
+                <input type="text" [(ngModel)]="nuevosItems[i].serial" [name]="'serial' + [i]" class="form-control" aria-describedby="emailHelp">
               </div>
               <div class="col-3">
                 <label>Precio</label>
                 <div class="input-group">
-                <input onkeypress="return event.charCode >= 46" min="0"  type="number" [(ngModel)]="nuevosItems[i].precio" name="precio" class="form-control">
+                <input onkeypress="return event.charCode >= 46" min="0"  type="number" [(ngModel)]="nuevosItems[i].precio" [name]="'precio' + [i]" class="form-control">
                 <div class="input-group-append">
                   <span class="input-group-text" id="basic-addon1">$</span>
                 </div>
@@ -66,10 +66,10 @@
                     required
                     type="number"
                     [(ngModel)]="nuevosItems[i].cantidad"
-                    name="cantidad"
+                    [name]="'cantidad' + [i]"
                     class="form-control"
                     (keyup)='revisarCantidad()'>
-                  <select #unidadX="ngModel" required type="text" placeholder="0" [(ngModel)]="nuevosItems[i].unidades" name="unidades" class="form-control">
+                  <select #unidadX="ngModel" required type="text" placeholder="0" [(ngModel)]="nuevosItems[i].unidades" [name]="'unidades' + [i]" class="form-control">
                     <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
                   </select>
                 </div>
@@ -78,7 +78,7 @@
               </div>
               <div class="col-4">
                 <label>Ubicación en almacén</label>
-                <select type="text" [(ngModel)]="nuevosItems[i].ubicacion" name="ubicacion" class="form-control" aria-describedby="emailHelp">
+                <select type="text" [(ngModel)]="nuevosItems[i].ubicacion" [name]="'ubicacion' + [i]" class="form-control" aria-describedby="emailHelp">
                   <option *ngFor="let ubicacion of ubicaciones" value="{{ ubicacion.nombre }}">{{ ubicacion.nombre }}</option>
                 </select>
               </div>
@@ -86,7 +86,7 @@
                 <!--Condicion para colocar fecha de vencimiento (Producto o consumible unicamente)-->
                 <div *ngIf="nuevosItems[i].tipo == 'Consumible' || nuevosItems[i].tipo == 'Producto'" class="form-group">
                   <label>Vencimiento</label>
-                  <input class="form-control" [(ngModel)]="nuevosItems[i].vencimiento" name="vencimiento" type="date">
+                  <input class="form-control" [(ngModel)]="nuevosItems[i].vencimiento" [name]="'vencimiento' + [i]" type="date">
               </div>
               </div>
             </div>

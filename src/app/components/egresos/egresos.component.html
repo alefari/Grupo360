@@ -35,8 +35,12 @@
         <tbody>
         <!--NgFor que imprime egresos de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
             <ng-container *ngFor="let egreso of egresos">
-              <!-- *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" -->
-            <tr
+
+            <tr *ngIf="((egreso.nombreItem.toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value=='') &&
+                        (egreso.categoriaItem.toLocaleLowerCase().includes(filtroCategoria.value.toLocaleLowerCase()) || filtroCategoria.value=='') &&
+                        (egreso.obra.toLocaleLowerCase().includes(filtroObra.value.toLocaleLowerCase()) || filtroObra.value=='') && 
+                        (egreso.reponsable.toLocaleLowerCase().includes(filtroResponsable.value.toLocaleLowerCase()) || filtroResponsable.value==''))"
+
             scope="row" class="bg-light">
                 <td>{{ egreso.nombreItem }} </td>
                 <td>{{ egreso.categoriaItem }}</td>

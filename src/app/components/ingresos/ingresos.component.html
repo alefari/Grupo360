@@ -19,7 +19,13 @@
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
-            <th scope="col"><input #filtroModalidad="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por modalidad"></th>
+            <th scope="col">
+              <select #filtroModalidad="ngModel" class="form-control form-control-sm" ngModel name="filtroModalidad">
+              <option value="">Modalidad (Todas)</option>
+              <option value='Ingreso'> Ingreso </option>
+              <option value='Reingreso'> Reingreso </option>
+              </select>
+            </th>
           </tr>
         </thead>
         <thead class="thead bg-primary text-white">
@@ -38,11 +44,11 @@
         <!--FILTROS DE LA TABLA DE INGRESOS-->
           <ng-container *ngFor="let ingreso of ingresos">
             <tr *ngIf="(
-              (regresarNombre(ingreso.idItem).toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value == '')
+              (ingreso.nombreItem.toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value == '')
               &&
-              (regresarCategoria(ingreso.idItem).includes(filtroCategoria.value) || filtroCategoria.value == null)
+              (ingreso.categoriaItem.includes(filtroCategoria.value) || filtroCategoria.value == null)
               &&
-              (ingreso.modalidad.toLocaleLowerCase().includes(filtroModalidad.value.toLocaleLowerCase()) || filtroModalidad.value == '')
+              (ingreso.modalidad==filtroModalidad.value || filtroModalidad.value == '')
               )" scope="row" class="bg-light">
               <td>{{ ingreso.nombreItem }}</td>
               <td>{{ ingreso.categoriaItem }}</td>
