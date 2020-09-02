@@ -28,7 +28,7 @@ import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 export class IngresoComponent implements OnInit {
   @ViewChild('f') form: NgForm;
-
+  itemExistente: boolean[];
   //ICONOS FONTAWESOME
   faSignInAlt = faSignInAlt;
   faTimesCircle = faTimesCircle;
