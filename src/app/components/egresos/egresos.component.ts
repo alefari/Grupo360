@@ -7,6 +7,7 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 import { Categoria } from 'src/app/models/categoria.model';
 import { EliminadosService } from 'src/app/services/eliminados.service';
 import { Eliminacion } from 'src/app/models/eliminacion.model';
+import * as html2pdf from 'html2pdf.js';
 
 @Component({
   selector: 'app-egresos',
@@ -60,6 +61,23 @@ export class EgresosComponent implements OnInit {
       return this.inventario.find(item => item.id == id).tipo;
     }
 
+    //SE DESCARGA EL PDF DE EGRESOS
+    descargarPDF() {
+      const opciones = {
+        margin: 1,
+        filename: 'Ingresos.pdf',
+        image: {type: 'jpeg', quality: 1},
+        html2canvas: {},
+        jsPDF: {unit: 'cm', format: 'letter', orientation: 'portrait'}
+      };
+  
+      const contenido: Element = document.getElementById('elemento-a-exportar');
+  
+      html2pdf()
+        .from(contenido)
+        .set(opciones)
+        .save();
+    }
 
 
 }

@@ -1,4 +1,5 @@
 <div class="container">
+    <button data-toggle="modal" data-target="#pdfEgresos" class="btn btn-danger">Exportar a PDF</button>
     <div class="row">
         <h1>Egresos</h1>
     </div>
@@ -104,5 +105,58 @@
             </ng-container>
         </tbody>
     </table>
+    </div>
+</div>
+
+<!-- MODAL PDF EGRESOS -->
+<div class="modal fade" id="pdfEgresos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Exportar a PDF</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body" id='elemento-a-exportar'>
+        <!-- <img src="../../../assets/logo.svg" alt="Logo" class="img-fluid" style="max-width: 75px; width: 100%; margin: 0; padding: 0"> -->
+        <div class="row">
+            <h4>Egresos</h4>
+        </div>
+        <div class="row">
+            <!--Tabla de inventario en donde se muestra el inventario general-->
+            <table class="table table-sm letras">
+                <thead class="thead bg-danger text-white">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Obra</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Fecha Egreso</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <!--FILTROS DE LA TABLA DE INGRESOS-->
+                <ng-container *ngFor="let egreso of egresos">
+                    <tr>
+                    <td>{{ egreso.nombreItem }}</td>
+                    <td>{{ egreso.categoriaItem }}</td>
+                    <td>{{ egreso.cantidad }} {{ egreso.unidades }}</td>
+                    <td>{{ egreso.obra }}</td>
+                    <td>{{ egreso.fecha | date:'short'}}</td>
+                    <td>{{ egreso.reponsable }}</td>                    
+                </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" (click)="descargarPDF()" class="btn btn-danger">Exportar</button>
+        </div>
+    </div>
     </div>
 </div>
