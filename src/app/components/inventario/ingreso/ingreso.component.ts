@@ -28,7 +28,7 @@ import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 export class IngresoComponent implements OnInit {
   @ViewChild('f') form: NgForm;
-  itemExistente: boolean[];
+  itemExistenteVar: boolean[] = [];
   //ICONOS FONTAWESOME
   faSignInAlt = faSignInAlt;
   faTimesCircle = faTimesCircle;
@@ -81,52 +81,59 @@ export class IngresoComponent implements OnInit {
 
   onSubmit() {
 //Se agrega nuevoItem al inventario existente, y se borran los campos//
+    let indice: number = 0;
     for(var item of this.nuevosItems) {
-      var idAUsar = this.generarId().toString();
 
-      // REVISA SI EL ID ESTA DISPONIBLE Y DE NO ESTARLO LO CAMBIA
-      while(!this.revisarDisponibilidad(idAUsar)){
-        idAUsar = this.generarId().toString();
-      }
-
-      item.id = idAUsar;
-
-      if(item.tipo == "Herramienta") {
-        item.cantidad = 1;
-        item.unidades = "Unidad";
-      }
-
-      this.inventarioService.agregarItem(item);
-
-      this.ingresosService.agregarIngreso(
-        {
-          idItem: item.id,
-          nombreItem: item.nombre,
-          categoriaItem: item.tipo,
-          unidades: item.unidades,
-          fecha: new Date().toISOString(),
-          cantidad: item.cantidad,
-          precio: item.precio,
-          modalidad: "Ingreso"
+      if(!this.itemExistenteVar[indice]) {
+        var idAUsar = this.generarId().toString();
+        // REVISA SI EL ID ESTA DISPONIBLE Y DE NO ESTARLO LO CAMBIA
+        while(!this.revisarDisponibilidad(idAUsar)){
+          idAUsar = this.generarId().toString();
         }
-      )
-    }
-    this.form.reset();
-    this.nuevosItems =
-    // this.cantidadItems = 1;
-    this.nuevosItems = [
-      {
-        nombre: null,
-        tipo: null,
-        cantidad: null,
-        ubicacion: null,
-        vencimiento: null,
-        serial: null,
-        precio: null,
-        unidades: null,
-        estado: "Disponible"
+        item.id = idAUsar;
+        if(item.tipo == "Herramienta") {
+          item.cantidad = 1;
+          item.unidades = "Unidad";
+        }
+        item.fecha = new Date().toISOString();
+        this.inventarioService.agregarItem(item);
+        this.ingresosService.agregarIngreso(
+          {
+            idItem: item.id,
+            nombreItem: item.nombre,
+            categoriaItem: item.tipo,
+            unidades: item.unidades,
+            fecha: new Date().toISOString(),
+            cantidad: item.cantidad,
+            precio: item.precio,
+            modalidad: "Nuevo"
+          }
+        )
       }
-    ]
+      else if (this.itemExistenteVar[indice]) {
+        let itemModificar = this.inventario.find(itemInventario => itemInventario.id == item.nombre);
+        itemModificar.cantidad += item.cantidad;
+        itemModificar.precio += item.precio;
+        this.inventarioService.editarItem(itemModificar);
+        this.ingresosService.agregarIngreso(
+          {
+            idItem: itemModificar.id,
+            nombreItem: itemModificar.nombre,
+            categoriaItem: itemModificar.tipo,
+            unidades: itemModificar.unidades,
+            fecha: new Date().toISOString(),
+            cantidad: item.cantidad,
+            precio: item.precio,
+            modalidad: "Existente"
+          }
+        )
+      }
+
+      indice++;
+    }
+
+    this.cerrarModal();
+
   }
 
   //Al cerrar el modal, se reinician los campos
@@ -203,6 +210,10 @@ export class IngresoComponent implements OnInit {
     }
 
     this.revisarCantidad();
+  }
+
+  regresarItem(id: string) {
+    return this.inventario.find(itemInv => itemInv.id == id);
   }
 
 }

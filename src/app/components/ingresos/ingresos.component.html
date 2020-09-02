@@ -1,5 +1,5 @@
 <div class="container">
-  <button data-toggle="modal" data-target="#pdfIngresos" class="btn btn-primary">Exportar a PDF</button>
+  <button data-toggle="modal" data-target="#pdfIngresos" class="btn btn-primary float-right">Exportar a PDF</button>
   <div class="row">
     <h1>Ingresos</h1>
   </div>
@@ -22,8 +22,9 @@
             <th scope="col">
               <select #filtroModalidad="ngModel" class="form-control form-control-sm" ngModel name="filtroModalidad">
               <option value="">Modalidad (Todas)</option>
-              <option value='Ingreso'> Ingreso </option>
-              <option value='Reingreso'> Reingreso </option>
+              <option value='Nuevo'>Nuevo</option>
+              <option value='Existente'>Existente</option>
+              <option value='Reingreso'>Reingreso</option>
               </select>
             </th>
           </tr>

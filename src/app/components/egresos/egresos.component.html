@@ -1,5 +1,5 @@
 <div class="container">
-    <button data-toggle="modal" data-target="#pdfEgresos" class="btn btn-danger">Exportar a PDF</button>
+    <button data-toggle="modal" data-target="#pdfEgresos" class="btn btn-warning float-right">Exportar a PDF</button>
     <div class="row">
         <h1>Egresos</h1>
     </div>
@@ -39,7 +39,7 @@
 
             <tr *ngIf="((egreso.nombreItem.toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value=='') &&
                         (egreso.categoriaItem.toLocaleLowerCase().includes(filtroCategoria.value.toLocaleLowerCase()) || filtroCategoria.value=='') &&
-                        (egreso.obra.toLocaleLowerCase().includes(filtroObra.value.toLocaleLowerCase()) || filtroObra.value=='') && 
+                        (egreso.obra.toLocaleLowerCase().includes(filtroObra.value.toLocaleLowerCase()) || filtroObra.value=='') &&
                         (egreso.reponsable.toLocaleLowerCase().includes(filtroResponsable.value.toLocaleLowerCase()) || filtroResponsable.value==''))"
 
             scope="row" class="bg-light">
@@ -146,7 +146,7 @@
                     <td>{{ egreso.cantidad }} {{ egreso.unidades }}</td>
                     <td>{{ egreso.obra }}</td>
                     <td>{{ egreso.fecha | date:'short'}}</td>
-                    <td>{{ egreso.reponsable }}</td>                    
+                    <td>{{ egreso.reponsable }}</td>
                 </tr>
                 </ng-container>
                 </tbody>
