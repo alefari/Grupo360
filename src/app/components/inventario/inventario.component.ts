@@ -8,6 +8,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 import { Categoria } from 'src/app/models/categoria.model';
+import * as html2pdf from 'html2pdf.js';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -42,6 +43,7 @@ export class InventarioComponent implements OnInit {
   inventario: Item[];
   categorias: Categoria[];
   ubicaciones: any[];
+  oculto = true;
 
   datosInfo: Item = {
     id: null,
@@ -159,6 +161,26 @@ export class InventarioComponent implements OnInit {
     this.form.reset();
   }
 
+  //FUNCION PARA DESCARGAR PDF DE INVENTARIO
+  descargarPDF() {
+    this.oculto = false;
+    const opciones = {
+      margin: 1,
+      filename: 'Ingresos.pdf',
+      image: {type: 'jpeg', quality: 1},
+      html2canvas: {},
+      jsPDF: {unit: 'cm', format: 'letter', orientation: 'portrait'}
+    };
+
+    const contenido: Element = document.getElementById('elemento-a-exportar');
+
+    html2pdf()
+      .from(contenido)
+      .set(opciones)
+      .save();
+
+      this.oculto = true;
+  }
 
 
 }

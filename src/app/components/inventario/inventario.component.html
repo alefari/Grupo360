@@ -24,6 +24,9 @@
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalReporte">
         <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar
       </button>
+      <button data-toggle="modal" data-target="#pdfInventario" class="btn btn-primary float-right">
+        Exportar a PDF
+      </button>
     </div>
   </div>
 </div>
@@ -261,6 +264,64 @@
 </div>
 
 
+<!-- MODAL PDF DE INVENTARIO-->
+<div class="modal fade" id="pdfInventario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Exportar a PDF</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id='elemento-a-exportar'>
+        <!-- <img src="../../../assets/logo.svg" alt="Logo" class="img-fluid" style="max-width: 75px; width: 100%; margin: 0; padding: 0"> -->
+        <div class="row">
+          <h4>Inventario</h4>
+        </div>
+        <div class="row">
+          <!--Tabla de inventario en donde se muestra el inventario general-->
+            <table class="table table-sm letras">
+              <thead class="thead bg-secondary text-white">
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Categoría</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Fecha Ingreso</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <ng-container *ngFor="let itemPDF of inventario">
+                  <tr>
+                    <td>{{ itemPDF.nombre }}</td>
+                    <td>{{ itemPDF.tipo }}</td>
+                    <td>{{ itemPDF.cantidad }} {{ itemPDF.unidades }}</td>
+                    <td>
+                      <div *ngIf="itemPDF.precio != null; else sinPrecio">
+                        {{ itemPDF.precio | currency }}
+                      </div>
+                      <!-- NG-TEMPLATE SE USA PARA ENGLOBAR EL BLOQUE ELSE DE UN NGIF -->
+                      <ng-template #sinPrecio>
+                        N/A
+                      </ng-template>
+                    </td>
+
+                    <td>{{ itemPDF.fecha | date:'short'}}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" (click)="descargarPDF()" class="btn btn-primary">Exportar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
