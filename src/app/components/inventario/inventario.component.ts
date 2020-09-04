@@ -166,7 +166,7 @@ export class InventarioComponent implements OnInit {
     this.oculto = false;
     const opciones = {
       margin: 1,
-      filename: 'Ingresos.pdf',
+      filename: 'Inventario.pdf',
       image: {type: 'jpeg', quality: 1},
       html2canvas: {},
       jsPDF: {unit: 'cm', format: 'letter', orientation: 'portrait'}

@@ -65,7 +65,7 @@ export class EgresosComponent implements OnInit {
     descargarPDF() {
       const opciones = {
         margin: 1,
-        filename: 'Ingresos.pdf',
+        filename: 'Egresos.pdf',
         image: {type: 'jpeg', quality: 1},
         html2canvas: {},
         jsPDF: {unit: 'cm', format: 'letter', orientation: 'portrait'}
