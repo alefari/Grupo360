@@ -26,5 +26,9 @@ export class UnidadesService {
     return this.unidades;
   }
 
+  agregarUnidad(nuevaUnidad: any) {
+    this.unidadesColeccion.add(nuevaUnidad);
+  }
+
 
 }

@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { UbicacionesService } from 'src/app/services/ubicaciones.service';
+import { UnidadesService } from 'src/app/services/unidades.service';
 import { Categoria } from 'src/app/models/categoria.model';
 import * as html2pdf from 'html2pdf.js';
 
@@ -20,6 +21,7 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { EliminadosService } from 'src/app/services/eliminados.service';
 import { Eliminacion } from 'src/app/models/eliminacion.model';
+
 
 
 @Component({
@@ -44,6 +46,19 @@ export class InventarioComponent implements OnInit {
   categorias: Categoria[];
   ubicaciones: any[];
   oculto = true;
+
+  nuevaUnidad : any = {
+    nombre:null,
+  }; 
+
+  nuevaCategoria : Categoria = {
+    nombre:null,
+    codigo:null,
+  }; 
+
+  nuevaUbicacion : any = {
+    nombre:null,
+  }; 
 
   datosInfo: Item = {
     id: null,
@@ -90,7 +105,8 @@ export class InventarioComponent implements OnInit {
   constructor(private servicioInventario: InventarioService,
               private servicioCategorias: CategoriasService,
               private servicioUbicaciones: UbicacionesService,
-              private servicioEliminados: EliminadosService) { }
+              private servicioEliminados: EliminadosService,
+              private servicioUnidades: UnidadesService) { }
 
 //Se adjuntan items de base de datos a la variable inventario, y se ordena items en orden alfabetico//
   ngOnInit(): void {
@@ -182,5 +198,21 @@ export class InventarioComponent implements OnInit {
       this.oculto = true;
   }
 
+  unidadAgregar(){
+    if (this.nuevaUnidad.nombre!=null && this.nuevaUnidad.nombre!=""){
+      this.servicioUnidades.agregarUnidad(this.nuevaUnidad);
+    }
+  }
 
+  categoriaAgregar(){
+    if (this.nuevaCategoria.nombre!=null && this.nuevaCategoria.nombre!=""){
+    this.servicioCategorias.agregarCategoria(this.nuevaCategoria);
+    }
+  }
+
+  ubicacionAgregar(){
+    if (this.nuevaUbicacion.nombre!=null && this.nuevaUbicacion.nombre!=""){
+    this.servicioUbicaciones.agregarUbicacion(this.nuevaUbicacion);
+    }
+  }
 }

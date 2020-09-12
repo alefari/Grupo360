@@ -27,6 +27,9 @@
       <button data-toggle="modal" data-target="#pdfInventario" class="btn btn-primary float-right">
         Exportar a PDF
       </button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregar">
+        <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar
+      </button>
     </div>
   </div>
 </div>
@@ -339,4 +342,71 @@
 </div><!-- Modal Modificar-->
 <div class="modal fade" id="modalModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <app-modificar></app-modificar>
+</div>
+
+
+<!--MODAL DE AGREGAR ADMINISTRADOR-->
+<div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+      <form #f="ngForm">
+          <div class="form-group">          
+            <div class="row">
+              <div class="col">
+                <h5>Agregar Unidad</h5>
+                  <label>Nombre:</label>
+                  <input #nombreUnidad="ngModel" [(ngModel)]='nuevaUnidad.nombre' name="nombreUnidadNueva" required type="text" class="form-control">
+              </div>
+              <div class="col">
+                <h5>Agregar Categoría</h5>
+                  <label>Nombre:</label>
+                  <input #nombreCategoria="ngModel" [(ngModel)]='nuevaCategoria.nombre' name="nombreCategoriaNueva" required type="text" class="form-control">
+              </div>
+              <div class="col">
+                <h5>Agregar Ubicación</h5>
+                  <label>Nombre:</label>
+                  <input #nombreUbicacion="ngModel" [(ngModel)]='nuevaUbicacion.nombre' name="nombreUbicacionNueva" required type="text" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col">
+                <button data-dismiss="modal" type="button" class="btn btn-primary" (click)="unidadAgregar()">
+                  <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar Unidad
+                </button>
+              </div>
+              <div class="col">
+                <button data-dismiss="modal" type="button" class="btn btn-primary" (click)="categoriaAgregar()">
+                  <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar Categoría
+                </button>
+              </div>
+              <div class="col">
+                <button data-dismiss="modal" type="button" class="btn btn-primary" (click)="ubicacionAgregar()">
+                  <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar Ubicación
+                </button>
+              </div>
+            </div>
+          </div>
+
+        <!--Footer de Modal de reingreso, con botones de cerrar e ingresar-->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="borrarForm()">
+              <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+            </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  </div>
 </div>

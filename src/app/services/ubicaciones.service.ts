@@ -25,4 +25,8 @@ export class UbicacionesService {
   obtenerUbicaciones() {
     return this.ubicaciones;
   }
+
+  agregarUbicacion(nuevaUbicacion: any) {
+    this.ubicacionesColeccion.add(nuevaUbicacion);
+  }
 }

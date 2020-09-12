@@ -27,4 +27,8 @@ export class CategoriasService {
     return this.categorias;
   }
 
+  agregarCategoria(nuevaCategoria: Categoria) {
+    this.categoriasColeccion.add(nuevaCategoria);
+  }
+
 }
