@@ -114,5 +114,10 @@ export class ReingresoComponent implements OnInit {
     this.valido = true;
   }
 
+  restaurarValor(i: number) {
+    this.idsReingreso[i].cantidad = 1;
+    this.revisarCantidad();
+  }
+
 }
 

@@ -18,10 +18,14 @@ export class IngresosComponent implements OnInit {
   inventario: Item[];
   categorias: Categoria[];
   oculto = true;
+  fechaDesde: Date;
+  fechaHasta: string;
 
   constructor(private ingresosService: IngresosService,
               private inventarioService: InventarioService,
-              private categoriaService: CategoriasService) { }
+              private categoriaService: CategoriasService) {
+                this.fechaHasta = this.dateAString(new Date());
+              }
 
   ngOnInit(): void {
     this.ingresosService.obtenerIngresos().subscribe(items => {
@@ -68,4 +72,13 @@ export class IngresosComponent implements OnInit {
 
       this.oculto = true;
   }
+
+  dateAString(date: Date) {
+    let stringFecha: string = "";
+    stringFecha += date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getUTCDate();
+    console.log(stringFecha);
+    return stringFecha;
+  }
+
+
 }

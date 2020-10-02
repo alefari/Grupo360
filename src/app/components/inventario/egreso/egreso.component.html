@@ -40,7 +40,7 @@
             <!--Label e input de cantidad a egresar (se escribe la cantidad a egresar)-->
             <label for="exampleInputEmail1">Cantidad a egresar</label>
             <input *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''"
-              onkeypress="return event.charCode > 48"
+              onkeypress="return event.charCode >= 48"
               min="1"
               [max]="inventario[regresarIndice(i)].cantidad" type="number"
               [(ngModel)]="idsEgreso[i].cantidad"
