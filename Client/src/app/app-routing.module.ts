@@ -6,10 +6,12 @@ import {EgresosComponent}  from './components/egresos/egresos.component'
 
 
 const routes: Routes = [
-  { path: '', component: InventarioComponent},
+
+  // { path: '', redirectTo: '/inventario', pathMatch: 'full'},
+  { path: '', redirectTo: '/inventario', pathMatch: 'full'},
   { path: 'inventario', component: InventarioComponent },
   { path: 'ingresos', component: IngresosComponent },
-  {path: 'egresos', component: EgresosComponent }
+  { path: 'egresos', component: EgresosComponent }
 ];
 
 @NgModule({

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReingresoComponent } from './components/inventario/reingreso/reingreso.component';
 import { EgresoComponent } from './components/inventario/egreso/egreso.component';
 import { IngresosComponent } from './components/ingresos/ingresos.component';
+
+import { InventarioSQLService } from './services/inventario-sql.service'
 
 // IMPORT DE ICONOSDE FONTAWESOME
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -45,9 +48,12 @@ import { ModificarComponent } from './components/inventario/modificar/modificar.
     AngularFirestoreModule,
     AngularFireAuthModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    InventarioSQLService
+  ],
   bootstrap: [AppComponent]
 })
 

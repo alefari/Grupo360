@@ -11,6 +11,9 @@ import { UnidadesService } from 'src/app/services/unidades.service';
 import { Categoria } from 'src/app/models/categoria.model';
 import * as html2pdf from 'html2pdf.js';
 
+// IMPORTS DE BD
+import { InventarioSQLService } from '../../services/inventario-sql.service';
+
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
@@ -49,16 +52,16 @@ export class InventarioComponent implements OnInit {
 
   nuevaUnidad : any = {
     nombre:null,
-  }; 
+  };
 
   nuevaCategoria : Categoria = {
     nombre:null,
     codigo:null,
-  }; 
+  };
 
   nuevaUbicacion : any = {
     nombre:null,
-  }; 
+  };
 
   datosInfo: Item = {
     id: null,
@@ -102,11 +105,14 @@ export class InventarioComponent implements OnInit {
   filtroTipo: string = "";
   faSearch = faSearch;
 
+  inventarioSQL: any = [];
+
   constructor(private servicioInventario: InventarioService,
               private servicioCategorias: CategoriasService,
               private servicioUbicaciones: UbicacionesService,
               private servicioEliminados: EliminadosService,
-              private servicioUnidades: UnidadesService) { }
+              private servicioUnidades: UnidadesService,
+              private servicioInventarioSQL: InventarioSQLService) { }
 
 //Se adjuntan items de base de datos a la variable inventario, y se ordena items en orden alfabetico//
   ngOnInit(): void {
@@ -119,6 +125,13 @@ export class InventarioComponent implements OnInit {
     this.servicioUbicaciones.obtenerUbicaciones().subscribe(items => {
       this.ubicaciones = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
     })
+    this.servicioInventarioSQL.getInventario().subscribe(
+      res => {
+        this.inventarioSQL = res;
+        console.log(this.inventarioSQL);
+      },
+      err => console.log(err)
+    );
   }
 
   //RECIBE EL ITEM DE LA FILA, E IMPRIME DICHOS DATOS EN UNA VARIABLE
