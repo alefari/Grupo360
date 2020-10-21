@@ -2,14 +2,14 @@
 export interface Item {
   id?: string;
   nombre: string;
-  tipo: string;
+  categoria: string;
+  subcategoria?: string;
   cantidad?: number;
+  unidades?: string;
   ubicacion?: string;
-  fecha?: string;
-  responsable?: string;
   estado?: string;
   vencimiento?: string;
   serial?: string;
   precio?: number;
-  unidades?: string;
+  descripcion?: string;
 }

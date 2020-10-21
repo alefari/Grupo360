@@ -3,6 +3,6 @@ export default {
         host: 'localhost',
         user: 'root',
         password: 'Alejandro',
-        database: 'prueba'
+        database: 'grupocdv360'
     }
 }

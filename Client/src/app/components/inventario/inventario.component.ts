@@ -45,7 +45,6 @@ export class InventarioComponent implements OnInit {
   faPlusCircle = faPlusCircle;
   faInfoCircle = faInfoCircle;
 
-  inventario: Item[];
   categorias: Categoria[];
   ubicaciones: any[];
   oculto = true;
@@ -66,16 +65,15 @@ export class InventarioComponent implements OnInit {
   datosInfo: Item = {
     id: null,
     nombre: null,
-    tipo: null,
+    categoria: null,
+    subcategoria: null,
     cantidad: null,
+    unidades: null,
     ubicacion: null,
-    fecha: null,
-    responsable: null,
     estado: null,
     vencimiento: null,
     serial: null,
     precio: null,
-    unidades: null
   }
 
   itemBorrar = {
@@ -87,16 +85,15 @@ export class InventarioComponent implements OnInit {
   itemAveriado: Item = {
     id: null,
     nombre: null,
-    tipo: null,
+    categoria: null,
+    subcategoria: null,
     cantidad: null,
+    unidades: null,
     ubicacion: null,
-    fecha: null,
-    responsable: null,
     estado: null,
     vencimiento: null,
     serial: null,
     precio: null,
-    unidades: null
   };
 
   //VARIABLE PARA HACER LAS BUSQUEDA POR ID DEL ITEM DE AVERIA
@@ -107,24 +104,11 @@ export class InventarioComponent implements OnInit {
 
   inventarioSQL: any = [];
 
-  constructor(private servicioInventario: InventarioService,
-              private servicioCategorias: CategoriasService,
-              private servicioUbicaciones: UbicacionesService,
-              private servicioEliminados: EliminadosService,
-              private servicioUnidades: UnidadesService,
+  constructor(private servicioEliminados: EliminadosService,
               private servicioInventarioSQL: InventarioSQLService) { }
 
 //Se adjuntan items de base de datos a la variable inventario, y se ordena items en orden alfabetico//
   ngOnInit(): void {
-    this.servicioInventario.obtenerInventario().subscribe(items => {
-      this.inventario = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
-    })
-    this.servicioCategorias.obtenerCategorias().subscribe(items => {
-      this.categorias = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
-    })
-    this.servicioUbicaciones.obtenerUbicaciones().subscribe(items => {
-      this.ubicaciones = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
-    })
     this.servicioInventarioSQL.getInventario().subscribe(
       res => {
         this.inventarioSQL = res;

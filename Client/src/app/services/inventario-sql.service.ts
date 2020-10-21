@@ -7,7 +7,7 @@ import { Item } from '../models/item.model';
 })
 export class InventarioSQLService {
 
-  API_URI = 'http://localhost:3000'
+  API_URI = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {
 
@@ -16,9 +16,11 @@ export class InventarioSQLService {
   getInventario() {
     return this.http.get(`${this.API_URI}/herramientas`);
   }
+
   getItem(id: string) {
     return this.http.get(`${this.API_URI}/herramientas/${id}`);
   }
+
   createItem(item: Item) {
     return this.http.post(`${this.API_URI}/herramientas`, item);
   }

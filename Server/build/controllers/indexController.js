@@ -4,8 +4,8 @@ exports.indexController = void 0;
 class IndexController {
     index(req, res) {
         res.send('Hello');
+        // res.json('HSola');
         // pool.query('DESCRIBE herramienta');
-        // res.json('herram');
     }
 }
 exports.indexController = new IndexController();

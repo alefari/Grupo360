@@ -17,7 +17,31 @@ const database_1 = __importDefault(require("../database"));
 class HerramientasController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('SELECT * FROM herramienta', function (err, result, fields) {
+            yield database_1.default.query(`
+        SELECT items.id_item AS id, 
+            items.nombre,
+            categorias.nombre AS categoria,
+            subcategorias.nombre AS subcategoria,
+            items.cantidad,
+            unidades.nombre AS unidades,
+            ubicaciones.nombre AS ubicacion,
+            estados.nombre AS estado,
+            items.vencimiento,
+            items.serial,
+            items.precio,
+            items.descripcion
+        FROM grupocdv360.items
+        LEFT JOIN categorias
+        ON items.id_categoria = categorias.id_categoria
+        LEFT JOIN subcategorias
+        ON items.id_subcategoria = subcategorias.id_subcategoria
+        LEFT JOIN unidades
+        ON items.id_unidad = unidades.id_unidad
+        LEFT JOIN ubicaciones
+        ON items.id_ubicacion = ubicaciones.id_ubicacion
+        LEFT JOIN estados
+        ON items.id_estado = estados.id_estado
+        ORDER BY items.nombre;`, function (err, result, fields) {
                 if (err)
                     throw err;
                 res.json(result);
@@ -27,7 +51,7 @@ class HerramientasController {
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('SELECT * FROM herramienta WHERE idHerramienta = ?', [id], function (err, result, fields) {
+            yield database_1.default.query('SELECT * FROM items WHERE id_item = ?', [id], function (err, result, fields) {
                 if (err)
                     throw err;
                 res.json(result);
@@ -36,21 +60,21 @@ class HerramientasController {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO herramienta set ?', [req.body]);
+            yield database_1.default.query('INSERT INTO items set ?', [req.body]);
             res.json({ text: 'Herramienta Guardada' });
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('UPDATE herramienta set ? WHERE idHerramienta = ?', [req.body, id]);
+            yield database_1.default.query('UPDATE items set ? WHERE id_item = ?', [req.body, id]);
             res.json({ text: 'Herramienta Actualizada' });
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('DELETE FROM herramienta WHERE idHerramienta = ?', [id]);
+            yield database_1.default.query('DELETE FROM items WHERE id_item = ?', [id]);
             res.json({ text: 'Herramienta Eliminada' });
         });
     }
