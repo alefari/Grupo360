@@ -1,11 +1,8 @@
 //Imports de servicios, items, etc.//
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { InventarioService } from '../../../services/inventario.service';
-import { CategoriasService } from 'src/app/services/categorias.service';
 import { Item } from 'src/app/models/item.model';
 import { Categoria } from 'src/app/models/categoria.model';
 import { NgForm, Form } from '@angular/forms';
-import { IngresosService } from 'src/app/services/ingresos.service';
 import { Ingreso } from 'src/app/models/ingreso.model';
 
 //ICONOS FONTAWESOME
@@ -40,21 +37,13 @@ export class ReingresoComponent implements OnInit {
     {id: "", cantidad: 1}
   ];
 
-  constructor(private servicioInventario: InventarioService,
-              private categoriaService: CategoriasService,
-              private ingresosService: IngresosService)
+  constructor()
               { }
 
 
 //Se obtiene inventario en orden alfabetico, y se imprime en la tabla//
   ngOnInit(): void {
 
-    this.categoriaService.obtenerCategorias().subscribe(items => {
-      this.categorias = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
-    })
-    this.servicioInventario.obtenerInventario().subscribe(items => {
-      this.inventario = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
-    })
   }
 
   regresarIndice(indice: number) {
@@ -70,20 +59,20 @@ export class ReingresoComponent implements OnInit {
         nuevoItem.cantidad += item.cantidad;
       }
       nuevoItem.estado = "Disponible"
-      this.servicioInventario.editarItem(nuevoItem);
+      //this.servicioInventario.editarItem(nuevoItem);
 
-      this.ingresosService.agregarIngreso(
-        {
-          idItem: nuevoItem.id,
-          nombreItem: nuevoItem.nombre,
-          categoriaItem: nuevoItem.tipo,
-          unidades: nuevoItem.unidades,
-          fecha: new Date().toISOString(),
-          cantidad: nuevoItem.cantidad,
-          modalidad: "Reingreso",
-          precio: null
-        }
-      )
+      // this.ingresosService.agregarIngreso(
+      //   {
+      //     idItem: nuevoItem.id,
+      //     nombreItem: nuevoItem.nombre,
+      //     categoriaItem: nuevoItem.tipo,
+      //     unidades: nuevoItem.unidades,
+      //     fecha: new Date().toISOString(),
+      //     cantidad: nuevoItem.cantidad,
+      //     modalidad: "Reingreso",
+      //     precio: null
+      //   }
+      // )
     }
     this.form.reset();
     this.idsReingreso = [{id: "", cantidad: 1}];

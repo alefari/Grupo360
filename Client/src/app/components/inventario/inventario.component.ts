@@ -2,17 +2,14 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Item } from '../../models/item.model';
-import { InventarioService } from '../../services/inventario.service';
 import { NgForm } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { CategoriasService } from 'src/app/services/categorias.service';
-import { UbicacionesService } from 'src/app/services/ubicaciones.service';
-import { UnidadesService } from 'src/app/services/unidades.service';
 import { Categoria } from 'src/app/models/categoria.model';
 import * as html2pdf from 'html2pdf.js';
 
 // IMPORTS DE BD
 import { InventarioSQLService } from '../../services/inventario-sql.service';
+import { CategoriasService } from '../../services/categorias.service';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -22,8 +19,8 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { EliminadosService } from 'src/app/services/eliminados.service';
 import { Eliminacion } from 'src/app/models/eliminacion.model';
+import { SubcategoriasService } from 'src/app/services/subcategorias.service';
 
 
 
@@ -45,7 +42,7 @@ export class InventarioComponent implements OnInit {
   faPlusCircle = faPlusCircle;
   faInfoCircle = faInfoCircle;
 
-  categorias: Categoria[];
+
   ubicaciones: any[];
   oculto = true;
 
@@ -103,16 +100,30 @@ export class InventarioComponent implements OnInit {
   faSearch = faSearch;
 
   inventarioSQL: any = [];
+  categorias: any = [];
+  subcategorias: any = [];
 
-  constructor(private servicioEliminados: EliminadosService,
-              private servicioInventarioSQL: InventarioSQLService) { }
+  constructor(private servicioInventarioSQL: InventarioSQLService,
+              private servicioCategorias: CategoriasService,
+              private servicioSubcategorias: SubcategoriasService) { }
 
 //Se adjuntan items de base de datos a la variable inventario, y se ordena items en orden alfabetico//
   ngOnInit(): void {
     this.servicioInventarioSQL.getInventario().subscribe(
       res => {
         this.inventarioSQL = res;
-        console.log(this.inventarioSQL);
+      },
+      err => console.log(err)
+    );
+    this.servicioCategorias.getCategorias().subscribe(
+      res => {
+        this.categorias = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioSubcategorias.getSubcategorias().subscribe(
+      res => {
+        this.subcategorias = res;
       },
       err => console.log(err)
     );
@@ -130,7 +141,7 @@ export class InventarioComponent implements OnInit {
   }
   // ELIMINA EL ITEM SELECCIONADO DE LA BD CUANDO EL USUARIO ACEPTA EN EL MODAL
   eliminarItem() {
-
+    /*
     this.servicioInventario.eliminarItem(this.itemBorrar.id);
     var eliminacion: Eliminacion = {
       idItem: this.itemBorrar.id,
@@ -140,24 +151,24 @@ export class InventarioComponent implements OnInit {
       fecha: new Date().toISOString(),
       cantidad: this.inventario.find(item => item.id == this.itemBorrar.id).cantidad
     }
-    this.servicioEliminados.agregarEliminado(eliminacion);
+    this.servicioEliminados.agregarEliminado(eliminacion);*/
   }
 
   //BUSCA ITEM PARA REPORTAR AVERIA
   regresarIndice() {
-    return this.inventario.findIndex(item => item.id == this.idItemElegido);
+    // return this.inventario.findIndex(item => item.id == this.idItemElegido);
 }
   regresarItem(id: string) {
-    return this.inventario.find(item => item.id == id);
+    // return this.inventario.find(item => item.id == id);
 }
 
   //CREA ITEM TEMPORAL EN DONDE COLOCARA NUEVOS ESTADOS
   alElegirItem(idItem: string) {
-  this.itemAveriado = this.inventario.find(item => item.id == idItem);
+  // this.itemAveriado = this.inventario.find(item => item.id == idItem);
 }
 
   reportarAveria() {
-    this.itemAveriado.estado = "Dañado";
+    /* this.itemAveriado.estado = "Dañado";
     this.servicioInventario.editarItem(this.itemAveriado);
     //SE BORRAN LOS CAMPOS DEL FORMULARIO
     this.form.reset();
@@ -166,7 +177,7 @@ export class InventarioComponent implements OnInit {
     this.itemAveriado.estado = "Disponible";
     this.servicioInventario.editarItem(this.itemAveriado);
     //SE BORRAN LOS CAMPOS DEL FORMULARIO
-    this.form.reset();
+    this.form.reset();*/
   }
 
   //BORRA FORMMULARIO DE AVERIA
@@ -196,20 +207,20 @@ export class InventarioComponent implements OnInit {
   }
 
   unidadAgregar(){
-    if (this.nuevaUnidad.nombre!=null && this.nuevaUnidad.nombre!=""){
+    /*if (this.nuevaUnidad.nombre!=null && this.nuevaUnidad.nombre!=""){
       this.servicioUnidades.agregarUnidad(this.nuevaUnidad);
-    }
+    }*/
   }
 
   categoriaAgregar(){
-    if (this.nuevaCategoria.nombre!=null && this.nuevaCategoria.nombre!=""){
+    /*if (this.nuevaCategoria.nombre!=null && this.nuevaCategoria.nombre!=""){
     this.servicioCategorias.agregarCategoria(this.nuevaCategoria);
-    }
+    }*/
   }
 
   ubicacionAgregar(){
-    if (this.nuevaUbicacion.nombre!=null && this.nuevaUbicacion.nombre!=""){
+    /*if (this.nuevaUbicacion.nombre!=null && this.nuevaUbicacion.nombre!=""){
     this.servicioUbicaciones.agregarUbicacion(this.nuevaUbicacion);
-    }
+    }*/
   }
 }

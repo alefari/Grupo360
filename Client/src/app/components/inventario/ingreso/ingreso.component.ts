@@ -1,15 +1,10 @@
 // Imports de servicios, tipos, etc
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { InventarioService } from '../../../services/inventario.service';
 import { NgForm } from '@angular/forms';
 import { Item } from 'src/app/models/item.model';
-import { CategoriasService } from 'src/app/services/categorias.service';
 import { Categoria } from 'src/app/models/categoria.model';
-import { UbicacionesService } from 'src/app/services/ubicaciones.service';
-import { UnidadesService } from 'src/app/services/unidades.service';
 import * as firebase from 'firebase';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
-import { IngresosService } from 'src/app/services/ingresos.service';
 import { ObjectUnsubscribedError } from 'rxjs';
 
 //ICONOS FONTAWESOME
@@ -17,6 +12,8 @@ import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { CategoriasService } from 'src/app/services/categorias.service';
+import { SubcategoriasService } from 'src/app/services/subcategorias.service';
 
 @Component({
   selector: 'app-ingreso',
@@ -35,7 +32,8 @@ export class IngresoComponent implements OnInit {
   faMinusCircle = faMinusCircle;
   faPlusCircle = faPlusCircle;
 
-  categorias: Categoria[];
+  categorias: any = [];
+  subcategorias: any = [];
   ubicaciones: any[];
   unidades: any[];
   inventario: Item[];
@@ -57,26 +55,22 @@ export class IngresoComponent implements OnInit {
     }
   ];
 
-  constructor(private inventarioService: InventarioService,
-              private categoriaService: CategoriasService,
-              private ubicacionesService: UbicacionesService,
-              private unidadesService: UnidadesService,
-              private ingresosService: IngresosService) { }
+  constructor(private servicioCategorias: CategoriasService,
+              private servicioSubcategorias: SubcategoriasService) { }
 
   ngOnInit(): void {
-    this.inventarioService.obtenerInventario().subscribe(items => {
-      this.inventario = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
-    })
-    this.categoriaService.obtenerCategorias().subscribe(items => {
-      this.categorias = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
-    })
-    this.ubicacionesService.obtenerUbicaciones().subscribe(items => {
-      this.ubicaciones = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
-    })
-    this.unidadesService.obtenerUnidades().subscribe(items => {
-      this.unidades = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
-    })
-
+    this.servicioCategorias.getCategorias().subscribe(
+      res => {
+        this.categorias = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioSubcategorias.getSubcategorias().subscribe(
+      res => {
+        this.subcategorias = res;
+      },
+      err => console.log(err)
+    );
   }
 
   onSubmit() {
@@ -96,37 +90,37 @@ export class IngresoComponent implements OnInit {
           item.unidades = "Unidad";
         }
         item.fecha = new Date().toISOString();
-        this.inventarioService.agregarItem(item);
-        this.ingresosService.agregarIngreso(
-          {
-            idItem: item.id,
-            nombreItem: item.nombre,
-            categoriaItem: item.tipo,
-            unidades: item.unidades,
-            fecha: new Date().toISOString(),
-            cantidad: item.cantidad,
-            precio: item.precio,
-            modalidad: "Nuevo"
-          }
-        )
+        //this.inventarioService.agregarItem(item);
+        // this.ingresosService.agregarIngreso(
+        //   {
+        //     idItem: item.id,
+        //     nombreItem: item.nombre,
+        //     categoriaItem: item.tipo,
+        //     unidades: item.unidades,
+        //     fecha: new Date().toISOString(),
+        //     cantidad: item.cantidad,
+        //     precio: item.precio,
+        //     modalidad: "Nuevo"
+        //   }
+        // )
       }
       else if (this.itemExistenteVar[indice]) {
         let itemModificar = this.inventario.find(itemInventario => itemInventario.id == item.nombre);
         itemModificar.cantidad += item.cantidad;
         itemModificar.precio += item.precio;
-        this.inventarioService.editarItem(itemModificar);
-        this.ingresosService.agregarIngreso(
-          {
-            idItem: itemModificar.id,
-            nombreItem: itemModificar.nombre,
-            categoriaItem: itemModificar.tipo,
-            unidades: itemModificar.unidades,
-            fecha: new Date().toISOString(),
-            cantidad: item.cantidad,
-            precio: item.precio,
-            modalidad: "Existente"
-          }
-        )
+        //this.inventarioService.editarItem(itemModificar);
+        // this.ingresosService.agregarIngreso(
+        //   {
+        //     idItem: itemModificar.id,
+        //     nombreItem: itemModificar.nombre,
+        //     categoriaItem: itemModificar.tipo,
+        //     unidades: itemModificar.unidades,
+        //     fecha: new Date().toISOString(),
+        //     cantidad: item.cantidad,
+        //     precio: item.precio,
+        //     modalidad: "Existente"
+        //   }
+        // )
       }
 
       indice++;

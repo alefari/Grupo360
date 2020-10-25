@@ -30,10 +30,17 @@
               <div class="col-3">
                 <!--Label y Select del tipo de producto-->
                 <label for="exampleFormControlSelect1">Categoría</label>
-                <select (change)='restablecerCantidad(i);' #cat="ngModel" #cat[i]="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].tipo" [name]="'cat' + [i]">
-                  <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
+                <select (change)='restablecerCantidad(i);' #cat="ngModel" #cat[i]="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].categoria" [name]="'cat' + [i]">
+                  <option *ngFor="let categoria of categorias" value="{{categoria.id}}">{{ categoria.nombre }}</option>
                 </select>
                 <small *ngIf="!cat.valid && cat.touched" class="text-danger">Ingrese una categoria.</small>
+              </div>
+              <div class="col-3">
+                <!--Label y Select del tipo de producto-->
+                <label for="exampleFormControlSelect1">Subcategoría</label>
+                <select #subcat="ngModel" #subcat[i]="ngModel" class="form-control" [(ngModel)]="nuevosItems[i].subcategoria" [name]="'subcat' + [i]">
+                  <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.id}}">{{ subcategoria.nombre }}</option>
+                </select>
               </div>
               <div class="col-2">
                 <label>Serial</label>

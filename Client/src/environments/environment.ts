@@ -4,16 +4,7 @@
 
 export const environment = {
   production: false,
-  firebase: {
-    apiKey: "AIzaSyDtYNyuJH5IxYQaG-JX866zpdZ7vT7FIiw",
-    authDomain: "grupo360-21212.firebaseapp.com",
-    databaseURL: "https://grupo360-21212.firebaseio.com",
-    projectId: "grupo360-21212",
-    storageBucket: "grupo360-21212.appspot.com",
-    messagingSenderId: "42315631196",
-    appId: "1:42315631196:web:afc7162df29b7595d43499",
-    measurementId: "G-BSEHC8XG3G"
-  }
+  dirBackend: 'http://localhost:3000'
 };
 
 /*

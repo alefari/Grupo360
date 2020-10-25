@@ -83,7 +83,7 @@
               *ngIf="(
                 (item.nombre.toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value == '')
                 &&
-                (item.tipo == filtroCategoria.value || filtroCategoria.value == '')
+                (item.categoria == filtroCategoria.value || filtroCategoria.value == '')
                 &&
                 (item.ubicacion == filtroUbicacion.value || filtroUbicacion.value == '')
               )"
@@ -220,7 +220,6 @@
         </button>
       </div>
 
-      <!--Filtro por Tipo de reingreso-->
       <div class="modal-body">
       <form #f="ngForm">
           <h3>Item</h3>
@@ -228,17 +227,24 @@
             <div class="row">
               <div class="col">
                   <label>Categoría</label>
-                    <select class="form-control" ngModel name="selectTipoReporte" #selectTipoReporte="ngModel">
+                    <select class="form-control" ngModel name="selectCategoriaReporte" #selectCategoriaReporte="ngModel">
                       <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
+                    </select>
+              </div>
+              <div class="col">
+                  <label>Subcategoría</label>
+                    <select class="form-control" ngModel name="selectSubcategoriaReporte" #selectSubcategoriaReporte="ngModel">
+                      <option value="">Todas</option>
+                      <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
                     </select>
               </div>
               <div class="col">
                   <label>Item</label>
                   <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" class='form-control' ngModel name="id">
                     <!--NG FOR QUE COLOCA LA LISTA DE INVENTARIO-->
-                    <ng-container *ngFor="let item of inventario">
+                    <ng-container *ngFor="let item of inventarioSQL">
                       <!--NG IF QUE FILTRA LA LISTA FINAL POR EL TIPO-->
-                      <ng-container *ngIf="item.tipo == selectTipoReporte.value && item.estado != 'En Obra'">
+                      <ng-container *ngIf="item.categoria == selectCategoriaReporte.value && item.estado != 'En Obra' && (item.subcategoria == selectSubcategoriaReporte.value || selectSubcategoriaReporte.value == '')">
                         <option value='{{item.id}}'>{{ item.nombre }}</option>
                       </ng-container>
                     </ng-container>
@@ -247,18 +253,18 @@
             </div>
           </div>
 
-        <!--Footer de Modal de reingreso, con botones de cerrar e ingresar-->
+        <!--Footer de Modal de reportar, con botones de cerrar e ingresar-->
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="borrarForm()">
               <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
             </button>
 
-            <button data-dismiss="modal" *ngIf="idItem.value && regresarItem(idItem.value).estado == 'Dañado'" type="button" class="btn btn-primary"  (click)="reportarReparado()">
+            <!-- <button data-dismiss="modal" *ngIf="idItem.value && regresarItem(idItem.value).estado == 'Dañado'" type="button" class="btn btn-primary"  (click)="reportarReparado()">
               <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar Reparado
             </button>
             <button *ngIf="idItem.value && regresarItem(idItem.value).estado == 'Disponible'" data-dismiss="modal" type="button" class="btn btn-danger" (click)="reportarAveria()">
               <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar Dañado
-            </button>
+            </button> -->
 
         </div>
 
@@ -297,7 +303,7 @@
               </thead>
 
               <tbody>
-                <ng-container *ngFor="let itemPDF of inventario">
+                <ng-container *ngFor="let itemPDF of inventarioSQL">
                   <tr>
                     <td>{{ itemPDF.nombre }}</td>
                     <td>{{ itemPDF.tipo }}</td>
@@ -333,14 +339,14 @@
 </div>
 <!-- Modal Reingreso-->
 <div class="modal fade" id="modalReingreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <app-reingreso></app-reingreso>
+  <!-- <app-reingreso></app-reingreso> -->
 </div>
 <!-- Modal Egreso-->
 <div class="modal fade" id="modalEgreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <app-egreso></app-egreso>
+  <!-- <app-egreso></app-egreso> -->
 </div><!-- Modal Modificar-->
 <div class="modal fade" id="modalModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <app-modificar></app-modificar>
+  <!-- <app-modificar></app-modificar> -->
 </div>
 
 <!--MODAL DE AGREGAR ADMINISTRADOR-->

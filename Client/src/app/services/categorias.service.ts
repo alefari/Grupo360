@@ -1,34 +1,33 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Categoria } from '../models/categoria.model';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http'
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriasService {
 
-  categoriasColeccion: AngularFirestoreCollection<Categoria>
-  categorias: Observable<Categoria[]>
+  API_URI = environment.dirBackend;
 
-  constructor(private readonly afs: AngularFirestore) {
-    this.categoriasColeccion = afs.collection<Categoria>('categoria');
-    this.categorias = this.categoriasColeccion.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Categoria;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
-    )
+  constructor(private http: HttpClient) { }
+
+  getCategorias() {
+    return this.http.get(`${this.API_URI}/categorias`);
   }
 
-  obtenerCategorias() {
-    return this.categorias;
+  getCategoria(id: string) {
+    return this.http.get(`${this.API_URI}/categorias/${id}`);
   }
 
-  agregarCategoria(nuevaCategoria: Categoria) {
-    this.categoriasColeccion.add(nuevaCategoria);
+  createCategoria(categoria: string) {
+    return this.http.post(`${this.API_URI}/categorias`, categoria);
   }
 
+  deleteCategoria(id: string) {
+    return this.http.delete(`${this.API_URI}/categorias/${id}`);
+  }
+
+  updateCategoria(id: string, categoria: string) {
+    return this.http.put(`${this.API_URI}/categorias/${id}`, categoria);
+  }
 }

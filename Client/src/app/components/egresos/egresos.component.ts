@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Egreso } from 'src/app/models/egreso.model';
 import { Item } from 'src/app/models/item.model';
-import { EgresosService } from 'src/app/services/egresos.service';
-import { InventarioService } from 'src/app/services/inventario.service';
-import { CategoriasService } from 'src/app/services/categorias.service';
 import { Categoria } from 'src/app/models/categoria.model';
-import { EliminadosService } from 'src/app/services/eliminados.service';
 import { Eliminacion } from 'src/app/models/eliminacion.model';
 import * as html2pdf from 'html2pdf.js';
 
@@ -21,25 +17,11 @@ export class EgresosComponent implements OnInit {
   categorias: Categoria[];
   eliminados: Eliminacion[];
 
-  constructor(private egresosService: EgresosService,
-              private inventarioService: InventarioService,
-              private categoriaService: CategoriasService,
-              private eliminadosService: EliminadosService) { }
+  constructor() { }
 
   ngOnInit(): void {
 
-    this.egresosService.obtenerEgresos().subscribe(items => {
-    this.egresos = items.sort((a, b) => (a.fecha < b.fecha) ? 1 : ((a.fecha > b.fecha) ? -1 : 0));
-  })
-  this.inventarioService.obtenerInventario().subscribe(items => {
-    this.inventario = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
-  })
-  this.categoriaService.obtenerCategorias().subscribe(items => {
-    this.categorias = items.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1);
-  })
-  this.eliminadosService.obtenerEliminados().subscribe(items => {
-    this.eliminados = items.sort((a, b) => (a.fecha < b.fecha) ? 1 : -1);
-  })
+
   }
 
   regresarIndice(idItem: string) {
@@ -70,9 +52,9 @@ export class EgresosComponent implements OnInit {
         html2canvas: {},
         jsPDF: {unit: 'cm', format: 'letter', orientation: 'portrait'}
       };
-  
+
       const contenido: Element = document.getElementById('elemento-a-exportar');
-  
+
       html2pdf()
         .from(contenido)
         .set(opciones)

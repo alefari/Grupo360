@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Item } from '../models/item.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InventarioSQLService {
 
-  API_URI = 'http://localhost:3000';
+  API_URI = environment.dirBackend;
 
   constructor(private http: HttpClient) {
 

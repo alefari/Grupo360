@@ -2,7 +2,7 @@
 export interface Item {
   id?: string;
   nombre: string;
-  categoria: string;
+  categoria?: string;
   subcategoria?: string;
   cantidad?: number;
   unidades?: string;
@@ -12,4 +12,7 @@ export interface Item {
   serial?: string;
   precio?: number;
   descripcion?: string;
+  tipo?: string;
+  responsable?: string;
+  fecha?: string;
 }
