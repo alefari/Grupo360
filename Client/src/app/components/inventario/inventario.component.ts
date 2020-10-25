@@ -10,6 +10,7 @@ import * as html2pdf from 'html2pdf.js';
 // IMPORTS DE BD
 import { InventarioSQLService } from '../../services/inventario-sql.service';
 import { CategoriasService } from '../../services/categorias.service';
+import { UbicacionesService } from '../../services/ubicaciones.service';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -42,8 +43,6 @@ export class InventarioComponent implements OnInit {
   faPlusCircle = faPlusCircle;
   faInfoCircle = faInfoCircle;
 
-
-  ubicaciones: any[];
   oculto = true;
 
   nuevaUnidad : any = {
@@ -102,10 +101,12 @@ export class InventarioComponent implements OnInit {
   inventarioSQL: any = [];
   categorias: any = [];
   subcategorias: any = [];
+  ubicaciones: any = [];
 
   constructor(private servicioInventarioSQL: InventarioSQLService,
               private servicioCategorias: CategoriasService,
-              private servicioSubcategorias: SubcategoriasService) { }
+              private servicioSubcategorias: SubcategoriasService,
+              private servicioUbicaciones: UbicacionesService) { }
 
 //Se adjuntan items de base de datos a la variable inventario, y se ordena items en orden alfabetico//
   ngOnInit(): void {
@@ -124,6 +125,12 @@ export class InventarioComponent implements OnInit {
     this.servicioSubcategorias.getSubcategorias().subscribe(
       res => {
         this.subcategorias = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioUbicaciones.getUbicaciones().subscribe(
+      res => {
+        this.ubicaciones = res;
       },
       err => console.log(err)
     );
