@@ -12,36 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.herramientasController = void 0;
+exports.ubicacionesController = void 0;
 const database_1 = __importDefault(require("../database"));
-class HerramientasController {
+class UbicacionesController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query(`
-        SELECT items.id_item AS id, 
-            items.nombre,
-            categorias.nombre AS categoria,
-            subcategorias.nombre AS subcategoria,
-            items.cantidad,
-            unidades.nombre AS unidades,
-            ubicaciones.nombre AS ubicacion,
-            estados.nombre AS estado,
-            items.vencimiento,
-            items.serial,
-            items.precio,
-            items.descripcion
-        FROM grupocdv360.items
-        LEFT JOIN categorias
-        ON items.id_categoria = categorias.id_categoria
-        LEFT JOIN subcategorias
-        ON items.id_subcategoria = subcategorias.id_subcategoria
-        LEFT JOIN unidades
-        ON items.id_unidad = unidades.id_unidad
-        LEFT JOIN ubicaciones
-        ON items.id_ubicacion = ubicaciones.id_ubicacion
-        LEFT JOIN estados
-        ON items.id_estado = estados.id_estado
-        ORDER BY items.nombre;`, function (err, result, fields) {
+            yield database_1.default.query(`SELECT id_ubicacion AS id, nombre FROM ubicaciones`, function (err, result, fields) {
                 if (err)
                     throw err;
                 res.json(result);
@@ -51,7 +27,7 @@ class HerramientasController {
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('SELECT * FROM items WHERE id_item = ?', [id], function (err, result, fields) {
+            yield database_1.default.query('SELECT id_ubicacion AS id, nombre FROM ubicaciones WHERE id_ubicacion = ?', [id], function (err, result, fields) {
                 if (err)
                     throw err;
                 res.json(result);
@@ -60,23 +36,23 @@ class HerramientasController {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO items set ?', [req.body]);
-            res.json({ text: 'Herramienta Guardada' });
+            yield database_1.default.query('INSERT INTO ubicaciones set ?', [req.body]);
+            res.json({ text: 'Ubicación Guardada' });
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('UPDATE items set ? WHERE id_item = ?', [req.body, id]);
-            res.json({ text: 'Herramienta Actualizada' });
+            yield database_1.default.query('UPDATE ubicaciones set ? WHERE id_ubicacion = ?', [req.body, id]);
+            res.json({ text: 'Ubicación Actualizada' });
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('DELETE FROM items WHERE id_item = ?', [id]);
-            res.json({ text: 'Herramienta Eliminada' });
+            yield database_1.default.query('DELETE FROM ubicaciones WHERE id_ubicacion = ?', [id]);
+            res.json({ text: 'Ubicaión Eliminada' });
         });
     }
 }
-exports.herramientasController = new HerramientasController();
+exports.ubicacionesController = new UbicacionesController();
