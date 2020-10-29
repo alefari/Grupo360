@@ -3,7 +3,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Item } from 'src/app/models/item.model';
 import { Categoria } from 'src/app/models/categoria.model';
-import * as firebase from 'firebase';
 import { Timestamp } from 'rxjs/internal/operators/timestamp';
 import { ObjectUnsubscribedError } from 'rxjs';
 
@@ -14,6 +13,9 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { SubcategoriasService } from 'src/app/services/subcategorias.service';
+import { UbicacionesService } from 'src/app/services/ubicaciones.service';
+import { UnidadesService } from 'src/app/services/unidades.service';
+import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
 
 @Component({
   selector: 'app-ingreso',
@@ -34,9 +36,9 @@ export class IngresoComponent implements OnInit {
 
   categorias: any = [];
   subcategorias: any = [];
-  ubicaciones: any[];
-  unidades: any[];
-  inventario: Item[];
+  ubicaciones: any = [];
+  unidades: any = [];
+  inventario: any = [];
   nombre = "";
   valido: boolean = true;
   // cantidadItems = 1;
@@ -56,7 +58,10 @@ export class IngresoComponent implements OnInit {
   ];
 
   constructor(private servicioCategorias: CategoriasService,
-              private servicioSubcategorias: SubcategoriasService) { }
+              private servicioSubcategorias: SubcategoriasService,
+              private servicioUbicaciones: UbicacionesService,
+              private servicioUnidades: UnidadesService,
+              private inventarioService: InventarioSQLService) { }
 
   ngOnInit(): void {
     this.servicioCategorias.getCategorias().subscribe(
@@ -71,26 +76,34 @@ export class IngresoComponent implements OnInit {
       },
       err => console.log(err)
     );
+    this.servicioUbicaciones.getUbicaciones().subscribe(
+      res => {
+        this.ubicaciones = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioUnidades.getUnidades().subscribe(
+      res => {
+        this.unidades = res;
+      },
+      err => console.log(err)
+    );
+    this.inventarioService.getInventario().subscribe(
+      res => {
+        this.inventario = res;
+      },
+      err => console.log(err)
+    );
   }
 
   onSubmit() {
+    console.log(this.nuevosItems);
 //Se agrega nuevoItem al inventario existente, y se borran los campos//
     let indice: number = 0;
     for(var item of this.nuevosItems) {
 
       if(!this.itemExistenteVar[indice]) {
-        var idAUsar = this.generarId().toString();
-        // REVISA SI EL ID ESTA DISPONIBLE Y DE NO ESTARLO LO CAMBIA
-        while(!this.revisarDisponibilidad(idAUsar)){
-          idAUsar = this.generarId().toString();
-        }
-        item.id = idAUsar;
-        if(item.tipo == "Herramienta") {
-          item.cantidad = 1;
-          item.unidades = "Unidad";
-        }
-        item.fecha = new Date().toISOString();
-        //this.inventarioService.agregarItem(item);
+        this.inventarioService.createItem(item);
         // this.ingresosService.agregarIngreso(
         //   {
         //     idItem: item.id,
@@ -105,10 +118,11 @@ export class IngresoComponent implements OnInit {
         // )
       }
       else if (this.itemExistenteVar[indice]) {
-        let itemModificar = this.inventario.find(itemInventario => itemInventario.id == item.nombre);
+        let itemModificar = this.inventario.find(itemInventario => itemInventario.id == item.id);
         itemModificar.cantidad += item.cantidad;
         itemModificar.precio += item.precio;
-        //this.inventarioService.editarItem(itemModificar);
+        this.inventarioService.updateItem(itemModificar.id ,itemModificar);
+
         // this.ingresosService.agregarIngreso(
         //   {
         //     idItem: itemModificar.id,
@@ -128,7 +142,9 @@ export class IngresoComponent implements OnInit {
 
     this.cerrarModal();
 
-  }
+    }
+
+
 
   //Al cerrar el modal, se reinician los campos
   cerrarModal() {
@@ -172,20 +188,6 @@ export class IngresoComponent implements OnInit {
   restarItem() {
     this.nuevosItems.pop()
     // this.cantidadItems--;
-  }
-
-  generarId() {
-    return (Math.random() * 1000000000 + 1);
-  }
-
-  // RERTORNA TRUE SI EL ID ESTA DISPONIBLE, SI NO RETORNA FALSE
-  revisarDisponibilidad(id: string) {
-    for(var objeto of this.inventario) {
-      if(objeto.id == id) {
-        return false;
-      }
-    }
-    return true;
   }
 
   revisarCantidad() {

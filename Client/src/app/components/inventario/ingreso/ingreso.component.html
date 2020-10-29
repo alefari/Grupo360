@@ -11,15 +11,14 @@
 
     <form #f="ngForm">
       <div class="modal-body" *ngFor="let item of nuevosItems; let i = index" [ngClass]="{'color-contraste': i%2 != 0}">
-          <!--Nombre de producto-->
           <h3>Item {{i+1}}</h3>
           <div class="form-check">
-            <!--  -->
             <input #itemExistente="ngModel" class="form-check-input" type="checkbox" [(ngModel)]='itemExistenteVar[i]' [name]="'checkboxExistente' + [i]" >
             <label class="form-check-label" for="defaultCheck1">
               <strong>Item Existente</strong>
             </label>
           </div>
+            <!--Nombre de producto-->
             <div *ngIf="!itemExistenteVar[i]" class="form-group">
             <div class="row">
               <div class="col-4">
@@ -30,8 +29,8 @@
               <div class="col-3">
                 <!--Label y Select del tipo de producto-->
                 <label for="exampleFormControlSelect1">Categoría</label>
-                <select (change)='restablecerCantidad(i);' #cat="ngModel" #cat[i]="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].categoria" [name]="'cat' + [i]">
-                  <option *ngFor="let categoria of categorias" value="{{categoria.id}}">{{ categoria.nombre }}</option>
+                <select #cat="ngModel" #cat[i]="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].categoria" [name]="'cat' + [i]">
+                  <option *ngFor="let categoria of categorias" value="{{ categoria.id }}">{{ categoria.nombre }}</option>
                 </select>
                 <small *ngIf="!cat.valid && cat.touched" class="text-danger">Ingrese una categoria.</small>
               </div>
@@ -39,13 +38,17 @@
                 <!--Label y Select del tipo de producto-->
                 <label for="exampleFormControlSelect1">Subcategoría</label>
                 <select #subcat="ngModel" #subcat[i]="ngModel" class="form-control" [(ngModel)]="nuevosItems[i].subcategoria" [name]="'subcat' + [i]">
-                  <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.id}}">{{ subcategoria.nombre }}</option>
+                  <option *ngFor="let subcategoria of subcategorias" value="{{ subcategoria.id }}">{{ subcategoria.nombre }}</option>
                 </select>
               </div>
               <div class="col-2">
                 <label>Serial</label>
                 <input type="text" [(ngModel)]="nuevosItems[i].serial" [name]="'serial' + [i]" class="form-control" aria-describedby="emailHelp">
               </div>
+            </div>
+
+          <div class="form-group">
+            <div class="row">
               <div class="col-3">
                 <label>Precio</label>
                 <div class="input-group">
@@ -55,11 +58,7 @@
                 </div>
                 </div>
               </div>
-            </div>
-
-          <div class="form-group">
-            <div class="row">
-              <div class="col-4" *ngIf="nuevosItems[i].tipo == 'Consumible' || nuevosItems[i].tipo == 'Producto'">
+              <div class="col-4">
                 <!--Cantidad de producto-->
                 <label for="exampleInputPassword1">Cantidad y Unidades</label>
                 <div class="input-group">
@@ -74,28 +73,39 @@
                     class="form-control"
                     (keyup)='revisarCantidad()'>
                   <select #unidadX="ngModel" required type="text" placeholder="0" [(ngModel)]="nuevosItems[i].unidades" [name]="'unidades' + [i]" class="form-control">
-                    <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
+                    <option *ngFor="let unidad of unidades" value="{{ unidad.id }}">{{ unidad.nombre }}</option>
                   </select>
                 </div>
                 <small *ngIf="!cantidad.valid && cantidad.touched" class="text-danger">Ingrese una cantidad.<br></small>
                 <small *ngIf="!unidadX.valid && unidadX.touched" class="text-danger">Ingrese una unidad.</small>
               </div>
-              <div class="col-4">
+              <div class="col-5">
                 <label>Ubicación en almacén</label>
                 <select type="text" [(ngModel)]="nuevosItems[i].ubicacion" [name]="'ubicacion' + [i]" class="form-control" aria-describedby="emailHelp">
-                  <option *ngFor="let ubicacion of ubicaciones" value="{{ ubicacion.nombre }}">{{ ubicacion.nombre }}</option>
+                  <option *ngFor="let ubicacion of ubicaciones" value="{{ ubicacion.id }}">{{ ubicacion.nombre }}</option>
                 </select>
               </div>
-              <div class="col-4">
+
+            </div>
+            <div class="row">
+              <div class="col-3">
                 <!--Condicion para colocar fecha de vencimiento (Producto o consumible unicamente)-->
-                <div *ngIf="nuevosItems[i].tipo == 'Consumible' || nuevosItems[i].tipo == 'Producto'" class="form-group">
+                <div class="form-group">
                   <label>Vencimiento</label>
                   <input class="form-control" [(ngModel)]="nuevosItems[i].vencimiento" [name]="'vencimiento' + [i]" type="date">
               </div>
+              <div class="col-3">
+                <!--Condicion para colocar fecha de vencimiento (Producto o consumible unicamente)-->
+                <div class="form-group">
+                  <label>Descripción</label>
+                  <input class="form-control" >
+              </div>
               </div>
             </div>
             </div>
+          </div>
             </div>
+
 
 
 

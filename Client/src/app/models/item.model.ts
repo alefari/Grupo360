@@ -2,8 +2,8 @@
 export interface Item {
   id?: string;
   nombre: string;
-  categoria?: string;
-  subcategoria?: string;
+  categoria?: any;
+  subcategoria?: any;
   cantidad?: number;
   unidades?: string;
   ubicacion?: string;

@@ -23,7 +23,21 @@ export class InventarioSQLService {
   }
 
   createItem(item: Item) {
-    return this.http.post(`${this.API_URI}/herramientas`, item);
+    let nuevoItem = {
+      nombre: item.nombre,
+      id_categoria: +item.categoria,
+      id_subcategoria: +item.subcategoria,
+      cantidad: item.cantidad,
+      id_unidad: +item.unidades,
+      id_ubicacion: +item.ubicacion,
+      id_estado: 1,
+      vencimiento: item.vencimiento,
+      serial: item.serial,
+      precio: item.precio,
+      descripcion: null
+    }
+    console.log(nuevoItem);
+    return this.http.post(`${this.API_URI}/herramientas`, nuevoItem);
   }
 
   deleteItem(id: string) {
@@ -31,7 +45,20 @@ export class InventarioSQLService {
   }
 
   updateItem(id: string, item: Item) {
-    return this.http.put(`${this.API_URI}/herramientas/${id}`, item);
+    let nuevoItem = {
+      nombre: item.nombre,
+      id_categoria: item.categoria,
+      id_subcategoria: item.subcategoria,
+      cantidad: item.cantidad,
+      id_unidad: item.unidades,
+      id_ubicacion: item.ubicacion,
+      id_estado: 1,
+      vencimiento: item.vencimiento,
+      serial: item.serial,
+      precio: item.precio,
+      descripcion: item.descripcion
+    }
+    return this.http.put(`${this.API_URI}/herramientas/${id}`, nuevoItem);
   }
 
 
