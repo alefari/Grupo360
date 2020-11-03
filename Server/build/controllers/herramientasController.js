@@ -60,7 +60,11 @@ class HerramientasController {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO items set ?', [req.body]);
+            yield database_1.default.query('INSERT INTO items SET ?', [req.body], function (error, results, fields) {
+                if (error)
+                    throw error;
+                console.log(results.insertId);
+            });
             res.json({ text: 'Herramienta Guardada' });
         });
     }

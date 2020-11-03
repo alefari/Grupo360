@@ -35,7 +35,6 @@
                 <small *ngIf="!cat.valid && cat.touched" class="text-danger">Ingrese una categoria.</small>
               </div>
               <div class="col-3">
-                <!--Label y Select del tipo de producto-->
                 <label for="exampleFormControlSelect1">Subcategoría</label>
                 <select #subcat="ngModel" #subcat[i]="ngModel" class="form-control" [(ngModel)]="nuevosItems[i].subcategoria" [name]="'subcat' + [i]">
                   <option *ngFor="let subcategoria of subcategorias" value="{{ subcategoria.id }}">{{ subcategoria.nombre }}</option>
@@ -89,19 +88,18 @@
             </div>
             <div class="row">
               <div class="col-3">
-                <!--Condicion para colocar fecha de vencimiento (Producto o consumible unicamente)-->
                 <div class="form-group">
                   <label>Vencimiento</label>
-                  <input class="form-control" [(ngModel)]="nuevosItems[i].vencimiento" [name]="'vencimiento' + [i]" type="date">
+                  <input class="form-control" disabled [(ngModel)]="nuevosItems[i].vencimiento" [name]="'vencimiento' + [i]" type="date">
               </div>
-              <div class="col-3">
+              </div>
+              <div class="col-9">
                 <!--Condicion para colocar fecha de vencimiento (Producto o consumible unicamente)-->
                 <div class="form-group">
                   <label>Descripción</label>
                   <input class="form-control" >
               </div>
               </div>
-            </div>
             </div>
           </div>
             </div>
@@ -119,27 +117,34 @@
               <div class="col-3">
                 <!--Label y Select del tipo de producto-->
                 <label for="exampleFormControlSelect1">Categoría</label>
-                <select (change)='restablecerCantidad(i);' #cat="ngModel" #cat[i]="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].tipo" [name]="'cat' + [i]">
+                <select #cat="ngModel" #cat[i]="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].tipo" [name]="'cat' + [i]">
                   <ng-container *ngFor="let categoria of categorias">
-                    <option *ngIf="categoria.nombre != 'Herramienta'" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
+                    <option value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                   </ng-container>
 
                 </select>
                 <small *ngIf="!cat.valid && cat.touched" class="text-danger">Ingrese una categoria.</small>
               </div>
               <div class="col-3">
+                <label for="exampleFormControlSelect1">Subcategoría</label>
+                <select #subcat="ngModel" #subcat[i]="ngModel" class="form-control" [(ngModel)]="nuevosItems[i].subcategoria" [name]="'subcat' + [i]">
+                  <option *ngFor="let subcategoria of subcategorias" value="{{ subcategoria.nombre }}">{{ subcategoria.nombre }}</option>
+                </select>
+              </div>
+              <div class="col-6">
                 <label>Nombre</label>
-                <select #nombre="ngModel" required type="text" [(ngModel)]="nuevosItems[i].nombre" [name]="'nombre' + [i]" class="form-control">
+                <select #nombre="ngModel" required type="text" [(ngModel)]="nuevosItems[i].id" [name]="'nombre' + [i]" class="form-control">
                   <ng-container *ngFor="let item of inventario">
-                    <option *ngIf="item.tipo == cat.value" value="{{ item.id }}">{{ item.nombre }}</option>
+                    <option *ngIf="item.categoria == cat.value && item.subcategoria == subcat.value" value="{{ item.id }}">{{ item.nombre }}</option>
                   </ng-container>
                 </select>
                   <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Seleccione un nombre.</small>
               </div>
-
+            </div>
+              <div class="row">
               <div class="col-4">
                 <!--Cantidad de producto-->
-                <label for="exampleInputPassword1">Cantidad y Unidades</label>
+                <label for="exampleInputPassword1">Cantidad a Ingresar</label>
                 <div class="input-group">
                   <input
                     onkeypress="return event.charCode >= 46"
@@ -152,13 +157,10 @@
                     class="form-control"
                     (keyup)='revisarCantidad()'>
                     <input *ngIf="nombre.value != undefined" [placeholder]="regresarItem(nombre.value).unidades" disabled type="text" ngModel [name]="'unidades' + [i]" class="form-control">
-                  <!-- <select disabled #unidadX="ngModel" required type="text" placeholder="0" ngModel [name]="'unidades' + [i]" class="form-control">
-                    <option *ngIf="nombre.value != undefined">{{ regresarItem(nombre.value).unidades }}</option>
-                  </select> -->
                 </div>
                 <small *ngIf="!cantidad.valid && cantidad.touched" class="text-danger">Ingrese una cantidad.<br></small>
               </div>
-              <div class="col-2">
+              <div class="col-3">
                 <label>Precio</label>
                 <div class="input-group">
                 <input onkeypress="return event.charCode >= 46" min="0"  type="number" [(ngModel)]="nuevosItems[i].precio" [name]="'precio' + [i]" class="form-control">
@@ -166,6 +168,23 @@
                   <span class="input-group-text" id="basic-addon1">$</span>
                 </div>
                 </div>
+              </div>
+              <div class="col-3">
+                  <label>Vencimiento</label>
+                  <input class="form-control" disabled [(ngModel)]="nuevosItems[i].vencimiento" [name]="'vencimiento' + [i]" type="date">
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label>Descripción</label>
+                  <input
+                    class="form-control"
+                    [ngModel]="((nombre.value != undefined) ? regresarItem(nombre.value).descripcion : '')"
+                    [name]="'descripcion' + [i]"
+                    (keyup)="actDescripcion($event, i)">
+              </div>
               </div>
             </div>
             </div>

@@ -45,6 +45,7 @@ export class IngresoComponent implements OnInit {
 
   nuevosItems: Item[] = [
     {
+      id: null,
       nombre: null,
       tipo: null,
       cantidad: null,
@@ -88,6 +89,10 @@ export class IngresoComponent implements OnInit {
       },
       err => console.log(err)
     );
+    this.obtenerInventario();
+  }
+
+  obtenerInventario() {
     this.inventarioService.getInventario().subscribe(
       res => {
         this.inventario = res;
@@ -97,13 +102,21 @@ export class IngresoComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.nuevosItems);
-//Se agrega nuevoItem al inventario existente, y se borran los campos//
+
     let indice: number = 0;
     for(var item of this.nuevosItems) {
 
       if(!this.itemExistenteVar[indice]) {
-        this.inventarioService.createItem(item);
+
+        this.inventarioService.createItem(item).subscribe(
+            res => {
+              console.log(res);
+              this.obtenerInventario();
+            },
+            err => {
+              console.log(err);
+            }
+          )
         // this.ingresosService.agregarIngreso(
         //   {
         //     idItem: item.id,
@@ -118,10 +131,24 @@ export class IngresoComponent implements OnInit {
         // )
       }
       else if (this.itemExistenteVar[indice]) {
-        let itemModificar = this.inventario.find(itemInventario => itemInventario.id == item.id);
-        itemModificar.cantidad += item.cantidad;
-        itemModificar.precio += item.precio;
-        this.inventarioService.updateItem(itemModificar.id ,itemModificar);
+
+        let itemOriginal = this.inventario.find(itemInventario => itemInventario.id == item.id);
+
+        let itemModificar = {
+          cantidad: itemOriginal.cantidad + item.cantidad,
+          precio: itemOriginal.precio + item.precio,
+          descripcion: this.nuevosItems[indice].descripcion
+        };
+
+        this.inventarioService.updateItem(itemOriginal.id, itemModificar).subscribe(
+          res => {
+            console.log(res);
+            this.obtenerInventario();
+          },
+          err => {
+            console.log(err);
+          }
+        );
 
         // this.ingresosService.agregarIngreso(
         //   {
@@ -182,12 +209,10 @@ export class IngresoComponent implements OnInit {
         estado: "Disponible"
       }
     )
-    // this.cantidadItems++;
   }
 
   restarItem() {
     this.nuevosItems.pop()
-    // this.cantidadItems--;
   }
 
   revisarCantidad() {
@@ -200,16 +225,12 @@ export class IngresoComponent implements OnInit {
     this.valido = true;
   }
 
-  restablecerCantidad(indice: number) {
-    if(this.nuevosItems[indice].tipo == "Herramienta") {
-      this.nuevosItems[indice].cantidad = 1;
-    }
-
-    this.revisarCantidad();
+  regresarItem(id: any) {
+    return this.inventario.find(itemInv => itemInv.id == id);
   }
 
-  regresarItem(id: string) {
-    return this.inventario.find(itemInv => itemInv.id == id);
+  actDescripcion(valor: any, index: number) {
+    this.nuevosItems[index].descripcion = valor.target.value;
   }
 
 }

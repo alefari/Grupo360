@@ -6,13 +6,12 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+
 export class InventarioSQLService {
 
   API_URI = environment.dirBackend;
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) { }
 
   getInventario() {
     return this.http.get(`${this.API_URI}/herramientas`);
@@ -44,21 +43,8 @@ export class InventarioSQLService {
     return this.http.delete(`${this.API_URI}/herramientas/${id}`);
   }
 
-  updateItem(id: string, item: Item) {
-    let nuevoItem = {
-      nombre: item.nombre,
-      id_categoria: item.categoria,
-      id_subcategoria: item.subcategoria,
-      cantidad: item.cantidad,
-      id_unidad: item.unidades,
-      id_ubicacion: item.ubicacion,
-      id_estado: 1,
-      vencimiento: item.vencimiento,
-      serial: item.serial,
-      precio: item.precio,
-      descripcion: item.descripcion
-    }
-    return this.http.put(`${this.API_URI}/herramientas/${id}`, nuevoItem);
+  updateItem(id: string, item: any) {
+    return this.http.put(`${this.API_URI}/herramientas/${id}`, item);
   }
 
 
