@@ -33,7 +33,7 @@ export class InventarioSQLService {
       vencimiento: item.vencimiento,
       serial: item.serial,
       precio: item.precio,
-      descripcion: null
+      descripcion: item.descripcion
     }
     return this.http.post(`${this.API_URI}/herramientas`, nuevoItem);
   }

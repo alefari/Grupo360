@@ -40,7 +40,7 @@ export class ModificarComponent implements OnInit {
   itemElegido: Item = {
     id: null,
     nombre: null,
-    tipo: null,
+    categoria: null,
     cantidad: null,
     ubicacion: null,
     fecha: null,
@@ -51,6 +51,7 @@ export class ModificarComponent implements OnInit {
     precio: null,
     unidades: null
   };
+
 
   constructor(private servicioInventarioSQL: InventarioSQLService,
     private servicioCategorias: CategoriasService,
@@ -106,27 +107,33 @@ export class ModificarComponent implements OnInit {
   onModificar() {
 
     let nuevoItem = {
-      nombre: this.itemElegido.nombre,
-      id_categoria: +this.itemElegido.categoria,
-      id_subcategoria: +this.itemElegido.subcategoria,
-      cantidad: this.itemElegido.cantidad,
-      id_unidad: +this.itemElegido.unidades,
-      id_ubicacion: +this.itemElegido.ubicacion,
-      id_estado: +this.itemElegido.estado,
-      vencimiento: this.itemElegido.vencimiento,
-      serial: this.itemElegido.serial,
-      precio: +this.itemElegido.precio,
-      descripcion: this.itemElegido.descripcion,
-    }
+      id: null,
+      nombre: null,
+      categoria: null,
+      cantidad: null,
+      ubicacion: null,
+      fecha: null,
+      responsable: null,
+      estado: null,
+      vencimiento: null,
+      serial: null,
+      precio: null,
+      unidades: null
+    };
 
-    this.servicioInventarioSQL.updateItem(this.itemElegido.id, nuevoItem).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-    this.form.reset();
+    nuevoItem.id = this.itemElegido.id;
+
+    nuevoItem.categoria = this.categorias.find(cat => cat.nombre == this.itemElegido.categoria).id;
+
+
+    // this.servicioInventarioSQL.updateItem(this.itemElegido.id, this.nuevoItem).subscribe(
+    //   res => {
+    //     console.log(res);
+    //   },
+    //   err => {
+    //     console.log(err);
+    //   }
+    // );
+    // this.form.reset();
   }
 }

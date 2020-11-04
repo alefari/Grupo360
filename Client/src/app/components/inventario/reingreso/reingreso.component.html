@@ -19,8 +19,14 @@
           <div class="row">
             <div class="col-3">
                 <label>Categoría</label>
-                  <select (change)="restaurarValor(i)" required class="form-control" ngModel [name]="'selectTipo'+[i]" #selectTipo="ngModel">
+                  <select (change)="restaurarValor(i)" required class="form-control" ngModel [name]="'selectTipo'+[i]" #selectCategoria="ngModel">
                     <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
+                  </select>
+            </div>
+            <div class="col-3">
+                <label>Subcategoria</label>
+                  <select required class="form-control" ngModel [name]="'selectSubcategoria'+[i]" #selectSubcategoria="ngModel">
+                    <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
                   </select>
             </div>
             <!--Filtro por Item de reingreso-->
@@ -30,18 +36,18 @@
                   <!--NgFor que imprime la cantidad de items que hay en total-->
                   <ng-container *ngFor="let item of inventario">
                     <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
-                    <ng-container *ngIf="item.tipo == selectTipo.value">
-                      <option *ngIf="(item.tipo == 'Herramienta' && item.estado == 'En Obra') || (item.tipo != 'Herramienta')" value='{{item.id}}'>{{ item.nombre }}</option>
+                    <ng-container *ngIf="item.categoria == selectCategoria.value && item.subcategoria == selectSubcategoria.value">
+                      <option *ngIf="(item.categoria == 'Herramienta' && item.estado == 'En Obra') || (item.categoria != 'Herramienta')" value='{{item.id}}'>{{ item.nombre }}</option>
                     </ng-container>
                   </ng-container>
                 </select>
             </div>
-              <div *ngIf="selectTipo.value != 'Herramienta'" class="col-3">
+              <div *ngIf="selectCategoria.value != 'Herramienta'" class="col-3">
                 <!--Label e input de cantidad actual (muestra numero actual en inventario)-->
                 <label for="exampleInputEmail1">Cantidad actual</label>
                 <p *ngIf="idsReingreso[i].id != null && idsReingreso[i].id != undefined && idsReingreso[i].id != ''">{{inventario[regresarIndice(i)].cantidad}} {{inventario[regresarIndice(i)].unidades}}</p>
               </div>
-              <div *ngIf="selectTipo.value != 'Herramienta'" class="col-3">
+              <div class="col-3">
 
 
 

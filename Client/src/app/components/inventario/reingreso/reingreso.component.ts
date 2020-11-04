@@ -10,6 +10,12 @@ import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+import { CategoriasService } from 'src/app/services/categorias.service';
+import { SubcategoriasService } from 'src/app/services/subcategorias.service';
+import { UnidadesService } from 'src/app/services/unidades.service';
+import { EstadosService } from 'src/app/services/estados.service';
+import { InventarioComponent } from '../inventario.component';
+import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
 
 @Component({
   selector: 'app-reingreso',
@@ -27,8 +33,11 @@ export class ReingresoComponent implements OnInit {
   faMinusCircle = faMinusCircle;
   faPlusCircle = faPlusCircle;
 
-  inventario: Item[];
-  categorias: Categoria[];
+  inventario: any = [];
+  categorias: any = [];
+  unidades: any = [];
+  estados: any = [];
+  subcategorias: any = [];
   // selectTipo: string;
   cantidadIngreso: number = 0;
   valido: boolean = true;
@@ -37,18 +46,44 @@ export class ReingresoComponent implements OnInit {
     {id: "", cantidad: 1}
   ];
 
-  constructor()
-              { }
+  constructor(private servicioCategorias: CategoriasService,
+              private servicioSubcategorias: SubcategoriasService,
+              private servicioUnidades: UnidadesService,
+              private servicioEstados: EstadosService,
+              private servicioInventario: InventarioSQLService) { }
 
 
 //Se obtiene inventario en orden alfabetico, y se imprime en la tabla//
   ngOnInit(): void {
-
+    this.servicioCategorias.getCategorias().subscribe(
+      res => {
+        this.categorias = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioSubcategorias.getSubcategorias().subscribe(
+      res => {
+        this.subcategorias = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioInventario.getInventario().subscribe(
+      res => {
+        this.inventario = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioUnidades.getUnidades().subscribe(
+      res => {
+        this.unidades = res;
+      },
+      err => console.log(err)
+    );
   }
 
   regresarIndice(indice: number) {
     return this.inventario.findIndex(item => item.id == this.idsReingreso[indice].id);
-}
+  }
 
    //Con el id del item ubicado, se suma la cantidad a agregar ingresada por el usuario en el item del id que haga match//
   reingresarItems() {
