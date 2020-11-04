@@ -5,6 +5,7 @@ import categoriasRoutes from './routes/categoriasRoutes';
 import subcategoriasRoutes from './routes/subcategoriasRoutes';
 import ubicacionesRoutes from './routes/ubicacionesRoutes';
 import unidadesRoutes from './routes/unidadesRoutes';
+import estadosRoutes from './routes/estadosRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -33,6 +34,7 @@ class Server {
         this.app.use('/subcategorias', subcategoriasRoutes);
         this.app.use('/ubicaciones', ubicacionesRoutes);
         this.app.use('/unidades', unidadesRoutes);
+        this.app.use('/estados', estadosRoutes);
     }
 
     start(): void {

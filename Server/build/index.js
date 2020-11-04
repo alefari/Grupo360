@@ -10,6 +10,7 @@ const categoriasRoutes_1 = __importDefault(require("./routes/categoriasRoutes"))
 const subcategoriasRoutes_1 = __importDefault(require("./routes/subcategoriasRoutes"));
 const ubicacionesRoutes_1 = __importDefault(require("./routes/ubicacionesRoutes"));
 const unidadesRoutes_1 = __importDefault(require("./routes/unidadesRoutes"));
+const estadosRoutes_1 = __importDefault(require("./routes/estadosRoutes"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 class Server {
@@ -32,6 +33,7 @@ class Server {
         this.app.use('/subcategorias', subcategoriasRoutes_1.default);
         this.app.use('/ubicaciones', ubicacionesRoutes_1.default);
         this.app.use('/unidades', unidadesRoutes_1.default);
+        this.app.use('/estados', estadosRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {

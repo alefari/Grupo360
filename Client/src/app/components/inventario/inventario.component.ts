@@ -11,6 +11,7 @@ import * as html2pdf from 'html2pdf.js';
 import { InventarioSQLService } from '../../services/inventario-sql.service';
 import { CategoriasService } from '../../services/categorias.service';
 import { UbicacionesService } from '../../services/ubicaciones.service';
+import { SubcategoriasService } from 'src/app/services/subcategorias.service';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +22,7 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { Eliminacion } from 'src/app/models/eliminacion.model';
-import { SubcategoriasService } from 'src/app/services/subcategorias.service';
+
 
 
 

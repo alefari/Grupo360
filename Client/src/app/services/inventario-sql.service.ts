@@ -35,7 +35,6 @@ export class InventarioSQLService {
       precio: item.precio,
       descripcion: null
     }
-    console.log(nuevoItem);
     return this.http.post(`${this.API_URI}/herramientas`, nuevoItem);
   }
 
