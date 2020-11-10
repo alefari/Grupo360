@@ -17,7 +17,8 @@ class HerramientasController {
             items.vencimiento,
             items.serial,
             items.precio,
-            items.descripcion
+            items.descripcion,
+            items.cantidadObra
         FROM grupocdv360.items
         LEFT JOIN categorias
         ON items.id_categoria = categorias.id_categoria

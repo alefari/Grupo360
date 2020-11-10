@@ -80,14 +80,14 @@
                             <div class="input-group">
                                 <input onkeypress="return event.charCode > 48" min="1" [(ngModel)]="itemElegido.cantidad" required type="number" name="cantidad" class="form-control">
                                 <select required type="text" placeholder=":itemElegido.unidad"  name="unidades" [(ngModel)]="itemElegido.unidades" class="form-control">
-                                <option *ngFor="let unidad of unidades" value="{{ unidad.id }}">{{ unidad.nombre }}</option>
+                                <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-3">
                             <label>Ubicación</label>
                             <select type="text" name="ubicacion" [(ngModel)]="itemElegido.ubicacion" class="form-control" aria-describedby="emailHelp">
-                                <option *ngFor="let ubicacion of ubicaciones" value="{{ ubicacion.id }}">{{ ubicacion.nombre }}</option>
+                                <option *ngFor="let ubicacion of ubicaciones" value="{{ ubicacion.nombre }}">{{ ubicacion.nombre }}</option>
                             </select>
                         </div>
                         <div class="col-3">
@@ -95,7 +95,7 @@
                             <select type="text"
                             [(ngModel)]="itemElegido.estado"
                             name="estado" class="form-control">
-                                <option *ngFor='let estado of estados' value="{{ estado.id }}">{{ estado.nombre }}</option>
+                                <option *ngFor='let estado of estados' value="{{ estado.nombre }}">{{ estado.nombre }}</option>
                             </select>
                         </div>
                         <div class="col-2">

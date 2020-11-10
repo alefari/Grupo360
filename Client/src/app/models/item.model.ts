@@ -15,4 +15,5 @@ export interface Item {
   tipo?: string;
   responsable?: string;
   fecha?: string;
+  cantidadObra?: number;
 }

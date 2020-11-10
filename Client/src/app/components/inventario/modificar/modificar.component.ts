@@ -41,6 +41,7 @@ export class ModificarComponent implements OnInit {
     id: null,
     nombre: null,
     categoria: null,
+    subcategoria: null,
     cantidad: null,
     ubicacion: null,
     fecha: null,
@@ -101,39 +102,26 @@ export class ModificarComponent implements OnInit {
 
     //ENCUENTRA EL ID DEL ITEM A MODIFICAR
   alElegirItem(idItem: string) {
-    this.itemElegido = this.inventarioSQL.find(item => item.id == idItem);
+    // this.itemElegido = this.inventarioSQL.find(item => item.id == idItem);
+    this.itemElegido = Object.assign({}, this.inventarioSQL.find(item => item.id == idItem));
   }
 
   onModificar() {
+    this.itemElegido.categoria = this.categorias.find(cat => cat.nombre == this.itemElegido.categoria).id;
+    this.itemElegido.subcategoria = this.subcategorias.find(subcat => subcat.nombre == this.itemElegido.subcategoria).id;
+    this.itemElegido.ubicacion = this.ubicaciones.find(ubic => ubic.nombre == this.itemElegido.ubicacion).id;
+    this.itemElegido.unidades = this.unidades.find(und => und.nombre == this.itemElegido.unidades).id;
+    this.itemElegido.estado = this.estados.find(est => est.nombre == this.itemElegido.estado).id;
 
-    let nuevoItem = {
-      id: null,
-      nombre: null,
-      categoria: null,
-      cantidad: null,
-      ubicacion: null,
-      fecha: null,
-      responsable: null,
-      estado: null,
-      vencimiento: null,
-      serial: null,
-      precio: null,
-      unidades: null
-    };
+    this.servicioInventarioSQL.updateItem(this.itemElegido.id, this.itemElegido).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
 
-    nuevoItem.id = this.itemElegido.id;
-
-    nuevoItem.categoria = this.categorias.find(cat => cat.nombre == this.itemElegido.categoria).id;
-
-
-    // this.servicioInventarioSQL.updateItem(this.itemElegido.id, this.nuevoItem).subscribe(
-    //   res => {
-    //     console.log(res);
-    //   },
-    //   err => {
-    //     console.log(err);
-    //   }
-    // );
-    // this.form.reset();
+    this.form.reset();
   }
 }

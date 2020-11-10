@@ -16,6 +16,7 @@ import { UnidadesService } from 'src/app/services/unidades.service';
 import { EstadosService } from 'src/app/services/estados.service';
 import { InventarioComponent } from '../inventario.component';
 import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
+import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 
 @Component({
   selector: 'app-reingreso',
@@ -37,6 +38,7 @@ export class ReingresoComponent implements OnInit {
   categorias: any = [];
   unidades: any = [];
   estados: any = [];
+  ubicaciones: any = [];
   subcategorias: any = [];
   // selectTipo: string;
   cantidadIngreso: number = 0;
@@ -50,7 +52,8 @@ export class ReingresoComponent implements OnInit {
               private servicioSubcategorias: SubcategoriasService,
               private servicioUnidades: UnidadesService,
               private servicioEstados: EstadosService,
-              private servicioInventario: InventarioSQLService) { }
+              private servicioInventario: InventarioSQLService,
+              private servicioUbicaciones: UbicacionesService) { }
 
 
 //Se obtiene inventario en orden alfabetico, y se imprime en la tabla//
@@ -79,6 +82,18 @@ export class ReingresoComponent implements OnInit {
       },
       err => console.log(err)
     );
+    this.servicioUbicaciones.getUbicaciones().subscribe(
+      res => {
+        this.ubicaciones = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioEstados.getEstados().subscribe(
+      res => {
+        this.estados = res;
+      },
+      err => console.log(err)
+    );
   }
 
   regresarIndice(indice: number) {
@@ -88,13 +103,33 @@ export class ReingresoComponent implements OnInit {
    //Con el id del item ubicado, se suma la cantidad a agregar ingresada por el usuario en el item del id que haga match//
   reingresarItems() {
     for(let item of this.idsReingreso) {
-      let nuevoItem = this.inventario.find(itemInv => itemInv.id == item.id);
-      // let nuevoItem = this.inventario[this.inventario.findIndex(itemInv => itemInv.id == item.id)];
-      if(nuevoItem.tipo != "Herramienta") {
-        nuevoItem.cantidad += item.cantidad;
+      let nuevoItem = Object.assign({},this.inventario.find(itemInv => itemInv.id == item.id));
+
+      if(item.cantidad == nuevoItem.cantidadObra) {
+        nuevoItem.estado = "Disponible";
+        nuevoItem.cantidadObra = 0;
       }
-      nuevoItem.estado = "Disponible"
-      //this.servicioInventario.editarItem(nuevoItem);
+      else if(item.cantidad < nuevoItem.cantidadObra){
+        nuevoItem.estado = "En Obra";
+        nuevoItem.cantidadObra -= item.cantidad;
+      }
+
+      nuevoItem.cantidad += item.cantidad;
+
+      nuevoItem.categoria = this.categorias.find(cat => cat.nombre == nuevoItem.categoria).id;
+      nuevoItem.subcategoria = this.subcategorias.find(subcat => subcat.nombre == nuevoItem.subcategoria).id;
+      nuevoItem.ubicacion = this.ubicaciones.find(ubic => ubic.nombre == nuevoItem.ubicacion).id;
+      nuevoItem.unidades = this.unidades.find(und => und.nombre == nuevoItem.unidades).id;
+      nuevoItem.estado = this.estados.find(est => est.nombre == nuevoItem.estado).id;
+
+      this.servicioInventario.updateItem(nuevoItem.id, nuevoItem).subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
 
       // this.ingresosService.agregarIngreso(
       //   {

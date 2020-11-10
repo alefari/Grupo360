@@ -37,7 +37,7 @@
                   <ng-container *ngFor="let item of inventario">
                     <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
                     <ng-container *ngIf="item.categoria == selectCategoria.value && item.subcategoria == selectSubcategoria.value">
-                      <option *ngIf="(item.categoria == 'Herramienta' && item.estado == 'En Obra') || (item.categoria != 'Herramienta')" value='{{item.id}}'>{{ item.nombre }}</option>
+                      <option *ngIf="(item.categoria == 'Herramienta' && item.estado == 'En Obra') || (item.categoria != 'Herramienta')" value='{{ item.id }}'>{{ item.nombre }}</option>
                     </ng-container>
                   </ng-container>
                 </select>
@@ -45,7 +45,7 @@
               <div *ngIf="selectCategoria.value != 'Herramienta'" class="col-3">
                 <!--Label e input de cantidad actual (muestra numero actual en inventario)-->
                 <label for="exampleInputEmail1">Cantidad actual</label>
-                <p *ngIf="idsReingreso[i].id != null && idsReingreso[i].id != undefined && idsReingreso[i].id != ''">{{inventario[regresarIndice(i)].cantidad}} {{inventario[regresarIndice(i)].unidades}}</p>
+                <p *ngIf="idsReingreso[i].id != null && idsReingreso[i].id != undefined && idsReingreso[i].id != ''">{{ inventario[regresarIndice(i)].cantidad }} {{ inventario[regresarIndice(i)].unidades }}</p>
               </div>
               <div class="col-3">
 
