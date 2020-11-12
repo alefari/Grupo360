@@ -170,6 +170,11 @@
                   <td></td>
                   <td>{{ datosInfo.cantidad }} {{datosInfo.unidades }}</td>
               </tr>
+              <tr *ngIf="datosInfo.cantidadObra != null && datosInfo.cantidadObra !=0">
+                <th>Cantidad en Obra</th>
+                  <td></td>
+                  <td>{{ datosInfo.cantidadObra }} {{datosInfo.unidades }} en obra</td>
+              </tr>
               <tr *ngIf="datosInfo.ubicacion != null">
                 <th>Ubicación</th>
                   <td></td>
@@ -190,7 +195,7 @@
                   <td></td>
                   <td>{{ datosInfo.precio |currency}}</td>
               </tr>
-              <tr>
+              <tr *ngIf="datosInfo.descripcion != null">
                 <th>Descripcion</th>
                   <td></td>
                   <td>{{ datosInfo.descripcion | lowercase}}</td>
@@ -222,7 +227,6 @@
 
       <div class="modal-body">
       <form #f="ngForm">
-          <h3>Item</h3>
           <div class="form-group">
             <div class="row">
               <div class="col">
@@ -234,17 +238,15 @@
               <div class="col">
                   <label>Subcategoría</label>
                     <select class="form-control" ngModel name="selectSubcategoriaReporte" #selectSubcategoriaReporte="ngModel">
-                      <option value="">Todas</option>
                       <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
                     </select>
               </div>
               <div class="col">
                   <label>Item</label>
                   <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" class='form-control' ngModel name="id">
-                    <!--NG FOR QUE COLOCA LA LISTA DE INVENTARIO-->
+                    <!-- FILTRO POR CATEGORIA Y SUBCATEGORIA REPORTE -->
                     <ng-container *ngFor="let item of inventarioSQL">
-                      <!--NG IF QUE FILTRA LA LISTA FINAL POR EL TIPO-->
-                      <ng-container *ngIf="item.categoria == selectCategoriaReporte.value && item.estado != 'En Obra' && (item.subcategoria == selectSubcategoriaReporte.value || selectSubcategoriaReporte.value == '')">
+                      <ng-container *ngIf="item.categoria == selectCategoriaReporte.value && item.estado != 'En Obra' && item.subcategoria == selectSubcategoriaReporte.value">
                         <option value='{{item.id}}'>{{ item.nombre }}</option>
                       </ng-container>
                     </ng-container>
@@ -253,26 +255,23 @@
             </div>
           </div>
 
-        <!--Footer de Modal de reportar, con botones de cerrar e ingresar-->
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="borrarForm()">
               <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
             </button>
-
-            <!-- <button data-dismiss="modal" *ngIf="idItem.value && regresarItem(idItem.value).estado == 'Dañado'" type="button" class="btn btn-primary"  (click)="reportarReparado()">
+            <button data-dismiss="modal" *ngIf="idItem.value && regresarItem(idItem.value).estado == 'Dañado'" type="button" class="btn btn-primary"  (click)="reportarReparado()">
               <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar Reparado
             </button>
             <button *ngIf="idItem.value && regresarItem(idItem.value).estado == 'Disponible'" data-dismiss="modal" type="button" class="btn btn-danger" (click)="reportarAveria()">
               <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar Dañado
-            </button> -->
-
+            </button>
         </div>
-
       </form>
     </div>
   </div>
   </div>
 </div>
+<!--FIN MODAL DE REPORTE DE PRODUCTO-->
 
 <!-- MODAL PDF DE INVENTARIO-->
 <div class="modal fade" id="pdfInventario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

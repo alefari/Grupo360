@@ -12,6 +12,8 @@ import { InventarioSQLService } from '../../services/inventario-sql.service';
 import { CategoriasService } from '../../services/categorias.service';
 import { UbicacionesService } from '../../services/ubicaciones.service';
 import { SubcategoriasService } from 'src/app/services/subcategorias.service';
+import { EstadosService } from 'src/app/services/estados.service';
+import { UnidadesService } from 'src/app/services/unidades.service';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -103,11 +105,15 @@ export class InventarioComponent implements OnInit {
   categorias: any = [];
   subcategorias: any = [];
   ubicaciones: any = [];
+  estados: any = [];
+  unidades: any = [];
 
   constructor(private servicioInventarioSQL: InventarioSQLService,
               private servicioCategorias: CategoriasService,
               private servicioSubcategorias: SubcategoriasService,
-              private servicioUbicaciones: UbicacionesService) { }
+              private servicioUbicaciones: UbicacionesService,
+              private servicioEstados: EstadosService,
+              private servicioUnidades: UnidadesService) { }
 
 //Se adjuntan items de base de datos a la variable inventario, y se ordena items en orden alfabetico//
   ngOnInit(): void {
@@ -132,6 +138,18 @@ export class InventarioComponent implements OnInit {
     this.servicioUbicaciones.getUbicaciones().subscribe(
       res => {
         this.ubicaciones = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioEstados.getEstados().subscribe(
+      res => {
+        this.estados = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioUnidades.getUnidades().subscribe(
+      res => {
+        this.unidades = res;
       },
       err => console.log(err)
     );
@@ -167,25 +185,50 @@ export class InventarioComponent implements OnInit {
     // return this.inventario.findIndex(item => item.id == this.idItemElegido);
 }
   regresarItem(id: string) {
-    // return this.inventario.find(item => item.id == id);
+    return this.inventarioSQL.find(item => item.id == id);
 }
 
   //CREA ITEM TEMPORAL EN DONDE COLOCARA NUEVOS ESTADOS
   alElegirItem(idItem: string) {
-  // this.itemAveriado = this.inventario.find(item => item.id == idItem);
+    this.itemAveriado = Object.assign({},this.inventarioSQL.find(itemInv => itemInv.id == idItem));
 }
 
+//FUNCIONES DE MODAL REPORTE 
   reportarAveria() {
-    /* this.itemAveriado.estado = "Dañado";
-    this.servicioInventario.editarItem(this.itemAveriado);
-    //SE BORRAN LOS CAMPOS DEL FORMULARIO
+      this.itemAveriado.estado = "Dañado";
+      this.itemAveriado.estado = this.estados.find(est => est.nombre == this.itemAveriado.estado).id;
+      this.itemAveriado.categoria = this.categorias.find(cat => cat.nombre == this.itemAveriado.categoria).id;
+      this.itemAveriado.subcategoria = this.subcategorias.find(subcat => subcat.nombre == this.itemAveriado.subcategoria).id;
+      this.itemAveriado.ubicacion = this.ubicaciones.find(ubic => ubic.nombre == this.itemAveriado.ubicacion).id;
+      this.itemAveriado.unidades = this.unidades.find(und => und.nombre == this.itemAveriado.unidades).id;
+      //MODIFICA ITEM EN BD 
+      this.servicioInventarioSQL.updateItem(this.itemAveriado.id, this.itemAveriado).subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
     this.form.reset();
   }
   reportarReparado() {
     this.itemAveriado.estado = "Disponible";
-    this.servicioInventario.editarItem(this.itemAveriado);
-    //SE BORRAN LOS CAMPOS DEL FORMULARIO
-    this.form.reset();*/
+    this.itemAveriado.estado = this.estados.find(est => est.nombre == this.itemAveriado.estado).id;
+    this.itemAveriado.categoria = this.categorias.find(cat => cat.nombre == this.itemAveriado.categoria).id;
+    this.itemAveriado.subcategoria = this.subcategorias.find(subcat => subcat.nombre == this.itemAveriado.subcategoria).id;
+    this.itemAveriado.ubicacion = this.ubicaciones.find(ubic => ubic.nombre == this.itemAveriado.ubicacion).id;
+    this.itemAveriado.unidades = this.unidades.find(und => und.nombre == this.itemAveriado.unidades).id;
+    //MODIFICA ITEM EN BD 
+    this.servicioInventarioSQL.updateItem(this.itemAveriado.id, this.itemAveriado).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+    this.form.reset();
   }
 
   //BORRA FORMMULARIO DE AVERIA
