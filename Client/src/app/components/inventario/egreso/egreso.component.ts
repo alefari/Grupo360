@@ -10,6 +10,14 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
+//SERVICIOS DE BD
+import { CategoriasService } from 'src/app/services/categorias.service';
+import { SubcategoriasService } from 'src/app/services/subcategorias.service';
+import { UbicacionesService } from 'src/app/services/ubicaciones.service';
+import { UnidadesService } from 'src/app/services/unidades.service';
+import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
+import { EstadosService } from 'src/app/services/estados.service';
+
 @Component({
   selector: 'app-egreso',
   templateUrl: './egreso.component.html',
@@ -26,100 +34,157 @@ export class EgresoComponent implements OnInit {
   faMinusCircle = faMinusCircle;
   faPlusCircle = faPlusCircle;
 
-  inventario: Item[];
-  categorias: Categoria[];
-  // selectTipo: string;
+    // selectTipo: string;
   // idItemElegidoEgreso: string = null;
+
+  //VARIABLES QUE CONTINENE INFO DE BD
+  inventario: any = [];
+  categorias: any = [];
+  unidades: any = [];
+  ubicaciones: any = [];
+  subcategorias: any = [];
+  estados: any = [];
+
   cantidadEgreso: number = 0;
   valido: boolean = true;
 
-  idsEgreso = [{id: '', cantidad: null, obra: null, responsable: null}];
+  idsEgreso = [
+    {id: '', cantidad: 1, obra: null, responsable: null}
+  ];
 
-  constructor(){ }
+  constructor(private servicioCategorias: CategoriasService,
+              private servicioSubcategorias: SubcategoriasService,
+              private servicioUbicaciones: UbicacionesService,
+              private servicioUnidades: UnidadesService,
+              private servicioInventario: InventarioSQLService,
+              private servicioEstados: EstadosService){ }
 
   ngOnInit(): void {
-
+    this.servicioCategorias.getCategorias().subscribe(
+      res => {
+        this.categorias = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioSubcategorias.getSubcategorias().subscribe(
+      res => {
+        this.subcategorias = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioInventario.getInventario().subscribe(
+      res => {
+        this.inventario = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioUnidades.getUnidades().subscribe(
+      res => {
+        this.unidades = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioUbicaciones.getUbicaciones().subscribe(
+      res => {
+        this.ubicaciones = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioEstados.getEstados().subscribe(
+      res => {
+        this.estados = res;
+      },
+      err => console.log(err)
+    );
 }
-//Busca item a egresar por filtro, y guarda el id del mismo
-buscarIndex(itemElegidoEgreso: string) {
-  this.inventario.findIndex(function(item, index) {
-    if(item.id == itemElegidoEgreso){
-      return true;
-    }
-  })
+//BUSCA ITEM A EGRESAR LUEGO DE HABER SELECCINADO 
+regresarIndice(indice: number) {
+  return this.inventario.findIndex(item => item.id == this.idsEgreso[indice].id);
 }
 
-   //Con el id del item ubicado, se suma la cantidad a agregar ingresada por el usuario en el item del id que haga match//
 egresarItems() {
 
-  for(let itemCiclo of this.idsEgreso) {
-    let itemEgreso = this.inventario[this.inventario.findIndex(item => item.id == itemCiclo.id)];
+//CICLO for QUE EGRESA ITEMS MULTIPLES
+for(let itemCiclo of this.idsEgreso) {
+  let itemEgreso = Object.assign({},this.inventario.find(itemInv => itemInv.id == itemCiclo.id));
 
-    if(itemEgreso.tipo == "Herramienta") {
-      itemEgreso.estado = "En Obra";
+  itemEgreso.cantidad = itemEgreso.cantidad - itemCiclo.cantidad;
+  itemEgreso.cantidadObra = itemEgreso.cantidadObra + itemCiclo.cantidad
+
+  itemEgreso.categoria = this.categorias.find(cat => cat.nombre == itemEgreso.categoria).id;
+  itemEgreso.subcategoria = this.subcategorias.find(subcat => subcat.nombre == itemEgreso.subcategoria).id;
+  itemEgreso.ubicacion = this.ubicaciones.find(ubic => ubic.nombre == itemEgreso.ubicacion).id;
+  itemEgreso.unidades = this.unidades.find(und => und.nombre == itemEgreso.unidades).id;
+  itemEgreso.estado = this.estados.find(est => est.nombre == itemEgreso.estado).id;
+
+  //CAMPOS FALTANTES EN EGRESO
+  //itemEgreso.responsable = itemCiclo.responsable;
+  //itemEgreso.obra = itemCiclo.obra;
+
+  //COMUNICACION CON SERVICIO (UPDATE)
+  this.servicioInventario.updateItem(itemEgreso.id, itemEgreso).subscribe(
+    res => {
+      console.log(res);
+    },
+    err => {
+      console.log(err);
     }
-    else {
-      itemEgreso.cantidad = itemEgreso.cantidad - itemCiclo.cantidad;
-      if(itemEgreso.cantidad == 0){
-        itemEgreso.estado = "Agotado";
-      }
-    }
-    itemEgreso.responsable = itemCiclo.responsable;
+  );
 
-    // this.servicioInventario.editarItem(itemEgreso);
+  //let egreso: Egreso = {
+    //idItem: itemEgreso.id,
+    //nombreItem: itemEgreso.nombre,
+    //categoriaItem: itemEgreso.tipo,
+    //unidades: itemEgreso.unidades,
+    //fecha: new Date().toISOString(),
+    //obra: itemCiclo.obra,
+    //reponsable: itemCiclo.responsable,
+  //}
+  //if(itemEgreso.tipo != 'Herramienta'){
+    //egreso.cantidad = itemCiclo.cantidad;
+    // CUANDO ES HERRAMIENTA, SE COLOCA "1 UNIDAD" DE DEFAULT
+  //} else {
+    //egreso.cantidad = 1;
+  //}
 
-    let egreso: Egreso = {
-      idItem: itemEgreso.id,
-      nombreItem: itemEgreso.nombre,
-      categoriaItem: itemEgreso.tipo,
-      unidades: itemEgreso.unidades,
-      fecha: new Date().toISOString(),
-      obra: itemCiclo.obra,
-      reponsable: itemCiclo.responsable,
-    }
-    if(itemEgreso.tipo != 'Herramienta'){
-      egreso.cantidad = itemCiclo.cantidad;
-      // CUANDO ES HERRAMIENTA, SE COLOCA "1 UNIDAD" DE DEFAULT
-    } else {
-      egreso.cantidad = 1;
-    }
+  // this.servicioEgresos.agregarEgreso(egreso);
+}
+  this.form.reset();
 
-    // this.servicioEgresos.agregarEgreso(egreso);
-  }
-    this.form.reset();
-  }
-
-  regresarIndice(indice: number) {
-    // return this.inventario.findIndex(item => item.id == this.idsEgreso[indice].id);
+  this.idsEgreso = [
+    {id: "", cantidad: 1, responsable: null, obra: null}
+  ];
 }
 
+  //FUNCION PARA BORRAR FORMULARIO
   borrarForm() {
     this.form.reset();
     this.idsEgreso = [{id: '', cantidad: null, obra: null, responsable: null}]
   }
 
+  //FUNCIONES DE EGRESO MULTIPLE
   agregarItem() {
-    // this.idsEgreso.push({id: '', cantidad: null, obra: null, responsable: null});
+    this.idsEgreso.push({id: '', cantidad: null, obra: null, responsable: null});
   }
-
   restarItem() {
-    // this.idsEgreso.pop();
+    this.idsEgreso.pop();
   }
-
-  borrarId(indice: number) {
-    this.idsEgreso[indice].id = '';
-  }
-
+  
+  //FUNCIUON QUE REVISA CANTIDAD VALIDA
   revisarCantidad(cantActual: number) {
     for(let item of this.idsEgreso) {
-      if(item.cantidad > cantActual || item.cantidad == null || item.cantidad == 0){
+      if(item.cantidad > cantActual || item.cantidad == null || item.cantidad <= 0){
         this.valido = false;
         return;
       }
     }
     this.valido = true;
-
-    console.log('Funciona');
   }
+
+
+  borrarId(indice: number) {
+    this.idsEgreso[indice].id = '';
+  }
+
 
 }

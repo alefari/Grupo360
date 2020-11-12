@@ -14,55 +14,61 @@
         <div *ngFor="let item of idsEgreso; let i=index" class="modal-body">
             <div class="form-group">
                 <div class="row">
-                <div class="col-3">
-                <label>Categoría</label>
-                <select (change)='borrarId(i);' class="form-control" ngModel [name]="'selectTipo'+[i]" #selectTipo="ngModel">
-                    <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
-                </select>
-                </div>
-            <!--Filtro por Item de egreso-->
-            <div class="col-3">
-                <label>Item</label>
-                <select [(ngModel)]='idsEgreso[i].id' class="form-control" [name]="'idItem'+[i]">
-                <!--NgFor que imprime la cantidad de items que hay en total-->
-                <ng-container *ngFor="let item of inventario">
-                <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
-                <option *ngIf="item.tipo == selectTipo.value && item.estado == 'Disponible'" value='{{item.id}}'>{{ item.nombre }}</option>
-                </ng-container>
-                </select>
-            </div>
-            <div *ngIf="selectTipo.value == 'Consumible' || selectTipo.value == 'Producto'" class="col-3">
-            <!--Label e input de cantidad actual (muestra numero actual en inventario)-->
-            <label for="exampleInputEmail1">Cantidad actual</label>
-            <p *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''">{{inventario[regresarIndice(i)].cantidad}} {{inventario[regresarIndice(i)].unidades}}</p>
-            </div>
-            <div *ngIf="selectTipo.value == 'Consumible' || selectTipo.value == 'Producto'" class="col-3">
-            <!--Label e input de cantidad a egresar (se escribe la cantidad a egresar)-->
-            <label for="exampleInputEmail1">Cantidad a egresar</label>
-            <input *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''"
-              onkeypress="return event.charCode >= 48"
-              min="1"
-              [max]="inventario[regresarIndice(i)].cantidad" type="number"
-              [(ngModel)]="idsEgreso[i].cantidad"
-              [name]="'cantidadEgreso'+[i]"
-              class="form-control"
-              (keyup)='revisarCantidad(inventario[regresarIndice(i)].cantidad)'>
-            </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col">
-                    <label for="exampleInputEmail1">Obra destino</label>
-                    <input [(ngModel)]='idsEgreso[i].obra' [name]="'obra'+[i]" class="form-control">
-                </div>
-                <div class="col">
-                    <label for="exampleInputEmail1">Responsable</label>
-                    <input [(ngModel)]='idsEgreso[i].responsable' [name]="'responsable'+[i]" class="form-control">
+                    <div class="col-3">
+                    <label>Categoría</label>
+                    <select (change)='borrarId(i);' class="form-control" ngModel [name]="'selectCat'+[i]" #selectCat="ngModel">
+                        <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
+                    </select>
+                    </div>
+                    <div class="col-3">
+                        <label>Subcategoría</label>
+                        <select (change)='borrarId(i);' class="form-control" ngModel [name]="'selectSubcat'+[i]" #selectSubcat="ngModel">
+                            <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label>Item</label>
+                        <select [(ngModel)]='idsEgreso[i].id' class="form-control" [name]="'idItem'+[i]">
+                        <!--FILTRO DE ITEM POR CAT Y SUBCAT-->
+                            <ng-container *ngFor="let item of inventario">
+                            <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
+                            <option *ngIf="item.categoria == selectCat.value && item.subcategoria == selectSubcat.value && item.estado == 'Disponible'" value='{{item.id}}'>{{ item.nombre }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                    <!--LABEL E INPUT DE CANTIDAD ACTUAL EN INVENTARIO-->
+                        <label for="exampleInputEmail1">Cantidad actual</label>
+                        <p *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''">{{inventario[regresarIndice(i)].cantidad}} {{inventario[regresarIndice(i)].unidades}}</p>
+                    </div>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="row">
+                    <!--LABEL E INPUT CON CANTIDAD A EGRESAR-->
+                    <div class="col-3">
+                        <label for="exampleInputEmail1">Cantidad a egresar</label>
+                        <input *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''"
+                        onkeypress="return event.charCode >= 48"
+                        min="1"
+                        [max]="inventario[regresarIndice(i)].cantidad" type="number"
+                        [(ngModel)]="idsEgreso[i].cantidad"
+                        [name]="'cantidadEgreso'+[i]"
+                        class="form-control"
+                        (keyup)='revisarCantidad(inventario[regresarIndice(i)].cantidad)'>
+                    </div>
+                    <div class="col-5">
+                        <label for="exampleInputEmail1">Obra destino</label>
+                        <input [(ngModel)]='idsEgreso[i].obra' [name]="'obra'+[i]" class="form-control">
+                    </div>
+                    <div class="col-4">
+                        <label for="exampleInputEmail1">Responsable</label>
+                        <input [(ngModel)]='idsEgreso[i].responsable' [name]="'responsable'+[i]" class="form-control">
+                    </div>
+                </div>
+            </div>
         </div>
-        </div>
+
         <!--Footer de Modal de egresar, con botones de cerrar y-->
         <div class="modal-footer">
             <div class="btn-group">

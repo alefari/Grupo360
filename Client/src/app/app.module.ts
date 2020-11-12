@@ -15,6 +15,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReingresoComponent } from './components/inventario/reingreso/reingreso.component';
 // import { EgresoComponent } from './components/inventario/egreso/egreso.component';
 import { IngresosComponent } from './components/ingresos/ingresos.component';
+import { EgresoComponent } from './components/inventario/egreso/egreso.component';
 
 import { InventarioSQLService } from './services/inventario-sql.service'
 
@@ -31,7 +32,7 @@ import { ModificarComponent } from './components/inventario/modificar/modificar.
     IngresoComponent,
     NavbarComponent,
     ReingresoComponent,
-    // EgresoComponent,
+    EgresoComponent,
     IngresosComponent,
     EgresosComponent,
     ModificarComponent
