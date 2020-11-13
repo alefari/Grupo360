@@ -19,7 +19,7 @@ export class UnidadesService {
     return this.http.get(`${this.API_URI}/unidades/${id}`);
   }
 
-  createUnidad(unidad: string) {
+  createUnidad(unidad: any) {
     return this.http.post(`${this.API_URI}/unidades`, unidad);
   }
 

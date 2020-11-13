@@ -305,7 +305,7 @@
                 <ng-container *ngFor="let itemPDF of inventarioSQL">
                   <tr>
                     <td>{{ itemPDF.nombre }}</td>
-                    <td>{{ itemPDF.tipo }}</td>
+                    <td>{{ itemPDF.categoria }}</td>
                     <td>{{ itemPDF.cantidad }} {{ itemPDF.unidades }}</td>
                     <td>
                       <div *ngIf="itemPDF.precio != null; else sinPrecio">
@@ -342,7 +342,8 @@
 </div>
 <!-- Modal Egreso-->
 <div class="modal fade" id="modalEgreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <app-egreso></app-egreso> 
+  <app-egreso></app-egreso>
+
 </div><!-- Modal Modificar-->
 <div class="modal fade" id="modalModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <app-modificar></app-modificar>
@@ -350,7 +351,7 @@
 
 <!--MODAL DE AGREGAR ADMINISTRADOR-->
 <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
   <div class="modal-content">
 
       <div class="modal-header bg-danger text-white">
@@ -365,39 +366,50 @@
           <div class="form-group">
             <div class="row">
               <div class="col">
-                <h5>Agregar Unidad</h5>
+                <h5>Unidad:</h5>
                   <label>Nombre:</label>
-                  <input #nombreUnidad="ngModel" [(ngModel)]='nuevaUnidad.nombre' name="nombreUnidadNueva" required type="text" class="form-control">
+                  <input #nombreUnidad="ngModel" ngModel name="nombreUnidadNueva" required type="text" class="form-control">
               </div>
               <div class="col">
-                <h5>Agregar Categoría</h5>
+                <h5>Ubicación:</h5>
                   <label>Nombre:</label>
-                  <input #nombreCategoria="ngModel" [(ngModel)]='nuevaCategoria.nombre' name="nombreCategoriaNueva" required type="text" class="form-control">
+                  <input #nombreUbicacion="ngModel" ngModel name="nombreUbicacionNueva" required type="text" class="form-control">
               </div>
               <div class="col">
-                <h5>Agregar Ubicación</h5>
+                <h5>Categoría:</h5>
                   <label>Nombre:</label>
-                  <input #nombreUbicacion="ngModel" [(ngModel)]='nuevaUbicacion.nombre' name="nombreUbicacionNueva" required type="text" class="form-control">
+                  <input #nombreCategoria="ngModel" ngModel name="nombreCategoriaNueva" required type="text" class="form-control">
+              </div>
+              <div class="col">
+                <h5>Subcategoría:</h5>
+                  <label>Nombre:</label>
+                  <input #nombreSubcategoria="ngModel" ngModel name="nombreSubcategoriaNueva" required type="text" class="form-control">
               </div>
             </div>
           </div>
           <div class="form-group">
             <div class="row">
               <div class="col">
-                <button data-dismiss="modal" type="button" class="btn btn-primary" (click)="unidadAgregar()">
-                  <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar Unidad
+                <button [disabled]="!nombreUnidad.valid"  data-dismiss="modal" type="button" class="btn btn-primary" (click)="unidadAgregar(nombreUnidad.value)">
+                  <fa-icon [icon]="faPlusCircle"></fa-icon> Unidad
                 </button>
               </div>
               <div class="col">
-                <button data-dismiss="modal" type="button" class="btn btn-primary" (click)="categoriaAgregar()">
-                  <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar Categoría
+                <button [disabled]="!nombreUbicacion.valid" data-dismiss="modal" type="button" class="btn btn-primary" (click)="ubicacionAgregar(nombreUbicacion.value)">
+                  <fa-icon [icon]="faPlusCircle"></fa-icon> Ubicación
                 </button>
               </div>
               <div class="col">
-                <button data-dismiss="modal" type="button" class="btn btn-primary" (click)="ubicacionAgregar()">
-                  <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar Ubicación
+                <button [disabled]="!nombreCategoria.valid" data-dismiss="modal" type="button" class="btn btn-primary" (click)="categoriaAgregar(nombreCategoria.value)">
+                  <fa-icon [icon]="faPlusCircle"></fa-icon> Categoría
                 </button>
               </div>
+              <div class="col">
+                <button [disabled]="!nombreSubcategoria.valid" data-dismiss="modal" type="button" class="btn btn-primary" (click)="subcategoriaAgregar(nombreSubcategoria.value)">
+                  <fa-icon [icon]="faPlusCircle"></fa-icon> Subcategoría
+                </button>
+              </div>
+
             </div>
           </div>
 

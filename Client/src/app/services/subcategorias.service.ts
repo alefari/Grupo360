@@ -19,7 +19,7 @@ export class SubcategoriasService {
     return this.http.get(`${this.API_URI}/subcategorias/${id}`);
   }
 
-  createSubcategoria(subcategoria: string) {
+  createSubcategoria(subcategoria: any) {
     return this.http.post(`${this.API_URI}/subcategorias`, subcategoria);
   }
 

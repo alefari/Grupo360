@@ -19,7 +19,7 @@ export class CategoriasService {
     return this.http.get(`${this.API_URI}/categorias/${id}`);
   }
 
-  createCategoria(categoria: string) {
+  createCategoria(categoria: any) {
     return this.http.post(`${this.API_URI}/categorias`, categoria);
   }
 

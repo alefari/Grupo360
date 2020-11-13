@@ -48,19 +48,6 @@ export class InventarioComponent implements OnInit {
 
   oculto = true;
 
-  nuevaUnidad : any = {
-    nombre:null,
-  };
-
-  nuevaCategoria : Categoria = {
-    nombre:null,
-    codigo:null,
-  };
-
-  nuevaUbicacion : any = {
-    nombre:null,
-  };
-
   datosInfo: Item = {
     id: null,
     nombre: null,
@@ -167,17 +154,24 @@ export class InventarioComponent implements OnInit {
   }
   // ELIMINA EL ITEM SELECCIONADO DE LA BD CUANDO EL USUARIO ACEPTA EN EL MODAL
   eliminarItem() {
-    /*
-    this.servicioInventario.eliminarItem(this.itemBorrar.id);
-    var eliminacion: Eliminacion = {
-      idItem: this.itemBorrar.id,
-      nombreItem: this.itemBorrar.nombre,
-      categoriaItem: this.inventario.find(item => item.id == this.itemBorrar.id).tipo,
-      unidades: this.inventario.find(item => item.id == this.itemBorrar.id).unidades,
-      fecha: new Date().toISOString(),
-      cantidad: this.inventario.find(item => item.id == this.itemBorrar.id).cantidad
-    }
-    this.servicioEliminados.agregarEliminado(eliminacion);*/
+
+    this.servicioInventarioSQL.deleteItem(this.itemBorrar.id).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+    // var eliminacion: Eliminacion = {
+    //   idItem: this.itemBorrar.id,
+    //   nombreItem: this.itemBorrar.nombre,
+    //   categoriaItem: this.inventario.find(item => item.id == this.itemBorrar.id).tipo,
+    //   unidades: this.inventario.find(item => item.id == this.itemBorrar.id).unidades,
+    //   fecha: new Date().toISOString(),
+    //   cantidad: this.inventario.find(item => item.id == this.itemBorrar.id).cantidad
+    // }
+    // this.servicioEliminados.agregarEliminado(eliminacion);
   }
 
   //BUSCA ITEM PARA REPORTAR AVERIA
@@ -193,7 +187,7 @@ export class InventarioComponent implements OnInit {
     this.itemAveriado = Object.assign({},this.inventarioSQL.find(itemInv => itemInv.id == idItem));
 }
 
-//FUNCIONES DE MODAL REPORTE 
+//FUNCIONES DE MODAL REPORTE
   reportarAveria() {
       this.itemAveriado.estado = "Dañado";
       this.itemAveriado.estado = this.estados.find(est => est.nombre == this.itemAveriado.estado).id;
@@ -201,7 +195,7 @@ export class InventarioComponent implements OnInit {
       this.itemAveriado.subcategoria = this.subcategorias.find(subcat => subcat.nombre == this.itemAveriado.subcategoria).id;
       this.itemAveriado.ubicacion = this.ubicaciones.find(ubic => ubic.nombre == this.itemAveriado.ubicacion).id;
       this.itemAveriado.unidades = this.unidades.find(und => und.nombre == this.itemAveriado.unidades).id;
-      //MODIFICA ITEM EN BD 
+      //MODIFICA ITEM EN BD
       this.servicioInventarioSQL.updateItem(this.itemAveriado.id, this.itemAveriado).subscribe(
         res => {
           console.log(res);
@@ -219,7 +213,7 @@ export class InventarioComponent implements OnInit {
     this.itemAveriado.subcategoria = this.subcategorias.find(subcat => subcat.nombre == this.itemAveriado.subcategoria).id;
     this.itemAveriado.ubicacion = this.ubicaciones.find(ubic => ubic.nombre == this.itemAveriado.ubicacion).id;
     this.itemAveriado.unidades = this.unidades.find(und => und.nombre == this.itemAveriado.unidades).id;
-    //MODIFICA ITEM EN BD 
+    //MODIFICA ITEM EN BD
     this.servicioInventarioSQL.updateItem(this.itemAveriado.id, this.itemAveriado).subscribe(
       res => {
         console.log(res);
@@ -257,21 +251,51 @@ export class InventarioComponent implements OnInit {
       this.oculto = true;
   }
 
-  unidadAgregar(){
-    /*if (this.nuevaUnidad.nombre!=null && this.nuevaUnidad.nombre!=""){
-      this.servicioUnidades.agregarUnidad(this.nuevaUnidad);
-    }*/
+  unidadAgregar(nombreUnidad: string){
+    let nuevaUnidad: any = {nombre: nombreUnidad};
+    this.servicioUnidades.createUnidad(nuevaUnidad).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
-  categoriaAgregar(){
-    /*if (this.nuevaCategoria.nombre!=null && this.nuevaCategoria.nombre!=""){
-    this.servicioCategorias.agregarCategoria(this.nuevaCategoria);
-    }*/
+  categoriaAgregar(nombreCategoria: string){
+    let nuevaCategoria: any = {nombre: nombreCategoria};
+    this.servicioCategorias.createCategoria(nuevaCategoria).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
-  ubicacionAgregar(){
-    /*if (this.nuevaUbicacion.nombre!=null && this.nuevaUbicacion.nombre!=""){
-    this.servicioUbicaciones.agregarUbicacion(this.nuevaUbicacion);
-    }*/
+  ubicacionAgregar(nombreUbicacion: string){
+    let nuevaUbicacion: any = {nombre: nombreUbicacion};
+    this.servicioUbicaciones.createUbicacion(nuevaUbicacion).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  subcategoriaAgregar(nombreSubcategoria: string){
+    let nuevaSubcategoria: any = {nombre: nombreSubcategoria};
+    this.servicioSubcategorias.createSubcategoria(nuevaSubcategoria).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 }

@@ -6,6 +6,7 @@ import subcategoriasRoutes from './routes/subcategoriasRoutes';
 import ubicacionesRoutes from './routes/ubicacionesRoutes';
 import unidadesRoutes from './routes/unidadesRoutes';
 import estadosRoutes from './routes/estadosRoutes';
+import ingresosRoutes from './routes/ingresosRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -26,7 +27,7 @@ class Server {
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: false}));
     }
- 
+
     routes(): void {
         this.app.use('/', indexRoutes);
         this.app.use('/herramientas', herramientasRoutes);
@@ -35,6 +36,8 @@ class Server {
         this.app.use('/ubicaciones', ubicacionesRoutes);
         this.app.use('/unidades', unidadesRoutes);
         this.app.use('/estados', estadosRoutes);
+        this.app.use('/ingresos', ingresosRoutes);
+
     }
 
     start(): void {

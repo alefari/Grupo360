@@ -19,7 +19,7 @@ export class UbicacionesService {
     return this.http.get(`${this.API_URI}/ubicaciones/${id}`);
   }
 
-  createUbicacion(categoria: string) {
+  createUbicacion(categoria: any) {
     return this.http.post(`${this.API_URI}/ubicaciones`, categoria);
   }
 
