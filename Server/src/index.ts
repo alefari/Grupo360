@@ -7,6 +7,7 @@ import ubicacionesRoutes from './routes/ubicacionesRoutes';
 import unidadesRoutes from './routes/unidadesRoutes';
 import estadosRoutes from './routes/estadosRoutes';
 import ingresosRoutes from './routes/ingresosRoutes';
+import egresosRoutes from './routes/egresosRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -37,6 +38,8 @@ class Server {
         this.app.use('/unidades', unidadesRoutes);
         this.app.use('/estados', estadosRoutes);
         this.app.use('/ingresos', ingresosRoutes);
+        this.app.use('/egresos', egresosRoutes);
+
 
     }
 
