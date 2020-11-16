@@ -16,6 +16,7 @@ import { SubcategoriasService } from 'src/app/services/subcategorias.service';
 import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 import { UnidadesService } from 'src/app/services/unidades.service';
 import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
+import { IngresosService } from 'src/app/services/ingresos.service';
 
 @Component({
   selector: 'app-ingreso',
@@ -62,7 +63,8 @@ export class IngresoComponent implements OnInit {
               private servicioSubcategorias: SubcategoriasService,
               private servicioUbicaciones: UbicacionesService,
               private servicioUnidades: UnidadesService,
-              private inventarioService: InventarioSQLService) { }
+              private inventarioService: InventarioSQLService,
+              private ingresosService: IngresosService) { }
 
   ngOnInit(): void {
     this.servicioCategorias.getCategorias().subscribe(
@@ -111,23 +113,23 @@ export class IngresoComponent implements OnInit {
         this.inventarioService.createItem(item).subscribe(
             res => {
               console.log(res);
-              this.obtenerInventario();
             },
             err => {
               console.log(err);
             }
           )
-        // this.ingresosService.agregarIngreso(
-        //   {
-        //     idItem: item.id,
-        //     nombreItem: item.nombre,
-        //     categoriaItem: item.tipo,
-        //     unidades: item.unidades,
-        //     fecha: new Date().toISOString(),
-        //     cantidad: item.cantidad,
-        //     precio: item.precio,
-        //     modalidad: "Nuevo"
-        //   }
+          let ingreso = {
+            id_item_ingresado: item.id,
+            cantidad: +item.cantidad,
+            fecha: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            precio: +item.precio,
+            modalidad: 1,
+            cedula_responsable_ingreso: 10470050
+          };
+          console.log(ingreso);
+        // this.ingresosService.createIngreso(
+        //   //
+
         // )
       }
       else if (this.itemExistenteVar[indice]) {
@@ -149,19 +151,16 @@ export class IngresoComponent implements OnInit {
             console.log(err);
           }
         );
-
-        // this.ingresosService.agregarIngreso(
-        //   {
-        //     idItem: itemModificar.id,
-        //     nombreItem: itemModificar.nombre,
-        //     categoriaItem: itemModificar.tipo,
-        //     unidades: itemModificar.unidades,
-        //     fecha: new Date().toISOString(),
-        //     cantidad: item.cantidad,
-        //     precio: item.precio,
-        //     modalidad: "Existente"
-        //   }
-        // )
+        this.ingresosService.createIngreso(
+          {
+            id_item_ingresado: item.id,
+            // fecha: new Date().toISOString().slice(0, 19).replace('T', ' '),
+            cantidad: +item.cantidad,
+            precio: +item.precio,
+            modalidad: 1,
+            cedula_responsable_ingreso: 10470050
+          }
+        )
       }
 
       indice++;

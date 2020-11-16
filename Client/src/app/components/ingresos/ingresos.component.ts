@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Ingreso } from 'src/app/models/ingreso.model';
-import { Item } from 'src/app/models/item.model';
-import { Categoria } from 'src/app/models/categoria.model';
 import * as html2pdf from 'html2pdf.js';
+import { IngresosService } from 'src/app/services/ingresos.service';
 
 
 @Component({
@@ -11,34 +9,36 @@ import * as html2pdf from 'html2pdf.js';
   styleUrls: ['./ingresos.component.css']
 })
 export class IngresosComponent implements OnInit {
-  ingresos: Ingreso[];
-  inventario: Item[];
-  categorias: Categoria[];
+  ingresos: any = [];
+  categorias: any = [];
   oculto = true;
   fechaDesde: Date;
   fechaHasta: string;
 
-  constructor() {
+  constructor(private servicioIngresos: IngresosService) {
+    console.log(this.ingresos);
+
                 this.fechaHasta = this.dateAString(new Date());
               }
 
   ngOnInit(): void {
-
+    this.servicioIngresos.getIngresos().subscribe(
+      res => {
+        this.ingresos = res;
+      },
+      err => console.log(err)
+    );
   }
-
-  regresarIndice(idItem) {
-    return this.inventario.findIndex(item => item.id == idItem);
-}
 
   //BUSQUEDA NOMBRE DE FILTRO POR NOMBRE EN TABLA DE INGRESOS
-  regresarNombre(id: string) {
-    return this.inventario.find(item => item.id == id).nombre;
-  }
+  // regresarNombre(id: string) {
+  //   return this.inventario.find(item => item.id == id).nombre;
+  // }
 
 //BUSQUEDA CATEGORIA DE FILTRO POR CATEGORIA EN TABLA DE INGRESOS
-  regresarCategoria(id: string) {
-    return this.inventario.find(item => item.id == id).tipo;
-  }
+  // regresarCategoria(id: string) {
+  //   return this.inventario.find(item => item.id == id).tipo;
+  // }
 
   descargarPDF() {
     this.oculto = false;

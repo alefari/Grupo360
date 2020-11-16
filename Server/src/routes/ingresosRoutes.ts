@@ -11,10 +11,10 @@ class IngresosRoutes {
     config(): void {
         this.router.get('/', ingresosController.list);
         this.router.post('/', ingresosController.create);
-        // this.router.put('/:id', ingresosController.update);
-        // this.router.delete('/:id', ingresosController.delete);
+        this.router.put('/:id', ingresosController.update);
+        this.router.delete('/:id', ingresosController.delete);
 
-        this.router.get('/:id', ingresosController.getOne);
+        // this.router.get('/:id', ingresosController.getOne);
     }
 }
 

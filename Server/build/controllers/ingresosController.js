@@ -14,45 +14,61 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ingresosController = void 0;
 const database_1 = __importDefault(require("../database"));
-// HAY QUE ACOMODAR ESTE DOCUMENTO
 class IngresosController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query(`SELECT id_categoria AS id, nombre FROM categorias`, function (err, result, fields) {
+            // await pool.query(`SELECT * FROM grupocdv360.ingresos`, 
+            //     function(err, result, fields) {
+            //     if (err) throw err;
+            //     res.json(result);
+            // });
+            yield database_1.default.query(`SELECT
+                            id_ingreso AS id,
+                            items.nombre AS nombre,
+                            items.id_categoria as categoria,
+                            ingresos.precio,
+                            fecha,
+                            ingresos.cantidad,
+                            CONCAT(empleados.nombre, " ", empleados.apellido) AS responsable,
+                            modalidad_ingreso.nombre as modalidad
+                            FROM grupocdv360.ingresos
+                            LEFT JOIN items
+                            ON ingresos.id_item_ingresado = items.id_item
+                            LEFT JOIN modalidad_ingreso
+                            ON ingresos.id_modalidad = modalidad_ingreso.id_modalidad
+                            LEFT JOIN empleados
+                            ON ingresos.cedula_responsable_ingreso = empleados.cedula;`, function (err, result, fields) {
                 if (err)
                     throw err;
                 res.json(result);
             });
         });
     }
-    getOne(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            yield database_1.default.query('SELECT id_categoria AS id, nombre FROM categorias WHERE id_categoria = ?', [id], function (err, result, fields) {
-                if (err)
-                    throw err;
-                res.json(result);
-            });
-        });
-    }
+    // public async getOne(req: Request, res: Response) {
+    //     const { id } = req.params;
+    //     await pool.query('SELECT id_categoria AS id, nombre FROM categorias WHERE id_categoria = ?', [id], function(err, result, fields) {
+    //         if (err) throw err;
+    //         res.json(result);
+    //     });
+    // }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO categorias set ?', [req.body]);
-            res.json({ text: 'Categoría Guardada' });
+            yield database_1.default.query('INSERT INTO ingresos set ?', [req.body]);
+            res.json({ text: 'Ingreso Guardado' });
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('UPDATE categorias set ? WHERE id_categoria = ?', [req.body, id]);
-            res.json({ text: 'Categoría Actualizada' });
+            yield database_1.default.query('UPDATE ingresos set ? WHERE id_ingreso = ?', [req.body, id]);
+            res.json({ text: 'Ingreso Actualizado' });
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            yield database_1.default.query('DELETE FROM categorias WHERE id_categoria = ?', [id]);
-            res.json({ text: 'Categoría Eliminada' });
+            yield database_1.default.query('DELETE FROM ingresos WHERE id_ingreso = ?', [id]);
+            res.json({ text: 'Ingreso Eliminado' });
         });
     }
 }
