@@ -25,15 +25,20 @@ class IngresosController {
             yield database_1.default.query(`SELECT
                             id_ingreso AS id,
                             items.nombre AS nombre,
-                            items.id_categoria as categoria,
+                            categorias.nombre AS categoria,
                             ingresos.precio,
                             fecha,
                             ingresos.cantidad,
+                            unidades.nombre AS unidad,
                             CONCAT(empleados.nombre, " ", empleados.apellido) AS responsable,
                             modalidad_ingreso.nombre as modalidad
                             FROM grupocdv360.ingresos
                             LEFT JOIN items
                             ON ingresos.id_item_ingresado = items.id_item
+                            LEFT JOIN categorias
+                            ON items.id_categoria = categorias.id_categoria
+                            LEFT JOIN unidades
+                            ON items.id_unidad = unidades.id_unidad
                             LEFT JOIN modalidad_ingreso
                             ON ingresos.id_modalidad = modalidad_ingreso.id_modalidad
                             LEFT JOIN empleados

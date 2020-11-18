@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Egreso } from 'src/app/models/egreso.model';
 import { Item } from 'src/app/models/item.model';
-import { Categoria } from 'src/app/models/categoria.model';
 import { Eliminacion } from 'src/app/models/eliminacion.model';
 import * as html2pdf from 'html2pdf.js';
+import { EgresosService } from '../../services/egresos.service'
+import { CategoriasService } from '../../services/categorias.service'
 
 @Component({
   selector: 'app-egresos',
@@ -12,36 +12,43 @@ import * as html2pdf from 'html2pdf.js';
 })
 export class EgresosComponent implements OnInit {
 
-  egresos: Egreso[];
-  inventario: Item[];
-  categorias: Categoria[];
-  eliminados: Eliminacion[];
+  egresos: any = [];
+  categorias: any = [];
+  oculto = true;
+  fechaDesde: Date;
+  fechaHasta: string;
 
-  constructor() { }
+  constructor(private servicioEgresos: EgresosService,
+              private servicioCategorias: CategoriasService) { }
 
   ngOnInit(): void {
-
-
+    this.servicioEgresos.getEgresos().subscribe(
+      res => {
+        this.egresos = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioCategorias.getCategorias().subscribe(
+      res => {
+        this.categorias = res;
+      },
+      err => console.log(err)
+    );
   }
-
-  regresarIndice(idItem: string) {
-      return this.inventario.findIndex(item => item.id == idItem);
-
-}
 
 //FUNCIONES DE FILTRO DE TABLA DE EGRESOS
 
     //BUSQUEDA NOMBRE DE FILTRO POR NOMBRE EN TABLA DE INGRESOS
-    regresarNombre(id: string) {
-      var itemNombre = this.inventario.find(item => item.id == id);
-      console.log(itemNombre);
-      return itemNombre.nombre;
-    }
+    //regresarNombre(id: string) {
+    //  var itemNombre = this.inventario.find(item => item.id == id);
+    //  console.log(itemNombre);
+    //  return itemNombre.nombre;
+    // }
 
     //BUSQUEDA CATEGORIA DE FILTRO POR CATEGORIA EN TABLA DE INGRESOS
-    regresarCategoria(id: string) {
-      return this.inventario.find(item => item.id == id).tipo;
-    }
+    //regresarCategoria(id: string) {
+    // return this.inventario.find(item => item.id == id).tipo;
+    //}
 
     //SE DESCARGA EL PDF DE EGRESOS
     descargarPDF() {
