@@ -109,28 +109,28 @@ export class IngresoComponent implements OnInit {
     for(var item of this.nuevosItems) {
 
       if(!this.itemExistenteVar[indice]) {
-
+        let respuesta: any = {};
         this.inventarioService.createItem(item).subscribe(
             res => {
-              console.log(res);
+              respuesta = res;
+              // console.log(respuesta);
             },
             err => {
               console.log(err);
             }
           )
-          let ingreso = {
-            id_item_ingresado: item.id,
-            cantidad: +item.cantidad,
-            fecha: new Date().toISOString().slice(0, 19).replace('T', ' '),
-            precio: +item.precio,
-            modalidad: 1,
-            cedula_responsable_ingreso: 10470050
-          };
-          console.log(ingreso);
-        // this.ingresosService.createIngreso(
-        //   //
+          console.log(respuesta);
 
-        // )
+        // this.ingresosService.createIngreso(
+        //   {
+        //     id_item_ingresado: item.id,
+        //     cantidad: +item.cantidad,
+        //     // fecha: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        //     precio: +item.precio,
+        //     modalidad: 1,
+        //     cedula_responsable_ingreso: 10470050
+        //   }
+        // );
       }
       else if (this.itemExistenteVar[indice]) {
 

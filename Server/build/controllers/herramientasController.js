@@ -59,14 +59,22 @@ class HerramientasController {
             });
         });
     }
+    // public async create (req: Request, res: Response): Promise<void> {
+    //     await pool.query('INSERT INTO items SET ?', [req.body], function (error, results, fields){
+    //         if(error) throw error;
+    //         console.log(results.insertId);
+    //     });
+    //     res.json({text: 'Herramienta Guardada'});
+    // }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.default.query('INSERT INTO items SET ?', [req.body], function (error, results, fields) {
                 if (error)
                     throw error;
+                res.send(results.insertId);
                 console.log(results.insertId);
             });
-            res.json({ text: 'Herramienta Guardada' });
+            // res.json({text: 'Herramienta Guardada'});
         });
     }
     update(req, res) {
