@@ -5,7 +5,7 @@ exports.default = {
         // connectionLimit: 10,
         host: 'localhost',
         user: 'root',
-        password: 'Alejandro',
+        password: 'jesusThula',
         database: 'grupocdv360'
     }
 };

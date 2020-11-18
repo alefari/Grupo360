@@ -9,14 +9,14 @@
         <thead data-html2canvas-ignore class="thead bg-primary text-white">
           <tr>
             <th scope="col"><input #filtroNombre="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por nombre"></th>
-            <!-- <th scope="col">
+            <th scope="col">
               <select #filtroCategoria="ngModel" class="form-control form-control-sm" ngModel name="filtroCategoria">
               <option value="">Categoría (Todas)</option>
               <option *ngFor="let cat of categorias" [value]="cat.nombre">{{ cat.nombre }}</option>
               </select>
-            </th> -->
+            </th> 
             <th></th>
-            <th colspan="4">
+            <th colspan="3">
               <div class="row">
                 <div class="col-2">Desde:</div>
                 <div class="col"><input [(ngModel)]="fechaDesde" class="form-control form-control-sm" type="date" value="" name="fechaDesde"></div>
@@ -49,10 +49,15 @@
         <tbody>
         <!--FILTROS DE LA TABLA DE INGRESOS-->
           <ng-container *ngFor="let ingreso of ingresos">
-            <tr scope="row" class="bg-light">
-              <td>{{ ingreso.nombre }}</td>
+            <tr *ngIf="(ingreso.nombre.toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value == '')
+            &&
+            (ingreso.categoria == filtroCategoria.value || filtroCategoria.value == '')
+            &&
+            (ingreso.modalidad.toLocaleLowerCase().includes(filtroModalidad.value.toLowerCase()) || filtroModalidad.value == '')
+            "scope="row" class="bg-light">
+              <td>{{ ingreso.nombre | titlecase }}</td>
               <td>{{ ingreso.categoria }}</td>
-              <td>{{ ingreso.cantidad }} {{ ingreso.cantidad }}</td>
+              <td>{{ ingreso.cantidad }} {{ ingreso.unidad }}</td>
               <td>
                 <div *ngIf="ingreso.precio != null; else sinPrecio">
                   {{ ingreso.precio | currency }}
@@ -98,18 +103,18 @@
                   <th scope="col">Categoría</th>
                   <th scope="col">Cantidad</th>
                   <th scope="col">Precio</th>
-                  <th scope="col">Fecha Ingreso</th>
                   <th scope="col">Responsable</th>
                   <th scope="col">Modalidad</th>
+                  <th scope="col">Fecha Ingreso</th>
                 </tr>
               </thead>
 
               <tbody>
                 <ng-container *ngFor="let ingreso of ingresos">
                   <tr>
-                    <td>{{ ingreso.nombreItem }}</td>
-                    <td>{{ ingreso.categoriaItem }}</td>
-                    <td>{{ ingreso.cantidad }} {{ ingreso.unidades }}</td>
+                    <td>{{ ingreso.nombre | titlecase }}</td>
+                    <td>{{ ingreso.categoria }}</td>
+                    <td>{{ ingreso.cantidad }} {{ ingreso.unidad }}</td>
                     <td>
                       <div *ngIf="ingreso.precio != null; else sinPrecio">
                         {{ ingreso.precio | currency }}
@@ -119,10 +124,9 @@
                         N/A
                       </ng-template>
                     </td>
-
-                    <td>{{ ingreso.fecha | date:'short'}}</td>
-                    <td>{{ ingreso.IdUsuario }}</td>
+                    <td>{{ ingreso.responsable }}</td>
                     <td>{{ ingreso.modalidad }}</td>
+                    <td>{{ ingreso.fecha | date:'short'}}</td>
                   </tr>
                 </ng-container>
               </tbody>

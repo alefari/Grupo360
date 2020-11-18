@@ -4,7 +4,6 @@
         <h1>Egresos</h1>
     </div>
     <div class="row">
-        <!--Tabla de inventario en donde se muestran los egresos generales-->
         <table class="table shadow">
         <!--FILTROS DE LA TABLA DE EGRESOS-->
         <thead class="thead bg-warning text-white">
@@ -34,32 +33,24 @@
         </thead>
 
         <tbody>
-        <!--NgFor que imprime egresos de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
+        <!--Ng For IMPRIME DATA DE EGRESOS, Y USA FILTROS PARA REDUCIR-->
             <ng-container *ngFor="let egreso of egresos">
 
-            <tr *ngIf="((egreso.nombreItem.toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value=='') &&
-                        (egreso.categoriaItem.toLocaleLowerCase().includes(filtroCategoria.value.toLocaleLowerCase()) || filtroCategoria.value=='') &&
-                        (egreso.obra.toLocaleLowerCase().includes(filtroObra.value.toLocaleLowerCase()) || filtroObra.value=='') &&
-                        (egreso.reponsable.toLocaleLowerCase().includes(filtroResponsable.value.toLocaleLowerCase()) || filtroResponsable.value==''))"
-
-            scope="row" class="bg-light">
-                <td>{{ egreso.nombreItem }} </td>
-                <td>{{ egreso.categoriaItem }}</td>
-                <td>{{ egreso.cantidad }} {{ egreso.unidades }}</td>
+            <tr *ngIf="(egreso.nombre.toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value == '')
+                &&
+                (egreso.categoria == filtroCategoria.value || filtroCategoria.value == '')
+                &&
+                (egreso.responsable.toLocaleLowerCase().includes(filtroResponsable.value.toLowerCase()) || filtroResponsable.value == '')
+                &&
+                (egreso.obra.toLocaleLowerCase().includes(filtroObra.value.toLowerCase()) || filtroObra.value == '')
+                "scope="row" class="bg-light">
+                <td>{{ egreso.nombre | titlecase }} </td>
+                <td>{{ egreso.categoria }}</td>
+                <td>{{ egreso.cantidad }} {{ egreso.unidad }}</td>
                 <td>{{ egreso.obra }}</td>
-                <td>{{ egreso.reponsable }}</td>
+                <td>{{ egreso.responsable }}</td>
                 <td>{{ egreso.fecha | date:'short' }}</td>
             </tr>
-            <!-- *ngIf="(
-            (regresarNombre(egreso.idItem).toLocaleLowerCase().includes(filtroNombre.value.toLocaleLowerCase()) || filtroNombre.value == '')
-
-            )" -->
-            <!-- && -->
-            <!-- (regresarCategoria(egreso.idItem).includes(filtroCategoria.value)|| filtroCategoria.value == null) -->
-            <!-- && -->
-            <!-- (egreso.obra.toLocaleLowerCase().includes(filtroObra.value.toLocaleLowerCase()) || filtroObra.value =='') -->
-            <!-- && -->
-            <!-- (egreso.reponsable.toLocaleLowerCase().includes(filtroResponsable.value.toLocaleLowerCase()) || filtroResponsable.value =='') -->
             </ng-container>
         </tbody>
     </table>
@@ -82,15 +73,15 @@
 
         <tbody>
         <!--NgFor que imprime egresos de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
-            <ng-container *ngFor="let eliminacion of eliminados">
+            <ng-container>
               <!-- *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" -->
             <tr
             scope="row" class="bg-light">
-                <td>{{ eliminacion.nombreItem }} </td>
-                <td>{{ eliminacion.categoriaItem }}</td>
-                <td>{{ eliminacion.cantidad }} {{ eliminacion.unidades }}</td>
-                <td>{{ eliminacion.IdUsuario }}</td>
-                <td>{{ eliminacion.fecha | date:'short' }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             <!-- *ngIf="(
             (regresarNombre(egreso.idItem).toLocaleLowerCase().includes(filtroNombre.value.toLocaleLowerCase()) || filtroNombre.value == '')
@@ -141,12 +132,12 @@
                 <!--FILTROS DE LA TABLA DE INGRESOS-->
                 <ng-container *ngFor="let egreso of egresos">
                     <tr>
-                    <td>{{ egreso.nombreItem }}</td>
-                    <td>{{ egreso.categoriaItem }}</td>
-                    <td>{{ egreso.cantidad }} {{ egreso.unidades }}</td>
+                    <td>{{ egreso.nombre | titlecase }}</td>
+                    <td>{{ egreso.categoria }}</td>
+                    <td>{{ egreso.cantidad }} {{ egreso.unidad }}</td>
                     <td>{{ egreso.obra }}</td>
-                    <td>{{ egreso.fecha | date:'short'}}</td>
-                    <td>{{ egreso.reponsable }}</td>
+                    <td>{{ egreso.responsable }}</td>
+                    <td>{{ egreso.fecha | date:'short' }}</td>
                 </tr>
                 </ng-container>
                 </tbody>

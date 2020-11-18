@@ -14,11 +14,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.egresosController = void 0;
 const database_1 = __importDefault(require("../database"));
-// HAY QUE ACOMODAR ESTE DOCUMENTO
 class EgresosController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query(`SELECT id_egreso AS id, nombre FROM egresos`, function (err, result, fields) {
+            yield database_1.default.query(`SELECT
+                            id_egreso AS id,
+                            items.nombre AS nombre,
+                            categorias.nombre as categoria,
+                            egresos.cantidad,
+                            unidades.nombre AS unidad,
+                            obra,
+                            fecha,
+                            CONCAT(empleados.nombre, " ", empleados.apellido) AS responsable
+                            FROM grupocdv360.egresos
+                            LEFT JOIN items
+                            ON egresos.id_item_egresado = items.id_item
+                            LEFT JOIN categorias
+                            ON items.id_categoria = categorias.id_categoria
+                            LEFT JOIN unidades
+                            ON items.id_unidad = unidades.id_unidad
+                            LEFT JOIN empleados
+                            ON egresos.cedula_responsable_egreso = empleados.cedula;`, function (err, result, fields) {
                 if (err)
                     throw err;
                 res.json(result);

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as html2pdf from 'html2pdf.js';
 import { IngresosService } from 'src/app/services/ingresos.service';
-
+import { CategoriasService } from 'src/app/services/categorias.service';
 
 @Component({
   selector: 'app-ingresos',
@@ -15,8 +15,8 @@ export class IngresosComponent implements OnInit {
   fechaDesde: Date;
   fechaHasta: string;
 
-  constructor(private servicioIngresos: IngresosService) {
-    console.log(this.ingresos);
+  constructor(private servicioIngresos: IngresosService,
+              private servicioCategorias: CategoriasService) {
 
                 this.fechaHasta = this.dateAString(new Date());
               }
@@ -25,6 +25,12 @@ export class IngresosComponent implements OnInit {
     this.servicioIngresos.getIngresos().subscribe(
       res => {
         this.ingresos = res;
+      },
+      err => console.log(err)
+    );
+    this.servicioCategorias.getCategorias().subscribe(
+      res => {
+        this.categorias = res;
       },
       err => console.log(err)
     );
