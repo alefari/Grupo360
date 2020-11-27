@@ -113,7 +113,7 @@ export class ModificarComponent implements OnInit {
     this.itemElegido.unidades = this.unidades.find(und => und.nombre == this.itemElegido.unidades).id;
     this.itemElegido.estado = this.estados.find(est => est.nombre == this.itemElegido.estado).id;
 
-    this.servicioInventarioSQL.updateItem(this.itemElegido.id, this.itemElegido).subscribe(
+    this.servicioInventarioSQL.updateItem(this.itemElegido.id, this.itemElegido, true).subscribe(
       res => {
         console.log(res);
       },

@@ -58,7 +58,7 @@ class IngresosController {
     // }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('INSERT INTO ingresos set ?', [req.body]);
+            yield database_1.default.query('INSERT INTO ingresos SET ?', [req.body]);
             res.json({ text: 'Ingreso Guardado' });
         });
     }

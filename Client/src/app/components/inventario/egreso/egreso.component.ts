@@ -97,7 +97,7 @@ export class EgresoComponent implements OnInit {
       err => console.log(err)
     );
 }
-//BUSCA ITEM A EGRESAR LUEGO DE HABER SELECCINADO 
+//BUSCA ITEM A EGRESAR LUEGO DE HABER SELECCINADO
 regresarIndice(indice: number) {
   return this.inventario.findIndex(item => item.id == this.idsEgreso[indice].id);
 }
@@ -122,7 +122,7 @@ for(let itemCiclo of this.idsEgreso) {
   //itemEgreso.obra = itemCiclo.obra;
 
   //COMUNICACION CON SERVICIO (UPDATE)
-  this.servicioInventario.updateItem(itemEgreso.id, itemEgreso).subscribe(
+  this.servicioInventario.updateItem(itemEgreso.id, itemEgreso, true).subscribe(
     res => {
       console.log(res);
     },
@@ -169,7 +169,7 @@ for(let itemCiclo of this.idsEgreso) {
   restarItem() {
     this.idsEgreso.pop();
   }
-  
+
   //FUNCIUON QUE REVISA CANTIDAD VALIDA
   revisarCantidad(cantActual: number) {
     for(let item of this.idsEgreso) {

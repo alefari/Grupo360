@@ -14,7 +14,7 @@
               <option value="">Categoría (Todas)</option>
               <option *ngFor="let cat of categorias" [value]="cat.nombre">{{ cat.nombre }}</option>
               </select>
-            </th> 
+            </th>
             <th></th>
             <th colspan="3">
               <div class="row">
@@ -67,7 +67,6 @@
                   N/A
                 </ng-template>
               </td>
-
               <td>{{ ingreso.fecha | date:'dd-MM-yyyy h:m a'}}</td>
               <td>{{ ingreso.responsable }}</td>
               <td>{{ ingreso.modalidad }}</td>

@@ -17,6 +17,7 @@ import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 import { UnidadesService } from 'src/app/services/unidades.service';
 import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
 import { IngresosService } from 'src/app/services/ingresos.service';
+import { any } from 'sequelize/types/lib/operators';
 
 @Component({
   selector: 'app-ingreso',
@@ -35,6 +36,7 @@ export class IngresoComponent implements OnInit {
   faMinusCircle = faMinusCircle;
   faPlusCircle = faPlusCircle;
 
+  respuesta: any;
   categorias: any = [];
   subcategorias: any = [];
   ubicaciones: any = [];
@@ -58,6 +60,7 @@ export class IngresoComponent implements OnInit {
       estado: "Disponible"
     }
   ];
+  idItem: any;
 
   constructor(private servicioCategorias: CategoriasService,
               private servicioSubcategorias: SubcategoriasService,
@@ -68,15 +71,11 @@ export class IngresoComponent implements OnInit {
 
   ngOnInit(): void {
     this.servicioCategorias.getCategorias().subscribe(
-      res => {
-        this.categorias = res;
-      },
+      res => { this.categorias = res; },
       err => console.log(err)
     );
     this.servicioSubcategorias.getSubcategorias().subscribe(
-      res => {
-        this.subcategorias = res;
-      },
+      res => { this.subcategorias = res; },
       err => console.log(err)
     );
     this.servicioUbicaciones.getUbicaciones().subscribe(
@@ -109,31 +108,16 @@ export class IngresoComponent implements OnInit {
     for(var item of this.nuevosItems) {
 
       if(!this.itemExistenteVar[indice]) {
-        let respuesta: any = {};
         this.inventarioService.createItem(item).subscribe(
-            res => {
-              respuesta = res;
-              // console.log(respuesta);
-            },
-            err => {
-              console.log(err);
-            }
-          )
-          console.log(respuesta);
-
-        // this.ingresosService.createIngreso(
-        //   {
-        //     id_item_ingresado: item.id,
-        //     cantidad: +item.cantidad,
-        //     // fecha: new Date().toISOString().slice(0, 19).replace('T', ' '),
-        //     precio: +item.precio,
-        //     modalidad: 1,
-        //     cedula_responsable_ingreso: 10470050
-        //   }
-        // );
+          res => {
+            console.log(res["text"]);
+            this.registrarIngreso(res["id"], item, 1);
+          },
+          err => { console.log(err); }
+        );
       }
-      else if (this.itemExistenteVar[indice]) {
 
+      else if (this.itemExistenteVar[indice]) {
         let itemOriginal = this.inventario.find(itemInventario => itemInventario.id == item.id);
 
         let itemModificar = {
@@ -142,39 +126,39 @@ export class IngresoComponent implements OnInit {
           descripcion: this.nuevosItems[indice].descripcion
         };
 
-        this.inventarioService.updateItem(itemOriginal.id, itemModificar).subscribe(
+        this.inventarioService.updateItem(itemOriginal.id, itemModificar, false).subscribe(
           res => {
             console.log(res);
-            this.obtenerInventario();
+            this.registrarIngreso(item.id, {cantidad: item.cantidad, precio: item.precio}, 3);
           },
-          err => {
-            console.log(err);
-          }
+          err => { console.log(err); }
         );
-        this.ingresosService.createIngreso(
-          {
-            id_item_ingresado: item.id,
-            // fecha: new Date().toISOString().slice(0, 19).replace('T', ' '),
-            cantidad: +item.cantidad,
-            precio: +item.precio,
-            modalidad: 1,
-            cedula_responsable_ingreso: 10470050
-          }
-        )
       }
-
       indice++;
     }
-
     this.cerrarModal();
+    }
 
+    registrarIngreso(id: any, item: any, modalidad: number) {
+      let ingreso = {
+        id_item_ingresado: id,
+        id_modalidad: modalidad,
+        cantidad: +item.cantidad,
+        cedula_responsable_ingreso: 10470050,
+        precio: +item.precio
+      }
+
+      this.ingresosService.createIngreso(ingreso).subscribe(
+        res => { console.log(res); },
+        err => { console.log(err); }
+      );
     }
 
 
 
   //Al cerrar el modal, se reinician los campos
   cerrarModal() {
-    this.form.reset();
+    // this.form.reset();
     this.nuevosItems = [
       {
         nombre: null,

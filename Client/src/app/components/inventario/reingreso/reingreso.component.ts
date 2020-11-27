@@ -122,7 +122,7 @@ export class ReingresoComponent implements OnInit {
       nuevoItem.unidades = this.unidades.find(und => und.nombre == nuevoItem.unidades).id;
       nuevoItem.estado = this.estados.find(est => est.nombre == nuevoItem.estado).id;
 
-      this.servicioInventario.updateItem(nuevoItem.id, nuevoItem).subscribe(
+      this.servicioInventario.updateItem(nuevoItem.id, nuevoItem, true).subscribe(
         res => {
           console.log(res);
         },

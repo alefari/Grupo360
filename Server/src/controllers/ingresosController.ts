@@ -46,7 +46,7 @@ class IngresosController {
     // }
 
     public async create (req: Request, res: Response): Promise<void> {
-        await pool.query('INSERT INTO ingresos set ?', [req.body]);
+        await pool.query('INSERT INTO ingresos SET ?', [req.body]);
         res.json({text: 'Ingreso Guardado'});
     }
 

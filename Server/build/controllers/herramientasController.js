@@ -71,10 +71,11 @@ class HerramientasController {
             yield database_1.default.query('INSERT INTO items SET ?', [req.body], function (error, results, fields) {
                 if (error)
                     throw error;
-                res.send(results.insertId);
-                console.log(results.insertId);
+                res.json({
+                    text: "Herramienta Guardada",
+                    id: results.insertId
+                });
             });
-            // res.json({text: 'Herramienta Guardada'});
         });
     }
     update(req, res) {

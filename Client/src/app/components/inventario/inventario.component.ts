@@ -196,7 +196,7 @@ export class InventarioComponent implements OnInit {
       this.itemAveriado.ubicacion = this.ubicaciones.find(ubic => ubic.nombre == this.itemAveriado.ubicacion).id;
       this.itemAveriado.unidades = this.unidades.find(und => und.nombre == this.itemAveriado.unidades).id;
       //MODIFICA ITEM EN BD
-      this.servicioInventarioSQL.updateItem(this.itemAveriado.id, this.itemAveriado).subscribe(
+      this.servicioInventarioSQL.updateItem(this.itemAveriado.id, this.itemAveriado, true).subscribe(
         res => {
           console.log(res);
         },
@@ -214,7 +214,7 @@ export class InventarioComponent implements OnInit {
     this.itemAveriado.ubicacion = this.ubicaciones.find(ubic => ubic.nombre == this.itemAveriado.ubicacion).id;
     this.itemAveriado.unidades = this.unidades.find(und => und.nombre == this.itemAveriado.unidades).id;
     //MODIFICA ITEM EN BD
-    this.servicioInventarioSQL.updateItem(this.itemAveriado.id, this.itemAveriado).subscribe(
+    this.servicioInventarioSQL.updateItem(this.itemAveriado.id, this.itemAveriado, true).subscribe(
       res => {
         console.log(res);
       },
