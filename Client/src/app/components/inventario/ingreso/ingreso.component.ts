@@ -46,7 +46,7 @@ export class IngresoComponent implements OnInit {
   valido: boolean = true;
   // cantidadItems = 1;
 
-  nuevosItems: Item[] = [
+  nuevosItems: any[] = [
     {
       id: null,
       nombre: null,
@@ -79,15 +79,11 @@ export class IngresoComponent implements OnInit {
       err => console.log(err)
     );
     this.servicioUbicaciones.getUbicaciones().subscribe(
-      res => {
-        this.ubicaciones = res;
-      },
+      res => this.ubicaciones = res,
       err => console.log(err)
     );
     this.servicioUnidades.getUnidades().subscribe(
-      res => {
-        this.unidades = res;
-      },
+      res => { this.unidades = res; },
       err => console.log(err)
     );
     this.obtenerInventario();
@@ -108,10 +104,14 @@ export class IngresoComponent implements OnInit {
     for(var item of this.nuevosItems) {
 
       if(!this.itemExistenteVar[indice]) {
+        console.log(item);
+
         this.inventarioService.createItem(item).subscribe(
           res => {
-            console.log(res["text"]);
-            this.registrarIngreso(res["id"], item, 1);
+            console.log(item);
+
+            // console.log(res["text"]);
+            // this.registrarIngreso(res["id"], item, 1);
           },
           err => { console.log(err); }
         );
@@ -125,11 +125,13 @@ export class IngresoComponent implements OnInit {
           precio: itemOriginal.precio + item.precio,
           descripcion: this.nuevosItems[indice].descripcion
         };
-
+        console.log(item.id, {cantidad: item.cantidad, precio: item.precio});
         this.inventarioService.updateItem(itemOriginal.id, itemModificar, false).subscribe(
           res => {
-            console.log(res);
-            this.registrarIngreso(item.id, {cantidad: item.cantidad, precio: item.precio}, 3);
+            console.log(item);
+            // console.log(res);
+            
+            // this.registrarIngreso(item.id, {cantidad: item.cantidad, precio: item.precio}, 3);
           },
           err => { console.log(err); }
         );
@@ -141,13 +143,13 @@ export class IngresoComponent implements OnInit {
 
     registrarIngreso(id: any, item: any, modalidad: number) {
       let ingreso = {
-        id_item_ingresado: id,
-        id_modalidad: modalidad,
+        id_item_ingresado: +id,
+        id_modalidad: +modalidad,
         cantidad: +item.cantidad,
         cedula_responsable_ingreso: 10470050,
         precio: +item.precio
       }
-
+      console.log(ingreso);
       this.ingresosService.createIngreso(ingreso).subscribe(
         res => { console.log(res); },
         err => { console.log(err); }

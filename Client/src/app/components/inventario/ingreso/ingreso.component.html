@@ -20,31 +20,31 @@
           </div>
             <!--Nombre de producto-->
             <div *ngIf="!itemExistenteVar[i]" class="form-group">
-            <div class="row">
-              <div class="col-4">
-                  <label>Nombre</label>
-                  <input #nombre="ngModel" required type="text" [(ngModel)]="nuevosItems[i].nombre" [name]="'nombre' + [i]" class="form-control">
-                  <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingrese un nombre.</small>
+              <div class="row">
+                <div class="col-4">
+                    <label>Nombre</label>
+                    <input #nombre="ngModel" required type="text" [(ngModel)]="nuevosItems[i].nombre" [name]="'nombre' + [i]" class="form-control">
+                    <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingrese un nombre.</small>
+                </div>
+                <div class="col-3">
+                  <!--Label y Select del tipo de producto-->
+                  <label for="exampleFormControlSelect1">Categoría</label>
+                  <select #cat="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].tipo" [name]="'cat' + [i]">
+                    <option *ngFor="let categoria of categorias" value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                  </select>
+                  <small *ngIf="!cat.valid && cat.touched" class="text-danger">Ingrese una categoria.</small>
+                </div>
+                <div class="col-3">
+                  <label for="exampleFormControlSelect1">Subcategoría</label>
+                  <select #subcat="ngModel" #subcat[i]="ngModel" class="form-control" [(ngModel)]="nuevosItems[i].subcategoria" [name]="'subcat' + [i]">
+                    <option *ngFor="let subcategoria of subcategorias" value="{{ subcategoria.id }}">{{ subcategoria.nombre }}</option>
+                  </select>
+                </div>
+                <div class="col-2">
+                  <label>Serial</label>
+                  <input type="text" [(ngModel)]="nuevosItems[i].serial" [name]="'serial' + [i]" class="form-control" aria-describedby="emailHelp">
+                </div>
               </div>
-              <div class="col-3">
-                <!--Label y Select del tipo de producto-->
-                <label for="exampleFormControlSelect1">Categoría</label>
-                <select #cat="ngModel" #cat[i]="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].categoria" [name]="'cat' + [i]">
-                  <option *ngFor="let categoria of categorias" value="{{ categoria.id }}">{{ categoria.nombre }}</option>
-                </select>
-                <small *ngIf="!cat.valid && cat.touched" class="text-danger">Ingrese una categoria.</small>
-              </div>
-              <div class="col-3">
-                <label for="exampleFormControlSelect1">Subcategoría</label>
-                <select #subcat="ngModel" #subcat[i]="ngModel" class="form-control" [(ngModel)]="nuevosItems[i].subcategoria" [name]="'subcat' + [i]">
-                  <option *ngFor="let subcategoria of subcategorias" value="{{ subcategoria.id }}">{{ subcategoria.nombre }}</option>
-                </select>
-              </div>
-              <div class="col-2">
-                <label>Serial</label>
-                <input type="text" [(ngModel)]="nuevosItems[i].serial" [name]="'serial' + [i]" class="form-control" aria-describedby="emailHelp">
-              </div>
-            </div>
 
           <div class="form-group">
             <div class="row">
@@ -103,10 +103,6 @@
             </div>
           </div>
             </div>
-
-
-
-
 
 
 
