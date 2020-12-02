@@ -113,6 +113,7 @@
       </tbody>
   </table>
 </div>
+
 <!-- INICIO MODAL ELIMINAR -->
 <div class="modal" tabindex="-1" id="modalEliminar">
   <div class="modal-dialog">
@@ -131,6 +132,7 @@
   </div>
 </div>
 <!-- FIN MODAL ELIMINAR -->
+
 <!-- MODAL DE INFO -->
 <div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -303,6 +305,7 @@
 
               <tbody>
                 <ng-container *ngFor="let itemPDF of inventarioSQL">
+                  <ng-container *ngIf="itemPDF.cantidad != 0">
                   <tr>
                     <td>{{ itemPDF.nombre }}</td>
                     <td>{{ itemPDF.categoria }}</td>
@@ -316,9 +319,9 @@
                         N/A
                       </ng-template>
                     </td>
-
                     <td>{{ itemPDF.fecha | date:'short'}}</td>
                   </tr>
+                </ng-container>
                 </ng-container>
               </tbody>
           </table>

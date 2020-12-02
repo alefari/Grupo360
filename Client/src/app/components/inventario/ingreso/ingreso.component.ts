@@ -149,7 +149,6 @@ export class IngresoComponent implements OnInit {
         cedula_responsable_ingreso: 10470050,
         precio: +item.precio
       }
-      console.log(ingreso);
       this.ingresosService.createIngreso(ingreso).subscribe(
         res => { console.log(res); },
         err => { console.log(err); }

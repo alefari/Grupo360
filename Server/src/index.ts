@@ -8,6 +8,7 @@ import unidadesRoutes from './routes/unidadesRoutes';
 import estadosRoutes from './routes/estadosRoutes';
 import ingresosRoutes from './routes/ingresosRoutes';
 import egresosRoutes from './routes/egresosRoutes';
+import eliminadosRoutes from './routes/eliminadosRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -39,8 +40,7 @@ class Server {
         this.app.use('/estados', estadosRoutes);
         this.app.use('/ingresos', ingresosRoutes);
         this.app.use('/egresos', egresosRoutes);
-
-
+        this.app.use('/eliminados', eliminadosRoutes);
     }
 
     start(): void {
