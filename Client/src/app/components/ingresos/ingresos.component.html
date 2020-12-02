@@ -27,9 +27,7 @@
             <th scope="col">
               <select #filtroModalidad="ngModel" class="form-control form-control-sm" ngModel name="filtroModalidad">
               <option value="">Modalidad (Todas)</option>
-              <option value='Nuevo'>Nuevo</option>
-              <option value='Existente'>Existente</option>
-              <option value='Reingreso'>Reingreso</option>
+              <option *ngFor="let mod of modalidades" [value]="mod.nombre">{{ mod.nombre }}</option>
               </select>
             </th>
           </tr>
