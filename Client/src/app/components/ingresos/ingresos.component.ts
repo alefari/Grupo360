@@ -25,6 +25,7 @@ export class IngresosComponent implements OnInit {
               }
 
   ngOnInit(): void {
+    // DESCARGA DE INFORMACION DE BD, E INYECCION EN VARIABLES LOCALES
     this.servicioIngresos.getIngresos().subscribe(
       res => {this.ingresos = res;},
       err => console.log(err));

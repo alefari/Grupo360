@@ -36,21 +36,7 @@ export class EgresosComponent implements OnInit {
       res => {this.listaEliminados = res;},
       err => console.log(err));
   }
-
-//FUNCIONES DE FILTRO DE TABLA DE EGRESOS
-
-    //BUSQUEDA NOMBRE DE FILTRO POR NOMBRE EN TABLA DE INGRESOS
-    //regresarNombre(id: string) {
-    //  var itemNombre = this.inventario.find(item => item.id == id);
-    //  console.log(itemNombre);
-    //  return itemNombre.nombre;
-    // }
-
-    //BUSQUEDA CATEGORIA DE FILTRO POR CATEGORIA EN TABLA DE INGRESOS
-    //regresarCategoria(id: string) {
-    // return this.inventario.find(item => item.id == id).tipo;
-    //}
-
+  
     //SE DESCARGA EL PDF DE EGRESOS
     descargarPDF() {
       const opciones = {

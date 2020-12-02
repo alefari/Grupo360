@@ -72,21 +72,19 @@ export class IngresoComponent implements OnInit {
   ngOnInit(): void {
     this.servicioCategorias.getCategorias().subscribe(
       res => { this.categorias = res; },
-      err => console.log(err)
-    );
+      err => console.log(err));
+
     this.servicioSubcategorias.getSubcategorias().subscribe(
       res => { this.subcategorias = res; },
-      err => console.log(err)
-    );
+      err => console.log(err));
+
     this.servicioUbicaciones.getUbicaciones().subscribe(
       res => this.ubicaciones = res,
-      err => console.log(err)
-    );
+      err => console.log(err));
+
     this.servicioUnidades.getUnidades().subscribe(
       res => { this.unidades = res; },
-      err => console.log(err)
-    );
-    this.obtenerInventario();
+      err => console.log(err));
   }
 
   obtenerInventario() {

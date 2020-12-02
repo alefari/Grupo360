@@ -64,47 +64,32 @@ export class EgresoComponent implements OnInit {
 
   ngOnInit(): void {
       this.servicioCategorias.getCategorias().subscribe(
-        res => {
-          this.categorias = res;
-        },
-        err => console.log(err)
-      );
+        res => {this.categorias = res;},
+        err => console.log(err));
+        
       this.servicioSubcategorias.getSubcategorias().subscribe(
-        res => {
-          this.subcategorias = res;
-        },
-        err => console.log(err)
-      );
+        res => {this.subcategorias = res;},
+        err => console.log(err));
+
       this.servicioInventario.getInventario().subscribe(
-        res => {
-          this.inventario = res;
-        },
-        err => console.log(err)
-      );
+        res => {this.inventario = res;},
+        err => console.log(err));
+
       this.servicioUnidades.getUnidades().subscribe(
-        res => {
-          this.unidades = res;
-        },
-        err => console.log(err)
-      );
+        res => {this.unidades = res;},
+        err => console.log(err));
+
       this.servicioUbicaciones.getUbicaciones().subscribe(
-        res => {
-          this.ubicaciones = res;
-        },
-        err => console.log(err)
-      );
+        res => {this.ubicaciones = res;},
+        err => console.log(err));
+
       this.servicioEstados.getEstados().subscribe(
-        res => {
-          this.estados = res;
-        },
-        err => console.log(err)
-      );
+        res => {this.estados = res;},
+        err => console.log(err));
+
       this.servicioEgresos.getEgresos().subscribe(
-        res => {
-          this.listaEgresos = res;
-        },
-        err => console.log(err)
-      );
+        res => {this.listaEgresos = res;},
+        err => console.log(err));
   }
   //BUSCA ITEM A EGRESAR LUEGO DE HABER SELECCINADO
   regresarIndice(indice: number) {
