@@ -125,7 +125,9 @@ export class ReingresoComponent implements OnInit {
   // FUNCION QUE REGISTRA REINGRESO EN BD DE INGRESOS
   registrarIngreso(id: any, itemListaIngresos){
     let ingreso = {
-      id_item_ingresado: +id,
+      nombre_item_ingresado: itemListaIngresos.nombre,
+      id_categoria_item_ingresado: +this.categorias.find(cat => cat.nombre == itemListaIngresos.categoria).id,
+      id_unidad_item_ingresado: +this.unidades.find(und => und.nombre == itemListaIngresos.unidades).id,
       id_modalidad: +2,
       cantidad: +itemListaIngresos.cantidad,
       cedula_responsable_ingreso: 10470050,
