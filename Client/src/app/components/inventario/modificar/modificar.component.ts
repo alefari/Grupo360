@@ -63,41 +63,28 @@ export class ModificarComponent implements OnInit {
 
   ngOnInit(): void {
     this.servicioInventarioSQL.getInventario().subscribe(
-      res => {
-        this.inventarioSQL = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.inventarioSQL = res;},
+      err => console.log(err));
+      
     this.servicioCategorias.getCategorias().subscribe(
-      res => {
-        this.categorias = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.categorias = res;},
+      err => console.log(err));
+
     this.servicioSubcategorias.getSubcategorias().subscribe(
-      res => {
-        this.subcategorias = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.subcategorias = res;},
+      err => console.log(err));
+
     this.servicioUbicaciones.getUbicaciones().subscribe(
-      res => {
-        this.ubicaciones = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.ubicaciones = res;},
+      err => console.log(err));
+
     this.servicioUnidades.getUnidades().subscribe(
-      res => {
-        this.unidades = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.unidades = res;},
+      err => console.log(err));
+
     this.servicioEstados.getEstados().subscribe(
-      res => {
-        this.estados = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.estados = res;},
+      err => console.log(err));
   }
 
     //ENCUENTRA EL ID DEL ITEM A MODIFICAR

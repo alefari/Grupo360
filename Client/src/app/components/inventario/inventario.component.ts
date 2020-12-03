@@ -24,6 +24,7 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { Eliminacion } from 'src/app/models/eliminacion.model';
+import { EliminadosService } from 'src/app/services/eliminados.service';
 
 
 
@@ -100,7 +101,8 @@ export class InventarioComponent implements OnInit {
               private servicioSubcategorias: SubcategoriasService,
               private servicioUbicaciones: UbicacionesService,
               private servicioEstados: EstadosService,
-              private servicioUnidades: UnidadesService) { }
+              private servicioUnidades: UnidadesService,
+              private servicioEliminados: EliminadosService) { }
 
 //Se adjuntan items de base de datos a la variable inventario, y se ordena items en orden alfabetico//
   ngOnInit(): void {
@@ -163,15 +165,18 @@ export class InventarioComponent implements OnInit {
         console.log(err);
       }
     );
-    // var eliminacion: Eliminacion = {
-    //   idItem: this.itemBorrar.id,
-    //   nombreItem: this.itemBorrar.nombre,
-    //   categoriaItem: this.inventario.find(item => item.id == this.itemBorrar.id).tipo,
-    //   unidades: this.inventario.find(item => item.id == this.itemBorrar.id).unidades,
-    //   fecha: new Date().toISOString(),
-    //   cantidad: this.inventario.find(item => item.id == this.itemBorrar.id).cantidad
-    // }
-    // this.servicioEliminados.agregarEliminado(eliminacion);
+      let eliminacion = {
+        nombre: this.itemBorrar.nombre,
+        cantidad: +this.inventarioSQL.find(item => item.id == this.itemBorrar.id).cantidad,
+        cedula_responsable_eliminado: +10470050,
+        id_categoria: +this.categorias.find(categoria => categoria.nombre == this.inventarioSQL.find(item => item.id == this.itemBorrar.id).categoria).id,
+        id_unidad: +this.unidades.find(unidad => unidad.nombre == this.inventarioSQL.find(item => item.id == this.itemBorrar.id).unidades).id,
+      }
+      // COMUNICACION CON EL SERVICIO QUE INSERTA ELIMINADO EN BD
+      this.servicioEliminados.createEliminado(eliminacion).subscribe(
+        res => { console.log(res); },
+        err => { console.log(err); }
+      );
   }
 
   //BUSCA ITEM PARA REPORTAR AVERIA

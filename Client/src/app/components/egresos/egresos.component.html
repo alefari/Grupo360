@@ -55,12 +55,27 @@
         </tbody>
     </table>
     </div>
+
+<!--INICIO DE TABLA DE BD ELIMINADOS-->
     <div class="row">
         <h1>Eliminados</h1>
     </div>
     <div class="row">
-        <!--Tabla de inventario en donde se muestran los ELIMINADOS generales-->
         <table class="table shadow">
+        <thead class="thead bg-danger text-white">
+            <tr>
+            <th scope="col"><input #filtroNombreEliminados="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por nombre eliminados"></th>
+            <th scope="col">
+                <select #filtroCategoriaEliminados="ngModel" class="form-control form-control-sm" ngModel name="filtroCategoriaEliinados">
+                <option value="">Categoría (Todas)</option>
+                <option *ngFor="let cat of categorias" [value]="cat.nombre">{{ cat.nombre }}</option>
+                </select>
+            </th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
         <thead class="thead bg-danger text-white">
             <tr>
             <th scope="col">Nombre</th>
@@ -72,32 +87,25 @@
         </thead>
 
         <tbody>
-        <!--NgFor que imprime egresos de base de datos (itemsInventario), este a su vez compara con el Filtro por nombre en minusculas-->
-            <ng-container>
-              <!-- *ngIf="item.nombre.toLocaleLowerCase().includes(filtroNombre.toLowerCase())" -->
+            <ng-container *ngFor="let eliminado of listaEliminados">
             <tr
+            *ngIf="(
+            (eliminado.nombre.toLocaleLowerCase().includes(filtroNombreEliminados.value.toLocaleLowerCase()) || filtroNombreEliminados.value == '')
+            &&
+            (eliminado.categoria.includes(filtroCategoriaEliminados.value)|| filtroCategoriaEliminados.value == null))"
             scope="row" class="bg-light">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td> {{ eliminado.nombre | titlecase }} </td>
+                <td> {{ eliminado.categoria }} </td>
+                <td> {{ eliminado.cantidad }} {{ eliminado.unidad }} </td>
+                <td> {{ eliminado.responsable }} </td>
+                <td> {{ eliminado.fecha }} </td>
             </tr>
-            <!-- *ngIf="(
-            (regresarNombre(egreso.idItem).toLocaleLowerCase().includes(filtroNombre.value.toLocaleLowerCase()) || filtroNombre.value == '')
-
-            )" -->
-            <!-- && -->
-            <!-- (regresarCategoria(egreso.idItem).includes(filtroCategoria.value)|| filtroCategoria.value == null) -->
-            <!-- && -->
-            <!-- (egreso.obra.toLocaleLowerCase().includes(filtroObra.value.toLocaleLowerCase()) || filtroObra.value =='') -->
-            <!-- && -->
-            <!-- (egreso.reponsable.toLocaleLowerCase().includes(filtroResponsable.value.toLocaleLowerCase()) || filtroResponsable.value =='') -->
             </ng-container>
         </tbody>
     </table>
     </div>
 </div>
+<!-- FIN TABLA DE ELIMINADOS -->
 
 <!-- MODAL PDF EGRESOS -->
 <div class="modal fade" id="pdfEgresos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

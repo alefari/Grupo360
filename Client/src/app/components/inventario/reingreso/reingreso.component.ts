@@ -14,9 +14,9 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 import { SubcategoriasService } from 'src/app/services/subcategorias.service';
 import { UnidadesService } from 'src/app/services/unidades.service';
 import { EstadosService } from 'src/app/services/estados.service';
-import { InventarioComponent } from '../inventario.component';
 import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
 import { UbicacionesService } from 'src/app/services/ubicaciones.service';
+import { IngresosService } from 'src/app/services/ingresos.service';
 
 @Component({
   selector: 'app-reingreso',
@@ -24,7 +24,6 @@ import { UbicacionesService } from 'src/app/services/ubicaciones.service';
   styleUrls: ['./reingreso.component.css']
 })
 
-//Se declaran las variables a utilizar en reingreso
 export class ReingresoComponent implements OnInit {
   @ViewChild('f') form: NgForm;
 
@@ -40,7 +39,6 @@ export class ReingresoComponent implements OnInit {
   estados: any = [];
   ubicaciones: any = [];
   subcategorias: any = [];
-  // selectTipo: string;
   cantidadIngreso: number = 0;
   valido: boolean = true;
 
@@ -53,47 +51,32 @@ export class ReingresoComponent implements OnInit {
               private servicioUnidades: UnidadesService,
               private servicioEstados: EstadosService,
               private servicioInventario: InventarioSQLService,
-              private servicioUbicaciones: UbicacionesService) { }
+              private servicioUbicaciones: UbicacionesService,
+              private servicioIngresos: IngresosService) { }
 
-
-//Se obtiene inventario en orden alfabetico, y se imprime en la tabla//
   ngOnInit(): void {
     this.servicioCategorias.getCategorias().subscribe(
-      res => {
-        this.categorias = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.categorias = res;},
+      err => console.log(err));
+
     this.servicioSubcategorias.getSubcategorias().subscribe(
-      res => {
-        this.subcategorias = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.subcategorias = res;},
+      err => console.log(err));
+
     this.servicioInventario.getInventario().subscribe(
-      res => {
-        this.inventario = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.inventario = res;},
+      err => console.log(err));
+
     this.servicioUnidades.getUnidades().subscribe(
-      res => {
-        this.unidades = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.unidades = res;},
+      err => console.log(err));
+
     this.servicioUbicaciones.getUbicaciones().subscribe(
-      res => {
-        this.ubicaciones = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.ubicaciones = res;},
+      err => console.log(err));
+
     this.servicioEstados.getEstados().subscribe(
-      res => {
-        this.estados = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.estados = res;},);
   }
 
   regresarIndice(indice: number) {
@@ -104,6 +87,7 @@ export class ReingresoComponent implements OnInit {
   reingresarItems() {
     for(let item of this.idsReingreso) {
       let nuevoItem = Object.assign({},this.inventario.find(itemInv => itemInv.id == item.id));
+      let itemListaIngresos = Object.assign({},nuevoItem);
 
       if(item.cantidad == nuevoItem.cantidadObra) {
         nuevoItem.estado = "Disponible";
@@ -114,8 +98,10 @@ export class ReingresoComponent implements OnInit {
         nuevoItem.cantidadObra -= item.cantidad;
       }
 
-      nuevoItem.cantidad += item.cantidad;
+      //CAMPOS FALTANTES EN INGRESO
+      itemListaIngresos.cantidad = item.cantidad;
 
+      nuevoItem.cantidad += item.cantidad;
       nuevoItem.categoria = this.categorias.find(cat => cat.nombre == nuevoItem.categoria).id;
       nuevoItem.subcategoria = this.subcategorias.find(subcat => subcat.nombre == nuevoItem.subcategoria).id;
       nuevoItem.ubicacion = this.ubicaciones.find(ubic => ubic.nombre == nuevoItem.ubicacion).id;
@@ -123,32 +109,33 @@ export class ReingresoComponent implements OnInit {
       nuevoItem.estado = this.estados.find(est => est.nombre == nuevoItem.estado).id;
 
       this.servicioInventario.updateItem(nuevoItem.id, nuevoItem, true).subscribe(
-        res => {
+        res => {          
           console.log(res);
+          console.log(res["text"]);
+          this.registrarIngreso(+nuevoItem.id, itemListaIngresos);
         },
-        err => {
-          console.log(err);
-        }
+        err => {console.log(err);}
       );
 
-      // this.ingresosService.agregarIngreso(
-      //   {
-      //     idItem: nuevoItem.id,
-      //     nombreItem: nuevoItem.nombre,
-      //     categoriaItem: nuevoItem.tipo,
-      //     unidades: nuevoItem.unidades,
-      //     fecha: new Date().toISOString(),
-      //     cantidad: nuevoItem.cantidad,
-      //     modalidad: "Reingreso",
-      //     precio: null
-      //   }
-      // )
     }
     this.form.reset();
     this.idsReingreso = [{id: "", cantidad: 1}];
   }
 
-
+  // FUNCION QUE REGISTRA REINGRESO EN BD DE INGRESOS
+  registrarIngreso(id: any, itemListaIngresos){
+    let ingreso = {
+      id_item_ingresado: +id,
+      id_modalidad: +2,
+      cantidad: +itemListaIngresos.cantidad,
+      cedula_responsable_ingreso: 10470050,
+      precio: +itemListaIngresos.precio
+    }
+    this.servicioIngresos.createIngreso(ingreso).subscribe(
+      res => { console.log(res); },
+      err => { console.log(err); }
+    );
+  }
 
   borrarForm() {
     this.form.reset();

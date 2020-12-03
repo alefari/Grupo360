@@ -27,9 +27,7 @@
             <th scope="col">
               <select #filtroModalidad="ngModel" class="form-control form-control-sm" ngModel name="filtroModalidad">
               <option value="">Modalidad (Todas)</option>
-              <option value='Nuevo'>Nuevo</option>
-              <option value='Existente'>Existente</option>
-              <option value='Reingreso'>Reingreso</option>
+              <option *ngFor="let mod of modalidades" [value]="mod.nombre">{{ mod.nombre }}</option>
               </select>
             </th>
           </tr>
@@ -59,7 +57,7 @@
               <td>{{ ingreso.categoria }}</td>
               <td>{{ ingreso.cantidad }} {{ ingreso.unidad }}</td>
               <td>
-                <div *ngIf="ingreso.precio != null; else sinPrecio">
+                <div *ngIf="ingreso.precio != null && ingreso.precio != 0 && ingreso.modalidad != 'Reingreso'; else sinPrecio">
                   {{ ingreso.precio | currency }}
                 </div>
                 <!-- NG-TEMPLATE SE USA PARA ENGLOBAR EL BLOQUE ELSE DE UN NGIF -->
@@ -115,7 +113,7 @@
                     <td>{{ ingreso.categoria }}</td>
                     <td>{{ ingreso.cantidad }} {{ ingreso.unidad }}</td>
                     <td>
-                      <div *ngIf="ingreso.precio != null; else sinPrecio">
+                      <div *ngIf="ingreso.precio != null && ingreso.precio != 0 && ingreso.modalidad != 'Reingreso'; else sinPrecio">
                         {{ ingreso.precio | currency }}
                       </div>
                       <!-- NG-TEMPLATE SE USA PARA ENGLOBAR EL BLOQUE ELSE DE UN NGIF -->

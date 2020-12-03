@@ -75,8 +75,8 @@ export class IngresoComponent implements OnInit {
     );
     this.servicioUbicaciones.getUbicaciones().subscribe(
       res => this.ubicaciones = res,
-      err => console.log(err)
-    );
+      err => console.log(err));
+
     this.servicioUnidades.getUnidades().subscribe(
       res => this.unidades = res,
       err => console.log(err)
@@ -135,7 +135,6 @@ export class IngresoComponent implements OnInit {
         cedula_responsable_ingreso: 10470050,
         precio: +item.precio
       }
-      console.log(ingreso);
       this.ingresosService.createIngreso(ingreso).subscribe(
         res => { console.log(res); },
         err => { console.log(err); }

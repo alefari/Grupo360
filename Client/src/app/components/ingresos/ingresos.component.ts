@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as html2pdf from 'html2pdf.js';
 import { IngresosService } from 'src/app/services/ingresos.service';
 import { CategoriasService } from 'src/app/services/categorias.service';
+import { ModalidadesService } from 'src/app/services/modalidades.service';
 
 @Component({
   selector: 'app-ingresos',
@@ -11,41 +12,34 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 export class IngresosComponent implements OnInit {
   ingresos: any = [];
   categorias: any = [];
+  modalidades: any = [];
   oculto = true;
   fechaDesde: Date;
   fechaHasta: string;
 
   constructor(private servicioIngresos: IngresosService,
-              private servicioCategorias: CategoriasService) {
+              private servicioCategorias: CategoriasService,
+              private servicioModalidades: ModalidadesService) {
 
-                this.fechaHasta = this.dateAString(new Date());
+              this.fechaHasta = this.dateAString(new Date());
               }
 
   ngOnInit(): void {
+    // DESCARGA DE INFORMACION DE BD, E INYECCION EN VARIABLES LOCALES
     this.servicioIngresos.getIngresos().subscribe(
-      res => {
-        this.ingresos = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.ingresos = res;},
+      err => console.log(err));
+
     this.servicioCategorias.getCategorias().subscribe(
-      res => {
-        this.categorias = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.categorias = res;},
+      err => console.log(err));
+
+    this.servicioModalidades.getModalidades().subscribe(
+      res => {this.modalidades = res;},
+      err => console.log(err));
   }
 
-  //BUSQUEDA NOMBRE DE FILTRO POR NOMBRE EN TABLA DE INGRESOS
-  // regresarNombre(id: string) {
-  //   return this.inventario.find(item => item.id == id).nombre;
-  // }
-
-//BUSQUEDA CATEGORIA DE FILTRO POR CATEGORIA EN TABLA DE INGRESOS
-  // regresarCategoria(id: string) {
-  //   return this.inventario.find(item => item.id == id).tipo;
-  // }
-
+  //FUNCION DESCARGAR PDF DE INGRESOS
   descargarPDF() {
     this.oculto = false;
     const opciones = {
