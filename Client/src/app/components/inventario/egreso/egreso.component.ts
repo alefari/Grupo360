@@ -18,6 +18,7 @@ import { UnidadesService } from 'src/app/services/unidades.service';
 import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
 import { EstadosService } from 'src/app/services/estados.service';
 import { EgresosService } from 'src/app/services/egresos.service';
+import { asapScheduler } from 'rxjs';
 
 @Component({
   selector: 'app-egreso',
@@ -137,7 +138,9 @@ export class EgresoComponent implements OnInit {
   //FUNCION QUE REGISTRA EGRESO EN BD CON ID DE ITEM EN INVENTARIO
   registrarEgreso(id: any, itemListaEgresos: any) {
     let egreso = {
-      id_item_egresado: +id,
+      nombre_item_egresado: itemListaEgresos.nombre,
+      id_categoria_item_egresado: +this.categorias.find(cat => cat.nombre == itemListaEgresos.categoria).id,
+      id_unidad_item_egresado: +this.unidades.find(unid => unid.nombre == itemListaEgresos.unidades).id,
       cantidad: +itemListaEgresos.cantidad,
       obra: itemListaEgresos.obra,
       cedula_responsable_egreso: 10470050,

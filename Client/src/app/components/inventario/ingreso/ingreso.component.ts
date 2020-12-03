@@ -1,5 +1,5 @@
 // Imports de servicios, tipos, etc
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -44,7 +44,7 @@ export class IngresoComponent implements OnInit {
     {
       id: null,
       nombre: null,
-      tipo: null,
+      categoria: null,
       cantidad: null,
       ubicacion: null,
       vencimiento: null,
@@ -93,8 +93,7 @@ export class IngresoComponent implements OnInit {
     for(var item of this.nuevosItems) {
 
       if(!this.itemExistenteVar[indice]) {
-        console.log(item);
-
+        console.log(item.cantidad, item.precio, item.categoria,item.unidades,item.nombre);
         this.inventarioService.createItem(item).subscribe(
           res => {
             console.log(res["text"]);
@@ -112,11 +111,10 @@ export class IngresoComponent implements OnInit {
           precio: itemOriginal.precio + item.precio,
           descripcion: this.nuevosItems[indice].descripcion
         };
-        console.log(item.id, {cantidad: item.cantidad, precio: item.precio});
         this.inventarioService.updateItem(itemOriginal.id, itemModificar, false).subscribe(
           res => {
             console.log(res);
-            this.registrarIngreso(item.id, {cantidad: item.cantidad, precio: item.precio}, 3);
+            this.registrarIngreso(item.id, {cantidad: item.cantidad, precio: item.precio, categoria: item.categoria, unidades: item.unidades, nombre:item.nombre}, 3);
           },
           err => { console.log(err); }
         );
@@ -129,12 +127,15 @@ export class IngresoComponent implements OnInit {
 
     registrarIngreso(id: any, item: any, modalidad: number) {
       let ingreso = {
-        id_item_ingresado: +id,
+        nombre_item_ingresado: item.nombre,
+        id_categoria_item_ingresado: +item.categoria,
+        id_unidad_item_ingresado: +item.unidades,
         id_modalidad: +modalidad,
         cantidad: +item.cantidad,
         cedula_responsable_ingreso: 10470050,
         precio: +item.precio
       }
+      console.log(ingreso);
       this.ingresosService.createIngreso(ingreso).subscribe(
         res => { console.log(res); },
         err => { console.log(err); }
@@ -149,7 +150,7 @@ export class IngresoComponent implements OnInit {
     this.nuevosItems = [
       {
         nombre: null,
-        tipo: null,
+        categoria: null,
         cantidad: null,
         ubicacion: null,
         vencimiento: null,
@@ -165,7 +166,7 @@ export class IngresoComponent implements OnInit {
     this.nuevosItems.push(
       {
         nombre: null,
-        tipo: null,
+        categoria: null,
         cantidad: null,
         ubicacion: null,
         vencimiento: null,

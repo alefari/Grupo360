@@ -29,7 +29,7 @@
                 <div class="col-3">
                   <!--Label y Select del tipo de producto-->
                   <label for="exampleFormControlSelect1">Categoría</label>
-                  <select #cat="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].tipo" [name]="'cat' + [i]">
+                  <select #cat="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].categoria" [name]="'cat' + [i]">
                     <option *ngFor="let categoria of categorias" value="{{ categoria.id }}">{{ categoria.nombre }}</option>
                   </select>
                   <small *ngIf="!cat.valid && cat.touched" class="text-danger">Ingrese una categoria.</small>

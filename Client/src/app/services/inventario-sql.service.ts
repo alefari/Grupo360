@@ -24,7 +24,7 @@ export class InventarioSQLService {
   createItem(item: Item) {
     let nuevoItem = {
       nombre: item.nombre,
-      id_categoria: +item.tipo,
+      id_categoria: +item.categoria,
       id_subcategoria: +item.subcategoria,
       cantidad: item.cantidad,
       id_unidad: +item.unidades,
