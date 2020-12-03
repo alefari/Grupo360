@@ -87,7 +87,7 @@
 
             </div>
             <div class="row">
-              <div class="col-3">
+              <div class="col-3" hidden>
                 <div class="form-group">
                   <label>Vencimiento</label>
                   <input class="form-control" disabled [(ngModel)]="nuevosItems[i].vencimiento" [name]="'vencimiento' + [i]" type="date">
@@ -190,10 +190,10 @@
     <!--Footer de Modal con botones de cerrar e ingresar-->
     <div class="modal-footer">
         <div class="btn-group">
-          <button type="button" class="btn btn-primary" (click)="agregarItem()">
+          <button disabled type="button" class="btn btn-primary" (click)="agregarItem()">
             <fa-icon [icon]="faPlusCircle"></fa-icon> Más Items
           </button>
-          <button type="button" [hidden]="nuevosItems.length == 1" class="btn btn-secondary" [disabled]="nuevosItems.length == 1" (click)="restarItem()">
+          <button type="button" [hidden]="nuevosItems.length == 1" class="btn btn-secondary" [disabled]="nuevosItems.length == 1" disabled (click)="nuevosItems.pop()">
             <fa-icon [icon]="faMinusCircle"></fa-icon> Menos Items
           </button>
         </div>

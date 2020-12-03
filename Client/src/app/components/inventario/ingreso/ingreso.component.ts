@@ -1,23 +1,20 @@
 // Imports de servicios, tipos, etc
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Item } from 'src/app/models/item.model';
-import { Categoria } from 'src/app/models/categoria.model';
-import { Timestamp } from 'rxjs/internal/operators/timestamp';
-import { ObjectUnsubscribedError } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
+
+//SERVICIOS BD
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { SubcategoriasService } from 'src/app/services/subcategorias.service';
 import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 import { UnidadesService } from 'src/app/services/unidades.service';
 import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
 import { IngresosService } from 'src/app/services/ingresos.service';
-import { any } from 'sequelize/types/lib/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ingreso',
@@ -25,16 +22,14 @@ import { any } from 'sequelize/types/lib/operators';
   styleUrls: ['./ingreso.component.css']
 })
 
-// ViewChild del form de ingreso, y funcion inventarioService
-
 export class IngresoComponent implements OnInit {
-  @ViewChild('f') form: NgForm;
+
   itemExistenteVar: boolean[] = [];
   //ICONOS FONTAWESOME
-  faSignInAlt = faSignInAlt;
   faTimesCircle = faTimesCircle;
   faMinusCircle = faMinusCircle;
   faPlusCircle = faPlusCircle;
+  faSignInAlt = faSignInAlt;
 
   respuesta: any;
   categorias: any = [];
@@ -44,7 +39,6 @@ export class IngresoComponent implements OnInit {
   inventario: any = [];
   nombre = "";
   valido: boolean = true;
-  // cantidadItems = 1;
 
   nuevosItems: any[] = [
     {
@@ -62,20 +56,21 @@ export class IngresoComponent implements OnInit {
   ];
   idItem: any;
 
-  constructor(private servicioCategorias: CategoriasService,
-              private servicioSubcategorias: SubcategoriasService,
+  constructor(private servicioSubcategorias: SubcategoriasService,
               private servicioUbicaciones: UbicacionesService,
-              private servicioUnidades: UnidadesService,
               private inventarioService: InventarioSQLService,
-              private ingresosService: IngresosService) { }
+              private servicioCategorias: CategoriasService,
+              private servicioUnidades: UnidadesService,
+              private ingresosService: IngresosService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.servicioCategorias.getCategorias().subscribe(
-      res => { this.categorias = res; },
+      res => this.categorias = res,
       err => console.log(err)
     );
     this.servicioSubcategorias.getSubcategorias().subscribe(
-      res => { this.subcategorias = res; },
+      res => this.subcategorias = res,
       err => console.log(err)
     );
     this.servicioUbicaciones.getUbicaciones().subscribe(
@@ -83,17 +78,11 @@ export class IngresoComponent implements OnInit {
       err => console.log(err)
     );
     this.servicioUnidades.getUnidades().subscribe(
-      res => { this.unidades = res; },
+      res => this.unidades = res,
       err => console.log(err)
     );
-    this.obtenerInventario();
-  }
-
-  obtenerInventario() {
     this.inventarioService.getInventario().subscribe(
-      res => {
-        this.inventario = res;
-      },
+      res => this.inventario = res,
       err => console.log(err)
     );
   }
@@ -108,10 +97,8 @@ export class IngresoComponent implements OnInit {
 
         this.inventarioService.createItem(item).subscribe(
           res => {
-            console.log(item);
-
-            // console.log(res["text"]);
-            // this.registrarIngreso(res["id"], item, 1);
+            console.log(res["text"]);
+            this.registrarIngreso(res["id"], item, 1);
           },
           err => { console.log(err); }
         );
@@ -128,10 +115,8 @@ export class IngresoComponent implements OnInit {
         console.log(item.id, {cantidad: item.cantidad, precio: item.precio});
         this.inventarioService.updateItem(itemOriginal.id, itemModificar, false).subscribe(
           res => {
-            console.log(item);
-            // console.log(res);
-            
-            // this.registrarIngreso(item.id, {cantidad: item.cantidad, precio: item.precio}, 3);
+            console.log(res);
+            this.registrarIngreso(item.id, {cantidad: item.cantidad, precio: item.precio}, 3);
           },
           err => { console.log(err); }
         );
@@ -139,6 +124,7 @@ export class IngresoComponent implements OnInit {
       indice++;
     }
     this.cerrarModal();
+    this.router.navigate(['inventario']);
     }
 
     registrarIngreso(id: any, item: any, modalidad: number) {
@@ -176,10 +162,6 @@ export class IngresoComponent implements OnInit {
     ]
   }
 
-  repetirNVeces(n: number) {
-    return[...Array(+n).keys()];
-  }
-
   agregarItem() {
     this.nuevosItems.push(
       {
@@ -194,10 +176,6 @@ export class IngresoComponent implements OnInit {
         estado: "Disponible"
       }
     )
-  }
-
-  restarItem() {
-    this.nuevosItems.pop()
   }
 
   revisarCantidad() {

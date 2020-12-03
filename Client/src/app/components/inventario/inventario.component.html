@@ -33,7 +33,7 @@
 
 <div class="row">
   <!--Tabla de inventario en donde se muestra el inventario general-->
-    <table class="table table-sm shadow">
+    <table class="table table-sm shadow ml-4 mr-4">
       <thead class="thead-dark">
         <tr>
           <!--Filtro por nombre de Inventario, busca el item que haga match-->
@@ -279,9 +279,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Exportar a PDF</h5>
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+      </div>
+      <div class="modal-header">
+        <button type="button" (click)="descargarPDF()" class="btn btn-primary float-right">Exportar</button>
       </div>
       <div class="modal-body" id='elemento-a-exportar'>
         <!-- <img src="../../../assets/logo.svg" alt="Logo" class="img-fluid" style="max-width: 75px; width: 100%; margin: 0; padding: 0"> -->
@@ -297,7 +301,6 @@
                   <th scope="col">Categoría</th>
                   <th scope="col">Cantidad</th>
                   <th scope="col">Precio</th>
-                  <th scope="col">Fecha Ingreso</th>
                 </tr>
               </thead>
 
@@ -316,18 +319,13 @@
                         N/A
                       </ng-template>
                     </td>
-
-                    <td>{{ itemPDF.fecha | date:'short'}}</td>
                   </tr>
                 </ng-container>
               </tbody>
           </table>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" (click)="descargarPDF()" class="btn btn-primary">Exportar</button>
-      </div>
+
     </div>
   </div>
 </div>
