@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EgresarComponent } from './components/egresar/egresar.component';
 import { EgresosComponent } from './components/egresos/egresos.component';
 import { IngresarComponent } from './components/ingresar/ingresar.component';
 import { IngresosComponent } from './components/ingresos/ingresos.component';
@@ -12,7 +13,8 @@ const inventarioRoutes: Routes = [
       { path: '', component: InventarioComponent },
       { path: 'ingresos', component: IngresosComponent },
       { path: 'egresos', component: EgresosComponent },
-      { path: 'ingresar', component: IngresarComponent}
+      { path: 'ingresar', component: IngresarComponent},
+      { path: 'egresar', component: EgresarComponent}
     ]
   }
 ];

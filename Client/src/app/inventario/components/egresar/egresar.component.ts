@@ -15,7 +15,9 @@ import { UnidadesService } from 'src/app/services/unidades.service';
 import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
 import { EstadosService } from 'src/app/services/estados.service';
 import { EgresosService } from 'src/app/services/egresos.service';
+import { Router } from '@angular/router';
 import { asapScheduler } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-egresar',
@@ -58,7 +60,8 @@ export class EgresarComponent implements OnInit {
               private servicioUnidades: UnidadesService,
               private servicioInventario: InventarioSQLService,
               private servicioEstados: EstadosService,
-              private servicioEgresos: EgresosService){ }
+              private servicioEgresos: EgresosService,
+              private router: Router){ }
 
   ngOnInit(): void {
       this.servicioCategorias.getCategorias().subscribe(
@@ -126,7 +129,7 @@ export class EgresarComponent implements OnInit {
       );
     }
     this.form.reset();
-
+    this.router.navigate(['inventario']);
     this.idsEgreso = [
       {id: "", cantidad: 1, responsable: null, obra: null}
     ];
@@ -152,6 +155,8 @@ export class EgresarComponent implements OnInit {
     borrarForm() {
       this.form.reset();
       this.idsEgreso = [{id: '', cantidad: null, obra: null, responsable: null}]
+
+      this.router.navigate(['inventario']);
     }
 
     //FUNCIONES DE EGRESO MULTIPLE

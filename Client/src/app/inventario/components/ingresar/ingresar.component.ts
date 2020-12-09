@@ -1,5 +1,6 @@
 // Imports de servicios, tipos, etc
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core';
+import { NgForm, Validators } from '@angular/forms';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -23,6 +24,7 @@ import { Router } from '@angular/router';
 })
 
 export class IngresarComponent implements OnInit {
+  @ViewChild('f') form: NgForm;
 
   itemExistenteVar: boolean[] = [];
   //ICONOS FONTAWESOME
@@ -140,6 +142,21 @@ export class IngresarComponent implements OnInit {
         err => { console.log(err); }
       );
     }
+
+  //FUNCION PARA BORRAR FORMULARIO
+  borrarForm() {
+    this.form.reset();
+    this.nuevosItems = [{nombre: null,
+                        categoria: null,
+                        cantidad: null,
+                        ubicacion: null,
+                        vencimiento: null,
+                        serial: null,
+                        precio: null,
+                        unidades: null,
+                        estado: "Disponible"}];
+    this.router.navigate(['inventario']);
+  }
 
   agregarItem() {
     this.nuevosItems.push(
