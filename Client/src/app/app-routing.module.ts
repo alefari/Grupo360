@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { IngresosComponent } from './components/ingresos/ingresos.component';
-import { InventarioComponent } from './components/inventario/inventario.component';
-import { EgresosComponent }  from './components/egresos/egresos.component'
-
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
-
-  // { path: '', redirectTo: '/inventario', pathMatch: 'full'},
-  { path: '', redirectTo: '/inventario', pathMatch: 'full'},
-  { path: 'inventario', component: InventarioComponent },
-  { path: 'ingresos', component: IngresosComponent },
-  { path: 'egresos', component: EgresosComponent }
+  {
+    path: '',
+    redirectTo: '/inventario',
+    pathMatch: 'full'},
+  {
+    path: 'inventario',
+    loadChildren: () => import('./inventario/inventario.module').then(m => m.InventarioModule)
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as html2pdf from 'html2pdf.js';
-import { EgresosService } from '../../services/egresos.service'
-import { CategoriasService } from '../../services/categorias.service'
+import { EgresosService } from '../../../services/egresos.service'
+import { CategoriasService } from '../../../services/categorias.service'
 import { EliminadosService } from 'src/app/services/eliminados.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class EgresosComponent implements OnInit {
       res => {this.listaEliminados = res;},
       err => console.log(err));
   }
-  
+
     //SE DESCARGA EL PDF DE EGRESOS
     descargarPDF() {
       const opciones = {

@@ -1,19 +1,19 @@
 //Imports de servicios, items, etc.//
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Item } from '../../models/item.model';
+import { Item } from '../../../models/item.model';
 import { NgForm } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Categoria } from 'src/app/models/categoria.model';
 import * as html2pdf from 'html2pdf.js';
 
 // IMPORTS DE BD
-import { InventarioSQLService } from '../../services/inventario-sql.service';
-import { CategoriasService } from '../../services/categorias.service';
-import { UbicacionesService } from '../../services/ubicaciones.service';
 import { SubcategoriasService } from 'src/app/services/subcategorias.service';
 import { EstadosService } from 'src/app/services/estados.service';
 import { UnidadesService } from 'src/app/services/unidades.service';
+import { EliminadosService } from 'src/app/services/eliminados.service';
+import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
+import { CategoriasService } from 'src/app/services/categorias.service';
+import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -23,8 +23,6 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { Eliminacion } from 'src/app/models/eliminacion.model';
-import { EliminadosService } from 'src/app/services/eliminados.service';
 
 
 
