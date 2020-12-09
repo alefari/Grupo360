@@ -1,17 +1,11 @@
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-
-    <div class="modal-header bg-info text-white">
-        <h5 class="modal-title" id="exampleModalLabel">Modificar</h5>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+<div class="bg-white shadow-lg container">
+    <div class="container pt-3">
+        <h3>Modificar</h3>
     </div>
-
+    <div class='container'>
     <form #f="ngForm">
-        <div class="modal-body">
             <div class="form-group">
-              <h5>Seleccione el item a modificar:</h5>
+                <h5>Seleccione el item a modificar:</h5>
                 <div class="row">
                     <div class="col-3">
                         <label>Categoría</label>
@@ -33,10 +27,9 @@
                             *ngIf="item.categoria == selectCategoriaModificar.value &&
                             item.subcategoria == selectSubcategoriaModificar.value"
                             value='{{item.id}}'>{{ item.nombre }}</option>
-                          </ng-container>
+                            </ng-container>
                         </select>
                     </div>
-                </div>
             </div>
             <hr>
                 <!--LUGAR DEL FORMULARIO PARA COLOCAR DATOS NUEVOS-->
@@ -124,17 +117,15 @@
                         </div>
                     </div>
                 </div>
-
-        <!--Footer de Modal con botones de cerrar y modificar-->
+        <!--BOTONES FUNCIONES MODIFICAR-->
         <div class="modal-footer">
-            <button (click)="f.reset()" type="button" class="btn btn-secondary" data-dismiss="modal">
+            <button (click)="borrarForm()" type="button" class="btn btn-secondary">
                 <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
             </button>
-            <button (click)="onModificar()" data-dismiss="modal" type="button" class="btn btn-info">
+            <button (click)="onModificar()" type="button" class="btn btn-info">
                 <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
             </button>
         </div>
-
     </form>
-</div>
+    </div>
 </div>

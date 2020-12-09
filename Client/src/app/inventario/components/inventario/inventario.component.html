@@ -9,13 +9,13 @@
       <button type="button" class="btn btn-success" routerLink='ingresar'>
         <fa-icon [icon]="faPlusCircle"></fa-icon> Ingresar
       </button>
-      <button type="button" class="btn btn-primary" >
+      <button type="button" class="btn btn-primary" routerLink='reingreso' >
         <fa-icon [icon]="faPlusCircle"></fa-icon> Reingreso
       </button>
       <button type="button" class="btn btn-warning" routerLink='egresar'>
         <fa-icon [icon]="faSignOutAlt"></fa-icon> Egreso
       </button>
-      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalModificar">
+      <button type="button" class="btn btn-info" routerLink='modificar'>
         <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
       </button>
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalReporte">
@@ -332,15 +332,6 @@
 
     </div>
   </div>
-</div>
-
-<!-- Modal Reingreso-->
-<div class="modal fade" id="modalReingreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <app-reingreso></app-reingreso>
-</div>
-
-<div class="modal fade" id="modalModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <app-modificar></app-modificar>
 </div>
 
 <!--MODAL DE AGREGAR ADMINISTRADOR-->

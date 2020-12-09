@@ -17,6 +17,7 @@ import { EstadosService } from 'src/app/services/estados.service';
 import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
 import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 import { IngresosService } from 'src/app/services/ingresos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reingreso',
@@ -52,7 +53,8 @@ export class ReingresoComponent implements OnInit {
               private servicioEstados: EstadosService,
               private servicioInventario: InventarioSQLService,
               private servicioUbicaciones: UbicacionesService,
-              private servicioIngresos: IngresosService) { }
+              private servicioIngresos: IngresosService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.servicioCategorias.getCategorias().subscribe(
@@ -119,6 +121,7 @@ export class ReingresoComponent implements OnInit {
 
     }
     this.form.reset();
+    this.router.navigate(['inventario']);
     this.idsReingreso = [{id: "", cantidad: 1}];
   }
 
@@ -142,6 +145,7 @@ export class ReingresoComponent implements OnInit {
   borrarForm() {
     this.form.reset();
     this.idsReingreso = [{id: "", cantidad: 1}];
+    this.router.navigate(['inventario']);
   }
 
   agregarItem() {

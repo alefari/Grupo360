@@ -16,6 +16,7 @@ import { EstadosService } from 'src/app/services/estados.service';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { UnidadesService } from 'src/app/services/unidades.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modificar',
@@ -59,7 +60,8 @@ export class ModificarComponent implements OnInit {
     private servicioSubcategorias: SubcategoriasService,
     private servicioUbicaciones: UbicacionesService,
     private servicioUnidades: UnidadesService,
-    private servicioEstados: EstadosService) { }
+    private servicioEstados: EstadosService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.servicioInventarioSQL.getInventario().subscribe(
@@ -108,7 +110,13 @@ export class ModificarComponent implements OnInit {
         console.log(err);
       }
     );
-
+    this.router.navigate(['inventario']);
     this.form.reset();
+  }
+
+  //FUNCION PARA BORRAR FORMULARIO
+  borrarForm() {
+    this.form.reset();
+    this.router.navigate(['inventario']);
   }
 }
