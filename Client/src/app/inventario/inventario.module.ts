@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // IMPORTACIONES DE COMPONENTES
-import { EgresoComponent } from './components/egreso/egreso.component';
 import { EgresosComponent } from './components/egresos/egresos.component';
-import { IngresoComponent } from './components/ingreso/ingreso.component';
 import { IngresosComponent } from './components/ingresos/ingresos.component';
 import { InventarioComponent } from './components/inventario/inventario.component';
 import { ModificarComponent } from './components/modificar/modificar.component';
 import { ReingresoComponent } from './components/reingreso/reingreso.component';
+import { EgresarComponent } from './components/egresar/egresar.component';
+import { IngresarComponent } from './components/ingresar/ingresar.component';
+import { InventarioRoutingModule } from './inventario-routing.module';
+import { InventarioBaseComponent } from './components/inventario-base/inventario-base.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,13 @@ import { ReingresoComponent } from './components/reingreso/reingreso.component';
     ReingresoComponent,
     IngresosComponent,
     EgresosComponent,
-    IngresoComponent,
-    EgresoComponent
+    IngresarComponent,
+    EgresarComponent,
+    InventarioBaseComponent
   ],
   imports: [
     RouterModule,
+    InventarioRoutingModule,
     CommonModule,
     FormsModule,
     FontAwesomeModule,

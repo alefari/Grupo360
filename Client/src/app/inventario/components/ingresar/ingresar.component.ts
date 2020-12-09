@@ -17,12 +17,12 @@ import { IngresosService } from 'src/app/services/ingresos.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-ingreso',
-  templateUrl: './ingreso.component.html',
-  styleUrls: ['./ingreso.component.css']
+  selector: 'app-ingresar',
+  templateUrl: './ingresar.component.html',
+  styleUrls: ['./ingresar.component.css']
 })
 
-export class IngresoComponent implements OnInit {
+export class IngresarComponent implements OnInit {
 
   itemExistenteVar: boolean[] = [];
   //ICONOS FONTAWESOME

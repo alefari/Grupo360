@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Item } from 'src/app/models/item.model';
-import { Categoria } from 'src/app/models/categoria.model';
 import { NgForm, Validators } from '@angular/forms';
-import { Egreso } from 'src/app/models/egreso.model';
 
 //ICONOS FONTAWESOME
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
@@ -21,13 +18,13 @@ import { EgresosService } from 'src/app/services/egresos.service';
 import { asapScheduler } from 'rxjs';
 
 @Component({
-  selector: 'app-egreso',
-  templateUrl: './egreso.component.html',
-  styleUrls: ['./egreso.component.css']
+  selector: 'app-egresar',
+  templateUrl: './egresar.component.html',
+  styleUrls: ['./egresar.component.css']
 })
 
 
-export class EgresoComponent implements OnInit {
+export class EgresarComponent implements OnInit {
   @ViewChild('f') form: NgForm;
 
    //ICONOS FONTAWESOME
@@ -67,7 +64,7 @@ export class EgresoComponent implements OnInit {
       this.servicioCategorias.getCategorias().subscribe(
         res => {this.categorias = res;},
         err => console.log(err));
-        
+
       this.servicioSubcategorias.getSubcategorias().subscribe(
         res => {this.subcategorias = res;},
         err => console.log(err));

@@ -2,13 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/inventario',
-    pathMatch: 'full'},
+  { path: '', redirectTo: '/inventario', pathMatch: 'full' },
   {
     path: 'inventario',
-    loadChildren: () => import('./inventario/inventario.module').then(m => m.InventarioModule)
+    loadChildren: () =>
+      import("./inventario/inventario.module").then(m => m.InventarioModule)
   }
 ];
 
@@ -17,3 +15,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+// , { preloadingStrategy: PreloadAllModules}
