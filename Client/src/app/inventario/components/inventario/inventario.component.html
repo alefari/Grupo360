@@ -6,8 +6,8 @@
   </div>
   <div class="col-9">
     <div class="btn-group float-right">
-      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalIngreso">
-        <fa-icon [icon]="faPlusCircle"></fa-icon> Ingreso
+      <button type="button" class="btn btn-success" routerLink='ingresar'>
+        <fa-icon [icon]="faPlusCircle"></fa-icon> Ingresar
       </button>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalReingreso">
         <fa-icon [icon]="faPlusCircle"></fa-icon> Reingreso
@@ -334,10 +334,6 @@
   </div>
 </div>
 
-<!-- Modal Ingreso-->
-<div class="modal fade" id="modalIngreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <app-ingresar></app-ingresar>
-</div>
 <!-- Modal Reingreso-->
 <div class="modal fade" id="modalReingreso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <app-reingreso></app-reingreso>

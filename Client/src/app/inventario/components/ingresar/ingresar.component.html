@@ -1,17 +1,11 @@
-<div class="modal-dialog modal-lg">
-  <div class="modal-content">
-
-    <!--Modal de ingreso de producto-->
-    <div class="modal-header bg-success text-white">
-      <h5 class="modal-title" id="exampleModalLabel">Ingreso</h5>
-      <button type="button" class="close text-white" data-dismiss="modal" (click)='cerrarModal()' aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-
+<div class="bg-white shadow-lg container">
+  <div class="container pt-3">
+    <h3>Ingreso</h3>
+  </div>
+  <div class="container">
     <form #f="ngForm">
-      <div class="modal-body" *ngFor="let item of nuevosItems; let i = index" [ngClass]="{'color-contraste': i%2 != 0}">
-          <h3>Item {{i+1}}</h3>
+      <div class="pt-2" *ngFor="let item of nuevosItems; let i = index" [ngClass]="{'color-contraste': i%2 != 0}">
+          <!-- <h3>Item {{i+1}}</h3> -->
           <div class="form-check">
             <input #itemExistente="ngModel" class="form-check-input" type="checkbox" [(ngModel)]='itemExistenteVar[i]' [name]="'checkboxExistente' + [i]" >
             <label class="form-check-label" for="defaultCheck1">
@@ -19,14 +13,14 @@
             </label>
           </div>
             <!--Nombre de producto-->
-            <div *ngIf="!itemExistenteVar[i]" class="form-group">
-              <div class="row">
+            <div *ngIf="!itemExistenteVar[i]" class="">
+              <div class="row form-group">
                 <div class="col-4">
                     <label>Nombre</label>
                     <input #nombre="ngModel" required type="text" [(ngModel)]="nuevosItems[i].nombre" [name]="'nombre' + [i]" class="form-control">
                     <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingrese un nombre.</small>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                   <!--Label y Select del tipo de producto-->
                   <label for="exampleFormControlSelect1">Categoría</label>
                   <select #cat="ngModel" required class="form-control" [(ngModel)]="nuevosItems[i].categoria" [name]="'cat' + [i]">
@@ -34,7 +28,7 @@
                   </select>
                   <small *ngIf="!cat.valid && cat.touched" class="text-danger">Ingrese una categoria.</small>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                   <label for="exampleFormControlSelect1">Subcategoría</label>
                   <select #subcat="ngModel" #subcat[i]="ngModel" class="form-control" [(ngModel)]="nuevosItems[i].subcategoria" [name]="'subcat' + [i]">
                     <option *ngFor="let subcategoria of subcategorias" value="{{ subcategoria.id }}">{{ subcategoria.nombre }}</option>
@@ -44,20 +38,19 @@
                   <label>Serial</label>
                   <input type="text" [(ngModel)]="nuevosItems[i].serial" [name]="'serial' + [i]" class="form-control" aria-describedby="emailHelp">
                 </div>
+                <div class="col-2">
+                  <label>Precio</label>
+                  <div class="input-group">
+                  <input onkeypress="return event.charCode >= 46" min="0"  type="number" [(ngModel)]="nuevosItems[i].precio" [name]="'precio' + [i]" class="form-control">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                  </div>
+                  </div>
+                </div>
               </div>
 
-          <div class="form-group">
-            <div class="row">
+            <div class="row form-group">
               <div class="col-3">
-                <label>Precio</label>
-                <div class="input-group">
-                <input onkeypress="return event.charCode >= 46" min="0"  type="number" [(ngModel)]="nuevosItems[i].precio" [name]="'precio' + [i]" class="form-control">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="basic-addon1">$</span>
-                </div>
-                </div>
-              </div>
-              <div class="col-4">
                 <!--Cantidad de producto-->
                 <label for="exampleInputPassword1">Cantidad y Unidades</label>
                 <div class="input-group">
@@ -78,22 +71,21 @@
                 <small *ngIf="!cantidad.valid && cantidad.touched" class="text-danger">Ingrese una cantidad.<br></small>
                 <small *ngIf="!unidadX.valid && unidadX.touched" class="text-danger">Ingrese una unidad.</small>
               </div>
-              <div class="col-5">
+              <div class="col-2">
                 <label>Ubicación en almacén</label>
                 <select type="text" [(ngModel)]="nuevosItems[i].ubicacion" [name]="'ubicacion' + [i]" class="form-control" aria-describedby="emailHelp">
                   <option *ngFor="let ubicacion of ubicaciones" value="{{ ubicacion.id }}">{{ ubicacion.nombre }}</option>
                 </select>
               </div>
 
-            </div>
-            <div class="row">
-              <div class="col-3" hidden>
+
+              <div class="col-2" >
                 <div class="form-group">
                   <label>Vencimiento</label>
                   <input class="form-control" disabled [(ngModel)]="nuevosItems[i].vencimiento" [name]="'vencimiento' + [i]" type="date">
               </div>
               </div>
-              <div class="col-9">
+              <div class="col-5">
                 <!--Condicion para colocar fecha de vencimiento (Producto o consumible unicamente)-->
                 <div class="form-group">
                   <label>Descripción</label>
@@ -101,7 +93,6 @@
               </div>
               </div>
             </div>
-          </div>
             </div>
 
 
@@ -197,7 +188,7 @@
             <fa-icon [icon]="faMinusCircle"></fa-icon> Menos Items
           </button>
         </div>
-        <button type="button" class="btn btn-secondary" (click)="cerrarModal()" data-dismiss="modal">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
           <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
         </button>
         <!-- !f.valid significa cuando el form no sea valido -->
@@ -206,6 +197,5 @@
       </button>
     </div>
     </form>
-
-  </div>
+</div>
 </div>

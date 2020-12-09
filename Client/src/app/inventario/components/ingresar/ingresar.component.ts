@@ -121,7 +121,6 @@ export class IngresarComponent implements OnInit {
       }
       indice++;
     }
-    this.cerrarModal();
     this.router.navigate(['inventario']);
     }
 
@@ -141,26 +140,6 @@ export class IngresarComponent implements OnInit {
         err => { console.log(err); }
       );
     }
-
-
-
-  //Al cerrar el modal, se reinician los campos
-  cerrarModal() {
-    // this.form.reset();
-    this.nuevosItems = [
-      {
-        nombre: null,
-        categoria: null,
-        cantidad: null,
-        ubicacion: null,
-        vencimiento: null,
-        serial: null,
-        precio: null,
-        unidades: null,
-        estado: "Disponible"
-      }
-    ]
-  }
 
   agregarItem() {
     this.nuevosItems.push(

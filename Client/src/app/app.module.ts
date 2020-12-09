@@ -17,7 +17,7 @@ import { InventarioRoutingModule } from './inventario/inventario-routing.module'
   declarations: [
     AppComponent,
     LoginComponent,
-    NavbarComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
