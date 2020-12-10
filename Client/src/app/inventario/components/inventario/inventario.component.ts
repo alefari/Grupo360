@@ -66,21 +66,6 @@ export class InventarioComponent implements OnInit {
     nombre: null
   }
 
-  //VARIABLE PARA MODEL DE AVERIA
-  itemAveriado: Item = {
-    id: null,
-    nombre: null,
-    categoria: null,
-    subcategoria: null,
-    cantidad: null,
-    unidades: null,
-    ubicacion: null,
-    estado: null,
-    vencimiento: null,
-    serial: null,
-    precio: null,
-  };
-
   //VARIABLE PARA HACER LAS BUSQUEDA POR ID DEL ITEM DE AVERIA
   idItemElegido:string = null;
 
@@ -177,62 +162,6 @@ export class InventarioComponent implements OnInit {
       );
   }
 
-  //BUSCA ITEM PARA REPORTAR AVERIA
-  regresarIndice() {
-    // return this.inventario.findIndex(item => item.id == this.idItemElegido);
-}
-  regresarItem(id: string) {
-    return this.inventarioSQL.find(item => item.id == id);
-}
-
-  //CREA ITEM TEMPORAL EN DONDE COLOCARA NUEVOS ESTADOS
-  alElegirItem(idItem: string) {
-    this.itemAveriado = Object.assign({},this.inventarioSQL.find(itemInv => itemInv.id == idItem));
-}
-
-//FUNCIONES DE MODAL REPORTE
-  reportarAveria() {
-      this.itemAveriado.estado = "Dañado";
-      this.itemAveriado.estado = this.estados.find(est => est.nombre == this.itemAveriado.estado).id;
-      this.itemAveriado.categoria = this.categorias.find(cat => cat.nombre == this.itemAveriado.categoria).id;
-      this.itemAveriado.subcategoria = this.subcategorias.find(subcat => subcat.nombre == this.itemAveriado.subcategoria).id;
-      this.itemAveriado.ubicacion = this.ubicaciones.find(ubic => ubic.nombre == this.itemAveriado.ubicacion).id;
-      this.itemAveriado.unidades = this.unidades.find(und => und.nombre == this.itemAveriado.unidades).id;
-      //MODIFICA ITEM EN BD
-      this.servicioInventarioSQL.updateItem(this.itemAveriado.id, this.itemAveriado, true).subscribe(
-        res => {
-          console.log(res);
-        },
-        err => {
-          console.log(err);
-        }
-      );
-    this.form.reset();
-  }
-  reportarReparado() {
-    this.itemAveriado.estado = "Disponible";
-    this.itemAveriado.estado = this.estados.find(est => est.nombre == this.itemAveriado.estado).id;
-    this.itemAveriado.categoria = this.categorias.find(cat => cat.nombre == this.itemAveriado.categoria).id;
-    this.itemAveriado.subcategoria = this.subcategorias.find(subcat => subcat.nombre == this.itemAveriado.subcategoria).id;
-    this.itemAveriado.ubicacion = this.ubicaciones.find(ubic => ubic.nombre == this.itemAveriado.ubicacion).id;
-    this.itemAveriado.unidades = this.unidades.find(und => und.nombre == this.itemAveriado.unidades).id;
-    //MODIFICA ITEM EN BD
-    this.servicioInventarioSQL.updateItem(this.itemAveriado.id, this.itemAveriado, true).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-    this.form.reset();
-  }
-
-  //BORRA FORMMULARIO DE AVERIA
-  borrarForm() {
-    this.form.reset();
-  }
-
   //FUNCION PARA DESCARGAR PDF DE INVENTARIO
   descargarPDF() {
     this.oculto = false;
@@ -252,53 +181,5 @@ export class InventarioComponent implements OnInit {
       .save();
 
       this.oculto = true;
-  }
-
-  unidadAgregar(nombreUnidad: string){
-    let nuevaUnidad: any = {nombre: nombreUnidad};
-    this.servicioUnidades.createUnidad(nuevaUnidad).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
-
-  categoriaAgregar(nombreCategoria: string){
-    let nuevaCategoria: any = {nombre: nombreCategoria};
-    this.servicioCategorias.createCategoria(nuevaCategoria).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
-
-  ubicacionAgregar(nombreUbicacion: string){
-    let nuevaUbicacion: any = {nombre: nombreUbicacion};
-    this.servicioUbicaciones.createUbicacion(nuevaUbicacion).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
-
-  subcategoriaAgregar(nombreSubcategoria: string){
-    let nuevaSubcategoria: any = {nombre: nombreSubcategoria};
-    this.servicioSubcategorias.createSubcategoria(nuevaSubcategoria).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
   }
 }

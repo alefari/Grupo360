@@ -1,0 +1,116 @@
+<!--MODAL DE AGREGAR ADMINISTRADOR-->
+<div class="bg-white shadow-lg container">
+    <div class="container pt-3">
+        <h3>Agregar</h3>
+    </div>
+    <div class='container'>
+        <form #f="ngForm">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                    <h5>Unidad:</h5>
+                        <label>Nombre:</label>
+                        <input #nombreUnidad="ngModel" ngModel name="nombreUnidadNueva" required type="text" class="form-control">
+                    </div>
+                    <div class="col">
+                    <h5>Ubicación:</h5>
+                        <label>Nombre:</label>
+                        <input #nombreUbicacion="ngModel" ngModel name="nombreUbicacionNueva" required type="text" class="form-control">
+                    </div>
+                    <div class="col">
+                    <h5>Categoría:</h5>
+                        <label>Nombre:</label>
+                        <input #nombreCategoria="ngModel" ngModel name="nombreCategoriaNueva" required type="text" class="form-control">
+                    </div>
+                    <div class="col">
+                    <h5>Subcategoría:</h5>
+                        <label>Nombre:</label>
+                        <input #nombreSubcategoria="ngModel" ngModel name="nombreSubcategoriaNueva" required type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                    <button [disabled]="!nombreUnidad.valid"  data-dismiss="modal" type="button" class="btn btn-primary" (click)="unidadAgregar(nombreUnidad.value)">
+                        <fa-icon [icon]="faPlusCircle"></fa-icon> Unidad
+                    </button>
+                    </div>
+                    <div class="col">
+                    <button [disabled]="!nombreUbicacion.valid" data-dismiss="modal" type="button" class="btn btn-primary" (click)="ubicacionAgregar(nombreUbicacion.value)">
+                        <fa-icon [icon]="faPlusCircle"></fa-icon> Ubicación
+                    </button>
+                    </div>
+                    <div class="col">
+                    <button [disabled]="!nombreCategoria.valid" data-dismiss="modal" type="button" class="btn btn-primary" (click)="categoriaAgregar(nombreCategoria.value)">
+                        <fa-icon [icon]="faPlusCircle"></fa-icon> Categoría
+                    </button>
+                    </div>
+                    <div class="col">
+                    <button [disabled]="!nombreSubcategoria.valid" data-dismiss="modal" type="button" class="btn btn-primary" (click)="subcategoriaAgregar(nombreSubcategoria.value)">
+                        <fa-icon [icon]="faPlusCircle"></fa-icon> Subcategoría
+                    </button>
+                    </div>
+                </div>
+            </div>
+            <!--BOTONES CON FUNCIONES AGREGAR-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="borrarForm()">
+                    <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!--FIN MODAL DE AGREGAR-->
+
+<!--MODAL DE REPORTE DE PRODUCTO-->
+<div class="bg-white shadow-lg container">
+    <div class="container pt-3">
+        <h3>Reportar</h3>
+    </div>
+    <div class='container'>
+        <form #f="ngForm">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label>Categoría</label>
+                            <select class="form-control" ngModel name="selectCategoriaReporte" #selectCategoriaReporte="ngModel">
+                            <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
+                            </select>
+                    </div>
+                    <div class="col">
+                        <label>Subcategoría</label>
+                            <select class="form-control" ngModel name="selectSubcategoriaReporte" #selectSubcategoriaReporte="ngModel">
+                            <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
+                            </select>
+                    </div>
+                    <div class="col">
+                        <label>Item</label>
+                        <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" class='form-control' ngModel name="id">
+                            <!-- FILTRO POR CATEGORIA Y SUBCATEGORIA REPORTE -->
+                            <ng-container *ngFor="let item of inventarioSQL">
+                            <ng-container *ngIf="item.categoria == selectCategoriaReporte.value && item.estado != 'En Obra' && item.subcategoria == selectSubcategoriaReporte.value">
+                                <option value='{{item.id}}'>{{ item.nombre }}</option>
+                            </ng-container>
+                            </ng-container>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- BOTONOS CON FUNCIONES REPORTAR -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="borrarForm()">
+                <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+                </button>
+                <button data-dismiss="modal" *ngIf="idItem.value && regresarItem(idItem.value).estado == 'Dañado'" type="button" class="btn btn-primary"  (click)="reportarReparado()">
+                <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar Reparado
+                </button>
+                <button *ngIf="idItem.value && regresarItem(idItem.value).estado == 'Disponible'" type="button" class="btn btn-danger" (click)="reportarAveria()">
+                <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar Dañado
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!--FIN MODAL DE REPORTE DE PRODUCTO-->
