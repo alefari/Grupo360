@@ -5,17 +5,17 @@
         <img src="../../../assets/LOGO.PNG" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">Inicia Sesión</h5>
-          <form>
+          <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
             <div class="form-group">
               <label>Dirección de Correo</label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" required email ngModel name="email">
             </div>
             <div class="form-group">
               <label>Contraseña</label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" required ngModel name="password">
             </div>
             <small><a href="#">Olvidé mi Contraseña</a></small>
-            <button class="btn btn-success float-right">Ingresar</button>
+            <button [disabled]='!this.authForm.valid' (click)='ingresar()' class="btn btn-success float-right">Ingresar</button>
           </form>
         </div>
       </div>
