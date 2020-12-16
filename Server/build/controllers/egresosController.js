@@ -32,7 +32,8 @@ class EgresosController {
                             LEFT JOIN unidades
                             ON egresos.id_unidad_item_egresado = unidades.id_unidad
                             LEFT JOIN empleados
-                            ON egresos.cedula_responsable_egreso = empleados.cedula;`, function (err, result, fields) {
+                            ON egresos.cedula_responsable_egreso = empleados.cedula
+                            ORDER BY fecha DESC;`, function (err, result, fields) {
                 if (err)
                     throw err;
                 res.json(result);

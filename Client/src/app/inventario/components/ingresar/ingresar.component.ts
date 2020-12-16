@@ -95,7 +95,6 @@ export class IngresarComponent implements OnInit {
     for(var item of this.nuevosItems) {
 
       if(!this.itemExistenteVar[indice]) {
-        console.log(item.cantidad, item.precio, item.categoria,item.unidades,item.nombre);
         this.inventarioService.createItem(item).subscribe(
           res => {
             console.log(res["text"]);
@@ -136,7 +135,6 @@ export class IngresarComponent implements OnInit {
         cedula_responsable_ingreso: 10470050,
         precio: +item.precio
       }
-      console.log(ingreso);
       this.ingresosService.createIngreso(ingreso).subscribe(
         res => { console.log(res); },
         err => { console.log(err); }

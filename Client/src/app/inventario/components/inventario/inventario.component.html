@@ -190,7 +190,7 @@
               <tr *ngIf="datosInfo.vencimiento != null">
                 <th>Vencimiento</th>
                   <td></td>
-                  <td>{{ datosInfo.vencimiento }}</td>
+                  <td>{{ datosInfo.vencimiento | date}}</td>
               </tr>
               <tr *ngIf="datosInfo.precio != null">
                 <th>Precio</th>

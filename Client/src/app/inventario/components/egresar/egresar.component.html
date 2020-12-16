@@ -10,25 +10,28 @@
                     <div class="row">
                         <div class="col-3">
                         <label>Categoría</label>
-                        <select (change)='borrarId(i);' class="form-control" ngModel [name]="'selectCat'+[i]" #selectCat="ngModel">
+                        <select (change)='borrarId(i);' required class="form-control" ngModel [name]="'selectCat'+[i]" #selectCat="ngModel">
                             <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                         </select>
+                        <small *ngIf="!selectCat.valid && selectCat.touched" class="text-danger">Ingrese una categoría.</small>
                         </div>
                         <div class="col-3">
                             <label>Subcategoría</label>
-                            <select (change)='borrarId(i);' class="form-control" ngModel [name]="'selectSubcat'+[i]" #selectSubcat="ngModel">
+                            <select (change)='borrarId(i);' required class="form-control" ngModel [name]="'selectSubcat'+[i]" #selectSubcat="ngModel">
                                 <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
                             </select>
+                            <small *ngIf="!selectSubcat.valid && selectSubcat.touched" class="text-danger">Ingrese una subcategoría.</small>
                         </div>
                         <div class="col-3">
                             <label>Item</label>
-                            <select [(ngModel)]='idsEgreso[i].id' class="form-control" [name]="'idItem'+[i]">
+                            <select [(ngModel)]='idsEgreso[i].id' required class="form-control" [name]="'idItem'+[i]" #selectItem='ngModel'>
                             <!--FILTRO DE ITEM POR CAT Y SUBCAT-->
                                 <ng-container *ngFor="let item of inventario">
                                 <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
                                 <option *ngIf="item.categoria == selectCat.value && item.subcategoria == selectSubcat.value && item.estado == 'Disponible'" value='{{item.id}}'>{{ item.nombre }}</option>
                                 </ng-container>
                             </select>
+                            <small *ngIf="!selectItem.valid && selectItem.touched" class="text-danger">Ingrese un item.</small>
                         </div>
                         <div class="col-3">
                         <!--LABEL E INPUT DE CANTIDAD ACTUAL EN INVENTARIO-->
@@ -80,7 +83,7 @@
                     type="button"
                     class="btn btn-warning"
                     (click)="egresarItems()"
-                    [disabled]='!valido'>
+                    [disabled]='!valido || !f.valid'>
                     <fa-icon [icon]="faSignOutAlt"></fa-icon> Egresar
                 </button>
             </div>

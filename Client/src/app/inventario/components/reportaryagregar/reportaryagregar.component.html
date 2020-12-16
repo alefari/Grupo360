@@ -70,24 +70,26 @@
         <h3>Reportar</h3>
     </div>
     <div class='container'>
-        <form #f="ngForm">
+        <form #fi="ngForm">
             <div class="form-group">
                 <div class="row">
                     <div class="col">
                         <label>Categoría</label>
-                            <select class="form-control" ngModel name="selectCategoriaReporte" #selectCategoriaReporte="ngModel">
+                            <select class="form-control" ngModel required name="selectCategoriaReporte" #selectCategoriaReporte="ngModel">
                             <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                             </select>
+                            <small *ngIf="!selectCategoriaReporte.valid && selectCategoriaReporte.touched" class="text-danger">Seleccione un categoría.</small>
                     </div>
                     <div class="col">
                         <label>Subcategoría</label>
-                            <select class="form-control" ngModel name="selectSubcategoriaReporte" #selectSubcategoriaReporte="ngModel">
+                            <select class="form-control" ngModel required name="selectSubcategoriaReporte" #selectSubcategoriaReporte="ngModel">
                             <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
                             </select>
+                            <small *ngIf="!selectSubcategoriaReporte.valid && selectSubcategoriaReporte.touched" class="text-danger">Seleccione un subcategoría.</small>
                     </div>
                     <div class="col">
                         <label>Item</label>
-                        <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" class='form-control' ngModel name="id">
+                        <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" required class='form-control' ngModel name="id">
                             <!-- FILTRO POR CATEGORIA Y SUBCATEGORIA REPORTE -->
                             <ng-container *ngFor="let item of inventarioSQL">
                             <ng-container *ngIf="item.categoria == selectCategoriaReporte.value && item.estado != 'En Obra' && item.subcategoria == selectSubcategoriaReporte.value">
@@ -95,6 +97,7 @@
                             </ng-container>
                             </ng-container>
                         </select>
+                        <small *ngIf="!idItem.valid && idItem.touched" class="text-danger">Seleccione un item.</small>
                     </div>
                 </div>
             </div>

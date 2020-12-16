@@ -9,19 +9,21 @@
                 <div class="row">
                     <div class="col-3">
                         <label>Categoría</label>
-                        <select class="form-control" ngModel name="selectCategoriaModificar" #selectCategoriaModificar="ngModel">
+                        <select class="form-control" ngModel required name="selectCategoriaModificar" #selectCategoriaModificar="ngModel">
                           <option *ngFor="let categoria of categorias" value="{{ categoria.nombre }}">{{ categoria.nombre }}</option>
                         </select>
+                        <small *ngIf="!selectCategoriaModificar.valid && selectCategoriaModificar.touched" class="text-danger">Ingrese una categoría.</small>
                     </div>
                     <div class="col-3">
                         <label>Subcategoría</label>
-                        <select class="form-control" ngModel name="selectSubcategoriaModificar" #selectSubcategoriaModificar="ngModel">
+                        <select class="form-control" ngModel required name="selectSubcategoriaModificar" #selectSubcategoriaModificar="ngModel">
                           <option *ngFor="let subcategoria of subcategorias" value="{{ subcategoria.nombre }}">{{ subcategoria.nombre }}</option>
                         </select>
+                        <small *ngIf="!selectSubcategoriaModificar.valid && selectSubcategoriaModificar.touched" class="text-danger">Ingrese una subcategoría.</small>
                     </div>
                     <div class="col-6">
                         <label>Item</label>
-                        <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" class="form-control" ngModel name="item">
+                        <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" class="form-control" ngModel required name="item" #selectItemModif='ngModel'>
                           <ng-container *ngFor="let item of inventarioSQL">
                             <option
                             *ngIf="item.categoria == selectCategoriaModificar.value &&
@@ -29,6 +31,7 @@
                             value='{{item.id}}'>{{ item.nombre }}</option>
                             </ng-container>
                         </select>
+                        <small *ngIf="!selectItemModif.valid && selectItemModif.touched" class="text-danger">Ingrese un item.</small>
                     </div>
             </div>
             <hr>
@@ -71,8 +74,8 @@
                         <div class="col-4">
                             <label>Cantidad y Unidades</label>
                             <div class="input-group">
-                                <input onkeypress="return event.charCode > 48" min="1" [(ngModel)]="itemElegido.cantidad" required type="number" name="cantidad" class="form-control">
-                                <select required type="text" placeholder=":itemElegido.unidad"  name="unidades" [(ngModel)]="itemElegido.unidades" class="form-control">
+                                <input onkeypress="return event.charCode > 48" min="1" [(ngModel)]="itemElegido.cantidad" type="number" name="cantidad" class="form-control">
+                                <select type="text" placeholder=":itemElegido.unidad"  name="unidades" [(ngModel)]="itemElegido.unidades" class="form-control">
                                 <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
                                 </select>
                             </div>
@@ -93,7 +96,7 @@
                         </div>
                         <div class="col-2">
                             <label>Serial</label>
-                            <input required type="text"
+                            <input type="text"
                             [(ngModel)]="itemElegido.serial"
                             name="serial" class="form-control">
                         </div>
@@ -110,7 +113,7 @@
                             </div>
                             <div class="col-3">
                                 <label>Fecha de Vencimiento</label>
-                                <input disabled class="form-control"
+                                <input class="form-control"
                                 [(ngModel)]="itemElegido.vencimiento"
                                 name="vencimiento" type="date">
                             </div>
@@ -122,7 +125,7 @@
             <button (click)="borrarForm()" type="button" class="btn btn-secondary">
                 <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
             </button>
-            <button (click)="onModificar()" type="button" class="btn btn-info">
+            <button [disabled]='!f.valid' (click)="onModificar()" type="button" class="btn btn-info">
                 <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
             </button>
         </div>
