@@ -98,7 +98,7 @@
                 <td> {{ eliminado.categoria }} </td>
                 <td> {{ eliminado.cantidad }} {{ eliminado.unidad }} </td>
                 <td> {{ eliminado.responsable }} </td>
-                <td> {{ eliminado.fecha }} </td>
+                <td> {{ eliminado.fecha | date:'short'}} </td>
             </tr>
             </ng-container>
         </tbody>

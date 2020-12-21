@@ -19,7 +19,8 @@ class EliminadosController {
                             LEFT JOIN unidades
                             ON eliminaciones.id_unidad = unidades.id_unidad
                             LEFT JOIN empleados
-                            ON eliminaciones.cedula_responsable_eliminado = empleados.cedula;`, 
+                            ON eliminaciones.cedula_responsable_eliminado = empleados.cedula
+                            ORDER BY eliminaciones.fecha DESC;`, 
             function(err, result, fields) {
             if (err) throw err;
             res.json(result);

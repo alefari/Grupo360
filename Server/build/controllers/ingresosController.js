@@ -40,7 +40,8 @@ class IngresosController {
                             LEFT JOIN modalidad_ingreso
                             ON ingresos.id_modalidad = modalidad_ingreso.id_modalidad
                             LEFT JOIN empleados
-                            ON ingresos.cedula_responsable_ingreso = empleados.cedula;`, function (err, result, fields) {
+                            ON ingresos.cedula_responsable_ingreso = empleados.cedula
+                            ORDER BY fecha DESC;`, function (err, result, fields) {
                 if (err)
                     throw err;
                 res.json(result);

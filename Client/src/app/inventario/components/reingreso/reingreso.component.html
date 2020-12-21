@@ -13,16 +13,18 @@
                     <select (change)="restaurarValor(i)" required class="form-control" ngModel [name]="'selectTipo'+[i]" #selectCategoria="ngModel">
                       <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                     </select>
+                    <small *ngIf="!selectCategoria.valid && selectCategoria.touched" class="text-danger">Ingrese una categoría.</small>
               </div>
               <div class="col-2">
                   <label>Subcategoria</label>
                     <select required class="form-control" ngModel [name]="'selectSubcategoria'+[i]" #selectSubcategoria="ngModel">
                       <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
                     </select>
+                    <small *ngIf="!selectSubcategoria.valid && selectSubcategoria.touched" class="text-danger">Ingrese una subcategoría.</small>
               </div>
               <div class="col-4">
                   <label>Item</label>
-                  <select required class="form-control" [(ngModel)]="idsReingreso[i].id" [name]="'selectId'+[i]">
+                  <select #itemSelect="ngModel" required class="form-control" [(ngModel)]="idsReingreso[i].id" [name]="'selectId'+[i]">
                     <!--NGFOR QUE IMPRIME ITEMS DE BD-->
                     <ng-container *ngFor="let item of inventario">
                       <!--FILTRO POR CATEGORIA DE ITEMS BD-->
@@ -31,6 +33,7 @@
                       </ng-container>
                     </ng-container>
                   </select>
+                  <small *ngIf="!itemSelect.valid && itemSelect.touched" class="text-danger">Ingrese un item.</small>
               </div>
               <div class="col-2">
                 <!--INPUT DE CANTIDAD (MUESTRA CANTIDAD EXISTENTE)-->

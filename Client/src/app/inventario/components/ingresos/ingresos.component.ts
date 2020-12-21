@@ -15,13 +15,11 @@ export class IngresosComponent implements OnInit {
   modalidades: any = [];
   oculto = true;
   fechaDesde: Date;
-  fechaHasta: string;
+  fechaHasta: Date;
 
   constructor(private servicioIngresos: IngresosService,
               private servicioCategorias: CategoriasService,
               private servicioModalidades: ModalidadesService) {
-
-              this.fechaHasta = this.dateAString(new Date());
               }
 
   ngOnInit(): void {
@@ -29,7 +27,6 @@ export class IngresosComponent implements OnInit {
     this.servicioIngresos.getIngresos().subscribe(
       res => {this.ingresos = res;},
       err => console.log(err));
-
     this.servicioCategorias.getCategorias().subscribe(
       res => {this.categorias = res;},
       err => console.log(err));
@@ -67,5 +64,15 @@ export class IngresosComponent implements OnInit {
     return stringFecha;
   }
 
-
+    //FUNCIONES DE FILTRO POR FECHA (NO SIRVIERON)
+  changeFirstInput(e){
+    this.fechaDesde = e.target.value;
+    console.log(this.ingresos.filter(o => new Date(o.date) >= this.fechaDesde &&
+                                      new Date(o.date) <= this.fechaHasta  ));
+  }
+  changeSecondInput(e){
+    this.fechaHasta = e.target.value;
+    console.log(this.ingresos.filter(o => new Date(o.date) >= this.fechaDesde &&
+                                      new Date(o.date) <= this.fechaHasta  ));
+  } 
 }
