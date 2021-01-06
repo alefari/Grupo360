@@ -13,6 +13,7 @@ import modalidadesRoutes from './routes/modalidadesRoutes';
 import authRoutes from './routes/auth.routes';
 import morgan from 'morgan';
 import cors from 'cors';
+import { verifyToken } from './middlewares';
 
 class Server {
 
@@ -34,16 +35,16 @@ class Server {
 
     routes(): void {
         this.app.use('/', indexRoutes);
-        this.app.use('/herramientas', herramientasRoutes);
-        this.app.use('/categorias', categoriasRoutes);
-        this.app.use('/subcategorias', subcategoriasRoutes);
-        this.app.use('/ubicaciones', ubicacionesRoutes);
-        this.app.use('/unidades', unidadesRoutes);
-        this.app.use('/estados', estadosRoutes);
-        this.app.use('/ingresos', ingresosRoutes);
-        this.app.use('/egresos', egresosRoutes);
-        this.app.use('/eliminados', eliminadosRoutes);
-        this.app.use('/modalidades', modalidadesRoutes);
+        this.app.use('/herramientas', verifyToken, herramientasRoutes);
+        this.app.use('/categorias', verifyToken, categoriasRoutes);
+        this.app.use('/subcategorias', verifyToken, subcategoriasRoutes);
+        this.app.use('/ubicaciones', verifyToken, ubicacionesRoutes);
+        this.app.use('/unidades', verifyToken, unidadesRoutes);
+        this.app.use('/estados', verifyToken, estadosRoutes);
+        this.app.use('/ingresos', verifyToken, ingresosRoutes);
+        this.app.use('/egresos', verifyToken, egresosRoutes);
+        this.app.use('/eliminados', verifyToken, eliminadosRoutes);
+        this.app.use('/modalidades', verifyToken, modalidadesRoutes);
         this.app.use('/auth', authRoutes);
     }
 

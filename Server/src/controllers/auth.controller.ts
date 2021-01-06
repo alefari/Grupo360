@@ -35,18 +35,18 @@ class AuthController {
     }
 
     public async signin(req: Request, res: Response) {
-
         pool.query('SELECT * FROM empleados WHERE cedula = ?', [req.body.cedula], async function (err, result, fields) {
             if (err) throw err;
             let match, token;
             if(result.length > 0) {
                 match = await bcrypt.compare(req.body.password, result[0].password)
-                if(match == false) return res.status(401).json({token: null, message: "Contrasena invalida"});
+                if(match == false) return res.status(401).json({token: null, message: "Contraseña invalida"});
                 else if(match == true) {
+                    let expiracionSeg = 86400;
                     token = jwt.sign({id: result[0].cedula}, 'secreto', {
-                        expiresIn: 86400
+                        expiresIn: expiracionSeg
                     })
-                    res.json({token});
+                    res.json({token: token, cedula: result[0].cedula, expiresIn: expiracionSeg});
                 }
             }else if(result.length == 0){
                 res.status(400).json({message: "Usuario no encontrado"});

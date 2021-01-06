@@ -19,8 +19,8 @@ export class EgresosService {
   //   return this.http.get(`${this.API_URI}/herramientas/${id}`);
   // }
 
-  createEgreso(ingreso: any) {
-    return this.http.post(`${this.API_URI}/egresos`, ingreso);
+  createEgreso(egreso: any) {
+    return this.http.post(`${this.API_URI}/egresos`, egreso);
   }
 
   deleteEgreso(id: string) {

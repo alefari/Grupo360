@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 class IndexController {
 
     public index(req: Request, res: Response) {
-        res.send('Hello');
+        res.send('Que haces aqui?');
         // res.json('HSola');
         // pool.query('DESCRIBE herramienta');
     }

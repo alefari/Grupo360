@@ -5,7 +5,7 @@ export const verifyToken = async (req:any, res:any, next:any) => {
     try {
         const token = req.headers["x-access-token"];
 
-        if (!token) return res.status(403).json({ message: "No token provided" });
+        if (!token) return res.status(403).json({ message: "Sin token" });
 
         const decoded:any = jwt.verify(token, 'secreto');
 
@@ -15,8 +15,9 @@ export const verifyToken = async (req:any, res:any, next:any) => {
         })
 
         next();
+
     } catch (error) {
-        return res.status(401).json({message: 'Unauthorized'});
+        return res.status(401).json({message: 'Sin autorización'});
     }
 
 }

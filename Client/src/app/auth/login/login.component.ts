@@ -10,15 +10,12 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  isLogin = true;
+  isLoading = false;
+  error: string = null;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void {
-  }
-
-  onSwitchMode() {
-    this.isLogin = !this.isLogin;
   }
 
   ingresar() {
@@ -26,13 +23,20 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    if(!form.valid) {
+      return;
+    }
+    this.error = null;
     const cedula = form.value.cedula;
     const password = form.value.password;
-    // console.log(cedula, password);
-    this.authService.signIn(cedula, password).subscribe(resData => {
-      console.log(resData);
-    }, error => {
-      console.log(error);
+
+    this.isLoading = true;
+
+    this.auth.signIn(cedula, password).subscribe(resData => {
+      this.isLoading = false;
+    }, errorRes => {
+      this.error = 'Error: ' + errorRes.error.message;
+      this.isLoading = false;
     });
     form.reset();
   }

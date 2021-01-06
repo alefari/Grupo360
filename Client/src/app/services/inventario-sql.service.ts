@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Item } from '../models/item.model';
 import { environment } from '../../environments/environment';
+import { AuthService } from './auth.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +13,13 @@ export class InventarioSQLService {
 
   API_URI = environment.dirBackend;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private auth: AuthService) { }
 
   getInventario() {
     return this.http.get(`${this.API_URI}/herramientas`);
+    // return this.http.get(`${this.API_URI}/herramientas`, {headers: {'x-access-token': user.token}});
+    // return this.http.get(`${this.API_URI}/herramientas`, {'headers': headers});
+    // const headers = new HttpHeaders().set('x-access-token', user.token)
   }
 
   getItem(id: string) {

@@ -55,12 +55,13 @@ class AuthController {
                     if (result.length > 0) {
                         match = yield bcryptjs_1.default.compare(req.body.password, result[0].password);
                         if (match == false)
-                            return res.status(401).json({ token: null, message: "Contrasena invalida" });
+                            return res.status(401).json({ token: null, message: "Contraseña invalida" });
                         else if (match == true) {
+                            let expiracionSeg = 86400;
                             token = jsonwebtoken_1.default.sign({ id: result[0].cedula }, 'secreto', {
-                                expiresIn: 86400
+                                expiresIn: expiracionSeg
                             });
-                            res.json({ token });
+                            res.json({ token: token, cedula: result[0].cedula, expiresIn: expiracionSeg });
                         }
                     }
                     else if (result.length == 0) {

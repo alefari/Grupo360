@@ -19,7 +19,7 @@ exports.verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     try {
         const token = req.headers["x-access-token"];
         if (!token)
-            return res.status(403).json({ message: "No token provided" });
+            return res.status(403).json({ message: "Sin token" });
         const decoded = jsonwebtoken_1.default.verify(token, 'secreto');
         const usuario = yield database_1.default.query('SELECT * FROM empleados WHERE cedula = ?', [decoded.id], function (err, result, fields) {
             if (err)
@@ -30,6 +30,6 @@ exports.verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         next();
     }
     catch (error) {
-        return res.status(401).json({ message: 'Unauthorized' });
+        return res.status(401).json({ message: 'Sin autorización' });
     }
 });

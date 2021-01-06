@@ -10,8 +10,9 @@ class HerramientasRoutes {
     }
 
     config(): void {
-        // this.router.get('/', verifyToken, herramientasController.list);
-        this.router.get('/', herramientasController.list);
+        this.router.get('/', verifyToken, herramientasController.list);
+
+        // this.router.get('/', herramientasController.list);
         this.router.post('/', herramientasController.create);
         this.router.put('/:id', herramientasController.update);
         this.router.delete('/:id', herramientasController.delete);
