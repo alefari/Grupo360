@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/menu', pathMatch: 'full' },
+  { path: 'menu', component: MenuComponent },
+
   {
     path: 'inventario',
     canActivate: [AuthGuard],
