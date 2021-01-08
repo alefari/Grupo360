@@ -57,7 +57,7 @@ class AuthController {
                         if (match == false)
                             return res.status(401).json({ token: null, message: "Contraseña invalida" });
                         else if (match == true) {
-                            let expiracionSeg = 86400;
+                            let expiracionSeg = 28800;
                             token = jsonwebtoken_1.default.sign({ id: result[0].cedula }, 'secreto', {
                                 expiresIn: expiracionSeg
                             });

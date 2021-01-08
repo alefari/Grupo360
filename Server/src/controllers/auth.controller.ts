@@ -42,7 +42,7 @@ class AuthController {
                 match = await bcrypt.compare(req.body.password, result[0].password)
                 if(match == false) return res.status(401).json({token: null, message: "Contraseña invalida"});
                 else if(match == true) {
-                    let expiracionSeg = 86400;
+                    let expiracionSeg = 28800;
                     token = jwt.sign({id: result[0].cedula}, 'secreto', {
                         expiresIn: expiracionSeg
                     })

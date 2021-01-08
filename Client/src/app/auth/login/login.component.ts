@@ -32,12 +32,14 @@ export class LoginComponent implements OnInit {
 
     this.isLoading = true;
 
-    this.auth.signIn(cedula, password).subscribe(resData => {
-      this.isLoading = false;
-    }, errorRes => {
-      this.error = 'Error: ' + errorRes.error.message;
-      this.isLoading = false;
-    });
-    form.reset();
+    this.auth.signIn(cedula, password).subscribe(
+      resData => {
+        this.isLoading = false;
+        // this.router.navigate(['/menu']);
+      }, errorRes => {
+        this.error = 'Error: ' + errorRes.error.message;
+        this.isLoading = false;
+      });
+      form.reset();
   }
 }
