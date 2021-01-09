@@ -12,7 +12,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 // IMPORT DE ICONOSDE FONTAWESOME
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InventarioRoutingModule } from './inventario/inventario-routing.module';
-import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { MenuComponent } from './components/menu/menu.component';
 
@@ -21,7 +20,6 @@ import { MenuComponent } from './components/menu/menu.component';
     AppComponent,
     LoginComponent,
     NavbarComponent,
-    LoadingSpinnerComponent,
     MenuComponent
   ],
   imports: [

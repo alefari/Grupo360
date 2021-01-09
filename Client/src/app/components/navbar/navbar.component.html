@@ -19,8 +19,15 @@
             <li class="nav-item me-2" *ngIf="isAuthenticated">
               <a class="nav-link" routerLink="/inventario/egresos"> <fa-icon [icon]="faSignOutAlt"></fa-icon> Egresos</a>
             </li>
-            <li class="nav-item active ms-5" *ngIf="isAuthenticated">
-              <a role="button" class="nav-link" (click)='onLogout()'> <fa-icon [icon]="faUser"></fa-icon> Logout</a>
+            <li class="nav-item dropdown mx-5 pe-5" *ngIf="isAuthenticated">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <fa-icon [icon]="faUser"></fa-icon> Usuario
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" routerLink="/usuario">Perfil</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a role="button" class="dropdown-item" (click)='onLogout()'>Cerrar Sesión</a></li>
+              </ul>
             </li>
         </ul>
     </div>
