@@ -5,7 +5,7 @@
   </div>
   <div class="row">
     <!--Tabla de inventario en donde se muestra el inventario general-->
-      <table class="table shadow">
+      <table class="table shadow table-striped">
         <thead data-html2canvas-ignore class="thead bg-primary text-white">
           <tr>
             <th scope="col"><input #filtroNombre="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por nombre"></th>
@@ -21,9 +21,9 @@
                 <div class="col-2">Desde:</div>
                 <!--FILTRO POR FECHAS DE TABLA DE INGRESOS-->
                 <div class="col">
-                  <input [(ngModel)]="fechaDesde" 
-                  (change)="changeFirstInput($event)" 
-                  class="form-control form-control-sm" type="date" value="" 
+                  <input [(ngModel)]="fechaDesde"
+                  (change)="changeFirstInput($event)"
+                  class="form-control form-control-sm" type="date" value=""
                   name="fechaDesde"></div>
                 <div class="col-2">Hasta:</div>
                 <div class="col"><input [(ngModel)]="fechaHasta" class="form-control form-control-sm" type="date" [value]="fechaHasta" name="fechaHasta"></div>
