@@ -98,10 +98,10 @@
                             'text-info': item.estado=='En Obra'}"> <span *ngIf="item.estado=='En Obra'">{{ item.cantidadObra }}</span> {{ item.estado }}</td>
             <td>
               <div class="btn-group">
-                <button (click)="asignarDetalles(item)" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalInfo">
+                <button (click)="asignarDetalles(item)" type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalInfo">
                 <fa-icon [icon]="faInfoCircle"></fa-icon> Detalles
               </button>
-              <button (click)="asignarBorrar(item.id, item.nombre)" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalEliminar">
+              <button (click)="asignarBorrar(item.id, item.nombre)" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEliminar">
                 <fa-icon [icon]="faInfoCircle"></fa-icon> Eliminar
               </button>
               </div>
@@ -123,11 +123,11 @@
         <h5 class="modal-title text-white">Eliminar Item</h5>
       </div>
       <div class="modal-body">
-        <p>¿Estás seguro que deseas eliminar <strong>{{ itemBorrar.nombre }}</strong>?. <br> <span class="text-danger">Esta acción es irreversible.</span></p>
+        <p>¿Estás seguro que deseas eliminar <strong>{{ itemBorrar.nombre }}</strong>?. <br> <br> <span class="text-danger">Esta acción es irreversible.</span></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button (click)="eliminarItem()" data-dismiss="modal" type="button" class="btn btn-danger">Eliminar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button (click)="eliminarItem()" data-bs-dismiss="modal" type="button" class="btn btn-danger">Eliminar</button>
       </div>
     </div>
   </div>
@@ -140,9 +140,7 @@
     <div class="modal-content">
       <div class="modal-header bg-info">
         <h5 class="modal-title text-white" id="exampleModalLabel"><strong>{{ datosInfo.nombre }}</strong></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <table class="table table-sm">
@@ -208,7 +206,7 @@
       </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
