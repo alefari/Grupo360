@@ -1,26 +1,29 @@
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow">
-    <a class="navbar-brand" href="#">
-      <img src="../../../assets/logo.svg" alt="Logo" class="img-fluid" style="max-width: 50px; width: 100%; margin: 0; padding: 0">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container-fluid">
+    <a class="navbar-brand ps-5" href="#">
+      <img src="../../../assets/logo.svg" alt="Logo" class="img-fluid me-2" style="max-width: 50px; width: 100%; margin: 0; padding: 0">
       <strong> GrupoCDV</strong>
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <ul class="navbar-nav ml-auto">
-          <li class="nav-item active mr-2" *ngIf="isAuthenticated">
-            <a class="nav-link" routerLink="/inventario"> <fa-icon [icon]="faWarehouse"></fa-icon> Inventario <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item active mr-2" *ngIf="isAuthenticated">
-            <a class="nav-link" routerLink="/inventario/ingresos"> <fa-icon [icon]="faSignInAlt"></fa-icon> Ingresos </a>
-          </li>
-          <li class="nav-item active mr-2" *ngIf="isAuthenticated">
-            <a class="nav-link" routerLink="/inventario/egresos"> <fa-icon [icon]="faSignOutAlt"></fa-icon> Egresos</a>
-          </li>
-          <li class="nav-item active ml-5" *ngIf="isAuthenticated">
-            <a role="button" class="nav-link" (click)='onLogout()'> <fa-icon [icon]="faUser"></fa-icon> Logout</a>
-          </li>
-      </ul>
+    <div class="d-flex">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class=" navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item me-2" *ngIf="isAuthenticated">
+              <a class="nav-link" routerLink="/inventario"> <fa-icon [icon]="faWarehouse"></fa-icon> Inventario <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item me-2 " *ngIf="isAuthenticated">
+              <a class="nav-link" routerLink="/inventario/ingresos"> <fa-icon [icon]="faSignInAlt"></fa-icon> Ingresos </a>
+            </li>
+            <li class="nav-item me-2" *ngIf="isAuthenticated">
+              <a class="nav-link" routerLink="/inventario/egresos"> <fa-icon [icon]="faSignOutAlt"></fa-icon> Egresos</a>
+            </li>
+            <li class="nav-item active ms-5" *ngIf="isAuthenticated">
+              <a role="button" class="nav-link" (click)='onLogout()'> <fa-icon [icon]="faUser"></fa-icon> Logout</a>
+            </li>
+        </ul>
     </div>
-  </nav>
-
+    </div>
+  </div>
+</nav>
