@@ -1,11 +1,11 @@
 <div class="container-fluid">
 <!--Botones de ingreso y reingreso de productos-->
-<div class="row">
+<div class="row px-4">
   <div class="col-3">
     <h1>Inventario</h1>
   </div>
   <div class="col-9">
-    <div class="btn-group float-right">
+    <div class="btn-group float-end">
       <button type="button" class="btn btn-success" routerLink='ingresar'>
         <fa-icon [icon]="faPlusCircle"></fa-icon> Ingresar
       </button>
@@ -31,16 +31,16 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row px-4">
   <!--Tabla de inventario en donde se muestra el inventario general-->
-    <table class="table table-sm shadow ml-4 mr-4">
-      <thead class="thead-dark">
+  <div class="table-responsive">
+    <table class="table table-sm shadow table-striped">
+      <thead class="table-dark">
         <tr>
           <!--Filtro por nombre de Inventario, busca el item que haga match-->
           <th scope="col">
             <input #filtroNombre="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por nombre">
           </th>
-
           <th scope="col">
             <select #filtroCategoria="ngModel" class="form-control form-control-sm" ngModel name="filtroCategoria">
               <option value="">Categoría (Todas)</option>
@@ -59,7 +59,7 @@
           <th scope="col"></th>
         </tr>
       </thead>
-      <thead class="thead-dark">
+      <thead class="table-dark">
         <tr>
           <th scope="col">Nombre</th>
           <th scope="col">Categoría</th>
@@ -112,6 +112,7 @@
         </ng-container>
       </tbody>
   </table>
+</div>
 </div>
 
 <!-- INICIO MODAL ELIMINAR -->
