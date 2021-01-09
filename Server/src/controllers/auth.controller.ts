@@ -43,15 +43,12 @@ class AuthController {
                 if(match == false) return res.status(401).json({token: null, message: "Contraseña invalida"});
                 else if(match == true) {
                     let expiracionSeg = 28800;
-                    token = jwt.sign({id: result[0].cedula}, 'secreto', {
-                        expiresIn: expiracionSeg
-                    })
+                    token = jwt.sign({id: result[0].cedula}, 'secreto', {expiresIn: expiracionSeg})
                     res.json({token: token, cedula: result[0].cedula, expiresIn: expiracionSeg});
                 }
             }else if(result.length == 0){
                 res.status(400).json({message: "Usuario no encontrado"});
             }
-            
         });
         
     }

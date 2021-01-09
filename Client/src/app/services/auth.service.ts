@@ -38,6 +38,7 @@ export class AuthService {
         this.user.next(user);
         this.autoLogout(+resData.expiresIn * 1000)
         localStorage.setItem('userData', JSON.stringify(user));
+        this.router.navigate(['/menu']);
       })
     )
   }
@@ -84,10 +85,6 @@ export class AuthService {
       const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogout(expirationDuration);
     }
-  }
-
-  private handleError() {
-
   }
 
 }

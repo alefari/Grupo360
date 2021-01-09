@@ -18,10 +18,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ingresar() {
-    this.router.navigate(['inventario']);
-  }
-
   onSubmit(form: NgForm) {
     if(!form.valid) {
       return;
@@ -35,7 +31,6 @@ export class LoginComponent implements OnInit {
     this.auth.signIn(cedula, password).subscribe(
       resData => {
         this.isLoading = false;
-        // this.router.navigate(['/menu']);
       }, errorRes => {
         this.error = 'Error: ' + errorRes.error.message;
         this.isLoading = false;
