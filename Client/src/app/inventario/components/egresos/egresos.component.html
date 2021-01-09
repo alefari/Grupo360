@@ -1,5 +1,5 @@
 <div class="container">
-    <button data-toggle="modal" data-target="#pdfEgresos" class="btn btn-warning float-right">Exportar a PDF</button>
+    <button data-bs-toggle="modal" data-bs-target="#pdfEgresos" class="btn btn-warning float-right">Exportar a PDF</button>
     <div class="row">
         <h1>Egresos</h1>
     </div>
@@ -113,9 +113,7 @@
     <div class="modal-content">
         <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Exportar a PDF</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id='elemento-a-exportar'>
         <!-- <img src="../../../assets/logo.svg" alt="Logo" class="img-fluid" style="max-width: 75px; width: 100%; margin: 0; padding: 0"> -->
@@ -153,7 +151,7 @@
         </div>
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" (click)="descargarPDF()" class="btn btn-danger">Exportar</button>
         </div>
     </div>
