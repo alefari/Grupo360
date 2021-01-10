@@ -4,26 +4,25 @@
     </div>
     <div class='container'>
     <form #f="ngForm">
-            <div class="form-group">
                 <h5>Seleccione el item a modificar:</h5>
-                <div class="row">
+                <div class="row mt-3 mb-4">
                     <div class="col-3">
                         <label>Categoría</label>
-                        <select class="form-control" ngModel required name="selectCategoriaModificar" #selectCategoriaModificar="ngModel">
+                        <select class="form-select mt-2" ngModel required name="selectCategoriaModificar" #selectCategoriaModificar="ngModel">
                           <option *ngFor="let categoria of categorias" value="{{ categoria.nombre }}">{{ categoria.nombre }}</option>
                         </select>
                         <small *ngIf="!selectCategoriaModificar.valid && selectCategoriaModificar.touched" class="text-danger">Ingrese una categoría.</small>
                     </div>
                     <div class="col-3">
                         <label>Subcategoría</label>
-                        <select class="form-control" ngModel required name="selectSubcategoriaModificar" #selectSubcategoriaModificar="ngModel">
+                        <select class="form-select mt-2" ngModel required name="selectSubcategoriaModificar" #selectSubcategoriaModificar="ngModel">
                           <option *ngFor="let subcategoria of subcategorias" value="{{ subcategoria.nombre }}">{{ subcategoria.nombre }}</option>
                         </select>
                         <small *ngIf="!selectSubcategoriaModificar.valid && selectSubcategoriaModificar.touched" class="text-danger">Ingrese una subcategoría.</small>
                     </div>
                     <div class="col-6">
                         <label>Item</label>
-                        <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" class="form-control" ngModel required name="item" #selectItemModif='ngModel'>
+                        <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" class="form-select mt-2" ngModel required name="item" #selectItemModif='ngModel'>
                           <ng-container *ngFor="let item of inventarioSQL">
                             <option
                             *ngIf="item.categoria == selectCategoriaModificar.value &&
@@ -35,89 +34,82 @@
                     </div>
             </div>
             <hr>
-                <!--LUGAR DEL FORMULARIO PARA COLOCAR DATOS NUEVOS-->
-                <div class="form-group">
-                    <h5>Modifique los datos que desee:</h5>
-                    <div class="row">
-                        <div class="col-4">
-                            <label>Nombre</label>
-                            <input required type="text"
-                            [(ngModel)]="itemElegido.nombre"
-                            name="nombre" class="form-control">
-                        </div>
-                        <div class="col-3">
-                            <label>Categoría</label>
-                            <select required class="form-control"
-                            [(ngModel)]="itemElegido.categoria"
-                            name="categoria">
-                                <option *ngFor="let categoria of categorias" value="{{ categoria.nombre }}">{{ categoria.nombre }}</option>
-                            </select>
-                        </div>
-                        <div class="col-3">
-                            <label>Subcategoría</label>
-                            <select required class="form-control"
-                            [(ngModel)]="itemElegido.subcategoria"
-                            name="subcategoria">
-                                <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label>Precio</label>
-                            <input onkeypress="return event.charCode > 48" min="0" type="number"
-                            [(ngModel)]="itemElegido.precio"
-                            name="precio" class="form-control">
-                        </div>
+            <!--LUGAR DEL FORMULARIO PARA COLOCAR DATOS NUEVOS-->
+                <h5>Modifique los datos que desee:</h5>
+                <div class="row mb-4">
+                    <div class="col-4">
+                        <label>Nombre</label>
+                        <input required type="text"
+                        [(ngModel)]="itemElegido.nombre"
+                        name="nombre" class="form-control mt-2">
+                    </div>
+                    <div class="col-3">
+                        <label>Categoría</label>
+                        <select required class="form-select mt-2"
+                        [(ngModel)]="itemElegido.categoria"
+                        name="categoria">
+                            <option *ngFor="let categoria of categorias" value="{{ categoria.nombre }}">{{ categoria.nombre }}</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label>Subcategoría</label>
+                        <select required class="form-select mt-2"
+                        [(ngModel)]="itemElegido.subcategoria"
+                        name="subcategoria">
+                            <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label>Precio</label>
+                        <input onkeypress="return event.charCode > 48" min="0" type="number"
+                        [(ngModel)]="itemElegido.precio"
+                        name="precio" class="form-control mt-2">
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-4">
-                            <label>Cantidad y Unidades</label>
-                            <div class="input-group">
-                                <input onkeypress="return event.charCode > 48" min="1" [(ngModel)]="itemElegido.cantidad" type="number" name="cantidad" class="form-control">
-                                <select type="text" placeholder=":itemElegido.unidad"  name="unidades" [(ngModel)]="itemElegido.unidades" class="form-control">
-                                <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <label>Ubicación</label>
-                            <select type="text" name="ubicacion" [(ngModel)]="itemElegido.ubicacion" class="form-control" aria-describedby="emailHelp">
-                                <option *ngFor="let ubicacion of ubicaciones" value="{{ ubicacion.nombre }}">{{ ubicacion.nombre }}</option>
+                <div class="row mb-4">
+                    <div class="col-4">
+                        <label>Cantidad y Unidades</label>
+                        <div class="input-group">
+                            <input onkeypress="return event.charCode > 48" min="1" [(ngModel)]="itemElegido.cantidad" type="number" name="cantidad" class="form-contro mt-2">
+                            <select type="text" placeholder=":itemElegido.unidad"  name="unidades" [(ngModel)]="itemElegido.unidades" class="form-select mt-2">
+                            <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
                             </select>
-                        </div>
-                        <div class="col-3">
-                            <label>Estado</label>
-                            <select type="text"
-                            [(ngModel)]="itemElegido.estado"
-                            name="estado" class="form-control">
-                                <option *ngFor='let estado of estados' value="{{ estado.nombre }}">{{ estado.nombre }}</option>
-                            </select>
-                        </div>
-                        <div class="col-2">
-                            <label>Serial</label>
-                            <input type="text"
-                            [(ngModel)]="itemElegido.serial"
-                            name="serial" class="form-control">
                         </div>
                     </div>
+                    <div class="col-3">
+                        <label>Ubicación</label>
+                        <select type="text" name="ubicacion" [(ngModel)]="itemElegido.ubicacion" class="form-select mt-2" aria-describedby="emailHelp">
+                            <option *ngFor="let ubicacion of ubicaciones" value="{{ ubicacion.nombre }}">{{ ubicacion.nombre }}</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label>Estado</label>
+                        <select type="text"
+                        [(ngModel)]="itemElegido.estado"
+                        name="estado" class="form-select mt-2">
+                            <option *ngFor='let estado of estados' value="{{ estado.nombre }}">{{ estado.nombre }}</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <label>Serial</label>
+                        <input type="text"
+                        [(ngModel)]="itemElegido.serial"
+                        name="serial" class="form-control mt-2">
+                    </div>
                 </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-9">
-                                <label>Descripción</label>
-                                <input
-                                class="form-control"
-                                [(ngModel)]="itemElegido.descripcion"
-                                [name]="'descripcion'">
-                            </div>
-                            <div class="col-3">
-                                <label>Fecha de Vencimiento</label>
-                                <input class="form-control"
-                                [(ngModel)]="itemElegido.vencimiento"
-                                name="vencimiento" type="date">
-                            </div>
-                        </div>
+                <div class="row mb-4">
+                    <div class="col-9">
+                        <label>Descripción</label>
+                        <input
+                        class="form-control mt-2"
+                        [(ngModel)]="itemElegido.descripcion"
+                        [name]="'descripcion'">
+                    </div>
+                    <div class="col-3">
+                        <label>Fecha de Vencimiento</label>
+                        <input class="form-control mt-2"
+                        [(ngModel)]="itemElegido.vencimiento"
+                        name="vencimiento" type="date">
                     </div>
                 </div>
         <!--BOTONES FUNCIONES MODIFICAR-->
@@ -125,7 +117,7 @@
             <button (click)="borrarForm()" type="button" class="btn btn-secondary">
                 <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
             </button>
-            <button [disabled]='!f.valid' (click)="onModificar()" type="button" class="btn btn-info">
+            <button [disabled]='!f.valid' (click)="onModificar()" type="button" class="btn btn-info text-white">
                 <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
             </button>
         </div>

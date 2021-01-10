@@ -6,25 +6,24 @@
     <form #f="ngForm">
       <div *ngFor="let item of idsReingreso; let i=index">
         <h3>Item {{i+1}}</h3>
-        <div class="form-group">
-          <div class="row">
+          <div class="row mt-3 mb-4">
               <div class="col-2">
                   <label>Categoría</label>
-                    <select (change)="restaurarValor(i)" required class="form-control" ngModel [name]="'selectTipo'+[i]" #selectCategoria="ngModel">
+                    <select (change)="restaurarValor(i)" required class="form-select mt-2" ngModel [name]="'selectTipo'+[i]" #selectCategoria="ngModel">
                       <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                     </select>
                     <small *ngIf="!selectCategoria.valid && selectCategoria.touched" class="text-danger">Ingrese una categoría.</small>
               </div>
               <div class="col-2">
                   <label>Subcategoria</label>
-                    <select required class="form-control" ngModel [name]="'selectSubcategoria'+[i]" #selectSubcategoria="ngModel">
+                    <select required class="form-select mt-2" ngModel [name]="'selectSubcategoria'+[i]" #selectSubcategoria="ngModel">
                       <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
                     </select>
                     <small *ngIf="!selectSubcategoria.valid && selectSubcategoria.touched" class="text-danger">Ingrese una subcategoría.</small>
               </div>
-              <div class="col-4">
+              <div class="col-3">
                   <label>Item</label>
-                  <select #itemSelect="ngModel" required class="form-control" [(ngModel)]="idsReingreso[i].id" [name]="'selectId'+[i]">
+                  <select #itemSelect="ngModel" required class="form-select mt-2" [(ngModel)]="idsReingreso[i].id" [name]="'selectId'+[i]">
                     <!--NGFOR QUE IMPRIME ITEMS DE BD-->
                     <ng-container *ngFor="let item of inventario">
                       <!--FILTRO POR CATEGORIA DE ITEMS BD-->
@@ -40,21 +39,23 @@
                 <label for="exampleInputEmail1">Cantidad actual</label>
                 <p *ngIf="idsReingreso[i].id != null && idsReingreso[i].id != undefined && idsReingreso[i].id != ''">{{ inventario[regresarIndice(i)].cantidad }} {{ inventario[regresarIndice(i)].unidades }}</p>
               </div>
-              <div class="col-2">
+              <div class="col-3">
                 <!--INPUT DE CANTIDAD (INGRESO DE CANTIDAD)-->
                 <label for="exampleInputEmail1">Cantidad a ingresar</label>
-                <input
-                  *ngIf="idsReingreso[i].id != null && idsReingreso[i].id != undefined && idsReingreso[i].id != ''"
-                  onkeypress="return event.charCode >= 46"
-                  min="1"
-                  type="number"
-                  (keyup)='revisarCantidad()'
-                  [(ngModel)]="idsReingreso[i].cantidad"
-                  [name]="'cantidad'+[i]"
-                  class="form-control">
-              </div>
+                <div class="input-group">
+                  <input
+                    *ngIf="idsReingreso[i].id != null && idsReingreso[i].id != undefined && idsReingreso[i].id != ''"
+                    onkeypress="return event.charCode >= 46"
+                    min="1"
+                    type="number"
+                    (keyup)='revisarCantidad()'
+                    [(ngModel)]="idsReingreso[i].cantidad"
+                    [name]="'cantidad'+[i]"
+                    class="form-control mt-2">
+                    <input *ngIf="idsReingreso[i].id != null && idsReingreso[i].id != undefined && idsReingreso[i].id != ''" [placeholder]="inventario[regresarIndice(i)].unidades" disabled type="text" ngModel [name]="'unidades' + [i]" class="form-control mt-2">
+                  </div>
+                </div>
           </div>
-        </div>
       </div>
       <!--BOTONES DE FUNCIONES REINGRESO-->
       <div class="modal-footer">

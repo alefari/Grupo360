@@ -5,54 +5,58 @@
     </div>
     <div class='container'>
         <form #f="ngForm">
-            <div class="form-group">
-                <div class="row">
+                <div class="row mt-3 mb-4">
                     <div class="col">
                     <h5>Unidad:</h5>
-                        <label>Nombre:</label>
-                        <input #nombreUnidad="ngModel" ngModel name="nombreUnidadNueva" required type="text" class="form-control">
+                    <div class="form-floating">
+                        <input #nombreUnidad="ngModel" ngModel name="nombreUnidadNueva" required type="text" class="form-control mt-2">
+                        <label for="floatingInput">Nombre</label>
+                    </div>
                     </div>
                     <div class="col">
                     <h5>Ubicación:</h5>
-                        <label>Nombre:</label>
-                        <input #nombreUbicacion="ngModel" ngModel name="nombreUbicacionNueva" required type="text" class="form-control">
+                    <div class="form-floating">
+                        <input #nombreUbicacion="ngModel" ngModel name="nombreUbicacionNueva" required type="text" class="form-control mt-2">
+                        <label for="floatingInput">Nombre</label>
+                    </div>
                     </div>
                     <div class="col">
                     <h5>Categoría:</h5>
-                        <label>Nombre:</label>
-                        <input #nombreCategoria="ngModel" ngModel name="nombreCategoriaNueva" required type="text" class="form-control">
+                    <div class="form-floating">
+                        <input #nombreCategoria="ngModel" ngModel name="nombreCategoriaNueva" required type="text" class="form-control mt-2">
+                        <label for="floatingInput">Nombre</label>
+                    </div>
                     </div>
                     <div class="col">
                     <h5>Subcategoría:</h5>
-                        <label>Nombre:</label>
-                        <input #nombreSubcategoria="ngModel" ngModel name="nombreSubcategoriaNueva" required type="text" class="form-control">
+                    <div class="form-floating">
+                        <input #nombreSubcategoria="ngModel" ngModel name="nombreSubcategoriaNueva" required type="text" class="form-control mt-2">
+                        <label for="floatingInput">Nombre</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">
+                <div class="row mb-4">
+                    <div class="col text-center">
                     <button [disabled]="!nombreUnidad.valid"  data-dismiss="modal" type="button" class="btn btn-primary" (click)="unidadAgregar(nombreUnidad.value)">
                         <fa-icon [icon]="faPlusCircle"></fa-icon> Unidad
                     </button>
                     </div>
-                    <div class="col">
+                    <div class="col text-center">
                     <button [disabled]="!nombreUbicacion.valid" data-dismiss="modal" type="button" class="btn btn-primary" (click)="ubicacionAgregar(nombreUbicacion.value)">
                         <fa-icon [icon]="faPlusCircle"></fa-icon> Ubicación
                     </button>
                     </div>
-                    <div class="col">
+                    <div class="col text-center">
                     <button [disabled]="!nombreCategoria.valid" data-dismiss="modal" type="button" class="btn btn-primary" (click)="categoriaAgregar(nombreCategoria.value)">
                         <fa-icon [icon]="faPlusCircle"></fa-icon> Categoría
                     </button>
                     </div>
-                    <div class="col">
+                    <div class="col text-center">
                     <button [disabled]="!nombreSubcategoria.valid" data-dismiss="modal" type="button" class="btn btn-primary" (click)="subcategoriaAgregar(nombreSubcategoria.value)">
                         <fa-icon [icon]="faPlusCircle"></fa-icon> Subcategoría
                     </button>
                     </div>
                 </div>
-            </div>
             <!--BOTONES CON FUNCIONES AGREGAR-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="borrarForm()">
@@ -71,25 +75,24 @@
     </div>
     <div class='container'>
         <form #fi="ngForm">
-            <div class="form-group">
-                <div class="row">
+                <div class="row mt-3 mb-4">
                     <div class="col">
                         <label>Categoría</label>
-                            <select class="form-control" ngModel required name="selectCategoriaReporte" #selectCategoriaReporte="ngModel">
+                            <select class="form-select mt-2" ngModel required name="selectCategoriaReporte" #selectCategoriaReporte="ngModel">
                             <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
                             </select>
                             <small *ngIf="!selectCategoriaReporte.valid && selectCategoriaReporte.touched" class="text-danger">Seleccione un categoría.</small>
                     </div>
                     <div class="col">
                         <label>Subcategoría</label>
-                            <select class="form-control" ngModel required name="selectSubcategoriaReporte" #selectSubcategoriaReporte="ngModel">
+                            <select class="form-select mt-2" ngModel required name="selectSubcategoriaReporte" #selectSubcategoriaReporte="ngModel">
                             <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
                             </select>
                             <small *ngIf="!selectSubcategoriaReporte.valid && selectSubcategoriaReporte.touched" class="text-danger">Seleccione un subcategoría.</small>
                     </div>
                     <div class="col">
                         <label>Item</label>
-                        <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" required class='form-control' ngModel name="id">
+                        <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" required class='form-select mt-2' ngModel name="id">
                             <!-- FILTRO POR CATEGORIA Y SUBCATEGORIA REPORTE -->
                             <ng-container *ngFor="let item of inventarioSQL">
                             <ng-container *ngIf="item.categoria == selectCategoriaReporte.value && item.estado != 'En Obra' && item.subcategoria == selectSubcategoriaReporte.value">
@@ -100,7 +103,6 @@
                         <small *ngIf="!idItem.valid && idItem.touched" class="text-danger">Seleccione un item.</small>
                     </div>
                 </div>
-            </div>
             <!-- BOTONOS CON FUNCIONES REPORTAR -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="borrarForm()">

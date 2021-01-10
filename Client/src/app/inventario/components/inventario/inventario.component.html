@@ -7,7 +7,7 @@
   <div class="col-9">
     <div class="btn-group float-end">
       <button type="button" class="btn btn-success" routerLink='ingresar'>
-        <fa-icon [icon]="faPlusCircle"></fa-icon> Ingresar
+        <fa-icon [icon]="faSignInAlt"></fa-icon> Ingresar
       </button>
       <button type="button" class="btn btn-primary" routerLink='reingreso' >
         <fa-icon [icon]="faPlusCircle"></fa-icon> Reingreso
@@ -15,7 +15,7 @@
       <button type="button" class="btn btn-warning" routerLink='egresar'>
         <fa-icon [icon]="faSignOutAlt"></fa-icon> Egreso
       </button>
-      <button type="button" class="btn btn-info" routerLink='modificar'>
+      <button type="button" class="btn btn-info text-white" routerLink='modificar'>
         <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
       </button>
       <button type="button" class="btn btn-danger" routerLink='reportaryagregar'>
@@ -42,7 +42,7 @@
             <input #filtroNombre="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por nombre">
           </th>
           <th scope="col">
-            <select #filtroCategoria="ngModel" class="form-control form-control-sm" ngModel name="filtroCategoria">
+            <select #filtroCategoria="ngModel" class="form-select form-select-sm" ngModel name="filtroCategoria">
               <option value="">Categoría (Todas)</option>
               <option *ngFor="let cat of categorias" [value]="cat.nombre">{{ cat.nombre }}</option>
             </select>
@@ -50,7 +50,7 @@
           <th scope="col"></th>
           <th scope="col"></th>
           <th scope="col">
-            <select #filtroUbicacion="ngModel" class="form-control form-control-sm" ngModel name="filtroUbicacion">
+            <select #filtroUbicacion="ngModel" class="form-select form-select-sm" ngModel name="filtroUbicacion">
               <option value="">Ubicación (Todas)</option>
               <option *ngFor="let ubicacion of ubicaciones" [value]="ubicacion.nombre">{{ ubicacion.nombre }}</option>
             </select>
@@ -98,7 +98,7 @@
                             'text-info': item.estado=='En Obra'}"> <span *ngIf="item.estado=='En Obra'">{{ item.cantidadObra }}</span> {{ item.estado }}</td>
             <td>
               <div class="btn-group">
-                <button (click)="asignarDetalles(item)" type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalInfo">
+                <button (click)="asignarDetalles(item)" type="button" class="btn btn-info text-white btn-sm" data-bs-toggle="modal" data-bs-target="#modalInfo">
                 <fa-icon [icon]="faInfoCircle"></fa-icon> Detalles
               </button>
               <button (click)="asignarBorrar(item.id, item.nombre)" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEliminar">
@@ -224,7 +224,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-header">
-        <button type="button" (click)="descargarPDF()" class="btn btn-primary float-right">Exportar</button>
+        <button type="button" (click)="descargarPDF()" class="btn btn-primary float-end">Exportar</button>
       </div>
       <div class="modal-body" id='elemento-a-exportar'>
         <!-- <img src="../../../assets/logo.svg" alt="Logo" class="img-fluid" style="max-width: 75px; width: 100%; margin: 0; padding: 0"> -->
