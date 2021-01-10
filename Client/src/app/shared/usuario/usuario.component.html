@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col">
-      <div class="card shadow">
+      <div *ngIf="usuario" class="card shadow">
         <div class="card-header">
           Información personal
         </div>
@@ -13,11 +13,10 @@
             </div>
 
             <div class="col">
-              <h1>{{usuario}}</h1>
-              <h1>Alejandro Fariña</h1>
-              <h2>Ingeniero de Proyectos</h2> <br>
-              <h4>26510234</h4>
-              <h4>ale.jf09@gmail.com</h4>
+              <h1>{{ usuario.nombre | titlecase }} {{ usuario.apellido | titlecase}}</h1>
+              <h2>{{ usuario.cargo | titlecase }}</h2> <br>
+              <h4>{{ cedula }}</h4>
+              <h4>{{ usuario.correo }}</h4>
             </div>
             <div class="col">
               <h5>Permisos</h5>
