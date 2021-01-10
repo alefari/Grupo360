@@ -24,7 +24,7 @@
                 <fa-icon [icon]="faUser"></fa-icon> Usuario
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" routerLink="/usuario">Perfil</a></li>
+                <li><a class="dropdown-item" [routerLink]="'/usuario/' + cedulaUser">Perfil</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a role="button" class="dropdown-item" (click)='onLogout()'>Cerrar Sesión</a></li>
               </ul>
