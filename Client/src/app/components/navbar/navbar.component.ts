@@ -14,6 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavbarComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   private userSub: Subscription;
+  cedulaUser:number = null;
 
     faWarehouse = faWarehouse;
     faSignInAlt = faSignInAlt;
@@ -25,6 +26,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userSub = this.auth.user.subscribe(user => {
       this.isAuthenticated = !!user;
+      this.cedulaUser = user.cedula;
       // EQUIVALENTE A this.isAuthenticated = !user ? false : true;
     });
   }

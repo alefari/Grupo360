@@ -14,13 +14,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InventarioRoutingModule } from './inventario/inventario-routing.module';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { MenuComponent } from './components/menu/menu.component';
+import { UsuarioComponent } from './shared/usuario/usuario.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NavbarComponent,
-    MenuComponent
+    MenuComponent,
+    UsuarioComponent
   ],
   imports: [
     BrowserModule,
