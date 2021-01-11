@@ -69,5 +69,21 @@ class AuthController {
             });
         });
     }
+    changePassword(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { cedula, password } = req.body;
+            yield bcryptjs_1.default.hash(password, 10, function (err, newHash) {
+                return __awaiter(this, void 0, void 0, function* () {
+                    yield database_1.default.query('UPDATE empleados SET password = ? WHERE cedula = ?', [newHash, cedula], function (err, result, fields) {
+                        return __awaiter(this, void 0, void 0, function* () {
+                            if (err)
+                                throw err;
+                            res.json({ message: 'Successful' });
+                        });
+                    });
+                });
+            });
+        });
+    }
 }
 exports.authController = new AuthController();

@@ -87,4 +87,8 @@ export class AuthService {
     }
   }
 
+  changePassword(cedula: number, newPass: string) {
+    return this.http.put(`${this.API_URI}/auth/changePassword`, { cedula: cedula, password: newPass });
+  }
+
 }

@@ -3,7 +3,7 @@ export default {
         // connectionLimit: 10,
         host: 'localhost',
         user: 'root',
-        password: 'jesusThula', 
+        password: 'Alejandro', 
         database: 'grupocdv360'
     }
 }

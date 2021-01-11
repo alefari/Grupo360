@@ -52,6 +52,17 @@ class AuthController {
         });
         
     }
+
+    public async changePassword(req: Request, res: Response) {
+        const {cedula, password} = req.body;
+        await bcrypt.hash(password, 10, async function (err, newHash) {
+            await pool.query('UPDATE empleados SET password = ? WHERE cedula = ?', [newHash, cedula], async function (err, result, fields) {
+                if (err) throw err;
+                res.json({message: 'Successful'})
+            });
+        
+    })
+    }
 }
 
 export const authController = new AuthController();
