@@ -72,17 +72,29 @@ class AuthController {
     changePassword(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { cedula, password } = req.body;
-            yield bcryptjs_1.default.hash(password, 10, function (err, newHash) {
-                return __awaiter(this, void 0, void 0, function* () {
-                    yield database_1.default.query('UPDATE empleados SET password = ? WHERE cedula = ?', [newHash, cedula], function (err, result, fields) {
+            const token = req.headers["x-access-token"];
+            try {
+                const decoded = jsonwebtoken_1.default.verify(token, 'secreto');
+                if (decoded.id == cedula) {
+                    yield bcryptjs_1.default.hash(password, 10, function (err, newHash) {
                         return __awaiter(this, void 0, void 0, function* () {
-                            if (err)
-                                throw err;
-                            res.json({ message: 'Successful' });
+                            yield database_1.default.query('UPDATE empleados SET password = ? WHERE cedula = ?', [newHash, cedula], function (err, result, fields) {
+                                return __awaiter(this, void 0, void 0, function* () {
+                                    if (err)
+                                        throw err;
+                                    res.json({ message: 'Successful' });
+                                });
+                            });
                         });
                     });
-                });
-            });
+                }
+                else {
+                    return res.status(401).json({ message: 'Sin autorización' });
+                }
+            }
+            catch (error) {
+                return res.status(401).json({ message: 'Sin autorización' });
+            }
         });
     }
 }

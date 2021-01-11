@@ -53,15 +53,33 @@ class AuthController {
         
     }
 
-    public async changePassword(req: Request, res: Response) {
+    public async changePassword(req: any, res: Response) {
         const {cedula, password} = req.body;
-        await bcrypt.hash(password, 10, async function (err, newHash) {
-            await pool.query('UPDATE empleados SET password = ? WHERE cedula = ?', [newHash, cedula], async function (err, result, fields) {
-                if (err) throw err;
-                res.json({message: 'Successful'})
-            });
+
+        const token = req.headers["x-access-token"];
+
+        try {
+            const decoded:any = jwt.verify(token, 'secreto');
+
+            if(decoded.id == cedula) {
+                await bcrypt.hash(password, 10, async function (err, newHash) {
+                    await pool.query('UPDATE empleados SET password = ? WHERE cedula = ?', [newHash, cedula], async function (err, result, fields) {
+                        if (err) throw err;
+                        res.json({message: 'Successful'})
+                    });
+                
+                })
+            }
+            else {
+                return res.status(401).json({message: 'Sin autorización'});
+            }
+
+        } catch (error) {
+            return res.status(401).json({message: 'Sin autorización'});
+        }
         
-    })
+        
+        
     }
 }
 
