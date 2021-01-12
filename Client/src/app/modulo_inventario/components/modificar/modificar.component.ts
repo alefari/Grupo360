@@ -1,8 +1,8 @@
 //Imports de servicios, items, etc.//
 
 import { Component, OnInit, ViewChild, NgModuleDecorator } from '@angular/core';
-import { Item } from 'src/app/models/item.model';
-import { Categoria } from 'src/app/models/categoria.model';
+import { Item } from 'src/app/modulo_inventario/inventario-models/item.model';
+import { Categoria } from 'src/app/modulo_inventario/inventario-models/categoria.model';
 import { NgForm, Form } from '@angular/forms';
 
 // IMPORTS DE BD
@@ -67,7 +67,7 @@ export class ModificarComponent implements OnInit {
     this.servicioInventarioSQL.getInventario().subscribe(
       res => {this.inventarioSQL = res;},
       err => console.log(err));
-      
+
     this.servicioCategorias.getCategorias().subscribe(
       res => {this.categorias = res;},
       err => console.log(err));

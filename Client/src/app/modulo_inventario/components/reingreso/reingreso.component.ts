@@ -1,9 +1,9 @@
 //Imports de servicios, items, etc.//
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Item } from 'src/app/models/item.model';
-import { Categoria } from 'src/app/models/categoria.model';
+import { Item } from 'src/app/modulo_inventario/inventario-models/item.model';
+import { Categoria } from 'src/app/modulo_inventario/inventario-models/categoria.model';
 import { NgForm, Form } from '@angular/forms';
-import { Ingreso } from 'src/app/models/ingreso.model';
+import { Ingreso } from 'src/app/modulo_inventario/inventario-models/ingreso.model';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -111,7 +111,7 @@ export class ReingresoComponent implements OnInit {
       nuevoItem.estado = this.estados.find(est => est.nombre == nuevoItem.estado).id;
 
       this.servicioInventario.updateItem(nuevoItem.id, nuevoItem, true).subscribe(
-        res => {          
+        res => {
           console.log(res);
           console.log(res["text"]);
           this.registrarIngreso(+nuevoItem.id, itemListaIngresos);

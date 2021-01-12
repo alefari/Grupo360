@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, NgModuleDecorator } from '@angular/core';
-import { Item } from 'src/app/models/item.model';
+import { Item } from 'src/app/modulo_inventario/inventario-models/item.model';
 import { NgForm, Form } from '@angular/forms';
 
 // IMPORTS DE BD
@@ -80,7 +80,7 @@ export class ReportaryagregarComponent implements OnInit {
     this.servicioInventarioSQL.getInventario().subscribe(
       res => {this.inventarioSQL = res;},
       err => console.log(err));
-      
+
     this.servicioCategorias.getCategorias().subscribe(
       res => {this.categorias = res;},
       err => console.log(err));
@@ -101,7 +101,7 @@ export class ReportaryagregarComponent implements OnInit {
       res => {this.estados = res;},
       err => console.log(err));
   }
-  
+
                                         //FUNCIONES DE MODAL AGREGAR
   //FUNCION AGREGAR UNIDAD
   unidadAgregar(nombreUnidad: string){
@@ -199,7 +199,7 @@ export class ReportaryagregarComponent implements OnInit {
   alElegirItem(idItem: string) {
     this.itemAveriado = Object.assign({},this.inventarioSQL.find(itemInv => itemInv.id == idItem));
   }
-  
+
   //BUSCA ITEM PARA REPORTAR AVERIA
   regresarItem(id: string) {
     return this.inventarioSQL.find(item => item.id == id);
@@ -209,6 +209,6 @@ export class ReportaryagregarComponent implements OnInit {
     this.form.reset();
     this.router.navigate(['inventario']);
   }
-  
+
 }
 

@@ -14,10 +14,10 @@ const inventarioRoutes: Routes = [
   { path: '', component: InventarioBaseComponent,
     children: [
       { path: '', component: InventarioComponent },
-      { path: 'ingresos', component: IngresosComponent },
+      { path: 'egresar', component: EgresarComponent},
       { path: 'egresos', component: EgresosComponent },
       { path: 'ingresar', component: IngresarComponent},
-      { path: 'egresar', component: EgresarComponent},
+      { path: 'ingresos', component: IngresosComponent },
       { path: 'reingreso', component: ReingresoComponent},
       { path: 'modificar', component: ModificarComponent},
       { path: 'reportaryagregar', component: ReportaryagregarComponent}

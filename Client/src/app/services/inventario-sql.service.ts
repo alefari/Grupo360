@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Item } from '../models/item.model';
+import { Item } from '../modulo_inventario/inventario-models/item.model';
 import { environment } from '../../environments/environment';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth/auth.service';
 
 
 @Injectable({
