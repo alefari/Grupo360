@@ -1,7 +1,7 @@
 //Imports de servicios, items, etc.//
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Item } from '../../inventario-models/item.model';
+import { Item } from '../../inventario_models/item.model';
 import { NgForm } from '@angular/forms';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as html2pdf from 'html2pdf.js';
