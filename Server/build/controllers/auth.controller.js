@@ -30,15 +30,26 @@ class AuthController {
                         correo: correo,
                         password: hash
                     };
-                    yield database_1.default.query('INSERT INTO empleados set ?', [savedUser]);
+                    yield database_1.default.query('INSERT INTO empleados set ?', [savedUser], function (err, result, fields) {
+                        return __awaiter(this, void 0, void 0, function* () {
+                            if (err)
+                                throw err;
+                            if (roles) {
+                                roles.forEach((rol) => __awaiter(this, void 0, void 0, function* () {
+                                    console.log(rol);
+                                    yield database_1.default.query('INSERT INTO empleados_roles set id_empleado = ?, id_rol = ?', [cedula, rol], function (err, result, fields) {
+                                        return __awaiter(this, void 0, void 0, function* () {
+                                            if (err)
+                                                throw err;
+                                            console.log(result);
+                                        });
+                                    });
+                                }));
+                            }
+                        });
+                    });
                 });
             });
-            // if(roles) {
-            //     roles.forEach(rol => {
-            //         console.log(rol);
-            //         // await pool.query('INSERT INTO empleados_roles set', [{id_empleado: cedula, id_rol: rol}]);
-            //     });
-            // }
             const token = jsonwebtoken_1.default.sign({ id: cedula }, 'secreto', {
                 expiresIn: 86400
             });

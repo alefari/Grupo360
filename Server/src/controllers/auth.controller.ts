@@ -17,15 +17,20 @@ class AuthController {
                 correo: correo,
                 password: hash
             }
-            await pool.query('INSERT INTO empleados set ?', [savedUser]);
+            await pool.query('INSERT INTO empleados set ?', [savedUser], async function (err, result, fields) {
+                if (err) throw err;
+                if(roles) {
+                    roles.forEach(async (rol: number) => {
+                        console.log(rol);
+                        await pool.query('INSERT INTO empleados_roles set id_empleado = ?, id_rol = ?', [cedula, rol], 
+                            async function (err, result, fields) {
+                                if (err) throw err;
+                                console.log(result);
+                        });
+                    });
+                }
+            });
         });
-
-        // if(roles) {
-        //     roles.forEach(rol => {
-        //         console.log(rol);
-        //         // await pool.query('INSERT INTO empleados_roles set', [{id_empleado: cedula, id_rol: rol}]);
-        //     });
-        // }
         
         const token = jwt.sign({id: cedula}, 'secreto', {
             expiresIn: 86400
