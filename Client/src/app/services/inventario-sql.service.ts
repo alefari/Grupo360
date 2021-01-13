@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Item } from '../modulo_inventario/inventario_models/item.model';
+import { Item } from '../modulo_inventario/inventario-models/item.model';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../auth/auth.service';
 

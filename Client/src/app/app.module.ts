@@ -22,7 +22,7 @@ import { UsuarioComponent } from './shared/usuario/usuario.component';
     LoginComponent,
     NavbarComponent,
     MenuComponent,
-    UsuarioComponent
+    UsuarioComponent,
   ],
   imports: [
     BrowserModule,

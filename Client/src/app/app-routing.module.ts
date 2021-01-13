@@ -20,6 +20,11 @@ const routes: Routes = [
     path: 'proveedores',
     canActivate: [AuthGuard],
     loadChildren: () => import("./modulo_proveedores/proveedores.module").then(m => m.ProveedoresModule)
+  },
+  {
+    path: 'administrador',
+    canActivate: [AuthGuard],
+    loadChildren: () => import("./modulo_administrador/administrador.module").then(m => m.AdministradorModule)
   }
 
 

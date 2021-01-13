@@ -1,9 +1,9 @@
 //Imports de servicios, items, etc.//
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Item } from 'src/app/modulo_inventario/inventario_models/item.model';
-import { Categoria } from 'src/app/modulo_inventario/inventario_models/categoria.model';
+import { Item } from 'src/app/modulo_inventario/inventario-models/item.model';
+import { Categoria } from 'src/app/modulo_inventario/inventario-models/categoria.model';
 import { NgForm, Form } from '@angular/forms';
-import { Ingreso } from 'src/app/modulo_inventario/inventario_models/ingreso.model';
+import { Ingreso } from 'src/app/modulo_inventario/inventario-models/ingreso.model';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
