@@ -11,9 +11,11 @@ export class UsuariosService {
 
   constructor(private http: HttpClient) { }
 
-  // getUsuarios() {
-  //   return this.http.get(`${this.API_URI}/empleados`);
-  // }
+  getUsuarios() {
+    return this.http.get(`${this.API_URI}/empleados`);
+  }
+
+
 
   getUsuario(id: string) {
     return this.http.get(`${this.API_URI}/empleados/${id}`);

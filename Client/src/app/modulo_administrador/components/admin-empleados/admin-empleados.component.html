@@ -1,1 +1,99 @@
-<p>admin-empleados works!</p>
+<div class="container">
+  <div class="row px-4">
+    <div class="col-3">
+      <h1>Empleados</h1>
+    </div>
+    <div class="col-9">
+      <div class="btn-group float-end">
+        <button type="button" class="btn btn-success" routerLink='ingresar'>Añadir Empleado</button>
+      </div>
+    </div>
+  </div>
+  <div class="row px-4">
+    <div class="table-responsive">
+      <table class="table table-sm shadow table-striped">
+        <thead class="table-dark">
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellido</th>
+              <th scope="col">Cédula</th>
+              <th scope="col">Cargo</th>
+              <th scope="col">Correo</th>
+              <th></th>
+            </tr>
+        </thead>
+        <tbody>
+              <tr *ngFor="let usuario of usuarios" class="table-sm" scope="row" class="bg-light">
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.apellido }}</td>
+                <td>{{ usuario.cedula }}</td>
+                <td>{{ usuario.cargo }}</td>
+                <td>{{ usuario.correo }}</td>
+                <td><button (click)='onSetAcciones(usuario)' data-bs-toggle="modal" data-bs-target="#modalInfo" class="btn btn-info btn-sm text-white">Acciones</button></td>
+              </tr>
+        </tbody>
+    </table>
+  </div>
+  </div>
+
+  <div class="modal" tabindex="-1" id="modalInfo">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-info">
+          <h3 class="modal-title text-white">Empleado: {{ usuarioAcciones.nombre | titlecase}} {{ usuarioAcciones.apellido | titlecase}}</h3>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-3">
+                      <img src="../../../assets/profileGeneric.png" alt="profileGeneric" class="h-50">
+                    </div>
+
+                    <div class="col">
+                      <h3>{{ usuarioAcciones.nombre | titlecase }} {{ usuarioAcciones.apellido | titlecase}}</h3>
+                      <h4>{{ usuarioAcciones.cargo | titlecase }}</h4> <br>
+                      <h6>{{ usuarioAcciones.cedula }}</h6>
+                      <h6>{{ usuarioAcciones.correo }}</h6>
+                    </div>
+                    <div class="col">
+                      <h5>Permisos</h5>
+                      <ul>
+                        <li>Inventario</li>
+                        <li>Administración</li>
+                        <li>I.T.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Editar empleado</button>
+          <button (click)="eliminarUser()" data-bs-dismiss="modal" type="button" class="btn btn-danger">Eliminar empleado</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" id="modalEliminar">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger">
+          <h5 class="modal-title text-white">Eliminar Item</h5>
+        </div>
+        <div class="modal-body">
+          <p>¿Estás seguro que deseas eliminar <strong></strong>?. <br> <br> <span class="text-danger">Esta acción es irreversible.</span></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button (click)="eliminarUser()" data-bs-dismiss="modal" type="button" class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>

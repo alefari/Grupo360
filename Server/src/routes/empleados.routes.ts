@@ -9,7 +9,7 @@ class EmpleadosRoutes {
     }
 
     config(): void {
-        // this.router.get('/', empleadosController.list);
+        this.router.get('/', empleadosController.list);
         // this.router.post('/', empleadosController.create);
         // this.router.put('/:id', empleadosController.update);
         // this.router.delete('/:id', empleadosController.delete);
