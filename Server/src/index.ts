@@ -15,6 +15,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { verifyToken } from './middlewares';
 import empleadosRoutes from './routes/empleados.routes';
+import cargosRoutes from './routes/cargos.routes';
 
 class Server {
 
@@ -47,6 +48,7 @@ class Server {
         this.app.use('/eliminados', verifyToken, eliminadosRoutes);
         this.app.use('/modalidades', verifyToken, modalidadesRoutes);
         this.app.use('/empleados', verifyToken, empleadosRoutes);
+        this.app.use('/cargos', verifyToken, cargosRoutes);
         this.app.use('/auth', authRoutes);
     }
 

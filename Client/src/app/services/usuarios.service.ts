@@ -29,7 +29,7 @@ export class UsuariosService {
   //   return this.http.delete(`${this.API_URI}/ubicaciones/${id}`);
   // }
 
-  // updateUbicacion(id: string, categoria: string) {
-  //   return this.http.put(`${this.API_URI}/ubicaciones/${id}`, categoria);
-  // }
+  updateUsuario(id: string, usuario: string) {
+    return this.http.put(`${this.API_URI}/empleados/${id}`, usuario);
+  }
 }

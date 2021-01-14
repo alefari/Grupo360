@@ -20,6 +20,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 const middlewares_1 = require("./middlewares");
 const empleados_routes_1 = __importDefault(require("./routes/empleados.routes"));
+const cargos_routes_1 = __importDefault(require("./routes/cargos.routes"));
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -46,6 +47,7 @@ class Server {
         this.app.use('/eliminados', middlewares_1.verifyToken, eliminadosRoutes_1.default);
         this.app.use('/modalidades', middlewares_1.verifyToken, modalidadesRoutes_1.default);
         this.app.use('/empleados', middlewares_1.verifyToken, empleados_routes_1.default);
+        this.app.use('/cargos', middlewares_1.verifyToken, cargos_routes_1.default);
         this.app.use('/auth', auth_routes_1.default);
     }
     start() {

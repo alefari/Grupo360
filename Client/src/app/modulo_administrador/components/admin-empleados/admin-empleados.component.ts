@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CargosService } from 'src/app/services/cargos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -9,6 +10,8 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class AdminEmpleadosComponent implements OnInit {
 
   usuarios;
+  cargos;
+  editarMode:boolean = false;
   usuarioAcciones:any = {
     nombre: null,
     apellido: null,
@@ -17,25 +20,53 @@ export class AdminEmpleadosComponent implements OnInit {
     correo: null,
     roles: null,
   };
-  constructor(private servicioUsuarios: UsuariosService ) { }
+  constructor(private servicioUsuarios: UsuariosService, private servicioCargos: CargosService ) { }
 
   ngOnInit(): void {
     this.servicioUsuarios.getUsuarios().subscribe(
+      res => { this.usuarios = res; },
+      err => console.log(err)
+    );
+    this.servicioCargos.getCargos().subscribe(
       res => {
-        console.log(res);
-        this.usuarios = res;
+        this.cargos = res;
       },
       err => console.log(err)
     );
   }
 
   onSetAcciones(usr:any) {
+    this.editarMode = false;
     this.usuarioAcciones = usr;
   }
 
-
   eliminarUser() {
 
+  }
+
+  onEditar() {
+    this.editarMode = !this.editarMode;
+  }
+
+  onAceptarEdicion() {
+    // var cedula = this.usuarioAcciones.cedula;
+    this.usuarioAcciones.id_cargo = this.usuarioAcciones.cargo;
+    delete this.usuarioAcciones.roles;
+    delete this.usuarioAcciones.cargo;
+    // delete this.usuarioAcciones.cedula;
+    console.log(this.usuarioAcciones);
+    this.servicioUsuarios.updateUsuario(this.usuarioAcciones.cedula, this.usuarioAcciones).subscribe(
+      res => { console.log(res) },
+      err => console.log(err)
+    );
+  }
+
+  onSalir() {
+    this.editarMode = false;
+  }
+
+  buscarCargoById(id: number) {
+    if(id) return this.cargos.find(cargo => cargo.id == id).nombre
   }
 
 

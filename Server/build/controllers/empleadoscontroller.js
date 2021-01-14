@@ -21,12 +21,10 @@ class EmpleadosController {
         SELECT cedula, 
             empleados.nombre, 
             apellido, 
-            cargos.nombre AS cargo, 
+            id_cargo AS cargo, 
             correo, 
             empleados_roles.id_rol AS roles
         FROM grupocdv360.empleados
-        LEFT JOIN grupocdv360.cargos
-        ON empleados.id_cargo = cargos.id_cargo
         LEFT JOIN grupocdv360.empleados_roles
         ON empleados.cedula = empleados_roles.id_empleado
         ORDER BY empleados.nombre;`, function (err, result, fields) {
@@ -56,15 +54,25 @@ class EmpleadosController {
                             empleados.nombre, 
                             apellido, 
                             correo,
-                            cargos.nombre AS cargo
+                            cargos.nombre AS cargo,
+                            id_rol
                             FROM empleados
                             LEFT JOIN cargos
                             ON empleados.id_cargo = cargos.id_cargo
+                            LEFT JOIN empleados_roles
+                            ON empleados.cedula = empleados_roles.id_empleado
                             WHERE cedula = ?`, [id], function (err, result, fields) {
                 if (err)
                     throw err;
                 res.json(result);
             });
+        });
+    }
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.query('UPDATE empleados set ? WHERE cedula = ?', [req.body, id]);
+            res.json({ text: 'Usuario Actualizado' });
         });
     }
 }
