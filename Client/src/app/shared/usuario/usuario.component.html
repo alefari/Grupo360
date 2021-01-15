@@ -23,7 +23,6 @@
               <ul>
                 <li>Inventario</li>
                 <li>Administración</li>
-                <li>I.T.</li>
               </ul>
               <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">Cambiar contraseña</button>
             </div>
@@ -38,7 +37,7 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-warning">
         <h5 class="modal-title" id="exampleModalLabel">Cambiar contraseña</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -52,7 +51,7 @@
             <label for="exampleFormControlInput1" class="form-label">Repita la contraseña:</label>
             <input #pass2="ngModel" ngModel required type="password" class="form-control" id="contrasena2" name="password2">
           </div>
-          <p *ngIf="this.pass.touched && this.pass2.touched  && (this.pass.value != this.pass2.value)" class="text-danger">Las contraseñas no coinciden</p>
+          <p *ngIf="this.pass.dirty && this.pass2.dirty  && (this.pass.value != this.pass2.value)" class="text-danger">Las contraseñas no coinciden</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
