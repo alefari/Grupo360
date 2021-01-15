@@ -7,17 +7,26 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item ms-5" *ngIf="isAuthenticated">
+        <a class="nav-link" routerLink="/menu"> <fa-icon [icon]="faHome"></fa-icon> Menú <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
     <div class="d-flex">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class=" navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item me-2" *ngIf="isAuthenticated">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item me-2" *ngIf="isAuthenticated && router.url.includes('inventario')">
               <a class="nav-link" routerLink="/inventario"> <fa-icon [icon]="faWarehouse"></fa-icon> Inventario <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item me-2 " *ngIf="isAuthenticated">
+            <li class="nav-item me-2 " *ngIf="isAuthenticated && router.url.includes('inventario')">
               <a class="nav-link" routerLink="/inventario/ingresos"> <fa-icon [icon]="faSignInAlt"></fa-icon> Ingresos </a>
             </li>
-            <li class="nav-item me-2" *ngIf="isAuthenticated">
+            <li class="nav-item me-2" *ngIf="isAuthenticated && router.url.includes('inventario')">
               <a class="nav-link" routerLink="/inventario/egresos"> <fa-icon [icon]="faSignOutAlt"></fa-icon> Egresos</a>
+            </li>
+            <li class="nav-item me-2" *ngIf="isAuthenticated && router.url.includes('administrador')">
+              <a class="nav-link" routerLink="/administrador"> <fa-icon [icon]="faSignOutAlt"></fa-icon> Menú Administrador</a>
             </li>
             <li class="nav-item dropdown mx-5 pe-5" *ngIf="isAuthenticated">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

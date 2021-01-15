@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CargosService } from 'src/app/services/cargos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -20,7 +21,9 @@ export class AdminEmpleadosComponent implements OnInit {
     correo: null,
     roles: null,
   };
-  constructor(private servicioUsuarios: UsuariosService, private servicioCargos: CargosService ) { }
+  constructor(private servicioUsuarios: UsuariosService,
+              private servicioCargos: CargosService,
+              private router: Router ) { }
 
   ngOnInit(): void {
     this.servicioUsuarios.getUsuarios().subscribe(

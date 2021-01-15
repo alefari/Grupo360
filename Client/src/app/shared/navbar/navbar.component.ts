@@ -1,9 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faWarehouse, faUsersSlash } from '@fortawesome/free-solid-svg-icons';
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faWarehouse, faUsersSlash, faHome, faSignInAlt, faSignOutAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 
@@ -21,8 +18,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     faSignInAlt = faSignInAlt;
     faSignOutAlt = faSignOutAlt;
     faUser = faUser;
+    faHome = faHome;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, public router: Router) { }
 
   ngOnInit(): void {
     this.userSub = this.auth.user.subscribe(user => {
