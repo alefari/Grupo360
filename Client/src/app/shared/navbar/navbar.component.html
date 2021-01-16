@@ -28,6 +28,9 @@
             <li class="nav-item me-2" *ngIf="isAuthenticated && router.url.includes('administrador')">
               <a class="nav-link" routerLink="/administrador"> <fa-icon [icon]="faSignOutAlt"></fa-icon> Menú Administrador</a>
             </li>
+            <li class="nav-item me-2" *ngIf="isAuthenticated && router.url.includes('proveedores')">
+              <a class="nav-link" routerLink="/proveedores"> <fa-icon [icon]="faSignOutAlt"></fa-icon> Menú Procura</a>
+            </li>
             <li class="nav-item dropdown mx-5 pe-5" *ngIf="isAuthenticated">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <fa-icon [icon]="faUser"></fa-icon> Usuario

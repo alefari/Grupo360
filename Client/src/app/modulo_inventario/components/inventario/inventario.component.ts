@@ -3,7 +3,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Item } from '../../inventario-models/item.model';
 import { NgForm } from '@angular/forms';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as html2pdf from 'html2pdf.js';
 
 // IMPORTS DE BD
@@ -23,7 +22,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -44,6 +43,7 @@ export class InventarioComponent implements OnInit {
   faPencilAlt = faPencilAlt;
   faPlusCircle = faPlusCircle;
   faInfoCircle = faInfoCircle;
+  faSearch = faSearch;
 
   oculto = true;
 
@@ -70,7 +70,6 @@ export class InventarioComponent implements OnInit {
   idItemElegido:string = null;
 
   filtroTipo: string = "";
-  faSearch = faSearch;
 
   inventarioSQL: any = [];
   categorias: any = [];

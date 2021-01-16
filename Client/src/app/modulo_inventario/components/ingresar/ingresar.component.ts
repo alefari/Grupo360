@@ -1,6 +1,7 @@
 // Imports de servicios, tipos, etc
 import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core';
 import { NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +16,7 @@ import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 import { UnidadesService } from 'src/app/services/unidades.service';
 import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
 import { IngresosService } from 'src/app/services/ingresos.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-ingresar',
