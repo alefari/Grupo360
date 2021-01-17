@@ -2,6 +2,7 @@ import { identifierName } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { AreasService } from 'src/app/services/areas.service';
 import { ProveedoresService } from '../../../services/proveedores.service'
+import * as html2pdf from 'html2pdf.js';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +15,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faFileDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-proveedores',
@@ -32,7 +34,7 @@ export class ProveedoresComponent implements OnInit {
   faPlusCircle = faPlusCircle;
   faInfoCircle = faInfoCircle;
   faTrashAlt = faTrashAlt;
-  faList = faList;
+  faFileDownload = faFileDownload;
 
   //VARIABLES QUE ALMACENAN DATOS DE BD
   proveedores: any = [];
@@ -54,6 +56,7 @@ export class ProveedoresComponent implements OnInit {
     id: null,
     nombre: null,
   }
+  oculto:boolean = true;
 
   constructor(private servicioProveedores: ProveedoresService,
               private servicioAreas: AreasService) { }
@@ -95,5 +98,26 @@ export class ProveedoresComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  //FUNCION PARA DESCARGAR PDF DE PROVEEDORES
+  descargarPDF() {
+    this.oculto = false;
+    const opciones = {
+      margin: 1,
+      filename: 'Proveedores.pdf',
+      image: {type: 'jpeg', quality: 1},
+      html2canvas: {},
+      jsPDF: {unit: 'cm', format: 'letter', orientation: 'portrait'}
+    };
+
+    const contenido: Element = document.getElementById('elemento-a-exportar');
+
+    html2pdf()
+      .from(contenido)
+      .set(opciones)
+      .save();
+
+      this.oculto = true;
   }
 }
