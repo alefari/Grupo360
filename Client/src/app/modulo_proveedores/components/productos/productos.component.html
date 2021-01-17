@@ -65,7 +65,7 @@
                     <td class="col-sm-2">{{ producto.nombre }}</td>
                     <td class="col-sm-2">{{ producto.area }}</td>
                     <td class="col-sm-2">{{ producto.proveedor }}</td>
-                    <td class="col-sm-2">{{ producto.precio }} / {{ producto.unidad }}</td>
+                    <td class="col-sm-2">{{ producto.precio | currency}} / {{ producto.unidad }}</td>
                     <td class="col-sm-2">{{ producto.fecha }}</td>
                     <td class="col-sm-2">
                         <!--BOTONES DE DETALLES, MODIFICAR Y ELIMINACION-->
@@ -119,7 +119,7 @@
                 <tr *ngIf="datosInfoProducto.precio != null && datosInfoProducto.unidad != null">
                     <th>Precio</th>
                     <td></td>
-                    <td>{{ datosInfoProducto.precio }} / {{ datosInfoProducto.unidad }}</td>
+                    <td>{{ datosInfoProducto.precio | currency }} / {{ datosInfoProducto.unidad }}</td>
                 </tr>
                 <tr *ngIf="datosInfoProducto.fecha != null">
                     <th>Fecha Actualizado</th>
@@ -200,7 +200,7 @@
                         <td>{{ productoPDF.nombre }}</td>
                         <td>{{ productoPDF.area }}</td>
                         <td>{{ productoPDF.proveedor }}</td>
-                        <td>{{ productoPDF.precio }} / {{ productoPDF.unidad }}</td>
+                        <td>{{ productoPDF.precio |currency }} / {{ productoPDF.unidad }}</td>
                         <td>{{ productoPDF.fecha }}</td>
                         </tr>
                     </ng-container>

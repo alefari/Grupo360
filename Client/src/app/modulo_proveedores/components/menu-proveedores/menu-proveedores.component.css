@@ -14,7 +14,7 @@ body{
 .card-header-second{
     margin-top: -40px;
     height: 120px;
-    background: linear-gradient(-90deg, #11998e, #38ef7d);
+    background: linear-gradient(-90deg, #6e1f9c, #c08cf0);
     box-shadow: 1px 5px 15px #a2a2a2;
 }
 .card-section{
@@ -23,6 +23,22 @@ body{
 .card-section:hover{
     box-shadow: 1px 1px 20px #d2d2d2;
 }
-.margen-superior{
-    margin-top: 130px;
+.card-btn:hover{
+    transform: translateY(-6px);
+    transition: all 0.3s;
+}
+section{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-top: 110px;
+}
+section .content h2{
+    margin: 0;
+    padding: 0;
+    color: black;
+    font-size: 4em;
 }

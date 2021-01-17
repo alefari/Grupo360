@@ -100,7 +100,7 @@ export class ProductosComponent implements OnInit {
     this.oculto = false;
     const opciones = {
       margin: 1,
-      filename: 'Proveedores.pdf',
+      filename: 'Productos_Proveedores.pdf',
       image: {type: 'jpeg', quality: 1},
       html2canvas: {},
       jsPDF: {unit: 'cm', format: 'letter', orientation: 'portrait'}

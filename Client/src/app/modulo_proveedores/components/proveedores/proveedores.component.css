@@ -17,3 +17,7 @@
     font-size: 12px;
     line-height: 1.5;
 }
+.cool-btn:hover{
+    transform: translateY(-6px);
+    transition: all 0.3s;
+}
