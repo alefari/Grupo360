@@ -8,13 +8,13 @@
     box-shadow: 1px 7px 15px #a2a2a2;
     margin: -25px -25px 0px -25px;
     height: 120px;
-    background: linear-gradient(-90deg, #2040f3, #4186ee );
+    background: linear-gradient(-90deg, #2040f3, #41a9ee );
 }
 .card-header-second-procura{
     box-shadow: 1px 7px 15px #a2a2a2;
     margin: -25px -25px 0px -25px;
     height: 120px;
-    background: linear-gradient(-90deg, #922424, #e24f4f );
+    background: linear-gradient(-90deg, #c03131, #fcb860 );
 }
 .card-section{
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);

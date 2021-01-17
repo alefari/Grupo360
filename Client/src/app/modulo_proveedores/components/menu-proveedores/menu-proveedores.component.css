@@ -14,7 +14,7 @@ body{
 .card-header-second{
     margin-top: -40px;
     height: 120px;
-    background: linear-gradient(-90deg, #6e1f9c, #c08cf0);
+    background: linear-gradient(-90deg, #6e1f9c, #c880f8);
     box-shadow: 1px 5px 15px #a2a2a2;
 }
 .card-section{

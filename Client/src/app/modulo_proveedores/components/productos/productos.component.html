@@ -64,17 +64,14 @@
                         (producto.area.toLocaleLowerCase().includes(filtroArea.value.toLowerCase()) || filtroArea.value == ''))">
                     <td class="col-sm-2">{{ producto.nombre }}</td>
                     <td class="col-sm-2">{{ producto.area }}</td>
-                    <td class="col-sm-2">{{ producto.proveedor }}</td>
+                    <td class="col-sm-2">{{ producto.nombreProveedor }}</td>
                     <td class="col-sm-2">{{ producto.precio | currency}} / {{ producto.unidad }}</td>
                     <td class="col-sm-2">{{ producto.fecha }}</td>
                     <td class="col-sm-2">
-                        <!--BOTONES DE DETALLES, MODIFICAR Y ELIMINACION-->
+                        <!--BOTONES DE DETALLES Y ELIMINACION-->
                         <div class="btn-group">
                             <button type="button" (click)="asignarDetalles(producto)" class="btn btn-info text-white btn-sm" data-bs-toggle="modal" data-bs-target="#modalInfo">
                                 <fa-icon [icon]="faInfoCircle"></fa-icon>  Detalles
-                            </button>
-                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" disabled data-bs-target="#modalEliminar">
-                                <fa-icon [icon]="faListAlt"></fa-icon>  Productos
                             </button>
                             <button type="button" (click)="asignarBorrar(producto.id, producto.nombre)" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEliminar">
                                 <fa-icon [icon]="faTrashAlt"></fa-icon>  Eliminar
@@ -114,7 +111,7 @@
                 <tr>
                     <th>Proveedor</th>
                     <td></td>
-                    <td>{{ datosInfoProducto.proveedor }}</td>
+                    <td>{{ datosInfoProducto.nombreProveedor }}</td>
                 </tr>
                 <tr *ngIf="datosInfoProducto.precio != null && datosInfoProducto.unidad != null">
                     <th>Precio</th>
@@ -199,7 +196,7 @@
                         <tr>
                         <td>{{ productoPDF.nombre }}</td>
                         <td>{{ productoPDF.area }}</td>
-                        <td>{{ productoPDF.proveedor }}</td>
+                        <td>{{ productoPDF.nombreProveedor }}</td>
                         <td>{{ productoPDF.precio |currency }} / {{ productoPDF.unidad }}</td>
                         <td>{{ productoPDF.fecha }}</td>
                         </tr>
