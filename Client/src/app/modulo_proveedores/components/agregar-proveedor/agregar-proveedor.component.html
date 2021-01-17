@@ -1,6 +1,8 @@
-<div class="bg-white shadow-lg container">
+<div class="bg-white shadow-lg container body">
     <div class="container pt-3">
-    <h3>Agregar Proveedor</h3>
+        <div class="mx-auto">
+            <h3>Agregar Proveedor</h3>
+        </div>  
     </div>
     <div class="container">
     <!-- INICIO DEL MODAL AGREGAR PROVEEDOR -->
@@ -11,34 +13,34 @@
                         <input #nombre="ngModel" [(ngModel)]="nuevoProveedor.nombre" required type="text" [name]="'nombre'" class="form-control mt-2">
                         <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingrese un nombre.</small>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <label for="exampleFormControlSelect1">Área</label>
-                        <select #area="ngModel" ngModel required class="form-select mt-2"  [name]="'area'">
-                        <option *ngFor="let area of areas" value="{{ area.id }}">{{ areas.nombre }}</option>
+                        <select #area="ngModel" [(ngModel)]="nuevoProveedor.area" required class="form-select mt-2"  [name]="'area'">
+                        <option *ngFor="let area of areas" value="{{ area.id }}">{{ area.nombre }}</option>
                         </select>
                         <small *ngIf="!area.valid && area.touched" class="text-danger">Ingrese un área.</small>
                     </div>
-                    <div class="col-2">
+                    <div class="col-5">
                         <label>RIF</label>
                         <input type="text" [(ngModel)]="nuevoProveedor.rif" [name]="'rif'" class="form-control mt-2" aria-describedby="emailHelp">
                     </div>
                 </div>
                 <div class="row mb-4">
-                    <div class="col-2" >
+                    <div class="col-4" >
                         <label>Correo</label>
                         <input type="text" [(ngModel)]="nuevoProveedor.correo" [name]="'correo'" class="form-control mt-2" aria-describedby="emailHelp">
                     </div>
-                    <div class="col-2">
+                    <div class="col-4">
                         <label>Teléfono</label>
                         <input type="text" [(ngModel)]="nuevoProveedor.telefono" [name]="'telefono'" class="form-control mt-2" aria-describedby="emailHelp">
                     </div>
-                    <div class="col-2">
+                    <div class="col-4">
                         <label>Contacto</label>
                         <input type="text" [(ngModel)]="nuevoProveedor.contacto" [name]="'contacto'" class="form-control mt-2" aria-describedby="emailHelp">
                     </div>
                 </div>
                 <div class="row mb-4">
-                    <div class="col-2">
+                    <div class="col">
                         <label>Dirección</label>
                         <input type="text" [(ngModel)]="nuevoProveedor.direccion" [name]="'direccion'" class="form-control mt-2" aria-describedby="emailHelp">
                     </div>

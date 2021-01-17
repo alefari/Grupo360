@@ -10,6 +10,7 @@ import { MenuProveedoresComponent } from './components/menu-proveedores/menu-pro
 import { ProveedoresComponent } from './components/proveedores/proveedores.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AgregarProveedorComponent } from './components/agregar-proveedor/agregar-proveedor.component';
+import { ModificarProveedorComponent } from './components/modificar-proveedor/modificar-proveedor.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { AgregarProveedorComponent } from './components/agregar-proveedor/agrega
     ProductosComponent,
     MenuProveedoresComponent,
     ProveedoresComponent,
-    AgregarProveedorComponent
+    AgregarProveedorComponent,
+    ModificarProveedorComponent
   ],
   imports: [
     CommonModule,

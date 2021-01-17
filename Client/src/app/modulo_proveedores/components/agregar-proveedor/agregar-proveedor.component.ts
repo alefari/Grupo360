@@ -40,6 +40,7 @@ export class AgregarProveedorComponent implements OnInit {
       rif: null,
       descripcion: null,
     };
+
   
   constructor(private servicioProveedores: ProveedoresService,
               private servicioAreas: AreasService,
@@ -56,16 +57,14 @@ export class AgregarProveedorComponent implements OnInit {
 
   //FUNCION PARA AGREGAR PROVEEDOR A BD
   onSubmit(){
-    if(this.nuevoProveedor.nombre!="" && this.nuevoProveedor!=null && 
-      this.nuevoProveedor.area!="" && this.nuevoProveedor.area!=null){
-        this.servicioProveedores.createProveedor(this.nuevoProveedor).subscribe(
-          res => {
-            console.log(res["text"]);
-          },
-          err => { console.log(err); }
-        );
+    let proveedorNuevo = this.nuevoProveedor
+    if(proveedorNuevo.nombre!=null && proveedorNuevo.nombre!="" &&
+      proveedorNuevo.area!=null && proveedorNuevo.area!=""){
+      this.servicioProveedores.createProveedor(proveedorNuevo).subscribe(
+        res => {console.log(res);},
+        err => { console.log(err); });
         this.form.reset();
-        this.router.navigate(['proveedores']);
+        this.router.navigate(['proveedores/proveedores']);
     }
   }
   
@@ -81,6 +80,6 @@ export class AgregarProveedorComponent implements OnInit {
                           contacto: null,
                           rif: null,
                           descripcion: null};
-    this.router.navigate(['proveedores']);
+    this.router.navigate(['proveedores/proveedores']);
   }
 }

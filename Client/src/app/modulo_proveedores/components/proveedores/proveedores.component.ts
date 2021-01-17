@@ -5,6 +5,8 @@ import { ProveedoresService } from '../../../services/proveedores.service'
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faListAlt } from '@fortawesome/free-solid-svg-icons';
+import { faList } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +24,7 @@ export class ProveedoresComponent implements OnInit {
 
   //ICONOS FONTAWESOME
   faSignInAlt = faSignInAlt;
+  faListAlt = faListAlt;
   faSignOutAlt = faSignOutAlt;
   faTimesCircle = faTimesCircle;
   faExclamationCircle = faExclamationCircle;
@@ -29,6 +32,7 @@ export class ProveedoresComponent implements OnInit {
   faPlusCircle = faPlusCircle;
   faInfoCircle = faInfoCircle;
   faTrashAlt = faTrashAlt;
+  faList = faList;
 
   //VARIABLES QUE ALMACENAN DATOS DE BD
   proveedores: any = [];

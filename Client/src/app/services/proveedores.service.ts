@@ -20,15 +20,35 @@ export class ProveedoresService {
   //}
 
   createProveedor(proveedor: any) {
-    return this.http.post(`${this.API_URI}/proveedores`, proveedor);
+    let proveedorNuevo = {
+      nombre: proveedor.nombre,
+      id_area: +proveedor.area,
+      direccion: proveedor.direccion,
+      correo: proveedor.correo,
+      telefono: proveedor.telefono,
+      contacto: proveedor.contacto,
+      rif: proveedor.rif,
+      descripcion: proveedor.descripcion
+    }
+
+    return this.http.post(`${this.API_URI}/proveedores`, proveedorNuevo);
   }
 
   deleteProveedor(id: string) {
     return this.http.delete(`${this.API_URI}/proveedores/${id}`);
   }
 
-  //updateProveedor(id: string) {
-  //return this.http.put(`${this.API_URI}/proveedores/${id}`);
-  //}
-
+  updateProveedor(id: string, proveedor:any) {
+      let proveedorNuevo = {
+        nombre: proveedor.nombre,
+        id_area: +proveedor.area,
+        direccion: proveedor.direccion,
+        correo: proveedor.correo,
+        telefono: proveedor.telefono,
+        contacto: proveedor.contacto,
+        rif: proveedor.rif,
+        descripcion: proveedor.descripcion
+      }
+      return this.http.put(`${this.API_URI}/herramientas/${id}`, proveedorNuevo)
+  }
 }
