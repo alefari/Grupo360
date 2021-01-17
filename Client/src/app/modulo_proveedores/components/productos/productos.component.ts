@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AreasService } from 'src/app/services/areas.service';
 import { ProductosProveedoresService } from 'src/app/services/productos-proveedores.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
+import * as html2pdf from 'html2pdf.js';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -40,6 +41,22 @@ export class ProductosComponent implements OnInit {
   productosProveedores: any = [];
   areas: any = [];
 
+  //VARIABLES DE FUNCIONES COMPONENT
+  datosInfoProducto: any = {
+    id: null,
+    nombre: null,
+    id_area_producto: null,
+    id_unidad_producto: null,
+    id_proveedor_producto: null,
+    fecha_act: null,
+    precio: null,
+  }
+  productoProveedorBorrar: any = {
+    id: null,
+    nombre: null,
+  }
+  oculto:boolean = true;
+
   constructor(private servicioProductosProveedores: ProductosProveedoresService,
               private servicioProveedores: ProveedoresService,
               private servicioAreas: AreasService,
@@ -60,10 +77,43 @@ export class ProductosComponent implements OnInit {
       
   }
 
-  asignarDetalles(){
+  //FUNCION PARA BOTON DE DETALLES DE PRODUCTO
+  asignarDetalles(producto:any){
+    this.datosInfoProducto = producto;
+  }
 
-  };
-  asignarBorrar(){
+  //FUNCION PARA BOTON DE BORRAR PRODUCTO (DATOS)
+  asignarBorrar(id: number, nombre:string){
+    this.productoProveedorBorrar.nombre = nombre;
+    this.productoProveedorBorrar.id = id;
+  }
 
-  };
+  //FUNCION PARA BORRAR PRODUCTO
+  eliminarProductoProveedor() {
+    this.servicioProductosProveedores.deleteProductoProveedor(this.productoProveedorBorrar.id).subscribe(
+      res => {console.log(res);},
+      err => {console.log(err);});
+  }
+
+  //FUNCION PARA DESCARGAR PDF DE PRODUCTO
+  descargarPDF() {
+    this.oculto = false;
+    const opciones = {
+      margin: 1,
+      filename: 'Proveedores.pdf',
+      image: {type: 'jpeg', quality: 1},
+      html2canvas: {},
+      jsPDF: {unit: 'cm', format: 'letter', orientation: 'portrait'}
+    };
+
+    const contenido: Element = document.getElementById('elemento-a-exportar');
+
+    html2pdf()
+      .from(contenido)
+      .set(opciones)
+      .save();
+
+      this.oculto = true;
+  }
+
 }

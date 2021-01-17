@@ -2,7 +2,7 @@
     <!--BOTONES PARA GESTIONAR PRODUCTOS-->
     <div class="row px-4">
         <div class="col-3">
-            <h1>Proveedores</h1>
+            <h1>Productos</h1>
         </div>
         <div class="col-9 mt-lg-3">
             <div class="btn-group float-end" role="group" aria-label="Button group with nested dropdown">
@@ -45,10 +45,10 @@
             <tr>
                 <th scope="col-sm-2">Nombre</th>
                 <th scope="col-sm-2">Área</th>
-                <th scope="col-sm-1">Proveedor</th>
+                <th scope="col-sm-2">Proveedor</th>
                 <th scope="col-sm-2">Precio/Unidad</th>
                 <th scope="col-sm-2">Fecha Actualizado</th>
-                <th scope="col-sm-1"></th>
+                <th scope="col-sm-2"></th>
             </tr>
         </thead>
     
@@ -88,3 +88,127 @@
     </div>
     </div>
 </div>
+
+
+<!-- MODAL DE INFO PRODUCTO -->
+<div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header bg-info">
+            <h5 class="modal-title text-white" id="exampleModalLabel"><strong>{{ datosInfoProducto.nombre }}</strong></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-sm">
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <td></td>
+                    <td>{{ datosInfoProducto.id }}</td>
+                </tr>
+                <tr>
+                    <th>Área</th>
+                    <td></td>
+                    <td>{{ datosInfoProducto.area }}</td>
+                </tr>
+                <tr>
+                    <th>Proveedor</th>
+                    <td></td>
+                    <td>{{ datosInfoProducto.proveedor }}</td>
+                </tr>
+                <tr *ngIf="datosInfoProducto.precio != null && datosInfoProducto.unidad != null">
+                    <th>Precio</th>
+                    <td></td>
+                    <td>{{ datosInfoProducto.precio }} / {{ datosInfoProducto.unidad }}</td>
+                </tr>
+                <tr *ngIf="datosInfoProducto.fecha != null">
+                    <th>Fecha Actualizado</th>
+                    <td></td>
+                    <td>{{ datosInfoProducto.fecha }}</td>
+                </tr>
+                <tr><th></th><td></td><td></td></tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+            </button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!-- FIN DEL MODAL INFO PRODUCTO -->
+    
+    <!-- INICIO MODAL ELIMINAR PRODUCTO -->
+    <div class="modal fade" tabindex="-1" id="modalEliminar">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title text-white">Eliminar Proveedor</h5>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro que deseas eliminar <strong>{{ productoProveedorBorrar.nombre }}</strong>?. <br> <br> <span class="text-danger">Esta acción es irreversible.</span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <fa-icon [icon]="faTimesCircle"></fa-icon> Cancelar
+                </button>
+                <button (click)="eliminarProductoProveedor()" data-bs-dismiss="modal" type="button" class="btn btn-danger">
+                    <fa-icon [icon]="faTrashAlt"></fa-icon> Eliminar
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN MODAL ELIMINAR PRODUCTO -->
+    
+    <!-- MODAL PDF DE PRODUCTO-->
+    <div class="modal fade" id="pdfProveedores" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Exportar a PDF</h5>
+                <div class="btn-group rounded" role="group">
+                    <button type="button" (click)="descargarPDF()" class="btn btn-warning">
+                        <fa-icon [icon]="faFileDownload"></fa-icon> Exportar
+                    </button>
+                    <button type="button" class="btn-secondary" data-bs-dismiss="modal" aria-label="Close"> 
+                        <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar</button>
+                </div>
+            </div>
+            <div class="modal-body" id='elemento-a-exportar'>
+            <!-- <img src="../../../assets/logo.svg" alt="Logo" class="img-fluid" style="max-width: 75px; width: 100%; margin: 0; padding: 0"> -->
+            <div class="row">
+                <h4>Proveedores</h4>
+            </div>
+            <div class="row">
+                <!--Tabla de inventario en donde se muestra el inventario general-->
+                <table class="table table-sm letras">
+                    <thead class="thead bg-secondary text-white">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Área</th>
+                        <th scope="col">Proveedor</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Fecha Actualizado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ng-container *ngFor="let productoPDF of productosProveedores">
+                        <tr>
+                        <td>{{ productoPDF.nombre }}</td>
+                        <td>{{ productoPDF.area }}</td>
+                        <td>{{ productoPDF.proveedor }}</td>
+                        <td>{{ productoPDF.precio }} / {{ productoPDF.unidad }}</td>
+                        <td>{{ productoPDF.fecha }}</td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- MODAL PDF DE PRODUCTO-->
