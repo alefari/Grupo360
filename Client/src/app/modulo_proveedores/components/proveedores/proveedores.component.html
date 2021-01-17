@@ -146,6 +146,11 @@
                 <td></td>
                 <td>{{ datosInfo.descripcion | lowercase}}</td>
             </tr>
+            <tr *ngIf="datosInfo.fecha != null">
+                <th>Fecha Creado</th>
+                <td></td>
+                <td>{{ datosInfo.fecha | date}}</td>
+            </tr>
             <tr><th></th><td></td><td></td></tr>
         </tbody>
     </table>

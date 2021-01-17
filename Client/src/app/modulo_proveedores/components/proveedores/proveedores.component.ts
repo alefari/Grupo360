@@ -47,6 +47,7 @@ export class ProveedoresComponent implements OnInit {
     area: null,
     descripcion: null,
     rif: null,
+    fecha: null,
     contacto: null,
     telefono: null,
     direccion: null,

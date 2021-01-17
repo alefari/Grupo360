@@ -40,15 +40,17 @@ export class ProveedoresService {
 
   updateProveedor(id: string, proveedor:any) {
       let proveedorNuevo = {
+        id_proveedor: id,
         nombre: proveedor.nombre,
         id_area: +proveedor.area,
         direccion: proveedor.direccion,
         correo: proveedor.correo,
         telefono: proveedor.telefono,
         contacto: proveedor.contacto,
+        fecha_creado: proveedor.fecha,
         rif: proveedor.rif,
         descripcion: proveedor.descripcion
       }
-      return this.http.put(`${this.API_URI}/herramientas/${id}`, proveedorNuevo)
+      return this.http.put(`${this.API_URI}/proveedores/${id}`, proveedorNuevo)
   }
 }
