@@ -6,6 +6,7 @@ import { MenuProveedoresComponent } from './components/menu-proveedores/menu-pro
 import { ProveedoresComponent } from './components/proveedores/proveedores.component';
 import { AgregarProveedorComponent } from './components/agregar-proveedor/agregar-proveedor.component';
 import { ModificarProveedorComponent } from './components/modificar-proveedor/modificar-proveedor.component';
+import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [
       { path: '', component: MenuProveedoresComponent },
       { path: 'productos', component: ProductosComponent },
+      { path: 'productos/agregar', component: AgregarProductoComponent },
       { path: 'proveedores', component: ProveedoresComponent },
       { path: 'proveedores/agregar', component: AgregarProveedorComponent },
       { path: 'proveedores/modificar', component: ModificarProveedorComponent },

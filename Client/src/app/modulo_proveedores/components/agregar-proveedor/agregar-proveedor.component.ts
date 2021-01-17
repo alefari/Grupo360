@@ -25,7 +25,7 @@ export class AgregarProveedorComponent implements OnInit {
   faPlusCircle = faPlusCircle;
 
   //VARIABLES QUE ALMACENAN DATOS DE BD
-  areas: any = null;
+  areas: any = [];
 
   //VARIABLES DE FUNCIONES
   nuevoProveedor: any = 
@@ -48,11 +48,8 @@ export class AgregarProveedorComponent implements OnInit {
 
   ngOnInit(): void {
     this.servicioAreas.getAreas().subscribe(
-      res => {
-        this.areas = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.areas = res;},
+      err => console.log(err));
   }
 
   //FUNCION PARA AGREGAR PROVEEDOR A BD

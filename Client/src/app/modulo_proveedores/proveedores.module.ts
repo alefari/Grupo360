@@ -11,6 +11,7 @@ import { ProveedoresComponent } from './components/proveedores/proveedores.compo
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AgregarProveedorComponent } from './components/agregar-proveedor/agregar-proveedor.component';
 import { ModificarProveedorComponent } from './components/modificar-proveedor/modificar-proveedor.component';
+import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ModificarProveedorComponent } from './components/modificar-proveedor/mo
     MenuProveedoresComponent,
     ProveedoresComponent,
     AgregarProveedorComponent,
-    ModificarProveedorComponent
+    ModificarProveedorComponent,
+    AgregarProductoComponent
   ],
   imports: [
     CommonModule,

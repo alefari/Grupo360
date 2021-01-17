@@ -6,13 +6,13 @@
         </div>
         <div class="col-9 mt-lg-3">
             <div class="btn-group float-end" role="group" aria-label="Button group with nested dropdown">
-                <button type="button" class="btn btn-success" routerLink='agregar'>
+                <button type="button" class="btn cool-btn btn-success" routerLink='agregar'>
                     <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar
                 </button>
-                <button type="button" class="btn btn-primary text-white" routerLink='modificar'>
+                <button type="button" class="btn btn-primary cool-btn text-white" routerLink='modificar'>
                     <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
                 </button>
-                <button class="btn btn-warning text-dark float-right" data-bs-toggle="modal" data-bs-target="#pdfProveedores">
+                <button class="btn btn-warning text-dark cool-btn float-right" data-bs-toggle="modal" data-bs-target="#pdfProveedores">
                     <fa-icon [icon]="faFileDownload"></fa-icon> Exportar a PDF
                 </button>
             </div>
@@ -66,7 +66,7 @@
                     <td class="col-sm-2">{{ producto.area }}</td>
                     <td class="col-sm-2">{{ producto.nombreProveedor }}</td>
                     <td class="col-sm-2">{{ producto.precio | currency}} / {{ producto.unidad }}</td>
-                    <td class="col-sm-2">{{ producto.fecha }}</td>
+                    <td class="col-sm-2">{{ producto.fecha | date}}</td>
                     <td class="col-sm-2">
                         <!--BOTONES DE DETALLES Y ELIMINACION-->
                         <div class="btn-group">
@@ -121,7 +121,7 @@
                 <tr *ngIf="datosInfoProducto.fecha != null">
                     <th>Fecha Actualizado</th>
                     <td></td>
-                    <td>{{ datosInfoProducto.fecha }}</td>
+                    <td>{{ datosInfoProducto.fecha | date }}</td>
                 </tr>
                 <tr><th></th><td></td><td></td></tr>
             </tbody>
@@ -198,7 +198,7 @@
                         <td>{{ productoPDF.area }}</td>
                         <td>{{ productoPDF.nombreProveedor }}</td>
                         <td>{{ productoPDF.precio |currency }} / {{ productoPDF.unidad }}</td>
-                        <td>{{ productoPDF.fecha }}</td>
+                        <td>{{ productoPDF.fecha | date }}</td>
                         </tr>
                     </ng-container>
                     </tbody>

@@ -45,9 +45,9 @@ export class ProductosComponent implements OnInit {
   datosInfoProducto: any = {
     id: null,
     nombre: null,
-    id_area_producto: null,
-    id_unidad_producto: null,
-    id_proveedor_producto: null,
+    area: null,
+    unidad: null,
+    nombreProveedor: null,
     fecha_act: null,
     precio: null,
   }
