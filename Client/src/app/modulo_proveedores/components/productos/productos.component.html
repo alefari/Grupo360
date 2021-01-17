@@ -1,5 +1,5 @@
 <div class="container-fluid mt-lg-3">
-    <!--BOTONES PARA GESTIONAR PROVEEDORES-->
+    <!--BOTONES PARA GESTIONAR PRODUCTOS-->
     <div class="row px-4">
         <div class="col-3">
             <h1>Proveedores</h1>
@@ -20,12 +20,12 @@
     </div>
     
     <div class="row px-4">
-    <!--TABLA DE PROVEEDORES-->
+    <!--TABLA DE PRODUCTOS-->
     <div class="table-responsive-md mt-lg-3">
         <table class="table table-sm shadow table-striped">
         <thead class="table-dark">
             <tr>
-                <!--FILTROS TABLA DE PROVEEDORES-->
+                <!--FILTROS TABLA DE PRODUCTOS-->
                 <th scope="col-2">
                     <input #filtroNombre="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por nombre">
                 </th>
@@ -39,47 +39,44 @@
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
-                <th scope="col"></th>
             </tr>
         </thead>
         <thead class="table-dark">
             <tr>
                 <th scope="col-sm-2">Nombre</th>
                 <th scope="col-sm-2">Área</th>
-                <th scope="col-sm-1">RIF</th>
-                <th scope="col-sm-2">Correo</th>
-                <th scope="col-sm-2">Teléfono</th>
-                <th scope="col-sm-2">Contacto</th>
+                <th scope="col-sm-1">Proveedor</th>
+                <th scope="col-sm-2">Precio/Unidad</th>
+                <th scope="col-sm-2">Fecha Actualizado</th>
                 <th scope="col-sm-1"></th>
             </tr>
         </thead>
     
         <tbody>
-            <ng-container *ngFor="let proveedor of proveedores">
-            <!--FILTROS DE TABLA DE PROVEEDORES-->
+            <ng-container *ngFor="let producto of productosProveedores">
+            <!--FILTROS DE TABLA DE PRODUCTOS-->
                 <tr
                 class="bg-light table-sm linea-tabla"
                 scope="row"
                 *ngIf="(
-                        (proveedor.nombre.toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value == '')
+                        (producto.nombre.toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value == '')
                         &&
-                        (proveedor.area.toLocaleLowerCase().includes(filtroArea.value.toLowerCase()) || filtroArea.value == ''))">
-                    <td class="col-sm-2">{{ proveedor.nombre }}</td>
-                    <td class="col-sm-2">{{ proveedor.area }}</td>
-                    <td class="col-sm-1">{{ proveedor.rif }}</td>
-                    <td class="col-sm-2">{{ proveedor.correo }}</td>
-                    <td class="col-sm-1">{{ proveedor.telefono }}</td>
-                    <td class="col-sm-2">{{ proveedor.contacto }}</td>
-                    <td class="col-sm-3">
+                        (producto.area.toLocaleLowerCase().includes(filtroArea.value.toLowerCase()) || filtroArea.value == ''))">
+                    <td class="col-sm-2">{{ producto.nombre }}</td>
+                    <td class="col-sm-2">{{ producto.area }}</td>
+                    <td class="col-sm-2">{{ producto.proveedor }}</td>
+                    <td class="col-sm-2">{{ producto.precio }} / {{ producto.unidad }}</td>
+                    <td class="col-sm-2">{{ producto.fecha }}</td>
+                    <td class="col-sm-2">
                         <!--BOTONES DE DETALLES, MODIFICAR Y ELIMINACION-->
                         <div class="btn-group">
-                            <button type="button" (click)="asignarDetalles(proveedor)" class="btn btn-info text-white btn-sm" data-bs-toggle="modal" data-bs-target="#modalInfo">
+                            <button type="button" (click)="asignarDetalles(producto)" class="btn btn-info text-white btn-sm" data-bs-toggle="modal" data-bs-target="#modalInfo">
                                 <fa-icon [icon]="faInfoCircle"></fa-icon>  Detalles
                             </button>
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" disabled data-bs-target="#modalEliminar">
                                 <fa-icon [icon]="faListAlt"></fa-icon>  Productos
                             </button>
-                            <button type="button" (click)="asignarBorrar(proveedor.id, proveedor.nombre)" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEliminar">
+                            <button type="button" (click)="asignarBorrar(producto.id, producto.nombre)" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEliminar">
                                 <fa-icon [icon]="faTrashAlt"></fa-icon>  Eliminar
                             </button>
                         </div>

@@ -46,17 +46,17 @@ export class ProductosComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.servicioAreas.getAreas().subscribe(
-      res => {this.areas = res;},
-      err => console.log(err));
-
-    this.servicioProductosProveedores.getProductosProveedores().subscribe(
-      res => {this.productosProveedores = res;},
-      err => console.log(err));
-
     this.servicioProveedores.getProveedores().subscribe(
       res => {this.proveedores = res;},
       err => console.log(err));
+
+      this.servicioProductosProveedores.getProductosProveedores().subscribe(
+        res => {this.productosProveedores = res;},
+        err => console.log(err));
+
+        this.servicioAreas.getAreas().subscribe(
+          res => {this.areas = res;},
+          err => console.log(err));
       
   }
 
