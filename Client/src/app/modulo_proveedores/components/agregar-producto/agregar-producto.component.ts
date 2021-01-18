@@ -10,6 +10,7 @@ import { ProveedoresService } from '../../../services/proveedores.service'
 //ICONOS FONTAWESOME
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 import { ProductosProveedoresService } from 'src/app/services/productos-proveedores.service';
 import { UnidadesService } from 'src/app/services/unidades.service';
 
@@ -24,6 +25,7 @@ export class AgregarProductoComponent implements OnInit {
   //ICONOS FONTAWESOME
   faTimesCircle = faTimesCircle;
   faPlusCircle = faPlusCircle;
+  faMinusCircle = faMinusCircle;
 
   //VARIABLES QUE ALMACENAN DATOS DE BD
   areas: any = [];
@@ -31,8 +33,7 @@ export class AgregarProductoComponent implements OnInit {
   unidades: any = [];
 
   //VARIABLES DE FUNCIONES
-  nuevoProducto: any = 
-    {
+  nuevoProducto: any[] = [{
       id: null,
       nombre: null,
       area: null,
@@ -40,7 +41,7 @@ export class AgregarProductoComponent implements OnInit {
       proveedor: null,
       fecha_act: null,
       precio: null,
-    };
+    }];
   valido: boolean = true;
 
   constructor(private servicioProveedores: ProveedoresService,
@@ -63,39 +64,55 @@ export class AgregarProductoComponent implements OnInit {
 
   //FUNCION PARA AGREGAR PRODUCTO A BD
   onSubmit(){
-    let productoNuevo = this.nuevoProducto
-    if(productoNuevo.nombre!=null && productoNuevo.nombre!="" &&
-      productoNuevo.area!=null && productoNuevo.area!="" &&
-      productoNuevo.proveedor!=null && productoNuevo.proveedor!="" &&
-      productoNuevo.precio!=null && productoNuevo.precio!="" &&
-      productoNuevo.unidad!=null && productoNuevo.unidad!=""){
-      this.servicioProductosProveedores.createProductoProveedor(productoNuevo).subscribe(
-        res => {console.log(res);},
-        err => { console.log(err); });
-        this.form.reset();
-        this.router.navigate(['proveedores/productos']);
+    for(let productoCiclo of this.nuevoProducto){
+      if(productoCiclo.nombre!=null && productoCiclo.nombre!="" &&
+        productoCiclo.area!=null && productoCiclo.area!="" &&
+        productoCiclo.proveedor!=null && productoCiclo.proveedor!="" &&
+        productoCiclo.precio!=null && productoCiclo.precio!="" &&
+        productoCiclo.unidad!=null && productoCiclo.unidad!=""){
+        this.servicioProductosProveedores.createProductoProveedor(productoCiclo).subscribe(
+          res => {console.log(res);},
+          err => { console.log(err); });
+      }
     }
+    this.form.reset();
+    this.router.navigate(['proveedores/productos']);
+
   }
   //FUNCION PARA BORRAR FORMULARIO AGREGAR
   borrarForm() {
     this.form.reset();
-    this.nuevoProducto = {
+    this.nuevoProducto = [{
       id: null,
       nombre: null,
       area: null,
       unidad: null,
       proveedor: null,
       fecha_act: null,
-      precio: null,};
+      precio: null,}];
     this.router.navigate(['proveedores/productos']);
   }
 
   //FUNCION PARA REVISAR EL PRECIO INGRESADO POR EL USUARIO
   revisarPrecio() {
-    if(this.nuevoProducto.precio <= 0) {
-      this.valido = false;
-      return
+    for(let producto of this.nuevoProducto){
+      if(producto.precio <= 0) {
+        this.valido = false;
+        return
+      }
     }
   this.valido = true;
+  }
+
+  //FUNCIONES DE AGREGAR MULTIPLE
+  agregarProducto() {
+    this.nuevoProducto.push({
+      id: null,
+      nombre: null,
+      area: null,
+      unidad: null,
+      proveedor: null,
+      fecha_act: null,
+      precio: null});
   }
 }

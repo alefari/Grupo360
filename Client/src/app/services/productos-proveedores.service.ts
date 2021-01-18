@@ -47,7 +47,6 @@ export class ProductosProveedoresService {
       fecha_act: producto.fecha,
       precio: producto.precio,
       }
-      console.log(productoProveedorNuevo)
       return this.http.put(`${this.API_URI}/productosProveedores/${id}`, productoProveedorNuevo)
   }
 }
