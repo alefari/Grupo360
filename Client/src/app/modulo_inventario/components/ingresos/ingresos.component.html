@@ -57,7 +57,7 @@
             (ingreso.categoria == filtroCategoria.value || filtroCategoria.value == '')
             &&
             (ingreso.modalidad.toLocaleLowerCase().includes(filtroModalidad.value.toLowerCase()) || filtroModalidad.value == '')
-            "scope="row" class="bg-light">
+            "scope="row" class="bg-light linea-tabla">
               <td>{{ ingreso.nombre | titlecase }}</td>
               <td>{{ ingreso.categoria }}</td>
               <td>{{ ingreso.cantidad }} {{ ingreso.unidad }}</td>

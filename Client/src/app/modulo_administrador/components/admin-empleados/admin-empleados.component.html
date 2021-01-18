@@ -5,7 +5,7 @@
     </div>
     <div class="col-9">
       <div class="btn-group float-end">
-        <button type="button" class="btn btn-success" routerLink='ingresar'>Añadir Empleado</button>
+        <button type="button" class="btn btn-success cool-btn" routerLink='ingresar'>Añadir Empleado</button>
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-              <tr *ngFor="let usuario of usuarios" class="table-sm" scope="row" class="bg-light">
+              <tr *ngFor="let usuario of usuarios" class="table-sm" scope="row" class="bg-light linea-tabla">
                 <td>{{ usuario.nombre }}</td>
                 <td>{{ usuario.apellido }}</td>
                 <td>{{ usuario.cedula }}</td>

@@ -70,12 +70,14 @@ onModificar() {
   this.productoElegido.area = this.areas.find(area => area.nombre == this.productoElegido.area).id;
   this.productoElegido.unidad = this.unidades.find(unidad => unidad.nombre == this.productoElegido.unidad).id;
   this.productoElegido.nombreProveedor = this.proveedores.find(proveedor => proveedor.nombre == this.productoElegido.nombreProveedor).id;
+  console.log(this.productoElegido);
   this.servicioProductosProveedores.updateProductoProveedor(this.productoElegido.id, this.productoElegido).subscribe(
-    res => {console.log(res);},
+    res => {console.log(res);
+    this.router.navigate(['proveedores/productos']);
+    this.form.reset();},
     err => {console.log(err);}
   );
-  this.router.navigate(['proveedores/productos']);
-  this.form.reset();
+  
 }
 
 //FUNCION PARA REVISAR EL PRECIO INGRESADO POR EL USUARIO MODIFICAR
@@ -85,7 +87,6 @@ revisarPrecio() {
     return
   }
 this.valido = true;
-console.log(this.productoElegido)
 }
 
 //FUNCION PARA BORRAR FORMULARIO

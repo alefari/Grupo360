@@ -43,7 +43,7 @@
                 (egreso.responsable.toLocaleLowerCase().includes(filtroResponsable.value.toLowerCase()) || filtroResponsable.value == '')
                 &&
                 (egreso.obra.toLocaleLowerCase().includes(filtroObra.value.toLowerCase()) || filtroObra.value == '')
-                "scope="row" class="bg-light">
+                "scope="row" class="bg-light linea-tabla">
                 <td>{{ egreso.nombre | titlecase }} </td>
                 <td>{{ egreso.categoria }}</td>
                 <td>{{ egreso.cantidad }} {{ egreso.unidad }}</td>
@@ -93,7 +93,7 @@
             (eliminado.nombre.toLocaleLowerCase().includes(filtroNombreEliminados.value.toLocaleLowerCase()) || filtroNombreEliminados.value == '')
             &&
             (eliminado.categoria.includes(filtroCategoriaEliminados.value)|| filtroCategoriaEliminados.value == null))"
-            scope="row" class="bg-light">
+            scope="row" class="bg-light linea-tabla">
                 <td> {{ eliminado.nombre | titlecase }} </td>
                 <td> {{ eliminado.categoria }} </td>
                 <td> {{ eliminado.cantidad }} {{ eliminado.unidad }} </td>

@@ -16,6 +16,9 @@ import cors from 'cors';
 import { verifyToken } from './middlewares';
 import empleadosRoutes from './routes/empleados.routes';
 import cargosRoutes from './routes/cargos.routes';
+import proveedoresRoutes from './routes/proveedoresRoutes';
+import productosProveedoresRoutes from './routes/productosProveedoresRoutes';
+import areasRoutes from './routes/areasRoutes';
 
 class Server {
 
@@ -49,6 +52,9 @@ class Server {
         this.app.use('/modalidades', verifyToken, modalidadesRoutes);
         this.app.use('/empleados', verifyToken, empleadosRoutes);
         this.app.use('/cargos', verifyToken, cargosRoutes);
+        this.app.use('/proveedores', verifyToken, proveedoresRoutes);
+        this.app.use('/productosProveedores', verifyToken, productosProveedoresRoutes);
+        this.app.use('/areas', verifyToken, areasRoutes);
         this.app.use('/auth', authRoutes);
     }
 

@@ -1,12 +1,6 @@
 .margen-superior {
     margin-top: 120px;
 }
-
-.linea-tabla:hover{
-    background-color: #f5f5f5;
-    transform: scale(1.02);
-    box-shadow: 2px 2px 12px rgba(0,0,0,0.2), -1px -1px 8px rgba(0,0,0,0.2);
-}
 .thead-custom{
     margin-top: -40px;
     height: 120px;
@@ -16,8 +10,4 @@
 .letras {
     font-size: 12px;
     line-height: 1.5;
-}
-.cool-btn:hover{
-    transform: translateY(-6px);
-    transition: all 0.3s;
 }
