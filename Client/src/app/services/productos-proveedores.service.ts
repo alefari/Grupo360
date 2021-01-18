@@ -43,10 +43,11 @@ export class ProductosProveedoresService {
       nombre: producto.nombre,
       id_area_producto: +producto.area,
       id_unidad_producto: +producto.unidad,
-      id_proveedor_producto: +producto.proveedor,
+      id_proveedor_producto: +producto.nombreProveedor,
       fecha_act: producto.fecha,
       precio: producto.precio,
       }
+      console.log(productoProveedorNuevo)
       return this.http.put(`${this.API_URI}/productosProveedores/${id}`, productoProveedorNuevo)
   }
 }

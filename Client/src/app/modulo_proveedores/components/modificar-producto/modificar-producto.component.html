@@ -1,0 +1,100 @@
+<div class="bg-white shadow-lg container">
+    <div class="container pt-3">
+        <h3>Modificar</h3>
+    </div>
+    <div class='container'>
+    <form #f="ngForm">
+        <!--FILTROS PARA SELECCIONAR PRODUCTO A MODIFICAR-->
+                <h5>Seleccione el proveedor a modificar:</h5>
+                <div class="row mt-3 mb-4">
+                    <div class="col-4">
+                        <label>Área</label>
+                        <select class="form-select mt-2" ngModel required name="selectAreaModificar" #selectAreaModificar="ngModel">
+                          <option *ngFor="let area of areas" value="{{ area.nombre }}">{{ area.nombre }}</option>
+                        </select>
+                        <small *ngIf="!selectAreaModificar.valid && selectAreaModificar.touched" class="text-danger">Ingrese un área.</small>
+                    </div>
+                    <div class="col-4">
+                        <label>Proveedor</label>
+                        <select class="form-select mt-2" ngModel required name="selectProveedorModificar" #selectProveedorModificar="ngModel">
+                          <option *ngFor="let proveedor of proveedores" value="{{ proveedor.nombre }}">{{ proveedor.nombre }}</option>
+                        </select>
+                        <small *ngIf="!selectProveedorModificar.valid && selectProveedorModificar.touched" class="text-danger">Ingrese un proveedor.</small>
+                    </div>
+                    <div class="col-4">
+                        <label>Producto</label>
+                        <select #idProducto="ngModel" (change)="alElegirProducto(idProducto.value)" class="form-select mt-2" ngModel required name="item" #selectProductoModif='ngModel'>
+                          <ng-container *ngFor="let producto of productosProveedores">
+                            <option
+                            *ngIf="producto.area == selectAreaModificar.value &&
+                                    producto.nombreProveedor == selectProveedorModificar.value"
+                            value='{{producto.id}}'>{{ producto.nombre }}</option>
+                            </ng-container>
+                        </select>
+                        <small *ngIf="!selectProductoModif.valid && selectProductoModif.touched" class="text-danger">Ingrese un producto.</small>
+                    </div>
+            </div>
+            <hr>
+            <!--LUGAR DEL FORMULARIO PARA COLOCAR DATOS NUEVOS DEL PRODUCTO-->
+                <h5>Modifique los datos que desee:</h5>
+                <div class="row mb-4">
+                    <div class="col-4">
+                        <label>Nombre</label>
+                        <input required type="text"
+                        [(ngModel)]="productoElegido.nombre"
+                        name="nombre" class="form-control mt-2">
+                    </div>
+                    <div class="col-3">
+                        <label>Área</label>
+                        <select required class="form-select mt-2"
+                        [(ngModel)]="productoElegido.area"
+                        name="area">
+                            <option *ngFor="let area of areas" value="{{ area.nombre }}">{{ area.nombre }}</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label>Proveedor</label>
+                        <select required class="form-select mt-2"
+                        [(ngModel)]="productoElegido.nombreProveedor"
+                        name="area">
+                            <option *ngFor="let proveedor of proveedores" value="{{ proveedor.nombre }}">{{ proveedor.nombre }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col">
+                        <label for="exampleInputPassword1">Precio y Unidades</label>
+                        <div class="input-group">
+                            <input
+                                onkeypress="return event.charCode >= 46"
+                                min="1"
+                                #cantidad="ngModel"
+                                required
+                                type="number"
+                                [(ngModel)]="productoElegido.precio"
+                                [name]="'precio'"
+                                class="form-control mt-2"
+                                (keyup)='revisarPrecio()'>
+                            <select #unidadX="ngModel" required type="text" placeholder="0" [(ngModel)]="productoElegido.unidad" [name]="'unidades'" class="form-select mt-2">
+                                <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label>Fecha Actualizado</label>
+                        <input class="form-control mt-2" [(ngModel)]="productoElegido.fecha_act" [name]="'fechaActualizacion'" type="date">
+                    </div>
+                </div>
+
+        <!--BOTONES FUNCIONES MODIFICAR PRODUCTO-->
+        <div class="modal-footer">
+            <button (click)="borrarForm()" type="button" class="btn btn-secondary">
+                <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+            </button>
+            <button [disabled]='!f.valid || !valido' (click)="onModificar()" type="button" class="btn btn-primary text-white">
+                <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
+            </button>
+        </div>
+    </form>
+    </div>
+</div>

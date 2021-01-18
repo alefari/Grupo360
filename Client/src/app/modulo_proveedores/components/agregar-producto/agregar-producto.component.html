@@ -55,7 +55,7 @@
                 <button type="button" class="btn btn-secondary" (click)="borrarForm()">
                     <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
                 </button>
-                <button [disabled]='!f.valid' data-dismiss="modal" type="button" class="btn btn-success" (click)="onSubmit()">
+                <button [disabled]='!f.valid || !valido' data-dismiss="modal" type="button" class="btn btn-success" (click)="onSubmit()">
                     <fa-icon [icon]="faPlusCircle"></fa-icon> Ingresar
                 </button>
             </div>

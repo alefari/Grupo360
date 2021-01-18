@@ -43,17 +43,11 @@ export class ModificarProveedorComponent implements OnInit {
 
   ngOnInit(): void {
     this.servicioAreas.getAreas().subscribe(
-          res => {
-            this.areas = res;
-          },
-          err => console.log(err)
-        );
+      res => {this.areas = res;},
+      err => console.log(err));
     this.servicioProveedores.getProveedores().subscribe(
-      res => {
-        this.proveedores = res;
-      },
-      err => console.log(err)
-    );
+      res => {this.proveedores = res;},
+      err => console.log(err));
   }
 
   //ENCUENTRA EL ID DEL PROVEEDOR A MODIFICAR
