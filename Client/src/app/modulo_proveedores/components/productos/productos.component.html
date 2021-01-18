@@ -6,6 +6,15 @@
         </div>
         <div class="col-9 mt-lg-3">
             <div class="btn-group float-end" role="group" aria-label="Button group with nested dropdown">
+                <button *ngIf="modoActPrecios" type="button" class="btn cool-btn btn-success" (click)='onGuardarCambios()'>
+                    <fa-icon [icon]="faPlusCircle"></fa-icon> Guardar cambios
+                </button>
+                <button *ngIf="modoActPrecios" type="button" class="btn cool-btn btn-danger" (click)='modoActPrecios=false'>
+                    <fa-icon [icon]="faPlusCircle"></fa-icon> Cancelar
+                </button>
+                <button *ngIf="!modoActPrecios" type="button" class="btn cool-btn btn-primary" (click)='modoActPreciosOn()'>
+                    <fa-icon [icon]="faPlusCircle"></fa-icon> Actualizar precios
+                </button>
                 <button type="button" class="btn cool-btn btn-success" routerLink='agregar'>
                     <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar
                 </button>
@@ -18,7 +27,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row px-4">
     <!--TABLA DE PRODUCTOS-->
     <div class="table-responsive-md mt-lg-3">
@@ -47,13 +56,14 @@
                 <th scope="col-sm-2">Área</th>
                 <th scope="col-sm-2">Proveedor</th>
                 <th scope="col-sm-2">Precio/Unidad</th>
+                <th *ngIf="modoActPrecios" scope="col-sm-2">Nuevo precio</th>
                 <th scope="col-sm-2">Fecha Actualizado</th>
                 <th scope="col-sm-2"></th>
             </tr>
         </thead>
-    
+
         <tbody>
-            <ng-container *ngFor="let producto of productosProveedores">
+            <ng-container *ngFor="let producto of productosProveedores; let i=index">
             <!--FILTROS DE TABLA DE PRODUCTOS-->
                 <tr
                 class="bg-light table-sm linea-tabla"
@@ -66,6 +76,11 @@
                     <td class="col-sm-2">{{ producto.area }}</td>
                     <td class="col-sm-2">{{ producto.nombreProveedor }}</td>
                     <td class="col-sm-2">{{ producto.precio | currency}} / {{ producto.unidad }}</td>
+                    <td *ngIf="modoActPrecios" class="col-sm-2">
+                      <form #f="ngForm">
+                        <input [(ngModel)]='preciosNuevos[i].precio' [name]="'nuevoPrecio' + i" type="number" class="form-control form-control-sm">
+                      </form>
+                    </td>
                     <td class="col-sm-2">{{ producto.fecha | date}}</td>
                     <td class="col-sm-2">
                         <!--BOTONES DE DETALLES Y ELIMINACION-->
@@ -136,7 +151,7 @@
     </div>
     </div>
     <!-- FIN DEL MODAL INFO PRODUCTO -->
-    
+
     <!-- INICIO MODAL ELIMINAR PRODUCTO -->
     <div class="modal fade" tabindex="-1" id="modalEliminar">
         <div class="modal-dialog">
@@ -159,7 +174,7 @@
         </div>
     </div>
     <!-- FIN MODAL ELIMINAR PRODUCTO -->
-    
+
     <!-- MODAL PDF DE PRODUCTO-->
     <div class="modal fade" id="pdfProveedores" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -170,7 +185,7 @@
                     <button type="button" (click)="descargarPDF()" class="btn btn-warning">
                         <fa-icon [icon]="faFileDownload"></fa-icon> Exportar
                     </button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close"> 
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">
                         <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar</button>
                 </div>
             </div>

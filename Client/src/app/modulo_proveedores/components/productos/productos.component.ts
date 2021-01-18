@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AreasService } from 'src/app/services/areas.service';
 import { ProductosProveedoresService } from 'src/app/services/productos-proveedores.service';
@@ -17,12 +17,15 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faFileDownload } from '@fortawesome/free-solid-svg-icons';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
   styleUrls: ['./productos.component.css']
 })
 export class ProductosComponent implements OnInit {
+
+  @ViewChild('f') form: NgForm;
 
   //ICONOS FONTAWESOME
   faSignInAlt = faSignInAlt;
@@ -57,6 +60,9 @@ export class ProductosComponent implements OnInit {
   }
   oculto:boolean = true;
 
+  modoActPrecios = false;
+  preciosNuevos: any[] = [];
+
   constructor(private servicioProductosProveedores: ProductosProveedoresService,
               private servicioProveedores: ProveedoresService,
               private servicioAreas: AreasService,
@@ -74,7 +80,7 @@ export class ProductosComponent implements OnInit {
         this.servicioAreas.getAreas().subscribe(
           res => {this.areas = res;},
           err => console.log(err));
-      
+
   }
 
   //FUNCION PARA BOTON DE DETALLES DE PRODUCTO
@@ -114,6 +120,15 @@ export class ProductosComponent implements OnInit {
       .save();
 
       this.oculto = true;
+  }
+
+  onGuardarCambios() {
+
+  }
+
+  modoActPreciosOn() {
+    this.modoActPrecios = true;
+    this.preciosNuevos = Object.assign({}, this.productosProveedores);
   }
 
 }

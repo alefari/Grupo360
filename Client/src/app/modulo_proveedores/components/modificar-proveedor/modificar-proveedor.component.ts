@@ -24,7 +24,7 @@ export class ModificarProveedorComponent implements OnInit {
   areas:any = [];
 
   //VARIABLES DE FUNCIONES
-  proveedorElegido: any = 
+  proveedorElegido: any =
   {
     id: null,
     nombre: null,
@@ -60,11 +60,14 @@ export class ModificarProveedorComponent implements OnInit {
   onModificar() {
     this.proveedorElegido.area = this.areas.find(area => area.nombre == this.proveedorElegido.area).id;
     this.servicioProveedores.updateProveedor(this.proveedorElegido.id, this.proveedorElegido).subscribe(
-      res => {console.log(res);},
+      res => {
+        console.log(res);
+        this.router.navigate(['proveedores/proveedores']);
+        this.form.reset();
+      },
       err => {console.log(err);}
     );
-    this.router.navigate(['proveedores/proveedores']);
-    this.form.reset();
+
   }
 
   //FUNCION PARA BORRAR FORMULARIO

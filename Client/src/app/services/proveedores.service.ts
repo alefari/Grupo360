@@ -47,10 +47,10 @@ export class ProveedoresService {
         correo: proveedor.correo,
         telefono: proveedor.telefono,
         contacto: proveedor.contacto,
-        fecha_creado: proveedor.fecha,
         rif: proveedor.rif,
         descripcion: proveedor.descripcion
       }
+      console.log(proveedorNuevo);
       return this.http.put(`${this.API_URI}/proveedores/${id}`, proveedorNuevo)
   }
 }
