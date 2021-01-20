@@ -71,12 +71,13 @@ export class AgregarProductoComponent implements OnInit {
         productoCiclo.precio!=null && productoCiclo.precio!="" &&
         productoCiclo.unidad!=null && productoCiclo.unidad!=""){
         this.servicioProductosProveedores.createProductoProveedor(productoCiclo).subscribe(
-          res => {console.log(res);},
+          res => {console.log(res);
+                  this.form.reset();
+                  this.router.navigate(['proveedores/productos']);},
           err => { console.log(err); });
       }
     }
-    this.form.reset();
-    this.router.navigate(['proveedores/productos']);
+
 
   }
   //FUNCION PARA BORRAR FORMULARIO AGREGAR

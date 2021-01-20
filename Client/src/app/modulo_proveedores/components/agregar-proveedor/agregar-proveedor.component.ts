@@ -58,10 +58,10 @@ export class AgregarProveedorComponent implements OnInit {
     if(proveedorNuevo.nombre!=null && proveedorNuevo.nombre!="" &&
       proveedorNuevo.area!=null && proveedorNuevo.area!=""){
       this.servicioProveedores.createProveedor(proveedorNuevo).subscribe(
-        res => {console.log(res);},
+        res => {console.log(res);
+                this.form.reset();
+                this.router.navigate(['proveedores/proveedores']);},
         err => { console.log(err); });
-        this.form.reset();
-        this.router.navigate(['proveedores/proveedores']);
     }
   }
   

@@ -8,13 +8,13 @@ import * as html2pdf from 'html2pdf.js';
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faListAlt } from '@fortawesome/free-solid-svg-icons';
-import { faList } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faFileDownload } from '@fortawesome/free-solid-svg-icons';
 import { NgForm } from '@angular/forms';
@@ -38,6 +38,7 @@ export class ProductosComponent implements OnInit {
   faInfoCircle = faInfoCircle;
   faTrashAlt = faTrashAlt;
   faFileDownload = faFileDownload;
+  faSyncAlt = faSyncAlt;
 
   //VARIABLES QUE ALMACENA INFO DE BD
   proveedores: any = [];
@@ -54,6 +55,19 @@ export class ProductosComponent implements OnInit {
     fecha_act: null,
     precio: null,
   }
+
+  datosActualizarProducto: any = {
+    id: null,
+    nombre: null,
+    area: null,
+    unidad: null,
+    nombreProveedor: null,
+    fecha_act: null,
+    precio: null,
+  }
+  
+  precioNuevo:number = null;
+  
   productoProveedorBorrar: any = {
     id: null,
     nombre: null,
@@ -61,7 +75,12 @@ export class ProductosComponent implements OnInit {
   oculto:boolean = true;
 
   modoActPrecios = false;
-  preciosNuevos: any[] = [];
+
+  preciosNuevos: any[] = [{
+    index: null,
+    idProductoAct: null,
+    precioNuevo: null,
+  }];
 
   constructor(private servicioProductosProveedores: ProductosProveedoresService,
               private servicioProveedores: ProveedoresService,
@@ -88,6 +107,23 @@ export class ProductosComponent implements OnInit {
     this.datosInfoProducto = producto;
   }
 
+  //FUNCION PARA BOTON DE ACTUALIZAR  PRODUCTO
+  asignarActualizar(producto:any){
+    this.datosActualizarProducto = producto;
+    console.log(this.datosActualizarProducto);
+  }
+
+  //FUNCION PARA BORRAR PRODUCTO
+  actualizarProductoPrecio() {
+    if(this.precioNuevo!=null && this.precioNuevo>=0){
+      this.servicioProductosProveedores.updatePrecioProducto(this.datosActualizarProducto.id, this.precioNuevo).subscribe(
+        res => {console.log(res);
+        this.form.reset()},
+        err => {console.log(err);});
+    } 
+  }
+  
+
   //FUNCION PARA BOTON DE BORRAR PRODUCTO (DATOS)
   asignarBorrar(id: number, nombre:string){
     this.productoProveedorBorrar.nombre = nombre;
@@ -95,7 +131,7 @@ export class ProductosComponent implements OnInit {
   }
 
   //FUNCION PARA BORRAR PRODUCTO
-  eliminarProductoProveedor() {
+  eliminarProductoProducto() {
     this.servicioProductosProveedores.deleteProductoProveedor(this.productoProveedorBorrar.id).subscribe(
       res => {console.log(res);},
       err => {console.log(err);});
@@ -128,7 +164,6 @@ export class ProductosComponent implements OnInit {
 
   modoActPreciosOn() {
     this.modoActPrecios = true;
-    this.preciosNuevos = Object.assign({}, this.productosProveedores);
   }
 
 }

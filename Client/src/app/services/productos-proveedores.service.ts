@@ -48,4 +48,12 @@ export class ProductosProveedoresService {
       }
       return this.http.put(`${this.API_URI}/productosProveedores/${id}`, productoProveedorNuevo)
   }
+
+  updatePrecioProducto(id: string, precioAct:number) {
+    let productoPrecioNuevo = {
+      precio: precioAct,
+      }
+      console.log(productoPrecioNuevo)
+      return this.http.put(`${this.API_URI}/productosProveedores/${id}`, productoPrecioNuevo)
+  }
 }

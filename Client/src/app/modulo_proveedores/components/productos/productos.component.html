@@ -77,14 +77,17 @@
                     <td class="col-sm-2">{{ producto.nombreProveedor }}</td>
                     <td class="col-sm-2">{{ producto.precio | currency}} / {{ producto.unidad }}</td>
                     <td *ngIf="modoActPrecios" class="col-sm-2">
-                      <form #f="ngForm">
-                        <input [(ngModel)]='preciosNuevos[i].precio' [name]="'nuevoPrecio' + i" type="number" class="form-control form-control-sm">
-                      </form>
+                        <form #f="ngForm">
+                            <input [(ngModel)]='preciosNuevos[i].precio' [name]="'nuevoPrecio' + i" type="number" class="form-control form-control-sm">
+                        </form>
                     </td>
                     <td class="col-sm-2">{{ producto.fecha | date}}</td>
                     <td class="col-sm-2">
                         <!--BOTONES DE DETALLES Y ELIMINACION-->
                         <div class="btn-group">
+                            <button type="button" (click)="asignarActualizar(producto)" class="btn btn-primary text-white btn-sm" data-bs-toggle="modal" data-bs-target="#modalActualizar">
+                                <fa-icon [icon]="faSyncAlt"></fa-icon>  Actualizar
+                            </button>
                             <button type="button" (click)="asignarDetalles(producto)" class="btn btn-info text-white btn-sm" data-bs-toggle="modal" data-bs-target="#modalInfo">
                                 <fa-icon [icon]="faInfoCircle"></fa-icon>  Detalles
                             </button>
@@ -157,7 +160,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header bg-danger">
-                <h5 class="modal-title text-white">Eliminar Proveedor</h5>
+                <h5 class="modal-title text-white">Eliminar Producto</h5>
             </div>
             <div class="modal-body">
                 <p>¿Estás seguro que deseas eliminar <strong>{{ productoProveedorBorrar.nombre }}</strong>?. <br> <br> <span class="text-danger">Esta acción es irreversible.</span></p>
@@ -166,7 +169,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     <fa-icon [icon]="faTimesCircle"></fa-icon> Cancelar
                 </button>
-                <button (click)="eliminarProductoProveedor()" data-bs-dismiss="modal" type="button" class="btn btn-danger">
+                <button (click)="eliminarProductoProducto()" data-bs-dismiss="modal" type="button" class="btn btn-danger">
                     <fa-icon [icon]="faTrashAlt"></fa-icon> Eliminar
                 </button>
             </div>
@@ -174,6 +177,56 @@
         </div>
     </div>
     <!-- FIN MODAL ELIMINAR PRODUCTO -->
+
+    <!-- INICIO MODAL ACTUALIZAR PRODUCTO -->
+    <form #f="ngForm">
+        <div class="modal fade" tabindex="-1" id="modalActualizar">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title text-white">Actualizar Precio Producto</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p>Usted esta actualizando el producto <strong>{{ datosActualizarProducto.nombre }}</strong> del proveedor <strong>{{ datosActualizarProducto.nombreProveedor }}</strong>?.</p>
+                        </div>
+                        <div class="row mb-4 mt-4">
+                            <div class="col">
+                                <div class="mb-2">
+                                    <label for="exampleInputEmail1">Precio actual</label>
+                                </div>
+                                <p>{{datosActualizarProducto.precio | currency}} por {{datosActualizarProducto.unidad}}</p>
+                            </div>
+                            <div class="col">
+                                <label for="exampleInputEmail1">Precio nuevo</label>
+                                <div class="input-group">
+                                    <input onkeypress="return event.charCode >= 48"
+                                    min="1"
+                                    type="number"
+                                    [(ngModel)]="precioNuevo"
+                                    [name]="'precioNuevo'"
+                                    class="form-control mt-2">
+                                    <input [placeholder]="datosActualizarProducto.unidad" disabled type="text" ngModel [name]="'unidadesAct'" class="form-control mt-2">
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <p><span class="text-danger">Esta acción es irreversible.</span></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <fa-icon [icon]="faTimesCircle"></fa-icon> Cancelar
+                        </button>
+                        <button (click)="actualizarProductoPrecio()" data-bs-dismiss="modal" type="button" class="btn btn-primary">
+                            <fa-icon [icon]="faSyncAlt"></fa-icon> Actualizar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- FIN MODAL ACTUALIZAR PRODUCTO -->
 
     <!-- MODAL PDF DE PRODUCTO-->
     <div class="modal fade" id="pdfProveedores" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -192,7 +245,7 @@
             <div class="modal-body" id='elemento-a-exportar'>
             <!-- <img src="../../../assets/logo.svg" alt="Logo" class="img-fluid" style="max-width: 75px; width: 100%; margin: 0; padding: 0"> -->
             <div class="row">
-                <h4>Proveedores</h4>
+                <h4>Productos</h4>
             </div>
             <div class="row">
                 <!--Tabla de inventario en donde se muestra el inventario general-->
