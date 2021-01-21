@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: 'proveedores', component: ProveedoresComponent },
       { path: 'proveedores/agregar', component: AgregarProveedorComponent },
       { path: 'proveedores/modificar', component: ModificarProveedorComponent },
-      { path: 'proveedores/actualizar-productos', component: ActualizarProductosComponent },
+      { path: 'proveedores/actualizar-productos/:id', component: ActualizarProductosComponent },
     ]
   }
 ];
