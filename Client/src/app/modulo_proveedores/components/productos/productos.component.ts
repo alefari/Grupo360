@@ -75,7 +75,6 @@ export class ProductosComponent implements OnInit {
   oculto:boolean = true;
 
   modoActPrecios = false;
-
   preciosNuevos: any[] = [{
     index: null,
     idProductoAct: null,
@@ -92,13 +91,13 @@ export class ProductosComponent implements OnInit {
       res => {this.proveedores = res;},
       err => console.log(err));
 
-      this.servicioProductosProveedores.getProductosProveedores().subscribe(
-        res => {this.productosProveedores = res;},
-        err => console.log(err));
+    this.servicioProductosProveedores.getProductosProveedores().subscribe(
+      res => {this.productosProveedores = res;},
+      err => console.log(err));
 
-        this.servicioAreas.getAreas().subscribe(
-          res => {this.areas = res;},
-          err => console.log(err));
+    this.servicioAreas.getAreas().subscribe(
+      res => {this.areas = res;},
+      err => console.log(err));
 
   }
 
