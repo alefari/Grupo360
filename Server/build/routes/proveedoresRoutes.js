@@ -2,14 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const proveedoresController_1 = require("../controllers/proveedoresController");
-const middlewares_1 = require("../middlewares");
 class ProveedoresRoutes {
     constructor() {
         this.router = express_1.Router();
         this.config();
     }
     config() {
-        this.router.get('/', middlewares_1.verifyToken, proveedoresController_1.proveedoresController.list);
+        this.router.get('/', proveedoresController_1.proveedoresController.list);
         // this.router.get('/', proveedoresController.list);
         this.router.post('/', proveedoresController_1.proveedoresController.create);
         this.router.put('/:id', proveedoresController_1.proveedoresController.update);

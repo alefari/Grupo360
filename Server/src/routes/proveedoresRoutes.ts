@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { proveedoresController } from '../controllers/proveedoresController';
-import {verifyToken} from '../middlewares'
 
 class ProveedoresRoutes {
     public router: Router = Router();
@@ -10,7 +9,7 @@ class ProveedoresRoutes {
     }
 
     config(): void {
-        this.router.get('/', verifyToken, proveedoresController.list);
+        this.router.get('/', proveedoresController.list);
 
         // this.router.get('/', proveedoresController.list);
         this.router.post('/', proveedoresController.create);

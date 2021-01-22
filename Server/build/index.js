@@ -39,21 +39,21 @@ class Server {
     }
     routes() {
         this.app.use('/', indexRoutes_1.default);
-        this.app.use('/herramientas', middlewares_1.verifyToken, herramientasRoutes_1.default);
-        this.app.use('/categorias', middlewares_1.verifyToken, categoriasRoutes_1.default);
-        this.app.use('/subcategorias', middlewares_1.verifyToken, subcategoriasRoutes_1.default);
-        this.app.use('/ubicaciones', middlewares_1.verifyToken, ubicacionesRoutes_1.default);
-        this.app.use('/unidades', middlewares_1.verifyToken, unidadesRoutes_1.default);
-        this.app.use('/estados', middlewares_1.verifyToken, estadosRoutes_1.default);
-        this.app.use('/ingresos', middlewares_1.verifyToken, ingresosRoutes_1.default);
-        this.app.use('/egresos', middlewares_1.verifyToken, egresosRoutes_1.default);
-        this.app.use('/eliminados', middlewares_1.verifyToken, eliminadosRoutes_1.default);
-        this.app.use('/modalidades', middlewares_1.verifyToken, modalidadesRoutes_1.default);
-        this.app.use('/empleados', middlewares_1.verifyToken, empleados_routes_1.default);
-        this.app.use('/cargos', middlewares_1.verifyToken, cargos_routes_1.default);
-        this.app.use('/proveedores', middlewares_1.verifyToken, proveedoresRoutes_1.default);
-        this.app.use('/productosProveedores', middlewares_1.verifyToken, productosProveedoresRoutes_1.default);
-        this.app.use('/areas', middlewares_1.verifyToken, areasRoutes_1.default);
+        this.app.use('/herramientas', [middlewares_1.authJwt.verifyToken], herramientasRoutes_1.default);
+        this.app.use('/categorias', [middlewares_1.authJwt.verifyToken], categoriasRoutes_1.default);
+        this.app.use('/subcategorias', [middlewares_1.authJwt.verifyToken], subcategoriasRoutes_1.default);
+        this.app.use('/ubicaciones', [middlewares_1.authJwt.verifyToken], ubicacionesRoutes_1.default);
+        this.app.use('/unidades', [middlewares_1.authJwt.verifyToken], unidadesRoutes_1.default);
+        this.app.use('/estados', [middlewares_1.authJwt.verifyToken], estadosRoutes_1.default);
+        this.app.use('/ingresos', [middlewares_1.authJwt.verifyToken], ingresosRoutes_1.default);
+        this.app.use('/egresos', [middlewares_1.authJwt.verifyToken], egresosRoutes_1.default);
+        this.app.use('/eliminados', [middlewares_1.authJwt.verifyToken], eliminadosRoutes_1.default);
+        this.app.use('/modalidades', [middlewares_1.authJwt.verifyToken], modalidadesRoutes_1.default);
+        this.app.use('/empleados', [middlewares_1.authJwt.verifyToken], empleados_routes_1.default);
+        this.app.use('/cargos', [middlewares_1.authJwt.verifyToken], cargos_routes_1.default);
+        this.app.use('/proveedores', [middlewares_1.authJwt.verifyToken], proveedoresRoutes_1.default);
+        this.app.use('/productosProveedores', [middlewares_1.authJwt.verifyToken], productosProveedoresRoutes_1.default);
+        this.app.use('/areas', [middlewares_1.authJwt.verifyToken], areasRoutes_1.default);
         this.app.use('/auth', auth_routes_1.default);
     }
     start() {

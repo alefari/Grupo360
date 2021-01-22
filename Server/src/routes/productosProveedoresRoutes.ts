@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { productosProveedoresController } from '../controllers/productosProveedoresController';
-import {verifyToken} from '../middlewares'
 
 class ProductosProveedoresRoutes {
     public router: Router = Router();
@@ -10,7 +9,7 @@ class ProductosProveedoresRoutes {
     }
 
     config(): void {
-        this.router.get('/', verifyToken, productosProveedoresController.list);
+        this.router.get('/', productosProveedoresController.list);
 
         // this.router.get('/', productosProveedoresController.list);
         this.router.post('/', productosProveedoresController.create);

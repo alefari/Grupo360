@@ -11,7 +11,7 @@ class AuthRoutes {
     config() {
         this.router.post('/signup', auth_controller_1.authController.signup);
         this.router.post('/signin', auth_controller_1.authController.signin);
-        this.router.put('/changePassword', middlewares_1.verifyToken, auth_controller_1.authController.changePassword);
+        this.router.put('/changePassword', middlewares_1.authJwt.verifyToken, auth_controller_1.authController.changePassword);
     }
 }
 const authRoutes = new AuthRoutes();

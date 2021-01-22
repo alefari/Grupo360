@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, throwError} from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { User } from './user.model';
 import { Router } from '@angular/router';
 
@@ -33,7 +33,8 @@ export class AuthService {
         const user = new User(
           resData.cedula,
           resData.token,
-          expirationDate
+          expirationDate,
+          [1]
         );
         this.user.next(user);
         this.autoLogout(+resData.expiresIn * 1000)
@@ -67,7 +68,8 @@ export class AuthService {
     const userData: {
       cedula: number,
       _token: string,
-      _tokenExpirationDate: string
+      _tokenExpirationDate: string,
+      roles: number[]
     } = JSON.parse(localStorage.getItem('userData'));
 
     if(!userData) {
@@ -77,7 +79,8 @@ export class AuthService {
     const loadedUser = new User(
       userData.cedula,
       userData._token,
-      new Date(userData._tokenExpirationDate)
+      new Date(userData._tokenExpirationDate),
+      userData.roles
     );
 
     if(loadedUser.token) {

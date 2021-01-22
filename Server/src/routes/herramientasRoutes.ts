@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { herramientasController } from '../controllers/herramientasController';
-import {verifyToken} from '../middlewares'
 
 class HerramientasRoutes {
     public router: Router = Router();
@@ -10,7 +9,7 @@ class HerramientasRoutes {
     }
 
     config(): void {
-        this.router.get('/', verifyToken, herramientasController.list);
+        this.router.get('/', herramientasController.list);
 
         // this.router.get('/', herramientasController.list);
         this.router.post('/', herramientasController.create);

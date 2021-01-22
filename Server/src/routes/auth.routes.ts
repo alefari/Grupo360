@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { authController } from '../controllers/auth.controller';
-import { verifyToken } from '../middlewares';
+import { authJwt } from '../middlewares';
 
 class AuthRoutes {
     public router: Router = Router();
@@ -12,7 +12,7 @@ class AuthRoutes {
     config(): void {
         this.router.post('/signup', authController.signup);
         this.router.post('/signin', authController.signin);
-        this.router.put('/changePassword', verifyToken, authController.changePassword);
+        this.router.put('/changePassword', authJwt.verifyToken, authController.changePassword);
     }
 }
 

@@ -13,7 +13,7 @@ import modalidadesRoutes from './routes/modalidadesRoutes';
 import authRoutes from './routes/auth.routes';
 import morgan from 'morgan';
 import cors from 'cors';
-import { verifyToken } from './middlewares';
+import { authJwt } from './middlewares';
 import empleadosRoutes from './routes/empleados.routes';
 import cargosRoutes from './routes/cargos.routes';
 import proveedoresRoutes from './routes/proveedoresRoutes';
@@ -40,21 +40,21 @@ class Server {
 
     routes(): void {
         this.app.use('/', indexRoutes);
-        this.app.use('/herramientas', verifyToken, herramientasRoutes);
-        this.app.use('/categorias', verifyToken, categoriasRoutes);
-        this.app.use('/subcategorias', verifyToken, subcategoriasRoutes);
-        this.app.use('/ubicaciones', verifyToken, ubicacionesRoutes);
-        this.app.use('/unidades', verifyToken, unidadesRoutes);
-        this.app.use('/estados', verifyToken, estadosRoutes);
-        this.app.use('/ingresos', verifyToken, ingresosRoutes);
-        this.app.use('/egresos', verifyToken, egresosRoutes);
-        this.app.use('/eliminados', verifyToken, eliminadosRoutes);
-        this.app.use('/modalidades', verifyToken, modalidadesRoutes);
-        this.app.use('/empleados', verifyToken, empleadosRoutes);
-        this.app.use('/cargos', verifyToken, cargosRoutes);
-        this.app.use('/proveedores', verifyToken, proveedoresRoutes);
-        this.app.use('/productosProveedores', verifyToken, productosProveedoresRoutes);
-        this.app.use('/areas', verifyToken, areasRoutes);
+        this.app.use('/herramientas', [authJwt.verifyToken], herramientasRoutes);
+        this.app.use('/categorias', [authJwt.verifyToken], categoriasRoutes);
+        this.app.use('/subcategorias', [authJwt.verifyToken], subcategoriasRoutes);
+        this.app.use('/ubicaciones', [authJwt.verifyToken], ubicacionesRoutes);
+        this.app.use('/unidades', [authJwt.verifyToken], unidadesRoutes);
+        this.app.use('/estados', [authJwt.verifyToken], estadosRoutes);
+        this.app.use('/ingresos', [authJwt.verifyToken], ingresosRoutes);
+        this.app.use('/egresos', [authJwt.verifyToken], egresosRoutes);
+        this.app.use('/eliminados', [authJwt.verifyToken], eliminadosRoutes);
+        this.app.use('/modalidades', [authJwt.verifyToken], modalidadesRoutes);
+        this.app.use('/empleados', [authJwt.verifyToken], empleadosRoutes);
+        this.app.use('/cargos', [authJwt.verifyToken], cargosRoutes);
+        this.app.use('/proveedores', [authJwt.verifyToken], proveedoresRoutes);
+        this.app.use('/productosProveedores', [authJwt.verifyToken], productosProveedoresRoutes);
+        this.app.use('/areas', [authJwt.verifyToken], areasRoutes);
         this.app.use('/auth', authRoutes);
     }
 

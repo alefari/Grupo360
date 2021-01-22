@@ -36,12 +36,10 @@ class AuthController {
                                 throw err;
                             if (roles) {
                                 roles.forEach((rol) => __awaiter(this, void 0, void 0, function* () {
-                                    console.log(rol);
                                     yield database_1.default.query('INSERT INTO empleados_roles set id_empleado = ?, id_rol = ?', [cedula, rol], function (err, result, fields) {
                                         return __awaiter(this, void 0, void 0, function* () {
                                             if (err)
                                                 throw err;
-                                            console.log(result);
                                         });
                                     });
                                 }));

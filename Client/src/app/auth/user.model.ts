@@ -3,7 +3,8 @@ export class User {
   constructor(
     public cedula: number,
     private _token: string,
-    private _tokenExpirationDate: Date) {
+    private _tokenExpirationDate: Date,
+    public roles: number[]) {
   }
 
 
