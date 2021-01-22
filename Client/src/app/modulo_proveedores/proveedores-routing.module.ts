@@ -8,6 +8,7 @@ import { AgregarProveedorComponent } from './components/agregar-proveedor/agrega
 import { ModificarProveedorComponent } from './components/modificar-proveedor/modificar-proveedor.component';
 import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 import { ModificarProductoComponent } from './components/modificar-producto/modificar-producto.component';
+import { ActualizarProductosComponent } from './components/actualizar-productos/actualizar-productos.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'proveedores', component: ProveedoresComponent },
       { path: 'proveedores/agregar', component: AgregarProveedorComponent },
       { path: 'proveedores/modificar', component: ModificarProveedorComponent },
+      { path: 'proveedores/actualizar-productos/:id', component: ActualizarProductosComponent },
     ]
   }
 ];

@@ -13,6 +13,7 @@ import { AgregarProveedorComponent } from './components/agregar-proveedor/agrega
 import { ModificarProveedorComponent } from './components/modificar-proveedor/modificar-proveedor.component';
 import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 import { ModificarProductoComponent } from './components/modificar-producto/modificar-producto.component';
+import { ActualizarProductosComponent } from './components/actualizar-productos/actualizar-productos.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ModificarProductoComponent } from './components/modificar-producto/modi
     AgregarProveedorComponent,
     ModificarProveedorComponent,
     AgregarProductoComponent,
-    ModificarProductoComponent
+    ModificarProductoComponent,
+    ActualizarProductosComponent
   ],
   imports: [
     CommonModule,

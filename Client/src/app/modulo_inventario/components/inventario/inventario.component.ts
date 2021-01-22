@@ -23,6 +23,7 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faFileDownload } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -44,6 +45,7 @@ export class InventarioComponent implements OnInit {
   faPlusCircle = faPlusCircle;
   faInfoCircle = faInfoCircle;
   faSearch = faSearch;
+  faFileDownload = faFileDownload;
 
   oculto = true;
 

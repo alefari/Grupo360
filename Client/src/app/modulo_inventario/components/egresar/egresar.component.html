@@ -1,92 +1,104 @@
-<div class="bg-white shadow-lg container">
-    <div class="container pt-3">
-        <h3>Egreso</h3>
-    </div>
-    <div class='container'>
-        <form #f="ngForm">
-            <div *ngFor="let item of idsEgreso; let i=index">
-                <h5>Item {{i+1}}</h5>
-                    <div class="row mt-3 mb-4">
-                        <div class="col-3">
-                        <label>Categoría</label>
-                        <select (change)='borrarId(i);' required class="form-select mt-2" ngModel [name]="'selectCat'+[i]" #selectCat="ngModel">
-                            <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
-                        </select>
-                        <small *ngIf="!selectCat.valid && selectCat.touched" class="text-danger">Ingrese una categoría.</small>
+<div class="margin-top-form">
+    <div class="container">
+        <div class="body form-body-style">
+            <div class="container pt-3 form-header-style header-color-egresar">
+                <div class="mx-auto">
+                    <h3>Egresar Producto</h3>
+                </div>  
+            </div>
+            <div class='container pe-5 ps-5 pt-2'>
+                <form #f="ngForm">
+                    <div *ngFor="let item of idsEgreso; let i=index">
+                        <div class="container mt-2">
+                            <h5>Item {{i+1}}</h5>
                         </div>
-                        <div class="col-3">
-                            <label>Subcategoría</label>
-                            <select (change)='borrarId(i);' required class="form-select mt-2" ngModel [name]="'selectSubcat'+[i]" #selectSubcat="ngModel">
-                                <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
-                            </select>
-                            <small *ngIf="!selectSubcat.valid && selectSubcat.touched" class="text-danger">Ingrese una subcategoría.</small>
-                        </div>
-                        <div class="col-3">
-                            <label>Item</label>
-                            <select [(ngModel)]='idsEgreso[i].id' required class="form-select mt-2" [name]="'idItem'+[i]" #selectItem='ngModel'>
-                            <!--FILTRO DE ITEM POR CAT Y SUBCAT-->
-                                <ng-container *ngFor="let item of inventario">
-                                <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
-                                <option *ngIf="item.categoria == selectCat.value && item.subcategoria == selectSubcat.value && item.estado == 'Disponible'" value='{{item.id}}'>{{ item.nombre }}</option>
-                                </ng-container>
-                            </select>
-                            <small *ngIf="!selectItem.valid && selectItem.touched" class="text-danger">Ingrese un item.</small>
-                        </div>
-                        <div class="col-3 mb-2">
-                        <!--LABEL E INPUT DE CANTIDAD ACTUAL EN INVENTARIO-->
-                            <label for="exampleInputEmail1">Cantidad actual</label>
-                            <p *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''">{{inventario[regresarIndice(i)].cantidad}} {{inventario[regresarIndice(i)].unidades}}</p>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <!--LABEL E INPUT CON CANTIDAD A EGRESAR-->
-                        <div class="col-4">
-                                <label for="exampleInputEmail1">Cantidad a egresar</label>
-                                <div class="input-group">
-                                <input *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''"
-                                onkeypress="return event.charCode >= 48"
-                                min="1"
-                                [max]="inventario[regresarIndice(i)].cantidad" type="number"
-                                [(ngModel)]="idsEgreso[i].cantidad"
-                                [name]="'cantidadEgreso'+[i]"
-                                class="form-control mt-2"
-                                (keyup)='revisarCantidad(inventario[regresarIndice(i)].cantidad)'>
-                                <input *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''" [placeholder]="inventario[regresarIndice(i)].unidades" disabled type="text" ngModel [name]="'unidades' + [i]" class="form-control mt-2">
+                        <div class="container">
+                            <div class="row mt-3 mb-4">
+                                <div class="col-3">
+                                <label>Categoría</label>
+                                <select (change)='borrarId(i);' required class="form-select mt-2" ngModel [name]="'selectCat'+[i]" #selectCat="ngModel">
+                                    <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
+                                </select>
+                                <small *ngIf="!selectCat.valid && selectCat.touched" class="text-danger">Ingrese una categoría.</small>
+                                </div>
+                                <div class="col-3">
+                                    <label>Subcategoría</label>
+                                    <select (change)='borrarId(i);' required class="form-select mt-2" ngModel [name]="'selectSubcat'+[i]" #selectSubcat="ngModel">
+                                        <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
+                                    </select>
+                                    <small *ngIf="!selectSubcat.valid && selectSubcat.touched" class="text-danger">Ingrese una subcategoría.</small>
+                                </div>
+                                <div class="col-3">
+                                    <label>Item</label>
+                                    <select [(ngModel)]='idsEgreso[i].id' required class="form-select mt-2" [name]="'idItem'+[i]" #selectItem='ngModel'>
+                                    <!--FILTRO DE ITEM POR CAT Y SUBCAT-->
+                                        <ng-container *ngFor="let item of inventario">
+                                        <!--NgIf que filtra Items impresos de acuerdo al Item seleccionado-->
+                                        <option *ngIf="item.categoria == selectCat.value && item.subcategoria == selectSubcat.value && item.estado == 'Disponible'" value='{{item.id}}'>{{ item.nombre }}</option>
+                                        </ng-container>
+                                    </select>
+                                    <small *ngIf="!selectItem.valid && selectItem.touched" class="text-danger">Ingrese un item.</small>
+                                </div>
+                                <div class="col-3 mb-2">
+                                <!--LABEL E INPUT DE CANTIDAD ACTUAL EN INVENTARIO-->
+                                    <label for="exampleInputEmail1">Cantidad actual</label>
+                                    <p *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''">{{inventario[regresarIndice(i)].cantidad}} {{inventario[regresarIndice(i)].unidades}}</p>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <!--LABEL E INPUT CON CANTIDAD A EGRESAR-->
+                                <div class="col-4">
+                                        <label for="exampleInputEmail1">Cantidad a egresar</label>
+                                        <div class="input-group">
+                                        <input *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''"
+                                        onkeypress="return event.charCode >= 48"
+                                        min="1"
+                                        [max]="inventario[regresarIndice(i)].cantidad" type="number"
+                                        [(ngModel)]="idsEgreso[i].cantidad"
+                                        [name]="'cantidadEgreso'+[i]"
+                                        class="form-control mt-2"
+                                        (keyup)='revisarCantidad(inventario[regresarIndice(i)].cantidad)'>
+                                        <input *ngIf="idsEgreso[i].id != null && idsEgreso[i].id != undefined && idsEgreso[i].id != ''" [placeholder]="inventario[regresarIndice(i)].unidades" disabled type="text" ngModel [name]="'unidades' + [i]" class="form-control mt-2">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <label for="exampleInputEmail1">Obra destino</label>
+                                    <input [(ngModel)]='idsEgreso[i].obra' [name]="'obra'+[i]" class="form-control mt-2">
+                                </div>
+                                <div class="col-4">
+                                    <label for="exampleInputEmail1">Responsable</label>
+                                    <input [(ngModel)]='idsEgreso[i].responsable' [name]="'responsable'+[i]" class="form-control mt-2">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <label for="exampleInputEmail1">Obra destino</label>
-                            <input [(ngModel)]='idsEgreso[i].obra' [name]="'obra'+[i]" class="form-control mt-2">
-                        </div>
-                        <div class="col-4">
-                            <label for="exampleInputEmail1">Responsable</label>
-                            <input [(ngModel)]='idsEgreso[i].responsable' [name]="'responsable'+[i]" class="form-control mt-2">
+                    </div>
+                    
+                    <!-- BOTONES DEL FORMULARIO DE EGRESO -->
+                    <div class="form-footer-style">
+                        <div class='modal-footer'>
+                            <div class="btn-group">
+                            <button type="button" class="btn btn-primary" (click)="agregarItem()">
+                                <fa-icon [icon]="faPlusCircle"></fa-icon> Más Items
+                            </button>
+                            <button [hidden]="idsEgreso.length == 1" type="button" class="btn btn-secondary" (click)="restarItem()">
+                                <fa-icon [icon]="faMinusCircle"></fa-icon> Menos Items
+                            </button>
+                            </div>
+                            <button type="button" class="btn btn-secondary" (click)="borrarForm()">
+                                <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-warning"
+                                (click)="egresarItems()"
+                                [disabled]='!valido || !f.valid'>
+                                <fa-icon [icon]="faSignOutAlt"></fa-icon> Egresar
+                            </button>
                         </div>
                     </div>
+                </form>
             </div>
-            
-            <!-- BOTONES DEL FORMULARIO DE EGRESO -->
-            <div class='modal-footer'>
-                <div class="btn-group">
-                <button type="button" class="btn btn-primary" (click)="agregarItem()">
-                    <fa-icon [icon]="faPlusCircle"></fa-icon> Más Items
-                </button>
-                <button [hidden]="idsEgreso.length == 1" type="button" class="btn btn-secondary" (click)="restarItem()">
-                    <fa-icon [icon]="faMinusCircle"></fa-icon> Menos Items
-                </button>
-                </div>
-                <button type="button" class="btn btn-secondary" (click)="borrarForm()">
-                    <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-warning"
-                    (click)="egresarItems()"
-                    [disabled]='!valido || !f.valid'>
-                    <fa-icon [icon]="faSignOutAlt"></fa-icon> Egresar
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 

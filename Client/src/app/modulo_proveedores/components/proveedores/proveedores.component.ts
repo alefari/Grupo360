@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AreasService } from 'src/app/services/areas.service';
 import { ProveedoresService } from '../../../services/proveedores.service'
 import * as html2pdf from 'html2pdf.js';
+import { AuthService } from 'src/app/auth/auth.service';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +17,7 @@ import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faFileDownload } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-proveedores',
@@ -60,7 +62,9 @@ export class ProveedoresComponent implements OnInit {
   oculto:boolean = true;
 
   constructor(private servicioProveedores: ProveedoresService,
-              private servicioAreas: AreasService) { }
+              private servicioAreas: AreasService,
+              public router: Router,
+              private auth: AuthService) { }
 
   ngOnInit(): void {
     this.servicioProveedores.getProveedores().subscribe(
@@ -120,5 +124,10 @@ export class ProveedoresComponent implements OnInit {
       .save();
 
       this.oculto = true;
+  }
+
+  //FUNCION PARA NAVEGAR A ACTUALIZAR PRODUCTOS
+  aActualizar(id: string) {
+    this.router.navigate([`actualizar-productos/${id}`]);
   }
 }

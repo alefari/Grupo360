@@ -1,49 +1,35 @@
+import { identifierName } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { NgForm, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AreasService } from 'src/app/services/areas.service';
 import { ProductosProveedoresService } from 'src/app/services/productos-proveedores.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
-import * as html2pdf from 'html2pdf.js';
+import { UnidadesService } from 'src/app/services/unidades.service';
 
 //ICONOS FONTAWESOME
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
-import { faListAlt } from '@fortawesome/free-solid-svg-icons';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { faFileDownload } from '@fortawesome/free-solid-svg-icons';
-import { NgForm } from '@angular/forms';
-@Component({
-  selector: 'app-productos',
-  templateUrl: './productos.component.html',
-  styleUrls: ['./productos.component.css']
-})
-export class ProductosComponent implements OnInit {
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
+@Component({
+  selector: 'app-actualizar-productos',
+  templateUrl: './actualizar-productos.component.html',
+  styleUrls: ['./actualizar-productos.component.css']
+})
+export class ActualizarProductosComponent implements OnInit {
   @ViewChild('f') form: NgForm;
 
   //ICONOS FONTAWESOME
-  faSignInAlt = faSignInAlt;
-  faListAlt = faListAlt;
-  faSignOutAlt = faSignOutAlt;
   faTimesCircle = faTimesCircle;
-  faExclamationCircle = faExclamationCircle;
-  faPencilAlt = faPencilAlt;
   faPlusCircle = faPlusCircle;
-  faInfoCircle = faInfoCircle;
-  faTrashAlt = faTrashAlt;
-  faFileDownload = faFileDownload;
-  faSyncAlt = faSyncAlt;
+  faMinusCircle = faMinusCircle;
 
-  //VARIABLES QUE ALMACENA INFO DE BD
+  //VARRIABLES DE BD
+  productosProveedores:any = [];
+  areas:any = [];
   proveedores: any = [];
-  productosProveedores: any = [];
-  areas: any = [];
+  idProducto = null;
 
   //VARIABLES DE FUNCIONES COMPONENT
   datosInfoProducto: any = {
@@ -65,40 +51,45 @@ export class ProductosComponent implements OnInit {
     fecha_act: null,
     precio: null,
   }
-  
+
+  datosProveedor: any = {
+    id: null,
+    nombre: null,
+    id_area: null,
+    direccion: null,
+    correo: null,
+    telefono: null,
+    contacto: null,
+    rif: null,
+    descripcion: null
+    }
+
   precioNuevo:number = null;
   
   productoProveedorBorrar: any = {
     id: null,
     nombre: null,
   }
-  oculto:boolean = true;
-
-  modoActPrecios = false;
-  preciosNuevos: any[] = [{
-    index: null,
-    idProductoAct: null,
-    precioNuevo: null,
-  }];
 
   constructor(private servicioProductosProveedores: ProductosProveedoresService,
-              private servicioProveedores: ProveedoresService,
               private servicioAreas: AreasService,
-              private router: Router) { }
+              private servicioProveedores: ProveedoresService,
+              private router: Router,
+              private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
-    this.servicioProveedores.getProveedores().subscribe(
-      res => {this.proveedores = res;},
-      err => console.log(err));
-
+    this.idProducto = this.route.snapshot.params['id'];
     this.servicioProductosProveedores.getProductosProveedores().subscribe(
       res => {this.productosProveedores = res;},
-      err => console.log(err));
-
+      err => console.log(err));   
     this.servicioAreas.getAreas().subscribe(
       res => {this.areas = res;},
-      err => console.log(err));
-
+      err => console.log(err));  
+    this.servicioProveedores.getProveedores().subscribe(
+      res => {this.areas = res;
+      this.proveedores.find},
+      err => console.log(err)); 
+    this.datosProveedor = Object.assign({}, this.productosProveedores.find(producto => producto.id == this.idProducto));
   }
 
   //FUNCION PARA BOTON DE DETALLES DE PRODUCTO
@@ -121,7 +112,6 @@ export class ProductosComponent implements OnInit {
         err => {console.log(err);});
     } 
   }
-  
 
   //FUNCION PARA BOTON DE BORRAR PRODUCTO (DATOS)
   asignarBorrar(id: number, nombre:string){
@@ -135,34 +125,4 @@ export class ProductosComponent implements OnInit {
       res => {console.log(res);},
       err => {console.log(err);});
   }
-
-  //FUNCION PARA DESCARGAR PDF DE PRODUCTO
-  descargarPDF() {
-    this.oculto = false;
-    const opciones = {
-      margin: 1,
-      filename: 'Productos_Proveedores.pdf',
-      image: {type: 'jpeg', quality: 1},
-      html2canvas: {},
-      jsPDF: {unit: 'cm', format: 'letter', orientation: 'portrait'}
-    };
-
-    const contenido: Element = document.getElementById('elemento-a-exportar');
-
-    html2pdf()
-      .from(contenido)
-      .set(opciones)
-      .save();
-
-      this.oculto = true;
-  }
-
-  onGuardarCambios() {
-
-  }
-
-  modoActPreciosOn() {
-    this.modoActPrecios = true;
-  }
-
 }

@@ -1,0 +1,209 @@
+<div class="bg-white shadow-lg container body">
+    <div class="container pt-3">
+        <div class="mx-auto">
+            <h3>Actualizar productos de: {{ datosProveedor.nombre }}</h3>
+        </div>  
+    </div>
+    <div class="container">
+    <!-- INICIO DEL MODAL ACTUALIZAR PRODUCTOS -->
+    <form #f="ngForm">
+        <div class="table-responsive-md mt-lg-3">
+            <table class="table table-sm shadow table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <!--FILTROS TABLA DE PRODUCTOS-->
+                        <th scope="col-2">
+                            <input #filtroNombre="ngModel" class="w-75 form-control form-control-sm" ngModel name="filtroNombre" type="text" placeholder="Filtro por nombre">
+                        </th>
+                        <th scope="col-2">
+                            <select #filtroArea="ngModel" class="form-select form-select-sm" ngModel name="filtroArea">
+                            <option value="">Area (Todas)</option>
+                            <option [value]="area.nombre" *ngFor="let area of areas">{{ area.nombre }}</option>
+                            </select>
+                        </th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col-sm-2">Nombre</th>
+                        <th scope="col-sm-2">Área</th>
+                        <th scope="col-sm-2">Precio/Unidad</th>
+                        <th scope="col-sm-2">Fecha Actualizado</th>
+                        <th scope="col-sm-2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let producto of productosProveedores; let i=index">
+                    <!--FILTROS DE TABLA DE PRODUCTOS-->
+                        <tr
+                        class="bg-light table-sm linea-tabla"
+                        scope="row"
+                        *ngIf="(
+                        (producto.nombre.toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value == '')
+                        &&
+                        (producto.area.toLocaleLowerCase().includes(filtroArea.value.toLowerCase()) || filtroArea.value == ''))">
+                            <td class="col-sm-2">{{ producto.nombre }}</td>
+                            <td class="col-sm-2">{{ producto.area }}</td>
+                            <td class="col-sm-2">{{ producto.precio | currency}} / {{ producto.unidad }}</td>
+                            <td class="col-sm-2">{{ producto.fecha | date}}</td>
+                            <td class="col-sm-2">
+                                <!--BOTONES DE DETALLES, ACTUALIZAR Y ELIMINACION-->
+                                <div class="btn-group">
+                                    <button type="button" (click)="asignarActualizar(producto)" class="btn btn-primary text-white btn-sm" data-bs-toggle="modal" data-bs-target="#modalActualizar">
+                                        Actualizar
+                                    </button>
+                                    <button type="button" (click)="asignarDetalles(producto)" class="btn btn-info text-white btn-sm" data-bs-toggle="modal" data-bs-target="#modalInfo">
+                                        Detalles
+                                    </button>
+                                    <button type="button" (click)="asignarBorrar(producto.id, producto.nombre)" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEliminar">
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+                
+
+    <!--FOOTER DEL MODAL ACTUALIZAR (FUNCIONES)-->
+    <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" >
+                Cerrar
+            </button>
+            <button [disabled]='!f.valid' data-dismiss="modal" type="button" class="btn btn-success" >
+                Ingresar
+            </button>
+    </div>
+    </form>
+</div>
+</div>
+
+
+<!-- MODAL DE INFO PRODUCTO -->
+<div class="modal fade" id="modalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header bg-info">
+            <h5 class="modal-title text-white" id="exampleModalLabel"><strong>{{ datosInfoProducto.nombre }}</strong></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-sm">
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <td></td>
+                    <td>{{ datosInfoProducto.id }}</td>
+                </tr>
+                <tr>
+                    <th>Área</th>
+                    <td></td>
+                    <td>{{ datosInfoProducto.area }}</td>
+                </tr>
+                <tr>
+                    <th>Proveedor</th>
+                    <td></td>
+                    <td>{{ datosInfoProducto.nombreProveedor }}</td>
+                </tr>
+                <tr *ngIf="datosInfoProducto.precio != null && datosInfoProducto.unidad != null">
+                    <th>Precio</th>
+                    <td></td>
+                    <td>{{ datosInfoProducto.precio | currency }} / {{ datosInfoProducto.unidad }}</td>
+                </tr>
+                <tr *ngIf="datosInfoProducto.fecha != null">
+                    <th>Fecha Actualizado</th>
+                    <td></td>
+                    <td>{{ datosInfoProducto.fecha | date }}</td>
+                </tr>
+                <tr><th></th><td></td><td></td></tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+            </button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <!-- FIN DEL MODAL INFO PRODUCTO -->
+
+    <!-- INICIO MODAL ELIMINAR PRODUCTO -->
+    <div class="modal fade" tabindex="-1" id="modalEliminar">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title text-white">Eliminar Producto</h5>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro que deseas eliminar <strong>{{ productoProveedorBorrar.nombre }}</strong>?. <br> <br> <span class="text-danger">Esta acción es irreversible.</span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+                <button (click)="eliminarProductoProducto()" data-bs-dismiss="modal" type="button" class="btn btn-danger">
+                    Eliminar
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN MODAL ELIMINAR PRODUCTO -->
+
+    <!-- INICIO MODAL ACTUALIZAR PRODUCTO -->
+    <form #f="ngForm">
+        <div class="modal fade" tabindex="-1" id="modalActualizar">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title text-white">Actualizar Precio Producto</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p>Usted esta actualizando el producto <strong>{{ datosActualizarProducto.nombre }}</strong> del proveedor <strong>{{ datosActualizarProducto.nombreProveedor }}</strong>?.</p>
+                        </div>
+                        <div class="row mb-4 mt-4">
+                            <div class="col">
+                                <div class="mb-2">
+                                    <label for="exampleInputEmail1">Precio actual</label>
+                                </div>
+                                <p>{{datosActualizarProducto.precio | currency}} por {{datosActualizarProducto.unidad}}</p>
+                            </div>
+                            <div class="col">
+                                <label for="exampleInputEmail1">Precio nuevo</label>
+                                <div class="input-group">
+                                    <input onkeypress="return event.charCode >= 48"
+                                    min="1"
+                                    type="number"
+                                    [(ngModel)]="precioNuevo"
+                                    [name]="'precioNuevo'"
+                                    class="form-control mt-2">
+                                    <input [placeholder]="datosActualizarProducto.unidad" disabled type="text" ngModel [name]="'unidadesAct'" class="form-control mt-2">
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <p><span class="text-danger">Esta acción es irreversible.</span></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <fa-icon [icon]="faTimesCircle"></fa-icon> Cancelar
+                        </button>
+                        <button (click)="actualizarProductoPrecio()" data-bs-dismiss="modal" type="button" class="btn btn-primary">
+                            Actualizar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- FIN MODAL ACTUALIZAR PRODUCTO -->
+

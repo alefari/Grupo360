@@ -1,66 +1,73 @@
-<div class="bg-white shadow-lg container body">
-    <div class="container pt-3">
-        <div class="mx-auto">
-            <h3>Agregar Proveedor</h3>
-        </div>  
-    </div>
+<div class="margin-top-form">
     <div class="container">
-    <!-- INICIO DEL MODAL AGREGAR PROVEEDOR -->
-    <form #f="ngForm">
-                <div class="row mt-3 mb-4">
-                    <div class="col-4">
-                        <label>Nombre</label>
-                        <input #nombre="ngModel" [(ngModel)]="nuevoProveedor.nombre" required type="text" [name]="'nombre'" class="form-control mt-2">
-                        <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingrese un nombre.</small>
-                    </div>
-                    <div class="col-3">
-                        <label for="exampleFormControlSelect1">Área</label>
-                        <select #area="ngModel" [(ngModel)]="nuevoProveedor.area" required class="form-select mt-2"  [name]="'area'">
-                        <option *ngFor="let area of areas" value="{{ area.id }}">{{ area.nombre }}</option>
-                        </select>
-                        <small *ngIf="!area.valid && area.touched" class="text-danger">Ingrese un área.</small>
-                    </div>
-                    <div class="col-5">
-                        <label>RIF</label>
-                        <input type="text" [(ngModel)]="nuevoProveedor.rif" [name]="'rif'" class="form-control mt-2" aria-describedby="emailHelp">
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-4" >
-                        <label>Correo</label>
-                        <input type="text" [(ngModel)]="nuevoProveedor.correo" [name]="'correo'" class="form-control mt-2" aria-describedby="emailHelp">
-                    </div>
-                    <div class="col-4">
-                        <label>Teléfono</label>
-                        <input type="text" [(ngModel)]="nuevoProveedor.telefono" [name]="'telefono'" class="form-control mt-2" aria-describedby="emailHelp">
-                    </div>
-                    <div class="col-4">
-                        <label>Contacto</label>
-                        <input type="text" [(ngModel)]="nuevoProveedor.contacto" [name]="'contacto'" class="form-control mt-2" aria-describedby="emailHelp">
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col">
-                        <label>Dirección</label>
-                        <input type="text" [(ngModel)]="nuevoProveedor.direccion" [name]="'direccion'" class="form-control mt-2" aria-describedby="emailHelp">
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col">
-                        <label>Descripción</label>
-                        <input type="text" [(ngModel)]="nuevoProveedor.descripcion" [name]="'descripcion'" class="form-control mt-2" aria-describedby="emailHelp">
-                    </div>
-                </div>
+        <div class="body form-body-style">
+            <div class="container pt-3 form-header-style header-color-agregar">
+                <div class="mx-auto">
+                    <h3>Agregar Proveedor</h3>
+                </div>  
+            </div>
+            <div class="container pe-5 ps-5 pt-2">
+            <!-- INICIO DEL MODAL AGREGAR PROVEEDOR -->
+                <form #f="ngForm">
+                        <div class="row mt-3 mb-4">
+                            <div class="col-4">
+                                <label>Nombre</label>
+                                <input #nombre="ngModel" [(ngModel)]="nuevoProveedor.nombre" required type="text" [name]="'nombre'" class="form-control mt-2">
+                                <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingrese un nombre.</small>
+                            </div>
+                            <div class="col-3">
+                                <label for="exampleFormControlSelect1">Área</label>
+                                <select #area="ngModel" [(ngModel)]="nuevoProveedor.area" required class="form-select mt-2"  [name]="'area'">
+                                <option *ngFor="let area of areas" value="{{ area.id }}">{{ area.nombre }}</option>
+                                </select>
+                                <small *ngIf="!area.valid && area.touched" class="text-danger">Ingrese un área.</small>
+                            </div>
+                            <div class="col-5">
+                                <label>RIF</label>
+                                <input type="text" [(ngModel)]="nuevoProveedor.rif" [name]="'rif'" class="form-control mt-2" aria-describedby="emailHelp">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-4" >
+                                <label>Correo</label>
+                                <input type="text" [(ngModel)]="nuevoProveedor.correo" [name]="'correo'" class="form-control mt-2" aria-describedby="emailHelp">
+                            </div>
+                            <div class="col-4">
+                                <label>Teléfono</label>
+                                <input type="text" [(ngModel)]="nuevoProveedor.telefono" [name]="'telefono'" class="form-control mt-2" aria-describedby="emailHelp">
+                            </div>
+                            <div class="col-4">
+                                <label>Contacto</label>
+                                <input type="text" [(ngModel)]="nuevoProveedor.contacto" [name]="'contacto'" class="form-control mt-2" aria-describedby="emailHelp">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label>Dirección</label>
+                                <input type="text" [(ngModel)]="nuevoProveedor.direccion" [name]="'direccion'" class="form-control mt-2" aria-describedby="emailHelp">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label>Descripción</label>
+                                <input type="text" [(ngModel)]="nuevoProveedor.descripcion" [name]="'descripcion'" class="form-control mt-2" aria-describedby="emailHelp">
+                            </div>
+                        </div>
 
-    <!--FOOTER DEL MODAL AGREGAR (FUNCIONES)-->
-    <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="borrarForm()">
-                <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
-            </button>
-            <button [disabled]='!f.valid' data-dismiss="modal" type="button" class="btn btn-success" (click)="onSubmit()">
-                <fa-icon [icon]="faPlusCircle"></fa-icon> Ingresar
-            </button>
+                    <!--FOOTER DEL MODAL AGREGAR (FUNCIONES)-->
+                    <div class="form-footer-style">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="borrarForm()">
+                                <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+                            </button>
+                            <button [disabled]='!f.valid' data-dismiss="modal" type="button" class="btn btn-success" (click)="onSubmit()">
+                                <fa-icon [icon]="faPlusCircle"></fa-icon> Ingresar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    </form>
 </div>
-</div>
+
