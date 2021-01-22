@@ -1,75 +1,83 @@
-<div class="bg-white shadow-lg container body">
-    <div class="container pt-3 mb-4">
-        <div class="mx-auto">
-            <h3>Agregar Proveedor</h3>
-        </div>  
-    </div>
+<div class="margin-top-form">
     <div class="container">
-        <!-- INICIO DEL MODAL AGREGAR PROVEEDOR -->
-        <form #f="ngForm">
-            <div *ngFor="let prod of nuevoProducto; let i=index">
-                <h5>Producto {{i+1}}</h5>
-                <div class="container">
-                    <div class="row mt-3 mb-4">
-                        <div class="col-3">
-                            <label>Nombre</label>
-                            <input #nombre="ngModel" [(ngModel)]="nuevoProducto[i].nombre" required type="text" [name]="'nombre'+ [i]" class="form-control mt-2">
-                            <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingrese un nombre.</small>
+        <div class="body form-body-style">
+            <div class="container pt-3 form-header-style header-color-agregar">
+                <div class="mx-auto">
+                    <h3>Agregar Producto</h3>
+                </div>  
+            </div>
+            <div class="container pe-5 ps-5 pt-2">
+                <!-- INICIO DEL MODAL AGREGAR PRODUCTO -->
+                <form #f="ngForm">
+                    <div *ngFor="let prod of nuevoProducto; let i=index">
+                        <div class="container mt-2">
+                            <h5>Producto {{i+1}}</h5>
                         </div>
-                        <div class="col-3">
-                            <label for="exampleFormControlSelect1">Área</label>
-                            <select #area="ngModel" [(ngModel)]="nuevoProducto[i].area" required class="form-select mt-2"  [name]="'area'+ [i]">
-                                <option *ngFor="let area of areas" value="{{ area.id }}">{{ area.nombre }}</option>
-                            </select>
-                            <small *ngIf="!area.valid && area.touched" class="text-danger">Ingrese un área.</small>
-                        </div>
-                        <div class="col-3">
-                            <label for="exampleFormControlSelect1">Proveedor</label>
-                                <select #proveedor="ngModel" [(ngModel)]="nuevoProducto[i].proveedor" required class="form-select mt-2"  [name]="'proveedor'+ [i]">
-                            <option *ngFor="let prov of proveedores" value="{{ prov.id }}">{{ prov.nombre }}</option>
-                            </select>
-                            <small *ngIf="!area.valid && area.touched" class="text-danger">Ingrese un proveedor.</small>
-                        </div>
-                        <div class="col-3">
-                            <label for="exampleInputPassword1">Precio y Unidades</label>
-                            <div class="input-group">
-                            <input
-                                onkeypress="return event.charCode >= 46"
-                                min="1"
-                                #cantidad="ngModel"
-                                required
-                                type="number"
-                                [(ngModel)]="nuevoProducto[i].precio"
-                                [name]="'precio'+ [i]"
-                                class="form-control mt-2"
-                                (keyup)='revisarPrecio()'>
-                            <select #unidadX="ngModel" required type="text" placeholder="0" [(ngModel)]="nuevoProducto[i].unidad" [name]="'unidades'+ [i]" class="form-select mt-2">
-                                <option *ngFor="let unidad of unidades" value="{{ unidad.id }}">{{ unidad.nombre }}</option>
-                            </select>
+                        <div class="container">
+                            <div class="row mt-3 mb-4">
+                                <div class="col-3">
+                                    <label>Nombre</label>
+                                    <input #nombre="ngModel" [(ngModel)]="nuevoProducto[i].nombre" required type="text" [name]="'nombre'+ [i]" class="form-control mt-2">
+                                    <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingrese un nombre.</small>
+                                </div>
+                                <div class="col-3">
+                                    <label for="exampleFormControlSelect1">Área</label>
+                                    <select #area="ngModel" [(ngModel)]="nuevoProducto[i].area" required class="form-select mt-2"  [name]="'area'+ [i]">
+                                        <option *ngFor="let area of areas" value="{{ area.id }}">{{ area.nombre }}</option>
+                                    </select>
+                                    <small *ngIf="!area.valid && area.touched" class="text-danger">Ingrese un área.</small>
+                                </div>
+                                <div class="col-3">
+                                    <label for="exampleFormControlSelect1">Proveedor</label>
+                                        <select #proveedor="ngModel" [(ngModel)]="nuevoProducto[i].proveedor" required class="form-select mt-2"  [name]="'proveedor'+ [i]">
+                                    <option *ngFor="let prov of proveedores" value="{{ prov.id }}">{{ prov.nombre }}</option>
+                                    </select>
+                                    <small *ngIf="!area.valid && area.touched" class="text-danger">Ingrese un proveedor.</small>
+                                </div>
+                                <div class="col-3">
+                                    <label for="exampleInputPassword1">Precio y Unidades</label>
+                                    <div class="input-group">
+                                    <input
+                                        onkeypress="return event.charCode >= 46"
+                                        min="1"
+                                        #cantidad="ngModel"
+                                        required
+                                        type="number"
+                                        [(ngModel)]="nuevoProducto[i].precio"
+                                        [name]="'precio'+ [i]"
+                                        class="form-control mt-2"
+                                        (keyup)='revisarPrecio()'>
+                                    <select #unidadX="ngModel" required type="text" placeholder="0" [(ngModel)]="nuevoProducto[i].unidad" [name]="'unidades'+ [i]" class="form-select mt-2">
+                                        <option *ngFor="let unidad of unidades" value="{{ unidad.id }}">{{ unidad.nombre }}</option>
+                                    </select>
+                                    </div>
+                                    <small *ngIf="!cantidad.valid && cantidad.touched" class="text-danger">Ingrese un precio.<br></small>
+                                    <small *ngIf="!unidadX.valid && unidadX.touched" class="text-danger">Ingrese una unidad.</small>
+                                </div>
                             </div>
-                            <small *ngIf="!cantidad.valid && cantidad.touched" class="text-danger">Ingrese un precio.<br></small>
-                            <small *ngIf="!unidadX.valid && unidadX.touched" class="text-danger">Ingrese una unidad.</small>
                         </div>
                     </div>
-                </div>
+                    <!--FOOTER DEL MODAL AGREGAR (FUNCIONES)-->
+                    <div class="form-footer-style">
+                        <div class="modal-footer">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" (click)="agregarProducto()">
+                                    <fa-icon [icon]="faPlusCircle"></fa-icon> Más Items
+                                </button>
+                                <button type="button" [hidden]="nuevoProducto.length == 1" class="btn btn-secondary" [disabled]="nuevoProducto.length == 1"  (click)="nuevoProducto.pop()">
+                                    <fa-icon [icon]="faMinusCircle"></fa-icon> Menos Items
+                                </button>
+                            </div>
+                            <button type="button" class="btn btn-secondary" (click)="borrarForm()">
+                                <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+                            </button>
+                            <button [disabled]='!f.valid || !valido' data-dismiss="modal" type="button" class="btn btn-success" (click)="onSubmit()">
+                                <fa-icon [icon]="faPlusCircle"></fa-icon> Ingresar
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <!--FOOTER DEL MODAL AGREGAR (FUNCIONES)-->
-            <div class="modal-footer">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary" (click)="agregarProducto()">
-                        <fa-icon [icon]="faPlusCircle"></fa-icon> Más Items
-                    </button>
-                    <button type="button" [hidden]="nuevoProducto.length == 1" class="btn btn-secondary" [disabled]="nuevoProducto.length == 1"  (click)="nuevoProducto.pop()">
-                        <fa-icon [icon]="faMinusCircle"></fa-icon> Menos Items
-                    </button>
-                </div>
-                <button type="button" class="btn btn-secondary" (click)="borrarForm()">
-                    <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
-                </button>
-                <button [disabled]='!f.valid || !valido' data-dismiss="modal" type="button" class="btn btn-success" (click)="onSubmit()">
-                    <fa-icon [icon]="faPlusCircle"></fa-icon> Ingresar
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>

@@ -4,6 +4,9 @@ import { IngresosService } from 'src/app/services/ingresos.service';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 
+import { faFileDownload } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-ingresos',
   templateUrl: './ingresos.component.html',
@@ -16,6 +19,9 @@ export class IngresosComponent implements OnInit {
   oculto = true;
   fechaDesde: Date;
   fechaHasta: Date;
+
+  faFileDownload = faFileDownload;
+  faTimesCircle = faTimesCircle;
 
   constructor(private servicioIngresos: IngresosService,
               private servicioCategorias: CategoriasService,

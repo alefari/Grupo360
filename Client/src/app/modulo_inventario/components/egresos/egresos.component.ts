@@ -4,6 +4,9 @@ import { EgresosService } from '../../../services/egresos.service'
 import { CategoriasService } from '../../../services/categorias.service'
 import { EliminadosService } from 'src/app/services/eliminados.service';
 
+import { faFileDownload } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-egresos',
   templateUrl: './egresos.component.html',
@@ -17,6 +20,9 @@ export class EgresosComponent implements OnInit {
   fechaDesde: Date;
   fechaHasta: string;
   listaEliminados: any =[];
+
+  faFileDownload = faFileDownload;
+  faTimesCircle = faTimesCircle; 
 
   constructor(private servicioEgresos: EgresosService,
               private servicioCategorias: CategoriasService,

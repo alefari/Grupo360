@@ -1,92 +1,105 @@
-<div class="bg-white shadow-lg container">
-    <div class="container pt-3">
-        <h3>Modificar</h3>
-    </div>
-    <div class='container'>
-    <form #f="ngForm">
-        <!--FILTROS PARA SELECCIONAR PROVEEDOR A MODIFICAR-->
-                <h5>Seleccione el proveedor a modificar:</h5>
-                <div class="row mt-3 mb-4">
-                    <div class="col-6">
-                        <label>Área</label>
-                        <select class="form-select mt-2" ngModel required name="selectAreaModificar" #selectAreaModificar="ngModel">
-                          <option *ngFor="let area of areas" value="{{ area.nombre }}">{{ area.nombre }}</option>
-                        </select>
-                        <small *ngIf="!selectAreaModificar.valid && selectAreaModificar.touched" class="text-danger">Ingrese un área.</small>
-                    </div>
-                    <div class="col-6">
-                        <label>Proveedor</label>
-                        <select #idProveedor="ngModel" (change)="alElegirProveedor(idProveedor.value)" class="form-select mt-2" ngModel required name="item" #selectProveedorModif='ngModel'>
-                          <ng-container *ngFor="let proveedor of proveedores">
-                            <option
-                            *ngIf="proveedor.area == selectAreaModificar.value"
-                            value='{{proveedor.id}}'>{{ proveedor.nombre }}</option>
-                            </ng-container>
-                        </select>
-                        <small *ngIf="!selectProveedorModif.valid && selectProveedorModif.touched" class="text-danger">Ingrese un proveedor.</small>
-                    </div>
+<div class="margin-top-form">
+    <div class="container">
+        <div class="body form-body-style">
+            <div class="container pt-3 form-header-style header-color-modificar">
+                <div class="mx-auto">
+                    <h3>Modificar Proveedor</h3>
+                </div>  
             </div>
-            <hr>
-            <!--LUGAR DEL FORMULARIO PARA COLOCAR DATOS NUEVOS DEL PROVEEDOR-->
-                <h5>Modifique los datos que desee:</h5>
-                <div class="row mb-4">
-                    <div class="col-4">
-                        <label>Nombre</label>
-                        <input required type="text"
-                        [(ngModel)]="proveedorElegido.nombre"
-                        name="nombre" class="form-control mt-2">
+            <div class='container pe-5 ps-5 pt-2'>
+                <form #f="ngForm">
+                    <!--FILTROS PARA SELECCIONAR PROVEEDOR A MODIFICAR-->
+                    <div class="container mt-2">
+                        <h5>Seleccione el proveedor a modificar:</h5>
+                    </div> 
+                        <div class="container">
+                            <div class="row mt-2 mb-4">
+                                <div class="col-6">
+                                    <label>Área</label>
+                                    <select class="form-select mt-2" ngModel required name="selectAreaModificar" #selectAreaModificar="ngModel">
+                                    <option *ngFor="let area of areas" value="{{ area.nombre }}">{{ area.nombre }}</option>
+                                    </select>
+                                    <small *ngIf="!selectAreaModificar.valid && selectAreaModificar.touched" class="text-danger">Ingrese un área.</small>
+                                </div>
+                                <div class="col-6">
+                                    <label>Proveedor</label>
+                                    <select #idProveedor="ngModel" (change)="alElegirProveedor(idProveedor.value)" class="form-select mt-2" ngModel required name="item" #selectProveedorModif='ngModel'>
+                                    <ng-container *ngFor="let proveedor of proveedores">
+                                        <option
+                                        *ngIf="proveedor.area == selectAreaModificar.value"
+                                        value='{{proveedor.id}}'>{{ proveedor.nombre }}</option>
+                                        </ng-container>
+                                    </select>
+                                    <small *ngIf="!selectProveedorModif.valid && selectProveedorModif.touched" class="text-danger">Ingrese un proveedor.</small>
+                                </div>
+                            </div>
+                        <hr>
+                            <!--LUGAR DEL FORMULARIO PARA COLOCAR DATOS NUEVOS DEL PROVEEDOR-->
+                        <div class="container mt-2">
+                            <h5>Modifique los datos que desee:</h5>
+                        </div>    
+                            <div class="row mb-4">
+                                <div class="col-4">
+                                    <label>Nombre</label>
+                                    <input required type="text"
+                                    [(ngModel)]="proveedorElegido.nombre"
+                                    name="nombre" class="form-control mt-2">
+                                </div>
+                                <div class="col-3">
+                                    <label>Área</label>
+                                    <select required class="form-select mt-2"
+                                    [(ngModel)]="proveedorElegido.area"
+                                    name="area">
+                                        <option *ngFor="let area of areas" value="{{ area.nombre }}">{{ area.nombre }}</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label>RIF</label>
+                                    <input type="text"
+                                    [(ngModel)]="proveedorElegido.rif"
+                                    name="serial" class="form-control mt-2">
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-4" >
+                                    <label>Correo</label>
+                                    <input type="text" [(ngModel)]="proveedorElegido.correo" [name]="'correo'" class="form-control mt-2" aria-describedby="emailHelp">
+                                </div>
+                                <div class="col-4">
+                                    <label>Teléfono</label>
+                                    <input type="text" [(ngModel)]="proveedorElegido.telefono" [name]="'telefono'" class="form-control mt-2" aria-describedby="emailHelp">
+                                </div>
+                                <div class="col-4">
+                                    <label>Contacto</label>
+                                    <input type="text" [(ngModel)]="proveedorElegido.contacto" [name]="'contacto'" class="form-control mt-2" aria-describedby="emailHelp">
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <label>Dirección</label>
+                                    <input type="text" [(ngModel)]="proveedorElegido.direccion" [name]="'direccion'" class="form-control mt-2" aria-describedby="emailHelp">
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <label>Descripción</label>
+                                    <input type="text" [(ngModel)]="proveedorElegido.descripcion" [name]="'descripcion'" class="form-control mt-2" aria-describedby="emailHelp">
+                                </div>
+                            </div>
                     </div>
-                    <div class="col-3">
-                        <label>Área</label>
-                        <select required class="form-select mt-2"
-                        [(ngModel)]="proveedorElegido.area"
-                        name="area">
-                            <option *ngFor="let area of areas" value="{{ area.nombre }}">{{ area.nombre }}</option>
-                        </select>
+                    <!--BOTONES FUNCIONES MODIFICAR-->
+                    <div class="form-footer-style">
+                        <div class="modal-footer">
+                            <button (click)="borrarForm()" type="button" class="btn btn-secondary">
+                                <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+                            </button>
+                            <button [disabled]='!f.valid' (click)="onModificar()" type="button" class="btn btn-primary text-white">
+                                <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
+                            </button>
+                        </div>
                     </div>
-                    <div class="col">
-                        <label>RIF</label>
-                        <input type="text"
-                        [(ngModel)]="proveedorElegido.rif"
-                        name="serial" class="form-control mt-2">
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col-4" >
-                        <label>Correo</label>
-                        <input type="text" [(ngModel)]="proveedorElegido.correo" [name]="'correo'" class="form-control mt-2" aria-describedby="emailHelp">
-                    </div>
-                    <div class="col-4">
-                        <label>Teléfono</label>
-                        <input type="text" [(ngModel)]="proveedorElegido.telefono" [name]="'telefono'" class="form-control mt-2" aria-describedby="emailHelp">
-                    </div>
-                    <div class="col-4">
-                        <label>Contacto</label>
-                        <input type="text" [(ngModel)]="proveedorElegido.contacto" [name]="'contacto'" class="form-control mt-2" aria-describedby="emailHelp">
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col">
-                        <label>Dirección</label>
-                        <input type="text" [(ngModel)]="proveedorElegido.direccion" [name]="'direccion'" class="form-control mt-2" aria-describedby="emailHelp">
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <div class="col">
-                        <label>Descripción</label>
-                        <input type="text" [(ngModel)]="proveedorElegido.descripcion" [name]="'descripcion'" class="form-control mt-2" aria-describedby="emailHelp">
-                    </div>
-                </div>
-
-        <!--BOTONES FUNCIONES MODIFICAR-->
-        <div class="modal-footer">
-            <button (click)="borrarForm()" type="button" class="btn btn-secondary">
-                <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
-            </button>
-            <button [disabled]='!f.valid' (click)="onModificar()" type="button" class="btn btn-primary text-white">
-                <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
-            </button>
+                </form>
+            </div>
         </div>
-    </form>
     </div>
 </div>

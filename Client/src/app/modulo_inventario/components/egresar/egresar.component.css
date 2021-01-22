@@ -1,3 +1,8 @@
 .color-contraste {
     background-color: gainsboro;
 }
+/*HEADER DE FORMS*/
+.header-color-egresar{
+    background: linear-gradient(90deg, #f0b619, #eee348 );
+    color: black;
+}

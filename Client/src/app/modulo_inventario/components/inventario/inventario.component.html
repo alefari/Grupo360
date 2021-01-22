@@ -1,34 +1,36 @@
 <div class="container-fluid">
 <!--Botones de ingreso y reingreso de productos-->
-<div class="row px-4">
-  <div class="col-3">
-    <h1>Inventario</h1>
-  </div>
-  <div class="col-9">
-    <div class="btn-group float-end">
-      <button type="button" class="btn btn-success cool-btn" routerLink='ingresar'>
-        <fa-icon [icon]="faSignInAlt"></fa-icon> Ingresar
-      </button>
-      <button type="button" class="btn btn-primary cool-btn" routerLink='reingreso' >
-        <fa-icon [icon]="faPlusCircle"></fa-icon> Reingreso
-      </button>
-      <button type="button" class="btn btn-warning cool-btn" routerLink='egresar'>
-        <fa-icon [icon]="faSignOutAlt"></fa-icon> Egreso
-      </button>
-      <button type="button" class="btn btn-info text-white cool-btn" routerLink='modificar'>
-        <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
-      </button>
-      <button type="button" class="btn btn-danger cool-btn" routerLink='reportaryagregar'>
-        <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar
-      </button>
-      <button data-bs-toggle="modal" data-bs-target="#pdfInventario" class="btn btn-secondary float-right">
-        Exportar a PDF
-      </button>
-      <button type="button" class="btn btn-primary cool-btn" routerLink='reportaryagregar'>
-        <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar
-      </button>
+  <div class="row px-4">
+    <div class="container mt-lg-2">
+      <h1>Inventario</h1>
     </div>
   </div>
+  <div class="row px-4">
+    <div class="mb-2">
+      <div class="btn-group float-end">
+        <button type="button" class="btn btn-success cool-btn" routerLink='ingresar'>
+          <fa-icon [icon]="faSignInAlt"></fa-icon> Ingresar
+        </button>
+        <button type="button" class="btn btn-info cool-btn text-white" routerLink='reingreso' >
+          <fa-icon [icon]="faPlusCircle"></fa-icon> Reingreso
+        </button>
+        <button type="button" class="btn btn-warning cool-btn" routerLink='egresar'>
+          <fa-icon [icon]="faSignOutAlt"></fa-icon> Egreso
+        </button>
+        <button type="button" class="btn btn-primary text-white cool-btn" routerLink='modificar'>
+          <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
+        </button>
+        <button type="button" class="btn btn-danger cool-btn" routerLink='reportaryagregar'>
+          <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar
+        </button>
+        <button data-bs-toggle="modal" data-bs-target="#pdfInventario" class="btn btn-secondary float-right">
+          <fa-icon [icon]="faFileDownload"></fa-icon> Exportar a PDF
+        </button>
+        <button type="button" class="btn btn-primary cool-btn" routerLink='reportaryagregar'>
+          <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar
+        </button>
+      </div>
+    </div>
 </div>
 
 <div class="row px-4">
@@ -220,11 +222,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Exportar a PDF</h5>
-
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-header">
-        <button type="button" (click)="descargarPDF()" class="btn btn-primary float-end">Exportar</button>
+        <div class="btn-group rounded" role="group">
+          <button type="button" (click)="descargarPDF()" class="btn btn-primary">
+              <fa-icon [icon]="faFileDownload"></fa-icon> Exportar
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">
+              <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar</button>
+        </div>
       </div>
       <div class="modal-body" id='elemento-a-exportar'>
         <!-- <img src="../../../assets/logo.svg" alt="Logo" class="img-fluid" style="max-width: 75px; width: 100%; margin: 0; padding: 0"> -->
