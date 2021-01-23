@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, NgModuleDecorator } from '@angular/core';
 import { Item } from 'src/app/modulo_inventario/inventario-models/item.model';
 import { NgForm, Form } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // IMPORTS DE BD
 import { SubcategoriasService } from 'src/app/services/subcategorias.service';
@@ -14,14 +15,13 @@ import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-reportaryagregar',
-  templateUrl: './reportaryagregar.component.html',
-  styleUrls: ['./reportaryagregar.component.css']
+  selector: 'app-admin-inventario',
+  templateUrl: './admin-inventario.component.html',
+  styleUrls: ['./admin-inventario.component.css']
 })
-export class ReportaryagregarComponent implements OnInit {
+export class AdminInventarioComponent implements OnInit {
   @ViewChild('f') form: NgForm;
 
   //ICONOS FONTAWESOME
@@ -69,12 +69,12 @@ export class ReportaryagregarComponent implements OnInit {
   };
 
   constructor(private servicioInventarioSQL: InventarioSQLService,
-    private servicioCategorias: CategoriasService,
-    private servicioSubcategorias: SubcategoriasService,
-    private servicioUbicaciones: UbicacionesService,
-    private servicioUnidades: UnidadesService,
-    private servicioEstados: EstadosService,
-    private router: Router) { }
+              private servicioCategorias: CategoriasService,
+              private servicioSubcategorias: SubcategoriasService,
+              private servicioUbicaciones: UbicacionesService,
+              private servicioUnidades: UnidadesService,
+              private servicioEstados: EstadosService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.servicioInventarioSQL.getInventario().subscribe(
@@ -102,61 +102,7 @@ export class ReportaryagregarComponent implements OnInit {
       err => console.log(err));
   }
 
-                                        //FUNCIONES DE MODAL AGREGAR
-  //FUNCION AGREGAR UNIDAD
-  unidadAgregar(nombreUnidad: string){
-    let nuevaUnidad: any = {nombre: nombreUnidad};
-    this.servicioUnidades.createUnidad(nuevaUnidad).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-    this.form.reset();
-  }
-  //FUNCION AGREGAR CATEGORIA
-  categoriaAgregar(nombreCategoria: string){
-    let nuevaCategoria: any = {nombre: nombreCategoria};
-    this.servicioCategorias.createCategoria(nuevaCategoria).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-    this.form.reset();
-  }
-  //FUNCION AGREGAR UBICACION
-  ubicacionAgregar(nombreUbicacion: string){
-    let nuevaUbicacion: any = {nombre: nombreUbicacion};
-    this.servicioUbicaciones.createUbicacion(nuevaUbicacion).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-    this.form.reset();
-  }
-  //FUNCION AGREGAR SUBCATEGORIA
-  subcategoriaAgregar(nombreSubcategoria: string){
-    let nuevaSubcategoria: any = {nombre: nombreSubcategoria};
-    this.servicioSubcategorias.createSubcategoria(nuevaSubcategoria).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-    this.form.reset();
-  }
-
-                                        //FUNCIONES DE MODAL REPORTE
+  //FUNCIONES DE MODAL REPORTE
   reportarAveria() {
     this.itemAveriado.estado = "Dañado";
     this.itemAveriado.estado = this.estados.find(est => est.nombre == this.itemAveriado.estado).id;
@@ -173,7 +119,7 @@ export class ReportaryagregarComponent implements OnInit {
         console.log(err);
       }
     );
-  this.router.navigate(['inventario']);
+  this.router.navigate(['administrador/gestion-interna']);
   this.form.reset();
   }
   reportarReparado() {
@@ -192,7 +138,7 @@ export class ReportaryagregarComponent implements OnInit {
         console.log(err);
       }
     );
-    this.router.navigate(['inventario']);
+    this.router.navigate(['administrador/gestion-interna']);
     this.form.reset();
   }
   //CREA ITEM TEMPORAL EN DONDE COLOCARA NUEVOS ESTADOS
@@ -207,7 +153,7 @@ export class ReportaryagregarComponent implements OnInit {
   //FUNCION PARA BORRAR FORMULARIO REPORTE
   borrarForm() {
     this.form.reset();
-    this.router.navigate(['inventario']);
+    this.router.navigate(['administrador/gestion-interna']);
   }
 
 }

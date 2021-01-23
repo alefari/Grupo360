@@ -16,21 +16,21 @@ section .content h2{
 }
 
 /*ESTILOS DE HEADERS DE CARDS LOCALES*/
-.header-color-empleados{
-    background: linear-gradient(-90deg, #0f20bd, #3599db);
+.header-color-inventario{
+    background: linear-gradient(-90deg, #026918, #51d17b );
 }
-.header-color-gestion-interna{
-    background: linear-gradient(-90deg, #5617bd, #f35ddf);
+.header-color-parametros{
+    background: linear-gradient(-90deg, #dd6d12, #f7dc45);
 }
 
 /*ESTILOS DE BOTONES DE CARDS LOCALES*/
-.btn-color-empleados{
-    background: linear-gradient(-90deg, #0f20bd, #3599db);
+.btn-color-inventario{
+    background: linear-gradient(-90deg, #026918, #51d17b );
     color: aliceblue;
     border: none;
 }
-.btn-color-gestion-interna{
-    background: linear-gradient(-90deg, #5617bd, #f35ddf);
+.btn-color-parametros{
+    background: linear-gradient(-90deg, #dd6d12, #f7dc45);
     color: aliceblue;
     border: none;
 }

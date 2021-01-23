@@ -14,7 +14,6 @@ import { EgresarComponent } from './components/egresar/egresar.component';
 import { IngresarComponent } from './components/ingresar/ingresar.component';
 import { InventarioRoutingModule } from './inventario-routing.module';
 import { InventarioBaseComponent } from './components/inventario-base/inventario-base.component';
-import { ReportaryagregarComponent } from './components/reportaryagregar/reportaryagregar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +25,6 @@ import { ReportaryagregarComponent } from './components/reportaryagregar/reporta
     IngresarComponent,
     EgresarComponent,
     InventarioBaseComponent,
-    ReportaryagregarComponent
   ],
   imports: [
     RouterModule,

@@ -7,6 +7,11 @@ import { AdministradorBaseComponent } from './components/administrador-base/admi
 import { MenuAdministradorComponent } from './components/menu-administrador/menu-administrador.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MenuGestioninternaComponent } from './components/menu-gestioninterna/menu-gestioninterna.component';
+import { AdminInventarioComponent } from './components/admin-inventario/admin-inventario.component';
+import { AdminParametrosComponent } from './components/admin-parametros/admin-parametros.component';
+
 
 
 @NgModule({
@@ -14,12 +19,16 @@ import { FormsModule } from '@angular/forms';
     AdministradorBaseComponent,
     MenuAdministradorComponent,
     AdminEmpleadosComponent,
+    MenuGestioninternaComponent,
+    AdminInventarioComponent,
+    AdminParametrosComponent,
   ],
   imports: [
     CommonModule,
     AdministradorRoutingModule,
     RouterModule,
     FormsModule,
+    FontAwesomeModule,
   ]
 })
 export class AdministradorModule { }

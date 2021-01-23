@@ -8,7 +8,6 @@ import { InventarioBaseComponent } from './components/inventario-base/inventario
 import { InventarioComponent } from './components/inventario/inventario.component';
 import { ModificarComponent } from './components/modificar/modificar.component';
 import { ReingresoComponent } from './components/reingreso/reingreso.component';
-import { ReportaryagregarComponent } from './components/reportaryagregar/reportaryagregar.component';
 
 const inventarioRoutes: Routes = [
   { path: '', component: InventarioBaseComponent,
@@ -20,7 +19,6 @@ const inventarioRoutes: Routes = [
       { path: 'ingresos', component: IngresosComponent },
       { path: 'reingreso', component: ReingresoComponent},
       { path: 'modificar', component: ModificarComponent},
-      { path: 'reportaryagregar', component: ReportaryagregarComponent}
     ]
   }
 ];
