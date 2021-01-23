@@ -1,0 +1,60 @@
+<!--MODAL DE REPORTE DE PRODUCTO-->
+<div class="margin-top-form-reporte">
+    <div class="container">
+        <div class="body form-body-style">
+            <div class="container pt-3 form-header-style header-color-reportar">
+                <div class="mx-auto">
+                    <h3>Reportar item inventario</h3>
+                </div>  
+            </div>
+            <div class='container pe-5 ps-5 pt-2'>
+                <form #f="ngForm">
+                        <div class="row mt-3 mb-4">
+                            <div class="col">
+                                <label>Categoría</label>
+                                    <select class="form-select mt-2" ngModel required name="selectCategoriaReporte" #selectCategoriaReporte="ngModel">
+                                    <option *ngFor="let categoria of categorias" value="{{categoria.nombre}}">{{ categoria.nombre }}</option>
+                                    </select>
+                                    <small *ngIf="!selectCategoriaReporte.valid && selectCategoriaReporte.touched" class="text-danger">Seleccione un categoría.</small>
+                            </div>
+                            <div class="col">
+                                <label>Subcategoría</label>
+                                    <select class="form-select mt-2" ngModel required name="selectSubcategoriaReporte" #selectSubcategoriaReporte="ngModel">
+                                    <option *ngFor="let subcategoria of subcategorias" value="{{subcategoria.nombre}}">{{ subcategoria.nombre }}</option>
+                                    </select>
+                                    <small *ngIf="!selectSubcategoriaReporte.valid && selectSubcategoriaReporte.touched" class="text-danger">Seleccione un subcategoría.</small>
+                            </div>
+                            <div class="col">
+                                <label>Item</label>
+                                <select #idItem="ngModel" (change)="alElegirItem(idItem.value)" required class='form-select mt-2' ngModel name="id">
+                                    <!-- FILTRO POR CATEGORIA Y SUBCATEGORIA REPORTE -->
+                                    <ng-container *ngFor="let item of inventarioSQL">
+                                    <ng-container *ngIf="item.categoria == selectCategoriaReporte.value && item.estado != 'En Obra' && item.subcategoria == selectSubcategoriaReporte.value">
+                                        <option value='{{item.id}}'>{{ item.nombre }}</option>
+                                    </ng-container>
+                                    </ng-container>
+                                </select>
+                                <small *ngIf="!idItem.valid && idItem.touched" class="text-danger">Seleccione un item.</small>
+                            </div>
+                        </div>
+                <!-- BOTONOS CON FUNCIONES REPORTAR -->
+                <div class="form-footer-style">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="borrarForm()">
+                        <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+                        </button>
+                        <button data-dismiss="modal" *ngIf="idItem.value && regresarItem(idItem.value).estado == 'Dañado'" type="button" class="btn btn-primary"  (click)="reportarReparado()">
+                        <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar Reparado
+                        </button>
+                        <button *ngIf="idItem.value && regresarItem(idItem.value).estado == 'Disponible'" type="button" class="btn btn-danger" (click)="reportarAveria()">
+                        <fa-icon [icon]="faExclamationCircle"></fa-icon> Reportar Dañado
+                        </button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--FIN MODAL DE REPORTE DE PRODUCTO-->
