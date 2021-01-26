@@ -61,6 +61,9 @@ export class AgregarProveedorComponent implements OnInit {
     let proveedorNuevo = this.nuevoProveedor
     if(proveedorNuevo.nombre!=null && proveedorNuevo.nombre!="" &&
       proveedorNuevo.area!=null && proveedorNuevo.area!=""){
+        if(proveedorNuevo.credito == 'No'){
+          proveedorNuevo.dias_credito = 0;
+        }
       this.servicioProveedores.createProveedor(proveedorNuevo).subscribe(
         res => {console.log(res);
                 this.form.reset();

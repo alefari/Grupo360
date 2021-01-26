@@ -12,7 +12,7 @@
                 <button *ngIf="modoActPrecios" type="button" class="btn cool-btn btn-danger" (click)='modoActPrecios=false'>
                     <fa-icon [icon]="faPlusCircle"></fa-icon> Cancelar
                 </button>
-                <button *ngIf="!modoActPrecios" type="button" class="btn cool-btn btn-primary" (click)='modoActPreciosOn()'>
+                <button *ngIf="!modoActPrecios" type="button" class="btn cool-btn btn-primary" hidden (click)='modoActPreciosOn()'>
                     <fa-icon [icon]="faPlusCircle"></fa-icon> Actualizar precios
                 </button>
                 <button type="button" class="btn cool-btn btn-success" routerLink='agregar'>
@@ -136,6 +136,11 @@
                     <td></td>
                     <td>{{ datosInfoProducto.precio | currency }} / {{ datosInfoProducto.unidad }}</td>
                 </tr>
+                <tr *ngIf="datosInfoProducto.garantia != null && datosInfoProducto.garantia != null">
+                    <th>Garantía del proveedor (días)</th>
+                    <td></td>
+                    <td>{{ datosInfoProducto.garantia }} / {{ datosInfoProducto.dias_garantia }}</td>
+                </tr>
                 <tr *ngIf="datosInfoProducto.fecha != null">
                     <th>Fecha Actualizado</th>
                     <td></td>
@@ -256,6 +261,7 @@
                         <th scope="col">Área</th>
                         <th scope="col">Proveedor</th>
                         <th scope="col">Precio</th>
+                        <th scope="col">Garantía</th>
                         <th scope="col">Fecha Actualizado</th>
                     </tr>
                     </thead>
@@ -266,6 +272,7 @@
                         <td>{{ productoPDF.area }}</td>
                         <td>{{ productoPDF.nombreProveedor }}</td>
                         <td>{{ productoPDF.precio |currency }} / {{ productoPDF.unidad }}</td>
+                        <td>{{ productoPDF.garantia }} / {{ productoPDF.dias_garantia }} Días</td>
                         <td>{{ productoPDF.fecha | date }}</td>
                         </tr>
                     </ng-container>

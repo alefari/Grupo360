@@ -20,8 +20,8 @@
                                     <input #nombre="ngModel" [(ngModel)]="nuevoProducto[i].nombre" required type="text" [name]="'nombre'+ [i]" class="form-control mt-2">
                                     <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingrese un nombre.</small>
                                 </div>
-                                <div class="col-3">
-                                    <label for="exampleFormControlSelect1">Área</label>
+                                <div class="col-2">
+                                    <label for="exampleFormControlSelect1">Área profesional</label>
                                     <select #area="ngModel" [(ngModel)]="nuevoProducto[i].area" required class="form-select mt-2"  [name]="'area'+ [i]">
                                         <option *ngFor="let area of areas" value="{{ area.id }}">{{ area.nombre }}</option>
                                     </select>
@@ -34,7 +34,7 @@
                                     </select>
                                     <small *ngIf="!area.valid && area.touched" class="text-danger">Ingrese un proveedor.</small>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <label for="exampleInputPassword1">Precio y Unidades</label>
                                     <div class="input-group">
                                     <input
@@ -53,6 +53,30 @@
                                     </div>
                                     <small *ngIf="!cantidad.valid && cantidad.touched" class="text-danger">Ingrese un precio.<br></small>
                                     <small *ngIf="!unidadX.valid && unidadX.touched" class="text-danger">Ingrese una unidad.</small>
+                                </div>
+                                <div class="col-2">
+                                    <label for="exampleInputPassword1">Garantía y días</label>
+                                    <div class="input-group">
+                                    <select #garantia="ngModel" 
+                                            required type="text" 
+                                            placeholder="0" 
+                                            [(ngModel)]="nuevoProducto[i].garantia" 
+                                            [name]="'garantia' + [i]" class="form-select mt-2">
+                                        <option value="Si" > Si </option>
+                                        <option value="No" > No </option>
+                                    </select>
+                                    <ng-container *ngIf="garantia.value == 'Si'">
+                                        <input
+                                        onkeypress="return event.charCode >= 46"
+                                        min="1"
+                                        #cantidad="ngModel"
+                                        type="number"
+                                        [(ngModel)]="nuevoProducto[i].dias_garantia"
+                                        [name]="'dias' + [i]"
+                                        class="form-control mt-2">
+                                    </ng-container>
+                                    </div>
+                                    <small *ngIf="!garantia.valid && garantia.touched" class="text-danger">Reporte garantía.<br></small>
                                 </div>
                             </div>
                         </div>

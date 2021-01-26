@@ -22,6 +22,8 @@ class ProductosProveedoresController {
                             proveedores_productos.nombre AS nombre,
                             proveedores_areas.nombre AS area,
                             proveedores_productos.fecha_act AS fecha,
+                            proveedores_productos.garantia,
+                            proveedores_productos.dias_garantia,
                             unidades.nombre AS unidad,
                             proveedores_productos.precio AS precio,
                             proveedores_lista.nombre AS nombreProveedor

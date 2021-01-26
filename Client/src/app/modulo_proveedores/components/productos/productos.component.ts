@@ -52,6 +52,8 @@ export class ProductosComponent implements OnInit {
     area: null,
     unidad: null,
     nombreProveedor: null,
+    garantia: null,
+    dias_garantia: null,
     fecha_act: null,
     precio: null,
   }
@@ -61,6 +63,8 @@ export class ProductosComponent implements OnInit {
     nombre: null,
     area: null,
     unidad: null,
+    garantia: null,
+    dias_garantia: null,
     nombreProveedor: null,
     fecha_act: null,
     precio: null,
