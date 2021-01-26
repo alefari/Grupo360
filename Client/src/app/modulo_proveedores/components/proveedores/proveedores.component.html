@@ -41,17 +41,19 @@
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <thead class="table-dark">
             <tr>
                 <th scope="col-sm-2">Nombre</th>
-                <th scope="col-sm-2">Área</th>
-                <th scope="col-sm-1">RIF</th>
-                <th scope="col-sm-2">Correo</th>
+                <th scope="col-sm-1">Área</th>
+                <th scope="col-sm-1">Correo</th>
                 <th scope="col-sm-2">Teléfono</th>
+                <th scope="col-sm-2">Celular</th>
                 <th scope="col-sm-2">Contacto</th>
-                <th scope="col-sm-1"></th>
+                <th scope="col-sm-2">Ciudad</th>
+                <th scope="col-sm-3"></th>
             </tr>
         </thead>
     
@@ -66,11 +68,12 @@
                         &&
                         (proveedor.area.toLocaleLowerCase().includes(filtroArea.value.toLowerCase()) || filtroArea.value == ''))">
                     <td class="col-sm-2">{{ proveedor.nombre }}</td>
-                    <td class="col-sm-2">{{ proveedor.area }}</td>
-                    <td class="col-sm-1">{{ proveedor.rif }}</td>
+                    <td class="col-sm-1">{{ proveedor.area }}</td>
                     <td class="col-sm-2">{{ proveedor.correo }}</td>
                     <td class="col-sm-1">{{ proveedor.telefono }}</td>
-                    <td class="col-sm-2">{{ proveedor.contacto }}</td>
+                    <td class="col-sm-1">{{ proveedor.celular }}</td>
+                    <td class="col-sm-1">{{ proveedor.contacto }}</td>
+                    <td class="col-sm-2">{{ proveedor.ciudad }}</td>
                     <td class="col-sm-3">
                         <!--BOTONES DE DETALLES, MODIFICAR Y ELIMINACION-->
                         <div class="btn-group">
@@ -111,33 +114,47 @@
                 <td>{{ datosInfo.id }}</td>
             </tr>
             <tr>
-                <th>Área</th>
+                <th>Área profesional</th>
                 <td></td>
                 <td>{{ datosInfo.area }}</td>
             </tr>
-            <tr>
-            <tr>
+            <tr *ngIf="datosInfo.rif != null">
                 <th>RIF</th>
                 <td></td>
-                <td>{{ datosInfo.rif }}</td>
+                <td>{{ datosInfo.rif }} </td>
+            </tr>
+            <tr *ngIf="datosInfo.ciudad != null">
+                <th>Ciudad y país</th>
+                <td></td>
+                <td>{{ datosInfo.ciudad }} </td>
+            </tr>
+            <tr *ngIf="datosInfo.credito != null">
+                <th>Opciones de crédito (días)</th>
+                <td></td>
+                <td>{{ datosInfo.credito }} / {{ datosInfo.dias_credito }} </td>
             </tr>
             <tr *ngIf="datosInfo.correo != null">
-                <th>Correo</th>
+                <th>Correo de contacto</th>
                 <td></td>
                 <td>{{ datosInfo.correo }}</td>
             </tr>
             <tr *ngIf="datosInfo.telefono != null">
-                <th>Teléfono</th>
+                <th>Teléfono fijo</th>
                 <td></td>
                 <td>{{ datosInfo.telefono }}</td>
             </tr>
+            <tr *ngIf="datosInfo.celular != null">
+                <th>Celular de contacto</th>
+                <td></td>
+                <td>{{ datosInfo.celular }}</td>
+            </tr>
             <tr *ngIf="datosInfo.contacto != null">
-                <th>Contacto</th>
+                <th>Nombre del Vendedor ó Contacto</th>
                 <td></td>
                 <td>{{ datosInfo.contacto }}</td>
             </tr>
             <tr *ngIf="datosInfo.direccion != null">
-                <th>Dirección</th>
+                <th>Dirección fiscal</th>
                 <td></td>
                 <td>{{ datosInfo.direccion }}</td>
             </tr>
@@ -217,6 +234,7 @@
                     <th scope="col">RIF</th>
                     <th scope="col">Correo</th>
                     <th scope="col">Teléfono</th>
+                    <th scope="col">Celular</th>
                     <th scope="col">Contacto</th>
                 </tr>
                 </thead>
@@ -228,6 +246,7 @@
                     <td>{{ proveedoresPDF.rif }}</td>
                     <td>{{ proveedoresPDF.correo }}</td>
                     <td>{{ proveedoresPDF.telefono }}</td>
+                    <td>{{ proveedoresPDF.celular }}</td>
                     <td>{{ proveedoresPDF.contacto }}</td>
                     </tr>
                 </ng-container>

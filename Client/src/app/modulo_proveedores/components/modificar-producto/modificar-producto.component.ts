@@ -70,7 +70,6 @@ onModificar() {
   this.productoElegido.area = this.areas.find(area => area.nombre == this.productoElegido.area).id;
   this.productoElegido.unidad = this.unidades.find(unidad => unidad.nombre == this.productoElegido.unidad).id;
   this.productoElegido.nombreProveedor = this.proveedores.find(proveedor => proveedor.nombre == this.productoElegido.nombreProveedor).id;
-  console.log(this.productoElegido);
   this.servicioProductosProveedores.updateProductoProveedor(this.productoElegido.id, this.productoElegido).subscribe(
     res => {console.log(res);
             this.router.navigate(['proveedores/productos']);

@@ -40,13 +40,13 @@
                         </div>    
                             <div class="row mb-4">
                                 <div class="col-4">
-                                    <label>Nombre</label>
+                                    <label>Nombre jurídico del proveedor</label>
                                     <input required type="text"
                                     [(ngModel)]="proveedorElegido.nombre"
                                     name="nombre" class="form-control mt-2">
                                 </div>
                                 <div class="col-3">
-                                    <label>Área</label>
+                                    <label>Área profesional</label>
                                     <select required class="form-select mt-2"
                                     [(ngModel)]="proveedorElegido.area"
                                     name="area">
@@ -54,30 +54,62 @@
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <label>RIF</label>
+                                    <label>RIF del proveedor</label>
                                     <input type="text"
                                     [(ngModel)]="proveedorElegido.rif"
                                     name="serial" class="form-control mt-2">
                                 </div>
+                                <div class="col">
+                                    <label>Ciudad y país</label>
+                                    <input type="text"
+                                    [(ngModel)]="proveedorElegido.ciudad"
+                                    name="ciudad" class="form-control mt-2">
+                                </div>
                             </div>
                             <div class="row mb-4">
-                                <div class="col-4" >
-                                    <label>Correo</label>
+                                <div class="col-3" >
+                                    <label>Correo de contacto</label>
                                     <input type="text" [(ngModel)]="proveedorElegido.correo" [name]="'correo'" class="form-control mt-2" aria-describedby="emailHelp">
                                 </div>
-                                <div class="col-4">
-                                    <label>Teléfono</label>
+                                <div class="col-3">
+                                    <label>Teléfono fijo</label>
                                     <input type="text" [(ngModel)]="proveedorElegido.telefono" [name]="'telefono'" class="form-control mt-2" aria-describedby="emailHelp">
                                 </div>
-                                <div class="col-4">
-                                    <label>Contacto</label>
+                                <div class="col-3">
+                                    <label>Celular de contacto</label>
+                                    <input type="text" [(ngModel)]="proveedorElegido.celular" [name]="'celular'" class="form-control mt-2" aria-describedby="emailHelp">
+                                </div>
+                                <div class="col-3">
+                                    <label>Nombre del Vendedor ó Contacto</label>
                                     <input type="text" [(ngModel)]="proveedorElegido.contacto" [name]="'contacto'" class="form-control mt-2" aria-describedby="emailHelp">
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col">
-                                    <label>Dirección</label>
+                                    <label>Dirección fiscal del proveedor</label>
                                     <input type="text" [(ngModel)]="proveedorElegido.direccion" [name]="'direccion'" class="form-control mt-2" aria-describedby="emailHelp">
+                                </div>
+                                <div class="col-3">
+                                    <label for="exampleInputPassword1">Crédito y días</label>
+                                    <div class="input-group">
+                                    <select #credito="ngModel" type="text" 
+                                            placeholder="0" 
+                                            [(ngModel)]="proveedorElegido.credito" 
+                                            [name]="'credito'" class="form-select mt-2">
+                                        <option value="Si" > Si </option>
+                                        <option value="No" > No </option>
+                                    </select>
+                                    <ng-container *ngIf="credito.value == 'Si'">
+                                        <input
+                                        onkeypress="return event.charCode >= 46"
+                                        min="1"
+                                        #cantidad="ngModel"
+                                        type="number"
+                                        [(ngModel)]="proveedorElegido.dias_credito"
+                                        [name]="'dias'"
+                                        class="form-control mt-2">
+                                    </ng-container>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mb-4">

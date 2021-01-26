@@ -33,6 +33,10 @@ export class ModificarProveedorComponent implements OnInit {
     correo: null,
     telefono: null,
     contacto: null,
+    ciudad: null,
+    celular: null,
+    credito: null,
+    dias_credito: null,
     rif: null,
     descripcion: null,
   };
@@ -58,6 +62,9 @@ export class ModificarProveedorComponent implements OnInit {
 
   //FUNCION MODIFICAR PROVEEDOR
   onModificar() {
+    if(this.proveedorElegido.credito == 'No'){
+      this.proveedorElegido.dias_credito = 0;
+    }
     this.proveedorElegido.area = this.areas.find(area => area.nombre == this.proveedorElegido.area).id;
     this.servicioProveedores.updateProveedor(this.proveedorElegido.id, this.proveedorElegido).subscribe(
       res => {console.log(res);

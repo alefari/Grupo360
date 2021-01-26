@@ -25,7 +25,11 @@ export class ProveedoresService {
       id_area: +proveedor.area,
       direccion: proveedor.direccion,
       correo: proveedor.correo,
+      credito: proveedor.credito,
+      dias_credito: +proveedor.dias_credito,
+      ciudad: proveedor.ciudad,
       telefono: proveedor.telefono,
+      celular: proveedor.celular,
       contacto: proveedor.contacto,
       rif: proveedor.rif,
       descripcion: proveedor.descripcion
@@ -44,13 +48,16 @@ export class ProveedoresService {
         nombre: proveedor.nombre,
         id_area: +proveedor.area,
         direccion: proveedor.direccion,
+        credito: proveedor.credito,
+        dias_credito: +proveedor.dias_credito,
+        ciudad: proveedor.ciudad,
         correo: proveedor.correo,
         telefono: proveedor.telefono,
+        celular: proveedor.celular,
         contacto: proveedor.contacto,
         rif: proveedor.rif,
         descripcion: proveedor.descripcion
       }
-      console.log(proveedorNuevo);
       return this.http.put(`${this.API_URI}/proveedores/${id}`, proveedorNuevo)
   }
 }
