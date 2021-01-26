@@ -25,6 +25,8 @@ export class ProductosProveedoresService {
       nombre: producto.nombre,
       id_area_producto: +producto.area,
       id_unidad_producto: +producto.unidad,
+      garantia: producto.garantia,
+      dias_garantia: +producto.dias_garantia,
       id_proveedor_producto: +producto.proveedor,
       fecha_act: new Date().toISOString().slice(0, 19).replace('T', ' '),
       precio: producto.precio,
@@ -43,6 +45,8 @@ export class ProductosProveedoresService {
       nombre: producto.nombre,
       id_area_producto: +producto.area,
       id_unidad_producto: +producto.unidad,
+      garantia: producto.garantia,
+      dias_garantia: +producto.dias_garantia,
       id_proveedor_producto: +producto.nombreProveedor,
       precio: producto.precio,
       }

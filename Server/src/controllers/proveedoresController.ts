@@ -15,6 +15,10 @@ class ProveedoresController {
                             proveedores_lista.direccion,
                             proveedores_lista.contacto,
                             proveedores_lista.correo,
+                            proveedores_lista.ciudad,
+                            proveedores_lista.credito,
+                            proveedores_lista.dias_credito,
+                            proveedores_lista.celular,
                             proveedores_lista.descripcion
                             FROM grupocdv360.proveedores_lista
                             LEFT JOIN proveedores_areas

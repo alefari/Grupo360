@@ -38,6 +38,8 @@ export class AgregarProductoComponent implements OnInit {
       nombre: null,
       area: null,
       unidad: null,
+      garantia: null,
+      dias_garantia: null,
       proveedor: null,
       fecha_act: null,
       precio: null,
@@ -70,6 +72,9 @@ export class AgregarProductoComponent implements OnInit {
         productoCiclo.proveedor!=null && productoCiclo.proveedor!="" &&
         productoCiclo.precio!=null && productoCiclo.precio!="" &&
         productoCiclo.unidad!=null && productoCiclo.unidad!=""){
+          if(productoCiclo.garantia == 'No'){
+            productoCiclo.dias_garantia = 0;
+          }
         this.servicioProductosProveedores.createProductoProveedor(productoCiclo).subscribe(
           res => {console.log(res);
                   this.form.reset();
@@ -88,6 +93,8 @@ export class AgregarProductoComponent implements OnInit {
       nombre: null,
       area: null,
       unidad: null,
+      garantia: null,
+      dias_garantia: null,
       proveedor: null,
       fecha_act: null,
       precio: null,}];
@@ -112,6 +119,8 @@ export class AgregarProductoComponent implements OnInit {
       nombre: null,
       area: null,
       unidad: null,
+      garantia: null,
+      dias_garantia: null,
       proveedor: null,
       fecha_act: null,
       precio: null});

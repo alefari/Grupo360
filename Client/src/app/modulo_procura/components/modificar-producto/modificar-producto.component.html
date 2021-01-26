@@ -15,7 +15,7 @@
                         <div class="container">
                             <div class="row mt-2 mb-4">
                                 <div class="col-4">
-                                    <label>Área</label>
+                                    <label>Área profesional</label>
                                     <select class="form-select mt-2" ngModel required name="selectAreaModificar" #selectAreaModificar="ngModel">
                                     <option *ngFor="let area of areas" value="{{ area.nombre }}">{{ area.nombre }}</option>
                                     </select>
@@ -54,7 +54,7 @@
                                     name="nombre" class="form-control mt-2">
                                 </div>
                                 <div class="col-3">
-                                    <label>Área</label>
+                                    <label>Área profesional</label>
                                     <select required class="form-select mt-2"
                                     [(ngModel)]="productoElegido.area"
                                     name="area">
@@ -65,7 +65,7 @@
                                     <label>Proveedor</label>
                                     <select required class="form-select mt-2"
                                     [(ngModel)]="productoElegido.nombreProveedor"
-                                    name="area">
+                                    name="proveedor">
                                         <option *ngFor="let proveedor of proveedores" value="{{ proveedor.nombre }}">{{ proveedor.nombre }}</option>
                                     </select>
                                 </div>
@@ -88,6 +88,30 @@
                                             <option *ngFor="let unidad of unidades" value="{{ unidad.nombre }}">{{ unidad.nombre }}</option>
                                         </select>
                                     </div>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleInputPassword1">Garantía y días</label>
+                                    <div class="input-group">
+                                    <select #garantia="ngModel" 
+                                            required type="text" 
+                                            placeholder="0" 
+                                            [(ngModel)]="productoElegido.garantia" 
+                                            [name]="'garantia'" class="form-select mt-2">
+                                        <option value="Si" > Si </option>
+                                        <option value="No" > No </option>
+                                    </select>
+                                    <ng-container *ngIf="garantia.value == 'Si'">
+                                        <input
+                                        onkeypress="return event.charCode >= 46"
+                                        min="1"
+                                        #cantidad="ngModel"
+                                        type="number"
+                                        [(ngModel)]="productoElegido.dias_garantia"
+                                        [name]="'dias'"
+                                        class="form-control mt-2">
+                                    </ng-container>
+                                    </div>
+                                    <small *ngIf="!garantia.valid && garantia.touched" class="text-danger">Reporte garantía.<br></small>
                                 </div>
                                 <div class="col">
                                     <label>Fecha Actualizado</label>

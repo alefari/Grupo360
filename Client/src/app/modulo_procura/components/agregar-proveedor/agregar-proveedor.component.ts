@@ -32,10 +32,14 @@ export class AgregarProveedorComponent implements OnInit {
     {
       id: null,
       nombre: null,
+      credito:null,
+      dias_credito:null,
+      ciudad: null,
       area: null,
       direccion: null,
       correo: null,
       telefono: null,
+      celular: null,
       contacto: null,
       rif: null,
       descripcion: null,
@@ -57,6 +61,9 @@ export class AgregarProveedorComponent implements OnInit {
     let proveedorNuevo = this.nuevoProveedor
     if(proveedorNuevo.nombre!=null && proveedorNuevo.nombre!="" &&
       proveedorNuevo.area!=null && proveedorNuevo.area!=""){
+        if(proveedorNuevo.credito == 'No'){
+          proveedorNuevo.dias_credito = 0;
+        }
       this.servicioProveedores.createProveedor(proveedorNuevo).subscribe(
         res => {console.log(res);
                 this.form.reset();
@@ -72,8 +79,12 @@ export class AgregarProveedorComponent implements OnInit {
                           nombre: null,
                           area: null,
                           direccion: null,
+                          ciudad:null,
+                          credito:null,
+                          dias_credito:null,
                           correo: null,
                           telefono: null,
+                          celular: null,
                           contacto: null,
                           rif: null,
                           descripcion: null};
