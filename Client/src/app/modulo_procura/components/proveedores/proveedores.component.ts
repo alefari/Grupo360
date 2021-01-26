@@ -127,7 +127,7 @@ export class ProveedoresComponent implements OnInit {
   }
 
   //FUNCION PARA NAVEGAR A ACTUALIZAR PRODUCTOS
-  aActualizar(id: string) {
-    this.router.navigate([`actualizar-productos/${id}`]);
+  aProductos(id: string) {
+    this.router.navigate([`/procura/proveedores/${id}/productos`]);
   }
 }
