@@ -31,6 +31,9 @@ section .content h2{
 .header-color-productos{
     background: linear-gradient(-90deg, #6e1f9c, #c880f8);
 }
+.header-color-pedidos{
+    background: linear-gradient(-90deg, #1a3caa, #3e86e4);
+}
 /*ESTILOS DE BOTONES DE CARDS LOCALES*/
 .btn-color-proveedores{
     background: linear-gradient(-90deg, #BF019F, #F28A57);
@@ -39,6 +42,11 @@ section .content h2{
 }
 .btn-color-productos{
     background: linear-gradient(-90deg, #6e1f9c, #c880f8);
+    color: aliceblue;
+    border: none;
+}
+.btn-color-pedidos{
+    background: linear-gradient(-90deg, #1a3caa, #3e86e4);
     color: aliceblue;
     border: none;
 }
