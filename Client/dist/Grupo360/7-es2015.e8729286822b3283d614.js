@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[7],{"+Brm":function(n,t,o){"use strict";o.r(t),o.d(t,"InventarioModule",(function(){return s}));var r=o("ofXK"),e=o("tyNb"),c=o("3Pt+"),i=o("6NWb"),u=o("EZT/"),b=o("fXoL");let s=(()=>{class n{}return n.\u0275mod=b.Hb({type:n}),n.\u0275inj=b.Gb({factory:function(t){return new(t||n)},imports:[[e.f,u.a,r.b,c.c,i.b]]}),n})()}}]);

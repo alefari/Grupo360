@@ -17,9 +17,9 @@ const routes: Routes = [
     loadChildren: () => import("./modulo_inventario/inventario.module").then(m => m.InventarioModule)
   },
   {
-    path: 'proveedores',
+    path: 'procura',
     canActivate: [AuthGuard],
-    loadChildren: () => import("./modulo_proveedores/proveedores.module").then(m => m.ProveedoresModule)
+    loadChildren: () => import("./modulo_procura/procura.module").then(m => m.ProcuraModule)
   },
   {
     path: 'administrador',
