@@ -17,7 +17,6 @@ import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 import { UnidadesService } from 'src/app/services/unidades.service';
 import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
 import { IngresosService } from 'src/app/services/ingresos.service';
-import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({

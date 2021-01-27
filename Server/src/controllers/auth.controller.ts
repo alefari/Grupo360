@@ -38,17 +38,37 @@ class AuthController {
     }
 
     public async signin(req: Request, res: Response) {
-        pool.query('SELECT * FROM empleados WHERE cedula = ?', [req.body.cedula], async function (err, result, fields) {
+        pool.query(`SELECT cedula, password, GROUP_CONCAT(id_rol SEPARATOR ',') AS roles
+                    FROM empleados
+                    LEFT JOIN empleados_roles
+                    ON empleados.cedula = empleados_roles.id_empleado
+                    WHERE cedula = ?`, 
+                    [req.body.cedula], async function (err, result, fields) {
             if (err) throw err;
             let match, token;
             if(result.length > 0) {
-                match = await bcrypt.compare(req.body.password, result[0].password)
-                if(match == false) return res.status(401).json({token: null, message: "Contraseña invalida"});
-                else if(match == true) {
+                if(await bcrypt.compare(req.body.password, result[0].password)) {
                     let expiracionSeg = 28800;
+                    if(result[0].roles) {
+                        result[0].roles = result[0].roles.split(',');
+                        for (let i = 0; i < result[0].roles.length; i++) {
+                            result[0].roles[i] = parseInt(result[0].roles[i])
+                        }
+                    } 
                     token = jwt.sign({id: result[0].cedula}, 'secreto', {expiresIn: expiracionSeg})
-                    res.json({token: token, cedula: result[0].cedula, expiresIn: expiracionSeg});
+                    res.json({token: token, cedula: result[0].cedula, expiresIn: expiracionSeg, roles: result[0].roles});
                 }
+                else{
+                    return res.status(401).json({token: null, message: "Contraseña invalida"});
+                }
+
+                // match = await bcrypt.compare(req.body.password, result[0].password)
+                // if(match == false) return res.status(401).json({token: null, message: "Contraseña invalida"});
+                // else if(match == true) {
+                //     let expiracionSeg = 28800;
+                //     token = jwt.sign({id: result[0].cedula}, 'secreto', {expiresIn: expiracionSeg})
+                //     res.json({token: token, cedula: result[0].cedula, expiresIn: expiracionSeg});
+                // }
             }else if(result.length == 0){
                 res.status(400).json({message: "Usuario no encontrado"});
             }

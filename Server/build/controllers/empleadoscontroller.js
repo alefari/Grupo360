@@ -31,8 +31,6 @@ class EmpleadosController {
         ORDER BY empleados.nombre;`, function (err, result, fields) {
                 if (err)
                     throw err;
-                let usersFixed = result;
-                usersFixed[0].nombre = "alejandrito";
                 result.forEach((usr) => {
                     if (usr.roles) {
                         usr.roles = usr.roles.split(',');

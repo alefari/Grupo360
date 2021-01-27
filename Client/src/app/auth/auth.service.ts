@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 interface AuthResponseData {
   token: string,
   cedula: number,
-  expiresIn: number
+  expiresIn: number,
+  roles: number[]
 }
 
 @Injectable({
@@ -34,7 +35,7 @@ export class AuthService {
           resData.cedula,
           resData.token,
           expirationDate,
-          [1]
+          resData.roles
         );
         this.user.next(user);
         this.autoLogout(+resData.expiresIn * 1000)

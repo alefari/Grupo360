@@ -21,9 +21,6 @@ class EmpleadosController {
             function(err, result, fields) {
             if (err) throw err;
 
-            let usersFixed = result;
-            usersFixed[0].nombre = "alejandrito"
-
             result.forEach((usr: { roles: any }) => {
                 if(usr.roles) {
                     usr.roles = usr.roles.split(',');
