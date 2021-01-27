@@ -32,7 +32,8 @@ export class ProveedoresService {
       celular: proveedor.celular,
       contacto: proveedor.contacto,
       rif: proveedor.rif,
-      descripcion: proveedor.descripcion
+      descripcion: proveedor.descripcion,
+      responsable: proveedor.responsable
     }
 
     return this.http.post(`${this.API_URI}/proveedores`, proveedorNuevo);

@@ -18,6 +18,7 @@ import { InventarioSQLService } from 'src/app/services/inventario-sql.service';
 import { UbicacionesService } from 'src/app/services/ubicaciones.service';
 import { IngresosService } from 'src/app/services/ingresos.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-reingreso',
@@ -54,7 +55,8 @@ export class ReingresoComponent implements OnInit {
               private servicioInventario: InventarioSQLService,
               private servicioUbicaciones: UbicacionesService,
               private servicioIngresos: IngresosService,
-              private router: Router) { }
+              private router: Router,
+              private auth: AuthService) { }
 
   ngOnInit(): void {
     this.servicioCategorias.getCategorias().subscribe(
@@ -133,7 +135,7 @@ export class ReingresoComponent implements OnInit {
       id_unidad_item_ingresado: +this.unidades.find(und => und.nombre == itemListaIngresos.unidades).id,
       id_modalidad: +2,
       cantidad: +itemListaIngresos.cantidad,
-      cedula_responsable_ingreso: 10470050,
+      cedula_responsable_ingreso: this.auth.user.getValue().cedula,
       precio: +itemListaIngresos.precio
     }
     this.servicioIngresos.createIngreso(ingreso).subscribe(

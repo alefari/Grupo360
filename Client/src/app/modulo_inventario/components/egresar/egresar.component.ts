@@ -18,6 +18,7 @@ import { EgresosService } from 'src/app/services/egresos.service';
 import { Router } from '@angular/router';
 import { asapScheduler } from 'rxjs';
 import { RouterLink } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-egresar',
@@ -61,7 +62,8 @@ export class EgresarComponent implements OnInit {
               private servicioInventario: InventarioSQLService,
               private servicioEstados: EstadosService,
               private servicioEgresos: EgresosService,
-              private router: Router){ }
+              private router: Router,
+              private auth: AuthService){ }
 
   ngOnInit(): void {
       this.servicioCategorias.getCategorias().subscribe(
@@ -143,7 +145,7 @@ export class EgresarComponent implements OnInit {
       id_unidad_item_egresado: +this.unidades.find(unid => unid.nombre == itemListaEgresos.unidades).id,
       cantidad: +itemListaEgresos.cantidad,
       obra: itemListaEgresos.obra,
-      cedula_responsable_egreso: 10470050,
+      cedula_responsable_egreso: this.auth.user.getValue().cedula,
     }
     this.servicioEgresos.createEgreso(egreso).subscribe(
       res => { console.log(res); },

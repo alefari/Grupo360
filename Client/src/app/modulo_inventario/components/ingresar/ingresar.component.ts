@@ -2,6 +2,7 @@
 import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core';
 import { NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
@@ -65,7 +66,8 @@ export class IngresarComponent implements OnInit {
               private servicioCategorias: CategoriasService,
               private servicioUnidades: UnidadesService,
               private ingresosService: IngresosService,
-              private router: Router) { }
+              private router: Router,
+              private auth: AuthService) { }
 
   ngOnInit(): void {
     this.servicioCategorias.getCategorias().subscribe(
@@ -133,7 +135,7 @@ export class IngresarComponent implements OnInit {
         id_unidad_item_ingresado: +item.unidades,
         id_modalidad: +modalidad,
         cantidad: +item.cantidad,
-        cedula_responsable_ingreso: 10470050,
+        cedula_responsable_ingreso: this.auth.user.getValue().cedula,
         precio: +item.precio
       }
       this.ingresosService.createIngreso(ingreso).subscribe(
