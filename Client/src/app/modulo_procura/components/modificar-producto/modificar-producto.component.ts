@@ -77,7 +77,7 @@ onModificar() {
   }
   this.servicioProductosProveedores.updateProductoProveedor(this.productoElegido.id, this.productoElegido).subscribe(
     res => {console.log(res);
-            this.router.navigate(['proveedores/productos']);
+            this.router.navigate(['procura/productos']);
             this.form.reset();},
     err => {console.log(err);}
   );
@@ -96,6 +96,6 @@ this.valido = true;
 //FUNCION PARA BORRAR FORMULARIO
 borrarForm() {
   this.form.reset();
-  this.router.navigate(['proveedores/productos']);
+  this.router.navigate(['procura/productos']);
 }
 }

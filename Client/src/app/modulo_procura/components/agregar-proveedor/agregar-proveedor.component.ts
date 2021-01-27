@@ -67,7 +67,7 @@ export class AgregarProveedorComponent implements OnInit {
       this.servicioProveedores.createProveedor(proveedorNuevo).subscribe(
         res => {console.log(res);
                 this.form.reset();
-                this.router.navigate(['proveedores/proveedores']);},
+                this.router.navigate(['procura/proveedores']);},
         err => { console.log(err); });
     }
   }
@@ -88,6 +88,6 @@ export class AgregarProveedorComponent implements OnInit {
                           contacto: null,
                           rif: null,
                           descripcion: null};
-    this.router.navigate(['proveedores/proveedores']);
+    this.router.navigate(['procura/proveedores']);
   }
 }

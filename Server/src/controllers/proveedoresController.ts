@@ -29,6 +29,33 @@ class ProveedoresController {
             res.json(result);
         });
     }
+    
+    public async getOne(req: Request, res: Response) {
+        const { idProve } = req.params;
+        await pool.query(`SELECT
+                            id_proveedor AS id,
+                            proveedores_lista.nombre AS nombre,
+                            proveedores_areas.nombre AS area,
+                            proveedores_lista.fecha_creado AS fecha,
+                            proveedores_lista.rif,
+                            proveedores_lista.telefono,
+                            proveedores_lista.direccion,
+                            proveedores_lista.contacto,
+                            proveedores_lista.correo,
+                            proveedores_lista.ciudad,
+                            proveedores_lista.credito,
+                            proveedores_lista.dias_credito,
+                            proveedores_lista.celular,
+                            proveedores_lista.descripcion
+                            FROM grupocdv360.proveedores_lista
+                            LEFT JOIN proveedores_areas
+                            ON proveedores_lista.id_area = proveedores_areas.id_area
+                            WHERE id_proveedor = ?`, 
+                            [idProve],function(err, result, fields) {
+            if (err) throw err;
+            res.json(result);
+        });
+    }
 
     public async create (req: Request, res: Response): Promise<void> {
         await pool.query('INSERT INTO proveedores_lista SET ?', [req.body]);

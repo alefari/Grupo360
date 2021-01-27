@@ -15,9 +15,9 @@ export class ProveedoresService {
     return this.http.get(`${this.API_URI}/proveedores`);
   }
 
-  // getProveedor(id: string) {
-  //return this.http.get(`${this.API_URI}/proveedores/${id}`);
-  //}
+  getProveedorElegido(id: string) {
+    return this.http.get(`${this.API_URI}/proveedores/${id}`);
+  }
 
   createProveedor(proveedor: any) {
     let proveedorNuevo = {

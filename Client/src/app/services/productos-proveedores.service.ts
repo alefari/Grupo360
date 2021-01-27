@@ -16,9 +16,9 @@ export class ProductosProveedoresService {
     return this.http.get(`${this.API_URI}/productosProveedores`);
   }
 
-  // getProductoProveedor(id: string) {
-  //return this.http.get(`${this.API_URI}/productosProveedores/${id}`);
-  //}
+  getProductosProveedoresElegido(id_Proveedor:string) {
+    return this.http.get(`${this.API_URI}/productosProveedores/${id_Proveedor}`);
+  }
 
   createProductoProveedor(producto: any) {
     let productoProveedorNuevo = {

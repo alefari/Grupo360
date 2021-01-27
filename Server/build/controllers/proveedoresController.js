@@ -42,6 +42,34 @@ class ProveedoresController {
             });
         });
     }
+    getOne(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { idProve } = req.params;
+            yield database_1.default.query(`SELECT
+                            id_proveedor AS id,
+                            proveedores_lista.nombre AS nombre,
+                            proveedores_areas.nombre AS area,
+                            proveedores_lista.fecha_creado AS fecha,
+                            proveedores_lista.rif,
+                            proveedores_lista.telefono,
+                            proveedores_lista.direccion,
+                            proveedores_lista.contacto,
+                            proveedores_lista.correo,
+                            proveedores_lista.ciudad,
+                            proveedores_lista.credito,
+                            proveedores_lista.dias_credito,
+                            proveedores_lista.celular,
+                            proveedores_lista.descripcion
+                            FROM grupocdv360.proveedores_lista
+                            LEFT JOIN proveedores_areas
+                            ON proveedores_lista.id_area = proveedores_areas.id_area
+                            WHERE id_proveedor = ?`, [idProve], function (err, result, fields) {
+                if (err)
+                    throw err;
+                res.json(result);
+            });
+        });
+    }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.default.query('INSERT INTO proveedores_lista SET ?', [req.body]);
