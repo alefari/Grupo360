@@ -78,7 +78,7 @@ export class AgregarProductoComponent implements OnInit {
         this.servicioProductosProveedores.createProductoProveedor(productoCiclo).subscribe(
           res => {console.log(res);
                   this.form.reset();
-                  this.router.navigate(['proveedores/productos']);},
+                  this.router.navigate(['procura/productos']);},
           err => { console.log(err); });
       }
     }
@@ -98,7 +98,7 @@ export class AgregarProductoComponent implements OnInit {
       proveedor: null,
       fecha_act: null,
       precio: null,}];
-    this.router.navigate(['proveedores/productos']);
+    this.router.navigate(['procura/productos']);
   }
 
   //FUNCION PARA REVISAR EL PRECIO INGRESADO POR EL USUARIO

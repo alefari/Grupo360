@@ -2,6 +2,7 @@
 import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core';
 import { NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 //ICONOS FONTAWESOME
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';

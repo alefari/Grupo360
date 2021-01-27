@@ -68,7 +68,7 @@ export class ModificarProveedorComponent implements OnInit {
     this.proveedorElegido.area = this.areas.find(area => area.nombre == this.proveedorElegido.area).id;
     this.servicioProveedores.updateProveedor(this.proveedorElegido.id, this.proveedorElegido).subscribe(
       res => {console.log(res);
-              this.router.navigate(['proveedores/proveedores']);
+              this.router.navigate(['procura/proveedores']);
               this.form.reset();
       },
       err => {console.log(err);}
@@ -78,6 +78,6 @@ export class ModificarProveedorComponent implements OnInit {
   //FUNCION PARA BORRAR FORMULARIO
   borrarForm() {
     this.form.reset();
-    this.router.navigate(['proveedores/proveedores']);
+    this.router.navigate(['procura/proveedores']);
   }
 }

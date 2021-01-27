@@ -10,6 +10,7 @@ import { ProveedoresService } from '../../../services/proveedores.service'
 //ICONOS FONTAWESOME
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({
@@ -43,12 +44,14 @@ export class AgregarProveedorComponent implements OnInit {
       contacto: null,
       rif: null,
       descripcion: null,
+      responsable: null,
     };
 
   
   constructor(private servicioProveedores: ProveedoresService,
               private servicioAreas: AreasService,
-              private router: Router) { }
+              private router: Router,
+              private auth: AuthService) { }
 
   ngOnInit(): void {
     this.servicioAreas.getAreas().subscribe(
@@ -64,10 +67,11 @@ export class AgregarProveedorComponent implements OnInit {
         if(proveedorNuevo.credito == 'No'){
           proveedorNuevo.dias_credito = 0;
         }
+      proveedorNuevo.responsable = this.auth.user.getValue().cedula;
       this.servicioProveedores.createProveedor(proveedorNuevo).subscribe(
         res => {console.log(res);
                 this.form.reset();
-                this.router.navigate(['proveedores/proveedores']);},
+                this.router.navigate(['procura/proveedores']);},
         err => { console.log(err); });
     }
   }
@@ -88,6 +92,6 @@ export class AgregarProveedorComponent implements OnInit {
                           contacto: null,
                           rif: null,
                           descripcion: null};
-    this.router.navigate(['proveedores/proveedores']);
+    this.router.navigate(['procura/proveedores']);
   }
 }

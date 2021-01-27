@@ -1,12 +1,11 @@
 <div class="bg-white shadow-lg container body">
     <div class="container pt-3">
         <div class="mx-auto">
-            <h3>Actualizar productos de: {{ datosProveedor.nombre }}</h3>
+            <h3>Productos de: <strong>{{ datosProveedor.nombre}}</strong></h3>
         </div>  
     </div>
     <div class="container">
     <!-- INICIO DEL MODAL ACTUALIZAR PRODUCTOS -->
-    <form #f="ngForm">
         <div class="table-responsive-md mt-lg-3">
             <table class="table table-sm shadow table-striped">
                 <thead class="table-dark">
@@ -36,7 +35,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngFor="let producto of productosProveedores; let i=index">
+                    <ng-container *ngFor="let producto of productosProveedor; let i=index">
                     <!--FILTROS DE TABLA DE PRODUCTOS-->
                         <tr
                         class="bg-light table-sm linea-tabla"
@@ -68,18 +67,13 @@
                 </tbody>
             </table>
         </div>
-                
-
-    <!--FOOTER DEL MODAL ACTUALIZAR (FUNCIONES)-->
+            
+    <!--FOOTER DEL MODAL-->
     <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" >
+            <button type="button" class="btn btn-secondary" routerLink='/procura/proveedores' >
                 Cerrar
             </button>
-            <button [disabled]='!f.valid' data-dismiss="modal" type="button" class="btn btn-success" >
-                Ingresar
-            </button>
     </div>
-    </form>
 </div>
 </div>
 
@@ -114,6 +108,11 @@
                     <th>Precio</th>
                     <td></td>
                     <td>{{ datosInfoProducto.precio | currency }} / {{ datosInfoProducto.unidad }}</td>
+                </tr>
+                <tr *ngIf="datosInfoProducto.garantia != null">
+                    <th>Garantía</th>
+                    <td></td>
+                    <td>{{ datosInfoProducto.garantia }} / {{ datosInfoProducto.dias_garantia }} Días</td>
                 </tr>
                 <tr *ngIf="datosInfoProducto.fecha != null">
                     <th>Fecha Actualizado</th>
@@ -158,7 +157,7 @@
     <!-- FIN MODAL ELIMINAR PRODUCTO -->
 
     <!-- INICIO MODAL ACTUALIZAR PRODUCTO -->
-    <form #f="ngForm">
+    <form #fi="ngForm">
         <div class="modal fade" tabindex="-1" id="modalActualizar">
             <div class="modal-dialog">
                 <div class="modal-content">

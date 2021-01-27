@@ -15,8 +15,6 @@ export class UsuariosService {
     return this.http.get(`${this.API_URI}/empleados`);
   }
 
-
-
   getUsuario(id: string) {
     return this.http.get(`${this.API_URI}/empleados/${id}`);
   }

@@ -18,7 +18,7 @@ import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./actualizar-productos.component.css']
 })
 export class ActualizarProductosComponent implements OnInit {
-  @ViewChild('f') form: NgForm;
+  @ViewChild('fi') form: NgForm;
 
   //ICONOS FONTAWESOME
   faTimesCircle = faTimesCircle;
@@ -26,9 +26,8 @@ export class ActualizarProductosComponent implements OnInit {
   faMinusCircle = faMinusCircle;
 
   //VARRIABLES DE BD
-  productosProveedores:any = [];
+  productosProveedor:any = [];
   areas:any = [];
-  proveedores: any = [];
   idProducto = null;
 
   //VARIABLES DE FUNCIONES COMPONENT
@@ -37,9 +36,11 @@ export class ActualizarProductosComponent implements OnInit {
     nombre: null,
     area: null,
     unidad: null,
-    nombreProveedor: null,
+    garantia: null,
+    dias_garantia: null,
+    proveedor: null,
     fecha_act: null,
-    precio: null,
+    precio: null
   }
 
   datosActualizarProducto: any = {
@@ -47,9 +48,11 @@ export class ActualizarProductosComponent implements OnInit {
     nombre: null,
     area: null,
     unidad: null,
-    nombreProveedor: null,
+    garantia: null,
+    dias_garantia: null,
+    proveedor: null,
     fecha_act: null,
-    precio: null,
+    precio: null
   }
 
   datosProveedor: any = {
@@ -58,11 +61,15 @@ export class ActualizarProductosComponent implements OnInit {
     id_area: null,
     direccion: null,
     correo: null,
+    credito: null,
+    dias_credito: null,
+    ciudad: null,
     telefono: null,
+    celular: null,
     contacto: null,
     rif: null,
     descripcion: null
-    }
+    };
 
   precioNuevo:number = null;
 
@@ -75,21 +82,19 @@ export class ActualizarProductosComponent implements OnInit {
               private servicioAreas: AreasService,
               private servicioProveedores: ProveedoresService,
               private router: Router,
-              private route: ActivatedRoute,) { }
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.idProducto = this.route.snapshot.params['id'];
-    this.servicioProductosProveedores.getProductosProveedores().subscribe(
-      res => {this.productosProveedores = res;},
+    this.servicioProductosProveedores.getProductosProveedoresElegido(this.idProducto).subscribe(
+      res => {this.productosProveedor = res;},
       err => console.log(err));
     this.servicioAreas.getAreas().subscribe(
       res => {this.areas = res;},
       err => console.log(err));
-    this.servicioProveedores.getProveedores().subscribe(
-      res => {this.areas = res;
-      this.proveedores.find},
+    this.servicioProveedores.getProveedorElegido(this.idProducto).subscribe(
+      res => {this.datosProveedor = res[0];},
       err => console.log(err));
-    this.datosProveedor = Object.assign({}, this.productosProveedores.find(producto => producto.id == this.idProducto));
   }
 
   //FUNCION PARA BOTON DE DETALLES DE PRODUCTO
@@ -100,17 +105,16 @@ export class ActualizarProductosComponent implements OnInit {
   //FUNCION PARA BOTON DE ACTUALIZAR  PRODUCTO
   asignarActualizar(producto:any){
     this.datosActualizarProducto = producto;
-    console.log(this.datosActualizarProducto);
   }
 
   //FUNCION PARA BORRAR PRODUCTO
   actualizarProductoPrecio() {
     if(this.precioNuevo!=null && this.precioNuevo>=0){
       this.servicioProductosProveedores.updatePrecioProducto(this.datosActualizarProducto.id, this.precioNuevo).subscribe(
-        res => {console.log(res);
-        this.form.reset()},
+        res => {console.log(res);},
         err => {console.log(err);});
     }
+    this.form.reset();
   }
 
   //FUNCION PARA BOTON DE BORRAR PRODUCTO (DATOS)

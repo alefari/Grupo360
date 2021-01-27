@@ -9,7 +9,8 @@ class ProductosProveedoresRoutes {
     }
     config() {
         this.router.get('/', productosProveedoresController_1.productosProveedoresController.list);
-        // this.router.get('/', productosProveedoresController.list);
+        this.router.get('/:idProv', productosProveedoresController_1.productosProveedoresController.listProveedor);
+        //this.router.get('/', productosProveedoresController.list);
         this.router.post('/', productosProveedoresController_1.productosProveedoresController.create);
         this.router.put('/:id', productosProveedoresController_1.productosProveedoresController.update);
         this.router.delete('/:id', productosProveedoresController_1.productosProveedoresController.delete);
