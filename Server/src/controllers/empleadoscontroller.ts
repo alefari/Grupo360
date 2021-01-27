@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { reloadLogs } from 'pm2';
 
 import pool from '../database';
 
@@ -8,31 +9,41 @@ class EmpleadosController {
         await pool.query(`
         SELECT cedula, 
             empleados.nombre, 
-            apellido, 
-            id_cargo AS cargo, 
-            correo, 
-            empleados_roles.id_rol AS roles
+            empleados.apellido, 
+            id_cargo as cargo, 
+            correo,
+            GROUP_CONCAT(id_rol SEPARATOR ',') AS roles
         FROM grupocdv360.empleados
         LEFT JOIN grupocdv360.empleados_roles
         ON empleados.cedula = empleados_roles.id_empleado
+        GROUP BY cedula
         ORDER BY empleados.nombre;`, 
             function(err, result, fields) {
             if (err) throw err;
-            
-            let uniqueUsers: { cedula: number, nombre:string, apellido:string, cargo:number, correo:string, roles: number[] }[] = [];
-            let existia = false;
 
-            result.forEach((user: { cedula: number; roles: number; nombre: string; apellido: string; cargo: number; correo: string; }) => {
-                uniqueUsers.forEach(u => {
-                    if(user.cedula == u.cedula) {
-                        uniqueUsers.find(u => u.cedula == user.cedula)!.roles.push(user.roles);
-                        existia = true;
-                    }
-                })
-                if(!existia) uniqueUsers.push({ ...user, roles: [user.roles] });
-                existia = false;
-            })
-            res.json(uniqueUsers);
+            let usersFixed = result;
+            usersFixed[0].nombre = "alejandrito"
+
+            result.forEach((usr: { roles: any }) => {
+                if(usr.roles) {
+                    usr.roles = usr.roles.split(',');
+                } 
+            });
+
+            // let uniqueUsers: { cedula: number, nombre:string, apellido:string, cargo:number, correo:string, roles: number[] }[] = [];
+            // let existia = false;
+
+            // result.forEach((user: { cedula: number; roles: number; nombre: string; apellido: string; cargo: number; correo: string; }) => {
+            //     uniqueUsers.forEach(u => {
+            //         if(user.cedula == u.cedula) {
+            //             uniqueUsers.find(u => u.cedula == user.cedula)!.roles.push(user.roles);
+            //             existia = true;
+            //         }
+            //     })
+            //     if(!existia) uniqueUsers.push({ ...user, roles: [user.roles] });
+            //     existia = false;
+            // })
+            res.json(result);
             }
         )
     }

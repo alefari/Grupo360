@@ -20,30 +20,37 @@ class EmpleadosController {
             yield database_1.default.query(`
         SELECT cedula, 
             empleados.nombre, 
-            apellido, 
-            id_cargo AS cargo, 
-            correo, 
-            empleados_roles.id_rol AS roles
+            empleados.apellido, 
+            id_cargo as cargo, 
+            correo,
+            GROUP_CONCAT(id_rol SEPARATOR ',') AS roles
         FROM grupocdv360.empleados
         LEFT JOIN grupocdv360.empleados_roles
         ON empleados.cedula = empleados_roles.id_empleado
+        GROUP BY cedula
         ORDER BY empleados.nombre;`, function (err, result, fields) {
                 if (err)
                     throw err;
-                let uniqueUsers = [];
-                let existia = false;
-                result.forEach((user) => {
-                    uniqueUsers.forEach(u => {
-                        if (user.cedula == u.cedula) {
-                            uniqueUsers.find(u => u.cedula == user.cedula).roles.push(user.roles);
-                            existia = true;
-                        }
-                    });
-                    if (!existia)
-                        uniqueUsers.push(Object.assign(Object.assign({}, user), { roles: [user.roles] }));
-                    existia = false;
+                let usersFixed = result;
+                usersFixed[0].nombre = "alejandrito";
+                result.forEach((usr) => {
+                    if (usr.roles) {
+                        usr.roles = usr.roles.split(',');
+                    }
                 });
-                res.json(uniqueUsers);
+                // let uniqueUsers: { cedula: number, nombre:string, apellido:string, cargo:number, correo:string, roles: number[] }[] = [];
+                // let existia = false;
+                // result.forEach((user: { cedula: number; roles: number; nombre: string; apellido: string; cargo: number; correo: string; }) => {
+                //     uniqueUsers.forEach(u => {
+                //         if(user.cedula == u.cedula) {
+                //             uniqueUsers.find(u => u.cedula == user.cedula)!.roles.push(user.roles);
+                //             existia = true;
+                //         }
+                //     })
+                //     if(!existia) uniqueUsers.push({ ...user, roles: [user.roles] });
+                //     existia = false;
+                // })
+                res.json(result);
             });
         });
     }
