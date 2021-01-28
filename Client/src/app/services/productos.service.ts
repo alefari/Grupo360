@@ -32,7 +32,11 @@ export class ProductosService {
     return this.http.delete(`${this.API_URI}/productos/${id}`);
   }
 
-  updateProducto(id: string, producto: string) {
-    return this.http.put(`${this.API_URI}/productos/${id}`, producto);
+  updateProducto(id: string, producto: any) {
+    let productoModificar = {
+      nombre: producto.nombre,
+      id_unidad: +producto.unidad,
+      }
+    return this.http.put(`${this.API_URI}/productos/${id}`, productoModificar);
   }
 }

@@ -5,7 +5,10 @@
             <h1>Productos</h1>
         </div>
         <div class="col-9 mt-lg-3">
-            <div class="btn-group float-end" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="btn cool-btn btn-gestionar float-end ms-5" routerLink='gestionar'>
+                <fa-icon [icon]="faFolderPlus"></fa-icon> Gestionar Productos
+            </button>
+            <div class="btn-group float-end" role="group">
                 <button *ngIf="modoActPrecios" type="button" class="btn cool-btn btn-success" (click)='onGuardarCambios()'>
                     <fa-icon [icon]="faPlusCircle"></fa-icon> Guardar cambios
                 </button>
@@ -14,9 +17,6 @@
                 </button>
                 <button *ngIf="!modoActPrecios" type="button" class="btn cool-btn btn-primary" hidden (click)='modoActPreciosOn()'>
                     <fa-icon [icon]="faPlusCircle"></fa-icon> Actualizar precios
-                </button>
-                <button type="button" class="btn cool-btn btn-success" routerLink='gestionar'>
-                    <fa-icon [icon]="faPlusCircle"></fa-icon> Gestionar Productos
                 </button>
                 <button type="button" class="btn cool-btn btn-success" routerLink='agregar'>
                     <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar

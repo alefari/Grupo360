@@ -1,7 +1,16 @@
 /*HEADER DE FORMS*/
 .header-color-agregar{
-    background: linear-gradient(90deg, #3b8b4c, #51d17b );
+    background: linear-gradient(80deg, #d87e08, #f7ed61 );
+    color: black;
 }
+
+/*BOTON*/
+.btn-agregar{
+    background: linear-gradient(90deg, #d87e08, #f7ed61 );
+    border: none;
+    color: black;
+}
+
 
 /*ESTILO DE FORM LOCAL*/
 .form-body-style-agregar{
