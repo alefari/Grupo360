@@ -1,0 +1,98 @@
+<div class="margin-top-form">
+    <div class="container-fluid ms-5">
+    <h1>Gestión de productos</h1>
+    <div class="parent">
+        <div class="elemento1">
+            <div class="container">
+                <div class="body form-body-style-agregar">
+                    <div class="container pt-3 form-header-style header-color-agregar">
+                        <div class="mx-auto">
+                            <h3>Agregar Producto Nuevo</h3>
+                        </div>  
+                    </div>
+                    <div class="container pe-5 ps-5 pt-2">
+                        <!-- INICIO DEL MODAL AGREGAR PRODUCTO NUEVO-->
+                        <form #f="ngForm">
+                            <div *ngFor="let prod of nuevoProducto; let i=index">
+                                <div class="container mt-2">
+                                    <h5>Producto {{i+1}}</h5>
+                                </div>
+                                <div class="container">
+                                    <div class="row mt-3 mb-4">
+                                        <div class="col">
+                                            <label>Nombre</label>
+                                            <input #nombre="ngModel" [(ngModel)]="nuevoProducto[i].nombre" required type="text" [name]="'nombre'+ [i]" class="form-control mt-2">
+                                            <small *ngIf="!nombre.valid && nombre.touched" class="text-danger">Ingrese un nombre.</small>
+                                        </div>
+                                        <div class="col">
+                                            <label for="exampleFormControlSelect1">Unidad</label>
+                                            <select #unidad="ngModel" [(ngModel)]="nuevoProducto[i].unidad" required class="form-select mt-2"  [name]="'area'+ [i]">
+                                                <option *ngFor="let unidad of unidades" value="{{ unidad.id }}">{{ unidad.nombre }}</option>
+                                            </select>
+                                            <small *ngIf="!unidad.valid && unidad.touched" class="text-danger">Ingrese una unidad.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FOOTER DEL MODAL AGREGAR (FUNCIONES)-->
+                            <div class="form-footer-style">
+                                <div class="modal-footer">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary" (click)="agregarProducto()">
+                                            <fa-icon [icon]="faPlusCircle"></fa-icon> Más Items
+                                        </button>
+                                        <button type="button" [hidden]="nuevoProducto.length == 1" class="btn btn-secondary" [disabled]="nuevoProducto.length == 1"  (click)="nuevoProducto.pop()">
+                                            <fa-icon [icon]="faMinusCircle"></fa-icon> Menos Items
+                                        </button>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary" (click)="borrarForm()">
+                                        <fa-icon [icon]="faTimesCircle"></fa-icon> Cerrar
+                                    </button>
+                                    <button [disabled]='!f.valid || !valido' data-dismiss="modal" type="button" class="btn btn-success" (click)="onSubmit()">
+                                        <fa-icon [icon]="faPlusCircle"></fa-icon> Ingresar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="elemento2">
+            <div class="container especial">
+                <div class="table-responsive-sm special">
+                    <table class="table table-sm shadow table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <!--FILTROS TABLA DE PRODUCTOS-->
+                                <th colspan="2" scope="col-1">
+                                    <input #filtroNombre="ngModel" class="w-75 form-control form-control-sm" ngModel type="text" placeholder="Filtro por nombre">
+                                </th>
+                                <th colspan="2" scope="col-1"></th>
+                            </tr>
+                        </thead>
+                        <thead class="table-dark">
+                            <tr>
+                                <th colspan="2" scope="col">Nombre</th>
+                                <th colspan="2" scope="col">Unidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let producto of productos; let i=index">
+                            <!--FILTROS DE TABLA DE PRODUCTOS-->
+                                <tr
+                                class="bg-light table-sm linea-tabla"
+                                scope="row"
+                                *ngIf="(producto.nombre.toLocaleLowerCase().includes(filtroNombre.value.toLowerCase()) || filtroNombre.value == '')">
+                                    <td colspan="1" class="col">{{ producto.nombre }}</td>
+                                    <td colspan="2" class="col">{{ producto.unidad }}</td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

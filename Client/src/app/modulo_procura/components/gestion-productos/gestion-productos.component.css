@@ -1,0 +1,24 @@
+/*HEADER DE FORMS*/
+.header-color-agregar{
+    background: linear-gradient(90deg, #3b8b4c, #51d17b );
+}
+
+/*ESTILO DE FORM LOCAL*/
+.form-body-style-agregar{
+    border-radius: 10px;
+    font-weight:200;
+    width: 600px;
+    font-size: 17px;
+    padding-top: 360;
+    background-color: white;
+    box-shadow: 4px 4px 18px rgba(0,0,0,0.2), -1px -1px 8px rgba(0,0,0,0.2);
+}
+
+.special{
+    width: 700px;
+    margin-top: 23px;
+}
+.parent{
+    display: flex;
+    justify-content: center;
+}

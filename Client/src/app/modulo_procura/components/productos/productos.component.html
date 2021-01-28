@@ -15,6 +15,9 @@
                 <button *ngIf="!modoActPrecios" type="button" class="btn cool-btn btn-primary" hidden (click)='modoActPreciosOn()'>
                     <fa-icon [icon]="faPlusCircle"></fa-icon> Actualizar precios
                 </button>
+                <button type="button" class="btn cool-btn btn-success" routerLink='gestionar'>
+                    <fa-icon [icon]="faPlusCircle"></fa-icon> Gestionar Productos
+                </button>
                 <button type="button" class="btn cool-btn btn-success" routerLink='agregar'>
                     <fa-icon [icon]="faPlusCircle"></fa-icon> Agregar
                 </button>

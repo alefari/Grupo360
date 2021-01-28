@@ -9,6 +9,7 @@ import { ModificarProveedorComponent } from './components/modificar-proveedor/mo
 import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 import { ModificarProductoComponent } from './components/modificar-producto/modificar-producto.component';
 import { ActualizarProductosComponent } from './components/actualizar-productos/actualizar-productos.component';
+import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
       { path: '', component: MenuProcuraComponent },
       { path: 'productos', component: ProductosComponent },
       { path: 'productos/agregar', component: AgregarProductoComponent },
-      { path: 'productos/modificar', component: ModificarProductoComponent },
+      { path: 'productos/modificar', component: ModificarProductoComponent }, 
+      { path: 'productos/gestionar', component: GestionProductosComponent },
       { path: 'proveedores', component: ProveedoresComponent },
       { path: 'proveedores/agregar', component: AgregarProveedorComponent },
       { path: 'proveedores/modificar', component: ModificarProveedorComponent },

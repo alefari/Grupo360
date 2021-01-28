@@ -10,6 +10,7 @@ import ingresosRoutes from './routes/ingresosRoutes';
 import egresosRoutes from './routes/egresosRoutes';
 import eliminadosRoutes from './routes/eliminadosRoutes';
 import modalidadesRoutes from './routes/modalidadesRoutes';
+import productosRoutes from './routes/productosRoutes';
 import authRoutes from './routes/auth.routes';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -51,7 +52,8 @@ class Server {
         this.app.use('/eliminados', [authJwt.verifyToken], eliminadosRoutes);
         this.app.use('/modalidades', [authJwt.verifyToken], modalidadesRoutes);
         this.app.use('/empleados', [authJwt.verifyToken], empleadosRoutes);
-        this.app.use('/cargos', [authJwt.verifyToken], cargosRoutes);
+        this.app.use('/cargos', [authJwt.verifyToken], cargosRoutes); 
+        this.app.use('/productos', [authJwt.verifyToken], productosRoutes);
         this.app.use('/proveedores', [authJwt.verifyToken], proveedoresRoutes);
         this.app.use('/productosProveedores', [authJwt.verifyToken], productosProveedoresRoutes);
         this.app.use('/areas', [authJwt.verifyToken], areasRoutes);

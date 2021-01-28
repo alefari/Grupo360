@@ -15,6 +15,7 @@ const ingresosRoutes_1 = __importDefault(require("./routes/ingresosRoutes"));
 const egresosRoutes_1 = __importDefault(require("./routes/egresosRoutes"));
 const eliminadosRoutes_1 = __importDefault(require("./routes/eliminadosRoutes"));
 const modalidadesRoutes_1 = __importDefault(require("./routes/modalidadesRoutes"));
+const productosRoutes_1 = __importDefault(require("./routes/productosRoutes"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
@@ -51,6 +52,7 @@ class Server {
         this.app.use('/modalidades', [middlewares_1.authJwt.verifyToken], modalidadesRoutes_1.default);
         this.app.use('/empleados', [middlewares_1.authJwt.verifyToken], empleados_routes_1.default);
         this.app.use('/cargos', [middlewares_1.authJwt.verifyToken], cargos_routes_1.default);
+        this.app.use('/productos', [middlewares_1.authJwt.verifyToken], productosRoutes_1.default);
         this.app.use('/proveedores', [middlewares_1.authJwt.verifyToken], proveedoresRoutes_1.default);
         this.app.use('/productosProveedores', [middlewares_1.authJwt.verifyToken], productosProveedoresRoutes_1.default);
         this.app.use('/areas', [middlewares_1.authJwt.verifyToken], areasRoutes_1.default);
