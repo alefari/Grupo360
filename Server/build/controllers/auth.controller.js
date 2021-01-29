@@ -74,6 +74,9 @@ class AuthController {
                                     result[0].roles[i] = parseInt(result[0].roles[i]);
                                 }
                             }
+                            else {
+                                result[0].roles = [];
+                            }
                             token = jsonwebtoken_1.default.sign({ id: result[0].cedula }, 'secreto', { expiresIn: expiracionSeg });
                             res.json({ token: token, cedula: result[0].cedula, expiresIn: expiracionSeg, roles: result[0].roles });
                         }
