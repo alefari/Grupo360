@@ -4,6 +4,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { RolesGuard } from './auth/roles.guard';
 import { LoginComponent } from './shared/login/login.component';
 import { MenuComponent } from './shared/menu/menu.component';
+import { SinAuthComponent } from './shared/sin-auth/sin-auth.component';
 import { UsuarioComponent } from './shared/usuario/usuario.component';
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'menu', canActivate: [AuthGuard], component: MenuComponent },
   { path: 'usuario/:id', canActivate: [AuthGuard], component: UsuarioComponent },
+  { path: 'noAuth', component: SinAuthComponent },
 
   {
     path: 'inventario',

@@ -16,7 +16,12 @@ export class RolesGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const allowedRoles = next.data.allowedRoles;
     let rolesUser = this.auth.user.getValue().roles;
-    return allowedRoles.some((r: number)=> rolesUser.includes(r))
+    if(allowedRoles.some((r: number)=> rolesUser.includes(r))) {
+      return true;
+    }
+    else {
+      return this.router.createUrlTree(['/noAuth']);
+    }
   }
 
 }

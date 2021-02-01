@@ -15,6 +15,7 @@ import { InventarioRoutingModule } from './modulo_inventario/inventario-routing.
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { MenuComponent } from './shared/menu/menu.component';
 import { UsuarioComponent } from './shared/usuario/usuario.component';
+import { SinAuthComponent } from './shared/sin-auth/sin-auth.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { UsuarioComponent } from './shared/usuario/usuario.component';
     NavbarComponent,
     MenuComponent,
     UsuarioComponent,
+    SinAuthComponent,
   ],
   imports: [
     BrowserModule,
