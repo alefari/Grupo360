@@ -31,7 +31,6 @@ export class ProductosProveedoresService {
       fecha_act: new Date().toISOString().slice(0, 19).replace('T', ' '),
       precio: producto.precio,
     }
-    console.log(productoProveedorNuevo);
 
     return this.http.post(`${this.API_URI}/productosProveedores`, productoProveedorNuevo);
   }

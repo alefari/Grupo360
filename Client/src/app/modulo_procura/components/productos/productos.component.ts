@@ -9,6 +9,7 @@ import * as html2pdf from 'html2pdf.js';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faListAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faFolderPlus } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -39,6 +40,7 @@ export class ProductosComponent implements OnInit {
   faTrashAlt = faTrashAlt;
   faFileDownload = faFileDownload;
   faSyncAlt = faSyncAlt;
+  faFolderPlus = faFolderPlus;
 
   //VARIABLES QUE ALMACENA INFO DE BD
   proveedores: any = [];

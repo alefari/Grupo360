@@ -11,3 +11,7 @@
     font-size: 12px;
     line-height: 1.5;
 }
+.btn-gestionar{
+    background-color: rgb(223, 117, 19);
+    color: aliceblue;
+}

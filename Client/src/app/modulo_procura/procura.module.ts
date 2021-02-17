@@ -14,6 +14,7 @@ import { ModificarProveedorComponent } from './components/modificar-proveedor/mo
 import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 import { ModificarProductoComponent } from './components/modificar-producto/modificar-producto.component';
 import { ActualizarProductosComponent } from './components/actualizar-productos/actualizar-productos.component';
+import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ActualizarProductosComponent } from './components/actualizar-productos/
     ModificarProveedorComponent,
     AgregarProductoComponent,
     ModificarProductoComponent,
-    ActualizarProductosComponent
+    ActualizarProductosComponent,
+    GestionProductosComponent
   ],
   imports: [
     CommonModule,
