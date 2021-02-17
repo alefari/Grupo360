@@ -95,4 +95,10 @@ export class AuthService {
     return this.http.put(`${this.API_URI}/auth/changePassword`, { cedula: cedula, password: newPass });
   }
 
+  hasPermission(rol: number) {
+    if(this.user.value.roles.includes(rol)) {
+      return true
+    }
+    return false
+  }
 }

@@ -17,7 +17,7 @@
         <button type="button" class="btn btn-warning cool-btn" routerLink='egresar'>
           <fa-icon [icon]="faSignOutAlt"></fa-icon> Egreso
         </button>
-        <button type="button" class="btn btn-primary text-white cool-btn" routerLink='modificar'>
+        <button *ngIf="auth.hasPermission(1)" type="button" class="btn btn-primary text-white cool-btn" routerLink='modificar'>
           <fa-icon [icon]="faPencilAlt"></fa-icon> Modificar
         </button>
         <button data-bs-toggle="modal" data-bs-target="#pdfInventario" class="btn btn-secondary float-right">
@@ -97,7 +97,7 @@
                 <button (click)="asignarDetalles(item)" type="button" class="btn btn-info text-white btn-sm" data-bs-toggle="modal" data-bs-target="#modalInfo">
                 <fa-icon [icon]="faInfoCircle"></fa-icon> Detalles
               </button>
-              <button (click)="asignarBorrar(item.id, item.nombre)" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEliminar">
+              <button *ngIf="auth.hasPermission(1)" (click)="asignarBorrar(item.id, item.nombre)" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEliminar">
                 <fa-icon [icon]="faInfoCircle"></fa-icon> Eliminar
               </button>
               </div>

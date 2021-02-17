@@ -24,6 +24,7 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faFileDownload } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 
@@ -86,7 +87,8 @@ export class InventarioComponent implements OnInit {
               private servicioUbicaciones: UbicacionesService,
               private servicioEstados: EstadosService,
               private servicioUnidades: UnidadesService,
-              private servicioEliminados: EliminadosService) { }
+              private servicioEliminados: EliminadosService,
+              public auth: AuthService) { }
 
 //Se adjuntan items de base de datos a la variable inventario, y se ordena items en orden alfabetico//
   ngOnInit(): void {

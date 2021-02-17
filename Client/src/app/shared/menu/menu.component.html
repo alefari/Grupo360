@@ -22,7 +22,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-12 mb-4">
+          <div class="col-lg-4 col-md-12 mb-4" *ngIf="auth.hasPermission(1)">
             <div class="card-section border rounded p-3 bg-white">
               <div class="card-header-style-within header-color-administrador rounded pb-5">
                 <h2 class="card-header-title text-white text-center pt-3">Administrador</h2>
