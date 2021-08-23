@@ -16,15 +16,38 @@
     <div class="d-flex">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item me-2" *ngIf="isAuthenticated && router.url.includes('inventario')">
-              <a class="nav-link" routerLink="/inventario"> <fa-icon [icon]="faWarehouse"></fa-icon> Inventario <span class="sr-only">(current)</span></a>
+
+            <li class="nav-item dropdown me-3" *ngIf="isAuthenticated">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdownInventario" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <fa-icon [icon]="faWarehouse"></fa-icon> Inventario
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownInventario">
+                <li><a class="dropdown-item" routerLink="/inventario"><fa-icon [icon]="faWarehouse"></fa-icon> Inventario</a></li>
+                <li><a class="dropdown-item" routerLink="/inventario/ingresos"><fa-icon [icon]="faSignInAlt"></fa-icon>  Ingresos</a></li>
+                <li><a class="dropdown-item" routerLink="/inventario/egresos"><fa-icon [icon]="faSignOutAlt"></fa-icon>  Egresos</a></li>
+              </ul>
             </li>
-            <li class="nav-item me-2 " *ngIf="isAuthenticated && router.url.includes('inventario')">
-              <a class="nav-link" routerLink="/inventario/ingresos"> <fa-icon [icon]="faSignInAlt"></fa-icon> Ingresos </a>
+
+            <li class="nav-item dropdown me-3" *ngIf="isAuthenticated">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <fa-icon [icon]="faStore"></fa-icon> Procura
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" routerLink="/procura/proveedores"><fa-icon [icon]="faStore"></fa-icon> Proveedores</a></li>
+                <li><a class="dropdown-item" routerLink="/procura/productos"><fa-icon [icon]="faHammer"></fa-icon> Productos</a></li>
+                <!-- <li><a class="dropdown-item" href="#">Pedidos</a></li> -->
+              </ul>
             </li>
-            <li class="nav-item me-2" *ngIf="isAuthenticated && router.url.includes('inventario')">
-              <a class="nav-link" routerLink="/inventario/egresos"> <fa-icon [icon]="faSignOutAlt"></fa-icon> Egresos</a>
+
+            <li class="nav-item dropdown me-3" *ngIf="isAuthenticated">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <fa-icon [icon]="faUsersCog"></fa-icon> Administrador
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" routerLink="/administrador/empleados"><fa-icon [icon]="faUsers"></fa-icon> Personal</a></li>
+              </ul>
             </li>
+
             <li class="nav-item me-2" *ngIf="isAuthenticated && router.url.includes('administrador')">
               <a class="nav-link" routerLink="/administrador"> <fa-icon [icon]="faSignOutAlt"></fa-icon> Menú Administrador</a>
             </li>

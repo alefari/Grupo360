@@ -44,14 +44,6 @@ class HerramientasController {
             res.json(result);
         });
     }
-
-    // public async create (req: Request, res: Response): Promise<void> {
-    //     await pool.query('INSERT INTO items SET ?', [req.body], function (error, results, fields){
-    //         if(error) throw error;
-    //         console.log(results.insertId);
-    //     });
-    //     res.json({text: 'Herramienta Guardada'});
-    // }
     
     public async create (req: Request, res: Response): Promise<void> {
         await pool.query('INSERT INTO items SET ?', [req.body], function (error, results, fields){

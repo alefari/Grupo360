@@ -17,9 +17,6 @@ export class InventarioSQLService {
 
   getInventario() {
     return this.http.get(`${this.API_URI}/herramientas`);
-    // return this.http.get(`${this.API_URI}/herramientas`, {headers: {'x-access-token': user.token}});
-    // return this.http.get(`${this.API_URI}/herramientas`, {'headers': headers});
-    // const headers = new HttpHeaders().set('x-access-token', user.token)
   }
 
   getItem(id: string) {
