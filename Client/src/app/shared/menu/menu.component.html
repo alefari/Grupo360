@@ -1,53 +1,70 @@
 <div class="container">
-  <section>
-    <div class="content">
-        <div class="row mb-3">
-            <h2>Bienvenido, seleccione el módulo al que desee acceder</h2>
-        </div>
+    <div class="row mb-3 pt-3">
+      <div class="col">
+        <h3>Bienvenido, seleccione el módulo al que desee acceder:</h3>
+      </div>
     </div>
-  </section>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-12 mb-4">
-            <div class="card-section border rounded p-3 bg-white">
-              <div class="card-header-style-within header-color-inventario rounded pb-5">
-                <h2 class="card-header-title text-white text-center pt-3">Inventario</h2>
-              </div>
-              <div class="card-body text-center">
-                <h5 class="card-title">Módulo de gestión de inventario</h5>
-                  <p class="card-text">El usuario podrá realizar todas las <br> acciones referentes a los procesos de <br> gestión de inventario.</p>
-                  <a class="btn btn-color-inventario card-btn text-decoration-none" routerLink='/inventario'>Continuar</a>
-              </div>
-            </div>
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-6 col-lg-4 mt-5">
+        <div class="card-section rounded p-3 bg-white">
+          <div class="card-header-style-within header-color-inventario rounded pb-3">
+            <h2 class="card-header-title text-white text-center pt-3">Inventario</h2>
           </div>
-          <div class="col-lg-4 col-md-12 mb-4" *ngIf="auth.hasPermission(1)">
-            <div class="card-section border rounded p-3 bg-white">
-              <div class="card-header-style-within header-color-administrador rounded pb-5">
-                <h2 class="card-header-title text-white text-center pt-3">Administrador</h2>
+          <div class="card-body text-center">
+            <h5 class="card-title mb-4">Módulo de gestión de inventario</h5>
+              <div class="row gy-4 justify-content-center">
+                <div class="col-6">
+                  <a class="btn btn-outline-dark shadow w-100" routerLink='/inventario'>
+                    <fa-icon [icon]="faWarehouse"></fa-icon><br>Inventario</a>
+                </div>
+                <div class="col-6">
+                  <a class="btn btn-outline-dark shadow w-100" routerLink='/inventario/ingresos'>
+                    <fa-icon [icon]="faSignInAlt"></fa-icon><br>Ingresos</a>
+                </div>
+                <div class="col-6">
+                  <a class="btn btn-outline-dark shadow w-100" routerLink='/inventario/egresos'>
+                    <fa-icon [icon]="faSignOutAlt"></fa-icon><br>Egresos</a>
+                </div>
               </div>
-              <div class="card-body text-center">
-                <h5 class="card-title">Módulo de administración</h5>
-                  <p class="card-text">El usuario podrá realizar todas las <br>acciones referentes a los procesos de <br> administracion del sistema.</p>
-                  <a class="btn btn-color-administrador card-btn text-decoration-none" routerLink='/administrador'>Continuar</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-12 mb-4">
-            <div class="card-section border rounded p-3 bg-white">
-              <div class="card-header-style-within header-color-procura rounded pb-5">
-                <h2 class="card-header-title text-white text-center pt-3">Procura</h2>
-              </div>
-              <div class="card-body text-center">
-                <h5 class="card-title">Módulo de procura</h5>
-                  <p class="card-text">El usuario podrá realizar todas las acciones referentes a los procesos de <br> abastecimientos de la empresa.</p>
-                  <a class="btn btn-color-procura card-btn text-decoration-none" routerLink='/procura'>Continuar</a>
-              </div>
-            </div>
           </div>
         </div>
       </div>
+      <div class="col-12 col-sm-6 col-lg-4 mt-5">
+        <div class="card-section rounded p-3 bg-white">
+          <div class="card-header-style-within header-color-procura rounded pb-3">
+            <h2 class="card-header-title text-white text-center pt-3">Procura</h2>
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title mb-4">Módulo de procura</h5>
+              <div class="row gy-4 justify-content-center">
+                <div class="col-6">
+                  <a class="btn btn-outline-dark shadow w-100" routerLink='/procura/proveedores'>
+                    <fa-icon [icon]="faStore"></fa-icon><br>Proveedores</a>
+                </div>
+                <div class="col-6">
+                  <a class="btn btn-outline-dark shadow w-100" routerLink='/procura/productos'>
+                    <fa-icon [icon]="faHammer"></fa-icon><br>Productos</a>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-4 mt-5" *ngIf="auth.hasPermission(1)">
+        <div class="card-section rounded p-3 bg-white">
+          <div class="card-header-style-within header-color-administrador rounded pb-3">
+            <h2 class="card-header-title text-white text-center pt-3">Administrador</h2>
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title mb-4">Módulo de administración</h5>
+              <div class="row gy-4 justify-content-center">
+                <div class="col-6">
+                  <a class="btn btn-outline-dark shadow w-100" routerLink='/administrador/empleados'>
+                    <fa-icon [icon]="faUsers"></fa-icon><br>Personal</a>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </div>
 </div>
