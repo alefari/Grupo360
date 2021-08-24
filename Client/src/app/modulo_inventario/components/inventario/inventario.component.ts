@@ -81,6 +81,8 @@ export class InventarioComponent implements OnInit {
   estados: any = [];
   unidades: any = [];
 
+  permisoAdmin:boolean = false;
+
   constructor(private servicioInventarioSQL: InventarioSQLService,
               private servicioCategorias: CategoriasService,
               private servicioSubcategorias: SubcategoriasService,
@@ -128,6 +130,7 @@ export class InventarioComponent implements OnInit {
       },
       err => console.log(err)
     );
+    this.permisoAdmin = this.auth.hasPermission([1]);
   }
 
   //RECIBE EL ITEM DE LA FILA, E IMPRIME DICHOS DATOS EN UNA VARIABLE

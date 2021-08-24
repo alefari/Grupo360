@@ -16,13 +16,15 @@ const routes: Routes = [
 
   {
     path: 'inventario',
-    canActivate: [AuthGuard],
-    loadChildren: () => import("./modulo_inventario/inventario.module").then(m => m.InventarioModule)
+    canActivate: [AuthGuard, RolesGuard],
+    loadChildren: () => import("./modulo_inventario/inventario.module").then(m => m.InventarioModule),
+    data: { allowedRoles: [2] }
   },
   {
     path: 'procura',
-    canActivate: [AuthGuard],
-    loadChildren: () => import("./modulo_procura/procura.module").then(m => m.ProcuraModule)
+    canActivate: [AuthGuard, RolesGuard],
+    loadChildren: () => import("./modulo_procura/procura.module").then(m => m.ProcuraModule),
+    data: { allowedRoles: [3] }
   },
   {
     path: 'administrador',
