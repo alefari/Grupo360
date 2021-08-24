@@ -5,7 +5,7 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <div class="col-12 col-sm-6 col-lg-4 mt-5">
+      <div class="col-12 col-sm-6 col-lg-4 mt-5" *ngIf="auth.hasPermission([1, 2])">
         <div class="card-section rounded p-3 bg-white">
           <div class="card-header-style-within header-color-inventario rounded pb-3">
             <h2 class="card-header-title text-white text-center pt-3">Inventario</h2>
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-sm-6 col-lg-4 mt-5">
+      <div class="col-12 col-sm-6 col-lg-4 mt-5" *ngIf="auth.hasPermission([1, 3])">
         <div class="card-section rounded p-3 bg-white">
           <div class="card-header-style-within header-color-procura rounded pb-3">
             <h2 class="card-header-title text-white text-center pt-3">Procura</h2>
@@ -49,7 +49,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-sm-6 col-lg-4 mt-5" *ngIf="auth.hasPermission(1)">
+      <div class="col-12 col-sm-6 col-lg-4 mt-5" *ngIf="auth.hasPermission([1])">
         <div class="card-section rounded p-3 bg-white">
           <div class="card-header-style-within header-color-administrador rounded pb-3">
             <h2 class="card-header-title text-white text-center pt-3">Administrador</h2>

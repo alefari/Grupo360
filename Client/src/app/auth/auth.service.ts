@@ -95,10 +95,15 @@ export class AuthService {
     return this.http.put(`${this.API_URI}/auth/changePassword`, { cedula: cedula, password: newPass });
   }
 
-  hasPermission(rol: number) {
-    if(this.user.value.roles.includes(rol)) {
-      return true
-    }
-    return false
+  hasPermission(roles: number[]): boolean {
+    console.log(this.user.value.roles)
+    let hasPermission = false;
+    roles.forEach(rol => {
+      if(this.user.value.roles.includes(rol)) {
+        console.log('dentro', rol)
+        return hasPermission = true;
+      }
+    });
+    return hasPermission;
   }
 }
