@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductosComponent } from './components/productos/productos.component';
 import { ProcuraBaseComponent } from './components/procura-base/procura-base.component';
-import { MenuProcuraComponent } from './components/menu-procura/menu-procura.component';
 import { ProveedoresComponent } from './components/proveedores/proveedores.component';
 import { AgregarProveedorComponent } from './components/agregar-proveedor/agregar-proveedor.component';
 import { ModificarProveedorComponent } from './components/modificar-proveedor/modificar-proveedor.component';
@@ -15,10 +14,10 @@ import { GestionProductosComponent } from './components/gestion-productos/gestio
 const routes: Routes = [
   { path: '', component: ProcuraBaseComponent,
     children: [
-      { path: '', component: MenuProcuraComponent },
+      { path: '', redirectTo: 'proveedores' },
       { path: 'productos', component: ProductosComponent },
       { path: 'productos/agregar', component: AgregarProductoComponent },
-      { path: 'productos/modificar', component: ModificarProductoComponent }, 
+      { path: 'productos/modificar', component: ModificarProductoComponent },
       { path: 'productos/gestionar', component: GestionProductosComponent },
       { path: 'proveedores', component: ProveedoresComponent },
       { path: 'proveedores/agregar', component: AgregarProveedorComponent },

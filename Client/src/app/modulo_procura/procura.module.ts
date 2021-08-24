@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProcuraBaseComponent } from './components/procura-base/procura-base.component';
 import { ProductosComponent } from './components/productos/productos.component';
-import { MenuProcuraComponent } from './components/menu-procura/menu-procura.component';
 import { ProveedoresComponent } from './components/proveedores/proveedores.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AgregarProveedorComponent } from './components/agregar-proveedor/agregar-proveedor.component';
@@ -21,7 +20,6 @@ import { GestionProductosComponent } from './components/gestion-productos/gestio
   declarations: [
     ProcuraBaseComponent,
     ProductosComponent,
-    MenuProcuraComponent,
     ProveedoresComponent,
     AgregarProveedorComponent,
     ModificarProveedorComponent,
