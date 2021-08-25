@@ -81,7 +81,7 @@ export class InventarioComponent implements OnInit {
   estados: any = [];
   unidades: any = [];
 
-  permisoAdmin:boolean = false;
+  // permisoAdmin:boolean = false;
 
   constructor(private servicioInventarioSQL: InventarioSQLService,
               private servicioCategorias: CategoriasService,
@@ -95,42 +95,30 @@ export class InventarioComponent implements OnInit {
 //Se adjuntan items de base de datos a la variable inventario, y se ordena items en orden alfabetico//
   ngOnInit(): void {
     this.servicioInventarioSQL.getInventario().subscribe(
-      res => {
-        this.inventarioSQL = res;
-      },
+      res => { this.inventarioSQL = res; },
       err => console.log(err)
     );
     this.servicioCategorias.getCategorias().subscribe(
-      res => {
-        this.categorias = res;
-      },
+      res => { this.categorias = res; },
       err => console.log(err)
     );
     this.servicioSubcategorias.getSubcategorias().subscribe(
-      res => {
-        this.subcategorias = res;
-      },
+      res => { this.subcategorias = res; },
       err => console.log(err)
     );
     this.servicioUbicaciones.getUbicaciones().subscribe(
-      res => {
-        this.ubicaciones = res;
-      },
+      res => { this.ubicaciones = res; },
       err => console.log(err)
     );
     this.servicioEstados.getEstados().subscribe(
-      res => {
-        this.estados = res;
-      },
+      res => { this.estados = res; },
       err => console.log(err)
     );
     this.servicioUnidades.getUnidades().subscribe(
-      res => {
-        this.unidades = res;
-      },
+      res => { this.unidades = res; },
       err => console.log(err)
     );
-    this.permisoAdmin = this.auth.hasPermission([1]);
+    // this.permisoAdmin = this.auth.hasPermission([1]);
   }
 
   //RECIBE EL ITEM DE LA FILA, E IMPRIME DICHOS DATOS EN UNA VARIABLE
