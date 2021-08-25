@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CargosService } from 'src/app/services/cargos.service';
+import { RolesService } from 'src/app/services/roles.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -12,6 +13,10 @@ export class AdminEmpleadosComponent implements OnInit {
 
   usuarios;
   cargos;
+  roles;
+
+  rolesUsuarioAcciones = [];
+
   editarMode:boolean = false;
   usuarioAcciones:any = {
     nombre: null,
@@ -23,17 +28,20 @@ export class AdminEmpleadosComponent implements OnInit {
   };
   constructor(private servicioUsuarios: UsuariosService,
               private servicioCargos: CargosService,
+              private servicioRoles: RolesService,
               private router: Router ) { }
 
   ngOnInit(): void {
     this.servicioUsuarios.getUsuarios().subscribe(
-      res => { this.usuarios = res; },
+      res => { this.usuarios = res; console.log(this.usuarios)},
       err => console.log(err)
     );
     this.servicioCargos.getCargos().subscribe(
-      res => {
-        this.cargos = res;
-      },
+      res => { this.cargos = res; },
+      err => console.log(err)
+    );
+    this.servicioRoles.getRoles().subscribe(
+      res => { this.roles = res; },
       err => console.log(err)
     );
   }
@@ -41,6 +49,8 @@ export class AdminEmpleadosComponent implements OnInit {
   onSetAcciones(usr:any) {
     this.editarMode = false;
     this.usuarioAcciones = usr;
+    this.rolesUsuarioAcciones = [...this.usuarioAcciones.roles]
+    console.log('rolesUsuarioaccciones', this.rolesUsuarioAcciones)
   }
 
   eliminarUser() {
@@ -69,7 +79,10 @@ export class AdminEmpleadosComponent implements OnInit {
   }
 
   buscarCargoById(id: number) {
-    if(id) return this.cargos.find(cargo => cargo.id == id).nombre
+    if(id && this.cargos) return this.cargos.find(cargo => cargo.id == id).nombre
+  }
+  buscarRolById(id: number) {
+    if(id && this.roles) return this.roles.find(rol => rol.id == id).nombre
   }
 
 

@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container pt-4">
   <div class="row px-4">
     <div class="col-3">
-      <h1>Empleados</h1>
+      <h1>Personal</h1>
     </div>
     <div class="col-9">
       <div class="btn-group float-end">
@@ -15,20 +15,20 @@
         <thead class="table-dark">
             <tr>
               <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
               <th scope="col">Cédula</th>
               <th scope="col">Cargo</th>
               <th scope="col">Correo</th>
+              <th scope="col">Permisos</th>
               <th></th>
             </tr>
         </thead>
         <tbody>
               <tr *ngFor="let usuario of usuarios" class="table-sm" scope="row" class="bg-light linea-tabla">
-                <td>{{ usuario.nombre }}</td>
-                <td>{{ usuario.apellido }}</td>
+                <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
                 <td>{{ usuario.cedula }}</td>
-                <td>{{ usuario.cargo }}</td>
+                <td>{{ buscarCargoById(usuario.cargo) }}</td>
                 <td>{{ usuario.correo }}</td>
+                <td>Permisos</td>
                 <td><button (click)='onSetAcciones(usuario)' data-bs-toggle="modal" data-bs-target="#modalInfo" class="btn btn-info btn-sm text-white">Acciones</button></td>
               </tr>
         </tbody>
@@ -42,69 +42,77 @@
         <div class="modal-header bg-info">
           <h3 class="modal-title text-white">Empleado: {{ usuarioAcciones.nombre | titlecase}} {{ usuarioAcciones.apellido | titlecase}}</h3>
         </div>
+
         <div class="modal-body">
-          <div class="row">
-            <div class="col">
+          <div *ngIf="!editarMode" class="container-fluid p-3">
+              <div class="row">
+                <div class="col-3">
+                  <img src="../../../assets/profileGeneric.png" alt="profileGeneric" class="h-50">
+                </div>
+                <div class="col-5">
+                  <h2>{{ usuarioAcciones.nombre | titlecase }} {{ usuarioAcciones.apellido | titlecase}}</h2>
+                  <h6 class="text-muted">{{ buscarCargoById(usuarioAcciones.cargo) }}</h6> <br>
+                  <h6>Cédula: {{ usuarioAcciones.cedula }}</h6>
+                  <h6>Email: {{ usuarioAcciones.correo }}</h6>
+                </div>
+                <div class="col-4">
+                  <h5>Permisos</h5>
+                  <ul>
+                    <li *ngFor="let rol of usuarioAcciones.roles">{{ buscarRolById(rol) }}</li>
+                  </ul>
+                </div>
+              </div>
+          </div>
 
-                <div class="card-body">
-                  <form #f="ngForm">
-                  <div class="row">
-
-                    <div class="col-3">
-                      <img src="../../../assets/profileGeneric.png" alt="profileGeneric" class="h-25">
-                    </div>
-                    <div *ngIf="!editarMode" class="col">
-                      <h3>{{ usuarioAcciones.nombre | titlecase }} {{ usuarioAcciones.apellido | titlecase}}</h3>
-                      <h4>{{ buscarCargoById(usuarioAcciones.cargo) }}</h4> <br>
-                      <h6>{{ usuarioAcciones.cedula }}</h6>
-                      <h6>{{ usuarioAcciones.correo }}</h6>
-                    </div>
-
-                    <div *ngIf="editarMode" class="col-5">
-                      <div class="row mb-2">
-                        <div class="col">
-                          <label for="nombre" class="form-label">Nombre</label>
-                          <input ngModel [(ngModel)]='usuarioAcciones.nombre' type="text" class="form-control" id="nombre" name="nombre">
-                        </div>
-                        <div class="col">
-                          <label for="apellido" class="form-label">Apellido</label>
-                          <input ngModel [(ngModel)]='usuarioAcciones.apellido' type="text" class="form-control" id="apellido" name="apellido">
-                        </div>
-                      </div>
-                      <div class="row mb-2">
-                        <div class="col">
-                          <label for="cargo" class="form-label">Cargo</label>
-                          <select name="cargo" ngModel [(ngModel)]='usuarioAcciones.cargo' class="form-select" aria-label="Default select example">
-                            <option *ngFor="let cargo of cargos" value={{cargo.id}}>{{cargo.nombre}}</option>
-                          </select>
-                        </div>
-
-                      </div>
-                      <div class="row mb-2">
-                        <div class="col">
-                          <label for="Correo" class="form-label">Correo</label>
-                          <input ngModel [(ngModel)]='usuarioAcciones.correo' type="text" class="form-control" id="correo" name="Correo">
-                        </div>
-                      </div>
-                    </div>
-
+          <div *ngIf="editarMode" class="container-fluid p-3">
+            <form #f="ngForm">
+              <div class="row">
+                <div class="col-3">
+                  <img src="../../../assets/profileGeneric.png" alt="profileGeneric" class="h-50">
+                </div>
+                <div class="col-5">
+                  <div class="row mb-2">
                     <div class="col">
-                      <h5>Permisos</h5>
-                      <ul>
-                        <li>Inventario</li>
-                        <li>Administración</li>
-                      </ul>
+                      <label for="nombre" class="form-label">Nombre</label>
+                      <input ngModel [(ngModel)]='usuarioAcciones.nombre' type="text" class="form-control" id="nombre" name="nombre">
+                    </div>
+                    <div class="col">
+                      <label for="apellido" class="form-label">Apellido</label>
+                      <input ngModel [(ngModel)]='usuarioAcciones.apellido' type="text" class="form-control" id="apellido" name="apellido">
+                    </div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col">
+                      <label for="cargo" class="form-label">Cargo</label>
+                      <select name="cargo" ngModel [(ngModel)]='usuarioAcciones.cargo' class="form-select" aria-label="Default select example">
+                        <option *ngFor="let cargo of cargos" value={{cargo.id}}>{{cargo.nombre}}</option>
+                      </select>
                     </div>
 
                   </div>
-                </form>
+                  <div class="row mb-2">
+                    <div class="col">
+                      <label for="Correo" class="form-label">Correo</label>
+                      <input ngModel [(ngModel)]='usuarioAcciones.correo' type="text" class="form-control" id="correo" name="Correo">
+                    </div>
+                  </div>
                 </div>
 
-            </div>
+                <div class="col ps-5">
+                  <h5>Permisos</h5>
+                  <div *ngFor="let rol of roles" class="form-check">
+                    <input ngModel [name]="'rol'+rol.id" class="form-check-input" type="checkbox" [value]="rol.id" [id]="'check'+rol.id">
+                    <label class="form-check-label" [for]="'check'+rol.id">
+                      {{ rol.nombre }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <button *ngIf="editarMode && f.dirty" (click)="onAceptarEdicion()" type="button" class="btn btn-primary float-end">Guardar Cambios</button>
           </div>
         </div>
         <div class="modal-footer">
-          <button *ngIf="editarMode && f.dirty" (click)="onAceptarEdicion()" type="button" class="btn btn-primary">Guardar Cambios</button>
           <button *ngIf="!editarMode" (click)="onEditar()" type="button" class="btn btn-primary">Editar empleado</button>
           <button *ngIf="!editarMode" (click)="eliminarUser()" data-bs-dismiss="modal" type="button" class="btn btn-danger">Eliminar empleado</button>
           <button (click)='onSalir()' type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{editarMode ? 'Cancelar' : 'Salir'}}</button>

@@ -20,6 +20,7 @@ import cargosRoutes from './routes/cargos.routes';
 import proveedoresRoutes from './routes/proveedoresRoutes';
 import productosProveedoresRoutes from './routes/productosProveedoresRoutes';
 import areasRoutes from './routes/areasRoutes';
+import rolesRoutes from './routes/roles.routes';
 
 class Server {
 
@@ -57,6 +58,7 @@ class Server {
         this.app.use('/proveedores', [authJwt.verifyToken], proveedoresRoutes);
         this.app.use('/productosProveedores', [authJwt.verifyToken], productosProveedoresRoutes);
         this.app.use('/areas', [authJwt.verifyToken], areasRoutes);
+        this.app.use('/roles', [authJwt.verifyToken], rolesRoutes);
         this.app.use('/auth', authRoutes);
     }
 

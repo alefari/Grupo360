@@ -25,6 +25,7 @@ const cargos_routes_1 = __importDefault(require("./routes/cargos.routes"));
 const proveedoresRoutes_1 = __importDefault(require("./routes/proveedoresRoutes"));
 const productosProveedoresRoutes_1 = __importDefault(require("./routes/productosProveedoresRoutes"));
 const areasRoutes_1 = __importDefault(require("./routes/areasRoutes"));
+const roles_routes_1 = __importDefault(require("./routes/roles.routes"));
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -56,6 +57,7 @@ class Server {
         this.app.use('/proveedores', [middlewares_1.authJwt.verifyToken], proveedoresRoutes_1.default);
         this.app.use('/productosProveedores', [middlewares_1.authJwt.verifyToken], productosProveedoresRoutes_1.default);
         this.app.use('/areas', [middlewares_1.authJwt.verifyToken], areasRoutes_1.default);
+        this.app.use('/roles', [middlewares_1.authJwt.verifyToken], roles_routes_1.default);
         this.app.use('/auth', auth_routes_1.default);
     }
     start() {
